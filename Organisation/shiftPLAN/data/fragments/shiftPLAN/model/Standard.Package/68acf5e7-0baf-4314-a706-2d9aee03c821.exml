@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="DBPlan" version="4">
+  <OBJECT>
+    <ID name="DBPlan" mc="Standard.Package" uid="68acf5e7-0baf-4314-a706-2d9aee03c821"/>
+    <PID name="DBPlan" mc="Standard.Package" uid="1bf94f53-6e84-49b9-b0d2-4395f972bec1"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[DBPlan]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="tb_api_keys" mc="Standard.Class" uid="95cd967c-94de-4358-9171-620c658f8e77"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="DataModel" mc="Infrastructure.Stereotype" uid="b58745c2-51a9-11de-9aed-0014224f9977"/>
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
