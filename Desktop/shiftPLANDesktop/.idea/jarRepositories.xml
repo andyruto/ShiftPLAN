@@ -2,6 +2,11 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="archetype" />
+      <option name="name" value="Supplementary MI archetypes and artifacts" />
+      <option name="url" value="https://maven.mi.hdm-stuttgart.de/nexus/repository/mi-maven" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
