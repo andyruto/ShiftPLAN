@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="org.shiftPLAN.shiftPLANDesktop" version="4">
+  <OBJECT>
+    <ID name="org.shiftPLAN.shiftPLANDesktop" mc="Standard.Package" uid="176a2653-c674-4a7f-a817-87c209c11931"/>
+    <PID name="shiftPLAN_App" mc="Standard.Package" uid="32a57a21-f056-43e7-a4d9-9bfa857d2345"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">true</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[org.shiftPLAN.shiftPLANDesktop]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

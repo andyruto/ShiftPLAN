@@ -10,7 +10,9 @@
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="Model">
-        <COMPID name="shiftplan" mc="Standard.Package" uid="15865f5f-f59d-4ad1-9455-4e6fd85da1ef"/>
+        <COMPID name="shiftPLAN_DB" mc="Standard.Package" uid="15865f5f-f59d-4ad1-9455-4e6fd85da1ef"/>
+        <COMPID name="shiftPLAN_App" mc="Standard.Package" uid="32a57a21-f056-43e7-a4d9-9bfa857d2345"/>
+        <COMPID name="shiftPLAN_API" mc="Standard.Package" uid="344b12cd-3502-43ab-bbae-2a2fb1b7955e"/>
       </COMP>
       <COMP relation="DiagramRoot">
         <COMPID name="shiftPLAN" mc="Infrastructure.DiagramSet" uid="799a8bfc-acac-42b6-9bb6-8303f61666b4"/>

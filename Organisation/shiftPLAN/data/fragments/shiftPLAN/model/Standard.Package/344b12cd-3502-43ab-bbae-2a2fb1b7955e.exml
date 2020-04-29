@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="shiftPLAN_DB" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="shiftPLAN_API" version="4">
   <OBJECT>
-    <ID name="shiftPLAN_DB" mc="Standard.Package" uid="15865f5f-f59d-4ad1-9455-4e6fd85da1ef"/>
+    <ID name="shiftPLAN_API" mc="Standard.Package" uid="344b12cd-3502-43ab-bbae-2a2fb1b7955e"/>
     <PID name="shiftPLAN" mc="Standard.Project" uid="690d80f7-5e83-4613-a2d8-a1e6f545e63b"/>
     <ATTRIBUTES>
       <ATT name="IsInstantiable">false</ATT>
@@ -9,13 +9,9 @@
       <ATT name="IsLeaf">true</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[shiftPLAN_DB]]></ATT>
+      <ATT name="Name"><![CDATA[shiftPLAN_API]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
-    <DEPENDENCIES>
-      <COMP relation="OwnedElement">
-        <COMPID name="DBPlan" mc="Standard.Package" uid="1bf94f53-6e84-49b9-b0d2-4395f972bec1"/>
-      </COMP>
-    </DEPENDENCIES>
+    <DEPENDENCIES></DEPENDENCIES>
   </OBJECT>
 </EXT>
