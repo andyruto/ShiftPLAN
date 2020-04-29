@@ -79,3 +79,9 @@ org.shiftPLAN.shiftPLANDesktop
         |---Interfaces
         |---Enum
 </pre>
+
+## UML and Plan diagrams
+The UML and Plan diagrams where made with modelio v4.0. An open source tool for creating software
+architecture diagrams and more. <br/>
+<br/>
+Link: https://www.modelio.org/
