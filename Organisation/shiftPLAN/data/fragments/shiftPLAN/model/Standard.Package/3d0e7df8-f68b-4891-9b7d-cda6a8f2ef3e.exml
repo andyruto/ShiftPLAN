@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ClassPlan" version="4">
+  <OBJECT>
+    <ID name="ClassPlan" mc="Standard.Package" uid="3d0e7df8-f68b-4891-9b7d-cda6a8f2ef3e"/>
+    <PID name="org.shiftPLAN.shiftPLANDesktop" mc="Standard.Package" uid="176a2653-c674-4a7f-a817-87c209c11931"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">true</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">VisibilityUndefined</ATT>
+      <ATT name="Name"><![CDATA[ClassPlan]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="User" mc="Standard.Class" uid="dfef2c75-e11c-48fa-9f8d-21691ab7db19"/>
+        <COMPID name="UserManager" mc="Standard.Class" uid="b0e179f7-3c2d-403b-b5d0-f3d4d0e5642c"/>
+        <COMPID name="APIManager" mc="Standard.Class" uid="9998dd8d-9acb-405c-a04f-19cd47693a20"/>
+        <COMPID name="APIKey" mc="Standard.Class" uid="6f255f79-0575-4679-8b08-35cf47ec754a"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="shiftPLAN ClassPlan" mc="Standard.ClassDiagram" uid="df2a2a69-5c63-4a14-99f9-47785fede769"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

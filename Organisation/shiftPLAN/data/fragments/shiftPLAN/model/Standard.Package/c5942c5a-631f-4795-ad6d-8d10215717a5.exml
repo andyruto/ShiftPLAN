@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="User Administration" version="4">
+  <OBJECT>
+    <ID name="User Administration" mc="Standard.Package" uid="c5942c5a-631f-4795-ad6d-8d10215717a5"/>
+    <PID name="UseCase" mc="Standard.Package" uid="35cb1a97-5b29-4f7a-a359-e3d2701bfa74"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">true</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">VisibilityUndefined</ATT>
+      <ATT name="Name"><![CDATA[User Administration]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Admins" mc="Standard.Actor" uid="5f0e4fdc-0c62-48fd-97e9-0516c883822f"/>
+        <COMPID name="User" mc="Standard.Actor" uid="6eb7787a-12df-4f6f-b0b3-c3ce225c6b7e"/>
+        <COMPID name="Change Password" mc="Standard.UseCase" uid="819ea792-26fc-4560-afca-16c07fa2e104"/>
+        <COMPID name="Create User" mc="Standard.UseCase" uid="311d7f7a-5983-481c-b183-1960dde5ac1a"/>
+        <COMPID name="Enable User" mc="Standard.UseCase" uid="d05b15c1-aac3-4114-b9ea-73789a1f8690"/>
+        <COMPID name="Disable User" mc="Standard.UseCase" uid="7d302601-bc03-4cd8-ba35-a06ed7cca3cc"/>
+        <COMPID name="Rename User" mc="Standard.UseCase" uid="6c658eec-4533-45ae-b349-bd8096e1bdb1"/>
+        <COMPID name="Manage User" mc="Standard.UseCase" uid="029bd7ff-4a54-4432-8ba7-c3b5094e95dc"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

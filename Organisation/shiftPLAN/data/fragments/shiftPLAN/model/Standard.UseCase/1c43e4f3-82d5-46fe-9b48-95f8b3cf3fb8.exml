@@ -2,7 +2,7 @@
 <!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Modify API Key" version="4">
   <OBJECT>
     <ID name="Modify API Key" mc="Standard.UseCase" uid="1c43e4f3-82d5-46fe-9b48-95f8b3cf3fb8"/>
-    <PID name="UseCase" mc="Standard.Package" uid="35cb1a97-5b29-4f7a-a359-e3d2701bfa74"/>
+    <PID name="API Administration" mc="Standard.Package" uid="ea414169-46c8-4959-8c05-1ea48f664558"/>
     <ATTRIBUTES>
       <ATT name="IsElementary">false</ATT>
       <ATT name="IsAbstract">false</ATT>

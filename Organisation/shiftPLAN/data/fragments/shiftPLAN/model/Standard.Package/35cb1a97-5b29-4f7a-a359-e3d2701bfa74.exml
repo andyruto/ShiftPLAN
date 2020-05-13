@@ -14,20 +14,10 @@
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="OwnedElement">
-        <COMPID name="View Users" mc="Standard.UseCase" uid="45826644-85df-4c52-8345-45af5c6e8b04"/>
-        <COMPID name="Admins" mc="Standard.Actor" uid="5f0e4fdc-0c62-48fd-97e9-0516c883822f"/>
-        <COMPID name="Disable Users" mc="Standard.UseCase" uid="c5d69b53-4fff-4ed6-bf0d-1612b8a4882e"/>
-        <COMPID name="Enable Users" mc="Standard.UseCase" uid="110b9450-cd95-41a3-90f0-bee3312bc650"/>
-        <COMPID name="Create Users" mc="Standard.UseCase" uid="c90b221d-14ff-4795-a6ca-926af761e2b4"/>
-        <COMPID name="Modify Users" mc="Standard.UseCase" uid="3e6af5bc-8520-414b-bcf9-1d714478eee5"/>
-        <COMPID name="Modify API Key" mc="Standard.UseCase" uid="1c43e4f3-82d5-46fe-9b48-95f8b3cf3fb8"/>
-        <COMPID name="Delete API Key" mc="Standard.UseCase" uid="3c772def-5659-43d5-a226-9c0162b9f8f4"/>
-        <COMPID name="Create API Key" mc="Standard.UseCase" uid="223a9443-7d00-424e-984e-e43189f399ed"/>
-        <COMPID name="Admins" mc="Standard.Actor" uid="e6d7ec85-3d71-4492-8037-1be8a908800d"/>
-        <COMPID name="Supervisor" mc="Standard.Actor" uid="07eb8dae-bff5-4ce6-b92e-076fcdb2097d"/>
-        <COMPID name="Admins" mc="Standard.Actor" uid="93e85542-9382-4595-b365-ac914f5374a5"/>
-        <COMPID name="Create Shift" mc="Standard.UseCase" uid="3e7ebb6e-b10e-4fe9-ad63-57ac8f3fb85a"/>
-        <COMPID name="Modify Shift" mc="Standard.UseCase" uid="254abe26-c20f-46c3-995f-f02dd1c417df"/>
+        <COMPID name="DisabilityCertificateManagement" mc="Standard.Package" uid="b6c93329-7ae7-4241-abe2-ba36b03a9de9"/>
+        <COMPID name="ShiftPlanning" mc="Standard.Package" uid="6edbf47a-906e-41d7-9b6e-f1dbea3b4dd1"/>
+        <COMPID name="API Administration" mc="Standard.Package" uid="ea414169-46c8-4959-8c05-1ea48f664558"/>
+        <COMPID name="User Administration" mc="Standard.Package" uid="c5942c5a-631f-4795-ad6d-8d10215717a5"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="shiftPLAN UseCase" mc="Standard.UseCaseDiagram" uid="c65bbc3f-7e88-4e97-9d9f-2a33e4ce681f"/>

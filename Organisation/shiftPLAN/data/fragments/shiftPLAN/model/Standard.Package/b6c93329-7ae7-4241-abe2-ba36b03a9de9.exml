@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="DisabilityCertificateManagement" version="4">
+  <OBJECT>
+    <ID name="DisabilityCertificateManagement" mc="Standard.Package" uid="b6c93329-7ae7-4241-abe2-ba36b03a9de9"/>
+    <PID name="UseCase" mc="Standard.Package" uid="35cb1a97-5b29-4f7a-a359-e3d2701bfa74"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">true</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">VisibilityUndefined</ATT>
+      <ATT name="Name"><![CDATA[DisabilityCertificateManagement]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Supervisor" mc="Standard.Actor" uid="8d9f9b84-eef6-4c04-8f92-28acb0a82ec4"/>
+        <COMPID name="User" mc="Standard.Actor" uid="44043eaa-fcfe-43e7-85e1-b8feaa735e64"/>
+        <COMPID name="Submit Certificate" mc="Standard.UseCase" uid="389b2ec2-5e6d-418c-a18b-d3f5adb1facd"/>
+        <COMPID name="Show Certificates" mc="Standard.UseCase" uid="7647c061-9ab6-45cc-a903-4fca2c40ea40"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

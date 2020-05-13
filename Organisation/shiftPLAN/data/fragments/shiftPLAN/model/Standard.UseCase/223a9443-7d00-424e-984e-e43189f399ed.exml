@@ -2,7 +2,7 @@
 <!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Create API Key" version="4">
   <OBJECT>
     <ID name="Create API Key" mc="Standard.UseCase" uid="223a9443-7d00-424e-984e-e43189f399ed"/>
-    <PID name="UseCase" mc="Standard.Package" uid="35cb1a97-5b29-4f7a-a359-e3d2701bfa74"/>
+    <PID name="API Administration" mc="Standard.Package" uid="ea414169-46c8-4959-8c05-1ea48f664558"/>
     <ATTRIBUTES>
       <ATT name="IsElementary">false</ATT>
       <ATT name="IsAbstract">false</ATT>

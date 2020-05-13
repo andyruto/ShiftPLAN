@@ -2,7 +2,7 @@
 <!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Delete API Key" version="4">
   <OBJECT>
     <ID name="Delete API Key" mc="Standard.UseCase" uid="3c772def-5659-43d5-a226-9c0162b9f8f4"/>
-    <PID name="UseCase" mc="Standard.Package" uid="35cb1a97-5b29-4f7a-a359-e3d2701bfa74"/>
+    <PID name="API Administration" mc="Standard.Package" uid="ea414169-46c8-4959-8c05-1ea48f664558"/>
     <ATTRIBUTES>
       <ATT name="IsElementary">false</ATT>
       <ATT name="IsAbstract">false</ATT>
