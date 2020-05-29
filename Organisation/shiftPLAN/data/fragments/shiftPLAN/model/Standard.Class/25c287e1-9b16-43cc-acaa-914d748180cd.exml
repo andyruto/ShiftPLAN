@@ -1,23 +1,23 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="APIKeyManager" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="TaskManager" version="4">
   <OBJECT>
-    <ID name="APIKeyManager" mc="Standard.Class" uid="9998dd8d-9acb-405c-a04f-19cd47693a20"/>
+    <ID name="TaskManager" mc="Standard.Class" uid="25c287e1-9b16-43cc-acaa-914d748180cd"/>
     <PID name="ClassPlan" mc="Standard.Package" uid="3d0e7df8-f68b-4891-9b7d-cda6a8f2ef3e"/>
     <ATTRIBUTES>
       <ATT name="IsActive">false</ATT>
       <ATT name="IsMain">false</ATT>
       <ATT name="IsElementary">false</ATT>
       <ATT name="IsAbstract">false</ATT>
-      <ATT name="IsLeaf">true</ATT>
+      <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[APIKeyManager]]></ATT>
+      <ATT name="Name"><![CDATA[TaskManager]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="OwnedAttribute">
         <OBJECT>
-          <ID name="APIKeys" mc="Standard.Attribute" uid="be8587ca-fc4c-45a8-813b-3159a41ec9d2"/>
+          <ID name="Attribute2" mc="Standard.Attribute" uid="ef18ba55-f5e0-44df-ae6c-0f03d540c5d1"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -25,25 +25,25 @@
             <ATT name="Changeable">ReadWrite</ATT>
             <ATT name="IsDerived">false</ATT>
             <ATT name="IsOrdered">false</ATT>
-            <ATT name="IsUnique">true</ATT>
+            <ATT name="IsUnique">false</ATT>
             <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-            <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
-            <ATT name="Visibility">Private</ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[APIKeys]]></ATT>
+            <ATT name="Name"><![CDATA[Attribute2]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Type">
-              <ID name="APIKey" mc="Standard.Class" uid="6f255f79-0575-4679-8b08-35cf47ec754a"/>
+              <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
       </COMP>
       <COMP relation="OwnedEnd">
         <OBJECT>
-          <ID name="aPIKey" mc="Standard.AssociationEnd" uid="c3bf060c-986a-4e88-b740-2c00d345d618"/>
+          <ID name="task" mc="Standard.AssociationEnd" uid="d672d1ce-e303-4fc2-8331-dc1b05ec658c"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsComposition</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -51,21 +51,21 @@
             <ATT name="IsDerived">false</ATT>
             <ATT name="IsOrdered">false</ATT>
             <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[aPIKey]]></ATT>
+            <ATT name="Name"><![CDATA[task]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Target">
-              <ID name="APIKey" mc="Standard.Class" uid="6f255f79-0575-4679-8b08-35cf47ec754a"/>
+              <ID name="Task" mc="Standard.Class" uid="3460128e-0b14-4522-bedd-05a62c3525bb"/>
             </LINK>
             <COMP relation="Opposite">
               <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="d65a9113-0d9c-4ec9-9fae-15429f240c7f"/>
+                <ID name="" mc="Standard.AssociationEnd" uid="dacd9152-928a-4129-8c91-54400fb4ed0c"/>
                 <ATTRIBUTES>
                   <ATT name="Aggregation">KindIsAssociation</ATT>
                   <ATT name="IsChangeable">true</ATT>
@@ -83,11 +83,11 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="aPIKey" mc="Standard.AssociationEnd" uid="c3bf060c-986a-4e88-b740-2c00d345d618"/>
+                    <COMPID name="task" mc="Standard.AssociationEnd" uid="d672d1ce-e303-4fc2-8331-dc1b05ec658c"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="6d48bfac-ce71-4e3c-80bb-fe4901c9895b"/>
+                      <ID name="" mc="Standard.Association" uid="5241ce50-b986-42af-8039-ccac773ccca4"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -99,7 +99,7 @@
               </OBJECT>
             </COMP>
             <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="6d48bfac-ce71-4e3c-80bb-fe4901c9895b"/>
+              <COMPID name="" mc="Standard.Association" uid="5241ce50-b986-42af-8039-ccac773ccca4"/>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>
