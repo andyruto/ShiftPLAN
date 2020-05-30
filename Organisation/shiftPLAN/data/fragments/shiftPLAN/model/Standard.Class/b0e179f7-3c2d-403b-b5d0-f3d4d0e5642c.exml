@@ -133,7 +133,7 @@
       </COMP>
       <COMP relation="OwnedAttribute">
         <OBJECT>
-          <ID name="Users" mc="Standard.Attribute" uid="54c02864-d879-4672-a505-62bacf36429b"/>
+          <ID name="users" mc="Standard.Attribute" uid="54c02864-d879-4672-a505-62bacf36429b"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -147,7 +147,7 @@
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[Users]]></ATT>
+            <ATT name="Name"><![CDATA[users]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>

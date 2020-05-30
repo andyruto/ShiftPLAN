@@ -17,7 +17,7 @@
     <DEPENDENCIES>
       <COMP relation="OwnedEnd">
         <OBJECT>
-          <ID name="disablilityCertificate" mc="Standard.AssociationEnd" uid="73380b74-2f13-4a02-beb9-7565195d6979"/>
+          <ID name="" mc="Standard.AssociationEnd" uid="73380b74-2f13-4a02-beb9-7565195d6979"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsComposition</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -30,7 +30,7 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[disablilityCertificate]]></ATT>
+            <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -57,7 +57,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="disablilityCertificate" mc="Standard.AssociationEnd" uid="73380b74-2f13-4a02-beb9-7565195d6979"/>
+                    <COMPID name="" mc="Standard.AssociationEnd" uid="73380b74-2f13-4a02-beb9-7565195d6979"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>

@@ -43,7 +43,7 @@
       </COMP>
       <COMP relation="OwnedEnd">
         <OBJECT>
-          <ID name="aPIKey" mc="Standard.AssociationEnd" uid="c3bf060c-986a-4e88-b740-2c00d345d618"/>
+          <ID name="" mc="Standard.AssociationEnd" uid="c3bf060c-986a-4e88-b740-2c00d345d618"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsComposition</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -56,7 +56,7 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[aPIKey]]></ATT>
+            <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -83,7 +83,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="aPIKey" mc="Standard.AssociationEnd" uid="c3bf060c-986a-4e88-b740-2c00d345d618"/>
+                    <COMPID name="" mc="Standard.AssociationEnd" uid="c3bf060c-986a-4e88-b740-2c00d345d618"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>

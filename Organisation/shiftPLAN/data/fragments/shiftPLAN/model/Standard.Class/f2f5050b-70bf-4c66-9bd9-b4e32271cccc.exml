@@ -17,7 +17,7 @@
     <DEPENDENCIES>
       <COMP relation="OwnedEnd">
         <OBJECT>
-          <ID name="vacation" mc="Standard.AssociationEnd" uid="28f39e1c-cb5c-4210-b8ac-1f65bc172832"/>
+          <ID name="" mc="Standard.AssociationEnd" uid="28f39e1c-cb5c-4210-b8ac-1f65bc172832"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsComposition</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -30,7 +30,7 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[vacation]]></ATT>
+            <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -57,7 +57,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="vacation" mc="Standard.AssociationEnd" uid="28f39e1c-cb5c-4210-b8ac-1f65bc172832"/>
+                    <COMPID name="" mc="Standard.AssociationEnd" uid="28f39e1c-cb5c-4210-b8ac-1f65bc172832"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>

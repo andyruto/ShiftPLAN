@@ -17,7 +17,7 @@
     <DEPENDENCIES>
       <COMP relation="OwnedEnd">
         <OBJECT>
-          <ID name="user" mc="Standard.AssociationEnd" uid="eb3aca13-1974-4895-b9dc-5244fa0c89e9"/>
+          <ID name="" mc="Standard.AssociationEnd" uid="eb3aca13-1974-4895-b9dc-5244fa0c89e9"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAggregation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -30,7 +30,7 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[user]]></ATT>
+            <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -57,7 +57,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="user" mc="Standard.AssociationEnd" uid="eb3aca13-1974-4895-b9dc-5244fa0c89e9"/>
+                    <COMPID name="" mc="Standard.AssociationEnd" uid="eb3aca13-1974-4895-b9dc-5244fa0c89e9"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>

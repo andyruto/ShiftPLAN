@@ -1,4 +1,4 @@
-#Fri May 29 16:15:05 CEST 2020
+#Sat May 30 15:22:15 CEST 2020
 org.modelio.module.propertytab.JavaDesigner\ v3.9.00\ GModule\ @file\:///C\:/Users/TrickPad/.modelio/4.0/modules/JavaDesigner_3.9.00/JavaDesigner_3.9.00.jmdac\ runtime\ module_.org.modelio.app.ui.model.perspective.parentId=org.modelio.app.bottom.parts
 org.modelio.module.propertytab.PersistentProfile\ v3.9.00\ GModule\ @file\:///C\:/Users/TrickPad/.modelio/4.0/modules/PersistentProfile_3.9.00/PersistentProfile_3.9.00.jmdac\ runtime\ module_PersistentPropertyPage.org.modelio.diagram.perspective.parentId=app.ui.ext_com.partstack.right
 org.modelio.module.propertytab.PersistentProfile\ v3.9.00\ GModule\ @file\:///C\:/Users/TrickPad/.modelio/4.0/modules/PersistentProfile_3.9.00/PersistentProfile_3.9.00.jmdac\ runtime\ module_PersistentPropertyPage.org.modelio.full.perspective.parentId=app.ui.ext_com.partstack.bottom
@@ -8,5 +8,5 @@ org.modelio.diagram.editor.OpenedDiagrams1='shiftPLAN UseCase' {c65bbc3f-7e88-4e
 org.modelio.diagram.editor.OpenedDiagrams0='DBPlan' {ef624f0b-29cf-459d-a6ec-8409cb476fa3} Standard.StaticDiagram
 org.modelio.module.propertytab.JavaDesigner\ v3.9.00\ GModule\ @file\:///C\:/Users/TrickPad/.modelio/4.0/modules/JavaDesigner_3.9.00/JavaDesigner_3.9.00.jmdac\ runtime\ module_.org.modelio.full.perspective.parentId=app.ui.ext_com.partstack.bottom
 org.modelio.module.propertytab.PersistentProfile\ v3.9.00\ GModule\ @file\:///C\:/Users/TrickPad/.modelio/4.0/modules/PersistentProfile_3.9.00/PersistentProfile_3.9.00.jmdac\ runtime\ module_PersistentPropertyPage.org.modelio.app.ui.model.perspective.parentId=org.modelio.app.bottom.parts
-org.modelio.module.propertytab.JavaDesigner\ v3.9.00\ GModule\ @file\:///C\:/Users/TrickPad/.modelio/4.0/modules/JavaDesigner_3.9.00/JavaDesigner_3.9.00.jmdac\ runtime\ module_.org.modelio.diagram.perspective.parentId=app.ui.ext_com.partstack.right
 org.modelio.module.propertytab.PersistentProfile\ v3.9.00\ GModule\ @file\:///C\:/Users/TrickPad/.modelio/4.0/modules/PersistentProfile_3.9.00/PersistentProfile_3.9.00.jmdac\ runtime\ module_PersistentPropertyPage.org.modelio.development.perspective.parentId=app.ui.ext_com.partstack.bottom
+org.modelio.module.propertytab.JavaDesigner\ v3.9.00\ GModule\ @file\:///C\:/Users/TrickPad/.modelio/4.0/modules/JavaDesigner_3.9.00/JavaDesigner_3.9.00.jmdac\ runtime\ module_.org.modelio.diagram.perspective.parentId=app.ui.ext_com.partstack.right
