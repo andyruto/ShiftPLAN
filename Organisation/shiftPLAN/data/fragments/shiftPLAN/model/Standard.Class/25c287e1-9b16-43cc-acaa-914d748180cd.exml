@@ -62,7 +62,7 @@
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
+                    <ID name="Task" mc="Standard.Class" uid="3460128e-0b14-4522-bedd-05a62c3525bb"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -70,7 +70,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="refreshTasks" mc="Standard.Operation" uid="b82eff2f-4cae-4265-8574-0697c4be58b6"/>
+          <ID name="refresh" mc="Standard.Operation" uid="b82eff2f-4cae-4265-8574-0697c4be58b6"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -78,7 +78,7 @@
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[refreshTasks]]></ATT>
+            <ATT name="Name"><![CDATA[refresh]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES></DEPENDENCIES>

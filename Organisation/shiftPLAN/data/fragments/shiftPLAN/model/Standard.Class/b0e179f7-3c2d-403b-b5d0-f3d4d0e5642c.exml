@@ -78,7 +78,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="refreshUsers" mc="Standard.Operation" uid="7ba85cfd-ecd4-4cb7-9872-55d2fa6403cb"/>
+          <ID name="refresh" mc="Standard.Operation" uid="7ba85cfd-ecd4-4cb7-9872-55d2fa6403cb"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -86,7 +86,7 @@
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[refreshUsers]]></ATT>
+            <ATT name="Name"><![CDATA[refresh]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES></DEPENDENCIES>

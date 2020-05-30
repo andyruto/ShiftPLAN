@@ -166,7 +166,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="refreshShifts" mc="Standard.Operation" uid="3a15e6a9-8db5-4e6f-8975-19aeede046d7"/>
+          <ID name="refresh" mc="Standard.Operation" uid="3a15e6a9-8db5-4e6f-8975-19aeede046d7"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -174,7 +174,7 @@
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[refreshShifts]]></ATT>
+            <ATT name="Name"><![CDATA[refresh]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES></DEPENDENCIES>
