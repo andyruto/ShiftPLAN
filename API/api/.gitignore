@@ -1,3 +1,10 @@
+##################################################
+# The gitignore for VSCode project
+# files and paths
+# author: Andreas G.
+# last edit / by: 2020-06-03 / Andreas G.
+##################################################
+
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
