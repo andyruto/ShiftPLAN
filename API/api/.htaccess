@@ -1,0 +1,2 @@
+#Disabling the indexes for this and all subfolders
+Options -Indexes
