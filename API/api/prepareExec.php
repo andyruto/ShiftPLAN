@@ -8,5 +8,7 @@
 -- last edit / by: 2020-06-03 / Andreas G.
 -->
 <?php
+    require __DIR__ . '/vendor/autoload.php';
 
+    include '/helperClasses/logger.php';
 ?>
