@@ -1,7 +1,7 @@
 ############################################################
 # The .gitignore file for IDEA specific paths and files.
 # author: Andreas G.
-# last edit / by: 2020-04-29 / Andreas G.
+# last edit / by: 2020-06-04 / Sascha W.
 ############################################################
 
 # Compiled class file
@@ -106,4 +106,4 @@ dependency-reduced-pom.xml
 *.log
 
 #Ignoring the users DevConsole
-/src/test/java/de/hdm_stuttgart/mi/DevConsole/
+/src/test/java/org/shiftplan/DevConsole
