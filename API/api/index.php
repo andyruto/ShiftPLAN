@@ -7,8 +7,8 @@
 -- the current version it'll show a message.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-03 / Andreas G.
+-- last edit / by: 2020-06-08 / Andreas G.
 -->
 <?php
-
+    require 'prepareExec.php';
 ?>
