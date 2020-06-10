@@ -5,10 +5,20 @@
 -- all the script executions.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-03 / Andreas G.
+-- last edit / by: 2020-06-10 / Maximilian T. | Kontr0x
 -->
 <?php
-    require __DIR__ . '/vendor/autoload.php';
 
-    include '/helperClasses/logger.php';
+    if(!defined('ROOT')) {
+        define('ROOT', __DIR__);
+    }
+    
+    require ROOT . '/vendor/autoload.php';
+    
+    foreach (scandir(ROOT . '/helperClasses'.'/') as $filename) {
+        $path = ROOT . '/helperClasses'.'/'.$filename;
+        if (is_file($path)) {
+            require $path;
+        }
+    }
 ?>

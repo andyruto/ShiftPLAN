@@ -14,3 +14,15 @@
 
 # Local History for Visual Studio Code
 .history/
+
+# Ignoring dev console
+devConsole.php
+
+# Ignoring sidenodes
+notes.txt
+
+# Ignoring settings
+settings.conf
+
+# Ignoring logs folder
+logs/*
