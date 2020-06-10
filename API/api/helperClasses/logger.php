@@ -5,10 +5,10 @@
 -- for our project. It's a logger singleton class.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-08 / Andreas G.
+-- last edit / by: 2020-06-10 / Andreas G.
 -->
 <?php
-    class Logger {
+    final class Logger {
         //The static property to store the project logger object
         private static $logger = null;
 
@@ -21,8 +21,24 @@
         //@param $path: The path where the logger should log into.
         //@param $logLevel: The level considering what logType's should be written into log file
         private function __construct(string $path, int $logLevel = Monolog\Logger::DEBUG) {
+            //Preparing stream handler with specific line format
+            $dateFormat = "Y-m-d H:i:s";
+            $output = "%datetime% > %level_name% > %message%\n";
+            $formatter = new Monolog\Formatter\LineFormatter($output, $dateFormat);
+            $streamHandler = new Monolog\Handler\StreamHandler($path, $logLevel);
+            $streamHandler->setFormatter($formatter);
+
+            //Preparing the monoLogger object for Logger class
             $this->monoLogger = new Monolog\Logger('shiftPLAN-API');
-            $this->monoLogger->pushHandler(new Monolog\Handler\StreamHandler($path, $logLevel));
+            $this->monoLogger->pushHandler($streamHandler);
+        }
+
+        //Preventing object from being cloned
+        private function __clone() {
+        }
+
+        //Preventing object from being unserialized
+        private function __wakeup() {
         }
 
         //Method checking if a static logger object already exists
@@ -30,7 +46,18 @@
         //@return: The singleton instance of Logger.
         public static function getLogger() : self {
             if (self::$logger == null) {
-                self::$logger = new self('./logs/shiftPLAN-API.log', Monolog\Logger::DEBUG);
+                self::$logger = new self(ROOT . '/logs/shiftPLAN-API.log', Monolog\Logger::DEBUG);
+            }
+
+            return self::$logger;
+        }
+
+        //Method checking if a static logger object already exists
+        //otherwise calling the constructor.
+        //@return: The singleton instance of Logger.
+        public static function getFatalLogger() : self {
+            if (self::$logger == null) {
+                self::$logger = new self(ROOT . '/logs/shiftPLAN-FATAL.log', Monolog\Logger::DEBUG);
             }
 
             return self::$logger;
@@ -40,26 +67,11 @@
         //calling the desired method.
         //@param $logType: The logType for that entry.
         //@param $message: The message to write for that entry
-        public function putLogEntry(int $logType, string $message) {
-            switch ($logType) {
-                case Monolog\Logger::DEBUG:
-                    $this->DEBUG($message);
-                break;
-                case Monolog\Logger::INFO:
-                    $this->INFO($message);
-                break;
-                case Monolog\Logger::WARNING:
-                    $this->WARNING($message);
-                break;
-                case Monolog\Logger::ERROR:
-                    $this->ERROR($message);
-                break;
-                case Monolog\Logger::CRITICAL:
-                    $this->CRITICAL($message);
-                break;
-                default:
-                    throw new InvalidArgumentException();
-                break;
+        public function log(string $logType, string $message) {
+            if (method_exists($this, $logType)) {
+                $this->$logType($message);
+            } else {
+                throw new InvalidArgumentException("The log type argument doesn't fit the possible values.");
             }
         }
 
