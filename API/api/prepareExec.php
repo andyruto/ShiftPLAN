@@ -5,19 +5,32 @@
 -- all the script executions.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-10 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-06-11 / Maximilian T. | Kontr0x
 -->
 <?php
     if(!defined('ROOT')) {
         define('ROOT', __DIR__);
     }
-    
-    require ROOT . '/vendor/autoload.php';
 
+    //Function to fix new line error on fgets
+    //@param $recource: source string to apply fix
+    //@return: returning the fixed string
+    function read_line($recource) : string{
+        $buffer = fgets($recource);
+        $buffer = str_replace("\n", "", $buffer);
+        $buffer = str_replace("\r", "", $buffer);
+        $buffer = str_replace("\r\n", "", $buffer);
+        return $buffer;
+    }
+    
+    require ROOT . '/vendor/autoload.php'; //loading composer packages
+
+    //Importing all classes from path
     foreach (scandir(ROOT . '/helperClasses'.'/') as $filename) {
         $path = ROOT . '/helperClasses'.'/'.$filename;
         if (is_file($path)) {
             require $path;
         }
     }
+
 ?>

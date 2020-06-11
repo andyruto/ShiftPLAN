@@ -4,7 +4,7 @@
 -- PHP file containing the specific database config for our project.
 --
 -- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-06-10 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-06-11 / Maximilian T. | Kontr0x
 -->
 <?php
     final class Database extends General{
@@ -24,33 +24,40 @@
 
         //Function to validate the properties values
         public function checkCompleteness(){
-            if($this->dbHost!=null&&$this->dbName!=null&&$this->dbUser!=null&&$this->dbPassword!=null):
-                //todo regex checks
-            endif;
-        }
+            if(!(empty($this->dbHost))){
+                if(!(preg_match('/[a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b[a-zA-Z0-9()@:%_\+.~#?&=\/]+/', $this->dbHost))){
+                    Logger::getFatalLogger()->log('CRITICAL', 'database host "'.$this->dHost.'" contains invalid characters');
+                    exit();
+                }
+            } else{
+                Logger::getFatalLogger()->log('CRITICAL', 'database host not set');
+                exit();
+            }
 
-        //Getter function to get the database host
-        //@return: Database host string
-        public function getDatabaseHost() : string{
-            return $this->dbHost;
-        }
+            if(!(empty($this->dbName))){
+                if(!(preg_match('/[a-zA-Z0-9._-]+/',$this->dbName))){
+                    Logger::getFatalLogger()->log('CRITICAL', 'database name "'.$this->dbName.'" contains invalid characters');
+                    exit();
+                }
+            } else{
+                Logger::getFatalLogger()->log('CRITICAL', 'database name not set');
+                exit();
+            }
 
-        //Getter function to get the database name
-        //@return: Database name string
-        public function getDatabaseName() : string{
-            return $this->dbName;
-        }
+            if(!(empty($this->dbUser))){
+                if(!(preg_match('/[a-zA-Z0-9._-]+/',$this->dbUser))){
+                    Logger::getFatalLogger()->log('CRITICAL', 'database user not set') ;
+                    exit();
+                }
+            }else{
+                Logger::getFatalLogger()->log('CRITICAL', 'database user "'.$this->dbUser.'" contains invalid characters');
+                exit();
+            }
 
-        //Getter function to get the database user
-        //@return: Database user string
-        public function getDatabaseUser() : string{
-            return $this->dbUser;
-        }
-
-        //Getter function to get the database user password
-        //@return: Database user password string
-        public function getDatabasePassword() : string{
-            return $this->dbPassword;
+            if($this->dbPassword==null){ //todo regex
+                Logger::getFatalLogger()->log('CRITICAL', 'database password not set');
+                exit();
+            }
         }
         
         // prevent to get unserialized
