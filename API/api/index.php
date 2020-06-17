@@ -7,13 +7,21 @@
 -- the current version it'll show a message.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-10 / Andreas G.
+-- last edit / by: 2020-06-14 / Andreas G.
 -->
 <?php
     require 'prepareExec.php';
 
-    Logger::getLogger()->log('ERROR', 'Current time zone: '.date_default_timezone_get());
-    Logger::getLogger()->log('WARNING', 'Current server time zone: '.(new DateTime())->getTimezone()->getName());
-    Logger::getLogger()->log('DEBUG', 'Dirname: '.__DIR__.'/vendor/autoload.php');
-    Logger::getLogger()->log('DEBUG', 'Dirname: '.ROOT.'/vendor/autoload.php');
+    //Class launching the main script checking the DB and API
+    //and invoking the prepare script if required.
+    final class Main {
+        //Method invoked on script execution
+        public static function run() {
+            Logger::getLogger()->log('DEBUG', 'Test Test Test');
+
+            Logger::getLogger()->log('DEBUG', 'RootDir: '.__DIR__);
+        }
+    }
+
+    Main::run();
 ?>

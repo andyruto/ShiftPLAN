@@ -5,7 +5,7 @@
 -- for our project. It's a logger singleton class.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-10 / Andreas G.
+-- last edit / by: 2020-06-14 / Andreas G.
 -->
 <?php
     final class Logger {
@@ -46,7 +46,13 @@
         //@return: The singleton instance of Logger.
         public static function getLogger() : self {
             if (self::$logger == null) {
-                self::$logger = new self(ROOT . '/logs/shiftPLAN-API.log', Monolog\Logger::DEBUG);
+                //Get logLevel constant value with the configuration entry
+                $logLevel = constant('Monolog\Logger::'.Config::getConfig()->get("Logging")->getValue("logLevel"));
+
+                //Get logFile from logPool
+                $logPool = new LogPool(Config::getConfig()->get("Logging")->getValue("path"), Config::getConfig()->get("Logging")->getValue("logCount"));
+
+                self::$logger = new self(ROOT . '/logs/shiftPLAN-API.log', $logLevel);
             }
 
             return self::$logger;
@@ -63,13 +69,33 @@
             return self::$logger;
         }
 
+        //Method checking the backtrace for the invoker class
+        //and returning the name of that class.
+        //@return: The name of the invoker class.
+        private function get_invoker_class() : string {
+            //Get the debug trace
+            $trace = debug_backtrace();
+        
+            //Get the class that is asking for the invoker class
+            $class = $trace[1]['class'];
+        
+            //Iterating trough the debug trace for the invoker class
+            for ($i=1; $i<count($trace); $i++) {
+                if (isset($trace[$i])) {
+                    if ($class != $trace[$i]['class']) {
+                        return strval($trace[$i]['class']);
+                    }
+                }
+            }
+        }
+
         //Method analysing the logType for that entry and
         //calling the desired method.
         //@param $logType: The logType for that entry.
         //@param $message: The message to write for that entry
         public function log(string $logType, string $message) {
             if (method_exists($this, $logType)) {
-                $this->$logType($message);
+                $this->$logType($this->get_invoker_class().'.class > '.$message);
             } else {
                 throw new InvalidArgumentException("The log type argument doesn't fit the possible values.");
             }

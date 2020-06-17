@@ -4,7 +4,7 @@
 -- PHP file containing the specific database config for our project.
 --
 -- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-06-11 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-06-14 / Andreas G.
 -->
 <?php
     final class Database extends General{
@@ -26,7 +26,7 @@
         public function checkCompleteness(){
             if(!(empty($this->dbHost))){
                 if(!(preg_match('/[a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b[a-zA-Z0-9()@:%_\+.~#?&=\/]+/', $this->dbHost))){
-                    Logger::getFatalLogger()->log('CRITICAL', 'database host "'.$this->dHost.'" contains invalid characters');
+                    Logger::getFatalLogger()->log('CRITICAL', 'database host "'.$this->dbHost.'" contains invalid characters');
                     exit();
                 }
             } else{
