@@ -5,7 +5,7 @@
 -- for our project. It's a config reader / provider class that provides all necesarry settings.
 --
 -- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-06-11 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-08-06 / Maximilian T. | Kontr0x
 -->
 <?php
     require __DIR__ . '/configClasses/general.php';
@@ -78,6 +78,12 @@
                 return $this->$className;
             } else{
                 throw new InvalidArgumentException("The class name argument doesn't fit the possible values.");
+            }
+        }
+
+        public function printConfig(){
+            foreach(get_object_vars($this) as $var){
+                $var->printAllValues();
             }
         }
     }

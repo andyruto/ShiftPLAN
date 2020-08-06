@@ -4,7 +4,7 @@
 -- PHP file containing the specific database config for our project.
 --
 -- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-06-11 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-08-06 / Maximilian T. | Kontr0x
 -->
 <?php
     final class Database extends General{
@@ -22,11 +22,18 @@
 
         public function __construct(){}
 
+        //Function to print all variables with values of object
+        public function printAllValues(){
+            Logger::getLogger()->log('DEBUG','dbHost = '.$this->getValue('dbHost'));
+            Logger::getLogger()->log('DEBUG','dbName = '.$this->getValue('dbName'));
+            Logger::getLogger()->log('DEBUG','dbUser = '.$this->getValue('dbUser'));
+        }
+        
         //Function to validate the properties values
         public function checkCompleteness(){
             if(!(empty($this->dbHost))){
-                if(!(preg_match('/[a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b[a-zA-Z0-9()@:%_\+.~#?&=\/]+/', $this->dbHost))){
-                    Logger::getFatalLogger()->log('CRITICAL', 'database host "'.$this->dHost.'" contains invalid characters');
+                if(!(preg_match('/^\w[^@]*\w[^@]$|[a-zA-Z0-9:%._\+~#=[^@]]{1,256}\.[a-zA-Z0-9()[^@]]{1,6}\b[a-zA-Z0-9():%_\+.~#?&=\/[^@]]+$/', $this->dbHost))){
+                    Logger::getFatalLogger()->log('CRITICAL', 'database host "'.$this->dbHost.'" contains invalid characters');
                     exit();
                 }
             } else{
@@ -35,7 +42,7 @@
             }
 
             if(!(empty($this->dbName))){
-                if(!(preg_match('/[a-zA-Z0-9._-]+/',$this->dbName))){
+                if(!(preg_match('/^[A-Za-z0-1_$#]+$/',$this->dbName))){
                     Logger::getFatalLogger()->log('CRITICAL', 'database name "'.$this->dbName.'" contains invalid characters');
                     exit();
                 }
@@ -45,16 +52,16 @@
             }
 
             if(!(empty($this->dbUser))){
-                if(!(preg_match('/[a-zA-Z0-9._-]+/',$this->dbUser))){
-                    Logger::getFatalLogger()->log('CRITICAL', 'database user not set') ;
+                if(!(preg_match('/^[A-Za-z0-1_.]+$/',$this->dbUser))){
+                    Logger::getFatalLogger()->log('CRITICAL', 'database user "'.$this->dbUser.'" contains invalid characters');
                     exit();
                 }
             }else{
-                Logger::getFatalLogger()->log('CRITICAL', 'database user "'.$this->dbUser.'" contains invalid characters');
+                Logger::getFatalLogger()->log('CRITICAL', 'database user not set') ;
                 exit();
             }
 
-            if($this->dbPassword==null){ //todo regex
+            if($this->dbPassword==null){
                 Logger::getFatalLogger()->log('CRITICAL', 'database password not set');
                 exit();
             }
