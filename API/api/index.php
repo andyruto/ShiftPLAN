@@ -7,8 +7,18 @@
 -- the current version it'll show a message.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-03 / Andreas G.
+-- last edit / by: 2020-08-08 / Andreas G.
 -->
 <?php
+    require 'prepareExec.php';
 
+    //Class launching the main script checking the DB and API
+    //and invoking the prepare script if required.
+    final class Main {
+        //Method invoked on script execution
+        public static function run() {
+        }
+    }
+
+    Main::run();
 ?>
