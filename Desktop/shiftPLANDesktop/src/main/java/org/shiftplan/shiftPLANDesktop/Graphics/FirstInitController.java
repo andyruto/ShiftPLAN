@@ -37,10 +37,7 @@ public class FirstInitController {
 
     @FXML
     protected void OnNextButtonClick(Event event) {
-        if(parentController != null) {
             parentController.setResource("/Login.fxml");
-        }
-
     }
 
     public void setParentController(LoginRahmenController parentController) {

@@ -10,19 +10,21 @@ package org.shiftplan.shiftPLANDesktop.Graphics;
 
 //Import statements
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 public class UsersController {
 
     private boolean activeUsers = true;
+
+    private JFXDialog dialog;
 
     @FXML
     protected JFXButton ActiveUsersButton;
@@ -38,6 +40,9 @@ public class UsersController {
 
     @FXML
     protected JFXButton AddButton;
+
+    @FXML
+    protected StackPane UserStackPane;
 
     public void initialize() {
         for(int o = 0; o < 5; o++) {
@@ -62,6 +67,8 @@ public class UsersController {
             UserList.getItems().add(hbox);
 
             btn.setOnAction(e -> UserList.getItems().remove(hbox));
+
+
         }
     }
 
@@ -72,6 +79,19 @@ public class UsersController {
     protected void OnHiddenUsersButtonClick(Event event) {}
 
     @FXML
-    protected void OnAddButtonClick(Event event) {}
+    protected void OnAddButtonClick(Event event) {
+        try {
+            FXMLLoader stackPaneLoader = new FXMLLoader(getClass().getResource("/AddUser.fxml"));
 
+            dialog = new JFXDialog(UserStackPane, stackPaneLoader.load(), JFXDialog.DialogTransition.CENTER);
+
+            stackPaneLoader.<AddUserController>getController().setParentController(this);
+
+            dialog.show();
+        }catch(Exception e) {}
+    }
+
+    public void closeDialog() {
+        dialog.close();
+    }
 }
