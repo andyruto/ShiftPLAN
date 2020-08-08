@@ -8,6 +8,10 @@
  */
 package org.shiftplan.shiftPLANDesktop;
 
+import org.shiftplan.shiftPLANDesktop.Helper.ConfigReader;
+
+import java.io.File;
+
 /**
  * A small shift planning project. Class containing the main entry point for the application.
  */
@@ -19,6 +23,7 @@ public class Main {
      * @param args Startup arguments provided at application startup
      */
     public static void main(String[] args) {
-
+        ConfigReader cr = ConfigReader.getConfigReader();
+        cr.readConfigFile();
     }
 }

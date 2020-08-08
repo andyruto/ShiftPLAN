@@ -1,0 +1,5 @@
+[API]
+key = 42eruzff7iu
+
+[Session]
+sessionKey=fgfiudvhuise
