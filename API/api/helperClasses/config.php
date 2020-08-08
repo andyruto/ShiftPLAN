@@ -5,12 +5,16 @@
 -- for our project. It's a config reader / provider class that provides all necesarry settings.
 --
 -- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-08-06 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-08-08 / Maximilian T. | Kontr0x
 -->
 <?php
-    require __DIR__ . '/configClasses/general.php';
-    require __DIR__ . '/configClasses/logging.php';
-    require __DIR__ . '/configClasses/database.php';
+    //Importing all config and config helper classes from path
+    foreach (scandir(ROOT . '/helperClasses/configClasses'.'/') as $filename) {
+        $path = ROOT . '/helperClasses/configClasses'.'/'.$filename;
+        if (is_file($path)) {
+            require $path;
+        }
+    }
 
     final class Config{
 
@@ -51,7 +55,7 @@
 
                 if(preg_match('/\s*\[([[:upper:]][a-zA-Z0-9]+)\]\s*/',$line ,$matchInRow, PREG_UNMATCHED_AS_NULL)==1 && !(in_array(null, $matchInRow))){
                     $currentSection=strtolower($matchInRow[1]);
-                } else if(preg_match('/\s*([a-zA-Z]+)\s+\=\s+([^\|\<\>\;\&\$\#\!\*\`\´\?\%\"\§\²\³\¼\½\¬\{\[\]\}\′\+\=\:]+)/',$line ,$matchInRow, PREG_UNMATCHED_AS_NULL)==1 && !(in_array(null, $matchInRow))){
+                } else if(preg_match('/\s*([a-zA-Z]+)\s+\=\s+([^\|\<\>\;\&\`\´\?\%\"\§\²\³\¼\½\¬\{\[\]\}\′\+\=\:]+)/',$line ,$matchInRow, PREG_UNMATCHED_AS_NULL)==1 && !(in_array(null, $matchInRow))){
                     if(property_exists($this, $currentSection)){
                         $this->$currentSection->putInValue($matchInRow[1], trim($matchInRow[2]));
                     }
@@ -81,6 +85,7 @@
             }
         }
 
+        //Function to print current config from all section in debug log
         public function printConfig(){
             foreach(get_object_vars($this) as $var){
                 $var->printAllValues();

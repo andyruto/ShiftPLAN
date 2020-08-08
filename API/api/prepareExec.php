@@ -5,7 +5,7 @@
 -- all the script executions.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-11 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-08-08 / Maximilian T. | Kontr0x
 -->
 <?php
     if(!defined('ROOT')) {
@@ -32,5 +32,7 @@
             require $path;
         }
     }
+
+    require ROOT . '/src/bootstrap.php'; //loading main doctrine config class
 
 ?>
