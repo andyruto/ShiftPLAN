@@ -5,9 +5,11 @@
 -- for our project. It's a logger singleton class.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-14 / Andreas G.
+-- last edit / by: 2020-08-08 / Andreas G.
 -->
 <?php
+    require ROOT . '/helperClasses/loggerClasses/logPool.php';
+
     final class Logger {
         //The static property to store the project logger object
         private static $logger = null;
@@ -52,7 +54,7 @@
                 //Get logFile from logPool
                 $logPool = new LogPool(Config::getConfig()->get("Logging")->getValue("path"), Config::getConfig()->get("Logging")->getValue("logCount"));
 
-                self::$logger = new self(ROOT . '/logs/shiftPLAN-API.log', $logLevel);
+                self::$logger = new self($logPool->getActiveLogFileString(), $logLevel);
             }
 
             return self::$logger;
@@ -63,7 +65,9 @@
         //@return: The singleton instance of Logger.
         public static function getFatalLogger() : self {
             if (self::$logger == null) {
-                self::$logger = new self(ROOT . '/logs/shiftPLAN-FATAL.log', Monolog\Logger::DEBUG);
+                createWebHiddenFolder(ROOT . '/logs/');
+
+                self::$logger = new self(ROOT . '/logs/FATAL.log', Monolog\Logger::DEBUG);
             }
 
             return self::$logger;

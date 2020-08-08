@@ -5,11 +5,15 @@
 -- all the script executions.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-14 / Andreas G.
+-- last edit / by: 2020-08-08 / Andreas G.
 -->
 <?php
     if(!defined('ROOT')) {
         define('ROOT', __DIR__);
+    }
+
+    if(!defined('API_VERSION')) {
+        define('API_VERSION', '0.0.1');
     }
 
     //Function to fix new line error on fgets
@@ -43,6 +47,23 @@
         }
 
         return (substr($string, -$length) === $pattern);
+    }
+
+    //Function creating a specific folder with htaccess file
+    //for hiding purposes.
+    //@param $path: The path with '/' to the folder to create
+    function createWebHiddenFolder(string $path) {
+        if (!file_exists($path)) {
+            mkdir($path);
+        }
+
+        if (file_exists($path . '.htaccess')) {
+            unlink($path . '.htaccess');
+        }
+
+        $fileWriter = fopen($path . '.htaccess', 'w');
+        fwrite($fileWriter, 'Deny from all');
+        fclose($fileWriter);
     }
     
     //Loading composer packages

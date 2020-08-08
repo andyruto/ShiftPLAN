@@ -7,7 +7,7 @@
 -- the current version it'll show a message.
 --
 -- author: Andreas G.
--- last edit / by: 2020-06-14 / Andreas G.
+-- last edit / by: 2020-08-08 / Andreas G.
 -->
 <?php
     require 'prepareExec.php';
@@ -17,9 +17,6 @@
     final class Main {
         //Method invoked on script execution
         public static function run() {
-            Logger::getLogger()->log('DEBUG', 'Test Test Test');
-
-            Logger::getLogger()->log('DEBUG', 'RootDir: '.__DIR__);
         }
     }
 
