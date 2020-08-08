@@ -76,4 +76,7 @@
             require $path;
         }
     }
+
+    //Loading main doctrine config class
+    require ROOT . '/src/bootstrap.php';
 ?>

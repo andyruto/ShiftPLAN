@@ -4,7 +4,7 @@
 -- PHP file containing the specific database config for our project.
 --
 -- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-08-06 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-08-08 / Maximilian T. | Kontr0x
 -->
 <?php
     final class Database extends General{
@@ -27,6 +27,7 @@
             Logger::getLogger()->log('DEBUG','dbHost = '.$this->getValue('dbHost'));
             Logger::getLogger()->log('DEBUG','dbName = '.$this->getValue('dbName'));
             Logger::getLogger()->log('DEBUG','dbUser = '.$this->getValue('dbUser'));
+            Logger::getLogger()->log('DEBUG','dbPassword = '.$this->getValue('dbPassword'));
         }
         
         //Function to validate the properties values
