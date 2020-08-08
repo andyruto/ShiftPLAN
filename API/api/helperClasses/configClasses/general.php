@@ -4,7 +4,7 @@
 -- PHP file containing functions to fill an validate configs.
 --
 -- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-06-11 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-08-06 / Maximilian T. | Kontr0x
 -->
 <?php
     abstract class General{
@@ -81,5 +81,7 @@
         //Function to validate the properties values
         abstract public function checkCompleteness();
 
+        //Function to print all values of an object in log as DEBUG
+        abstract public function printAllValues();
     }
 ?>

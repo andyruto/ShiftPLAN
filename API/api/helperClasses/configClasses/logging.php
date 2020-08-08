@@ -4,7 +4,7 @@
 -- PHP file containing the specific logging config for our project.
 --
 -- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-06-11 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-08-06 / Maximilian T. | Kontr0x
 -->
 <?php
     final class Logging extends General{
@@ -26,6 +26,22 @@
         private $logCount = null;
 
         public function __construct(){}
+
+        //Function to print all variables with values of object
+        public function printAllValues(){
+            Logger::getLogger()->log('DEBUG','path = '.$this->getValue('path'));
+            if($this->path==null){
+                Logger::getLogger()->log('DEBUG','Used default value for path');
+            }
+            Logger::getLogger()->log('DEBUG','logLevel = '.$this->getValue('logLevel'));
+            if($this->logLevel==null){
+                Logger::getLogger()->log('DEBUG','Used default value for logLevel');
+            }
+            Logger::getLogger()->log('DEBUG','logCount = '.$this->getValue('logCount'));
+            if($this->logCount==null){
+                Logger::getLogger()->log('DEBUG','Used default value for logCount');
+            }
+        }
 
         //Function to validate the properties values
         public function checkCompleteness(){
