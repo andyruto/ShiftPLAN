@@ -10,6 +10,7 @@ package org.shiftplan.shiftPLANDesktop.Graphics;
 
 //Import statements
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -38,7 +39,18 @@ public class AddUserController {
     protected JFXButton AddUserButton;
 
     @FXML
+    protected JFXButton CancelUserButton;
+
+    @FXML
+    protected JFXTextField UserPassword;
+
+    @FXML
     protected void OnAddUserButtonClick(Event event) {
+        parentController.closeDialog();
+    }
+
+    @FXML
+    protected void OnCancelUserButtonClick(Event event) {
         parentController.closeDialog();
     }
 
