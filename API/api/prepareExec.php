@@ -1,13 +1,15 @@
-<!--
--- prepareExec.php
---
--- Script preparing all imports and requirements for
--- all the script executions.
---
--- author: Andreas G.
--- last edit / by: 2020-08-08 / Andreas G.
--->
+
+
 <?php
+
+// prepareExec.php
+//
+// Script preparing all imports and requirements for
+// all the script executions.
+//
+// author: Andreas G.
+// last edit / by: 2020-08-08 / Andreas G.
+
     if(!defined('ROOT')) {
         define('ROOT', __DIR__);
     }
@@ -65,9 +67,23 @@
         fwrite($fileWriter, 'Deny from all');
         fclose($fileWriter);
     }
+    
+    function checkApiKey($apiKey) : bool{
+        $eM = Bootstrap::getEntityManager();
+        if($eM->find('Api_keys', $apiKey)!=null){
+            Logger::getLogger()->log('ERROR', 'api key invalid');
+            header('Content-Type: application/json');
+            $respondJSON = array('success' => false);
+            echo(json_encode($respondJSON));
+            exit();
+        }
+    }
+
 
     //Function to get random string by length
-    function generateRandomString($length) {
+    //@param $length: length of random string
+    //@return: returning random genrated string
+    function generateRandomString($length): string {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -90,4 +106,7 @@
 
     //Loading main doctrine config class
     require ROOT . '/src/bootstrap.php';
+
+    Config::getConfig()->printConfig();
+
 ?>

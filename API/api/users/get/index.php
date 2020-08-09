@@ -10,6 +10,7 @@
     final class Main {
         //Method invoked on script execution
         public static function run() {
+            
         }
     }
 

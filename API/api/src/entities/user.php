@@ -55,7 +55,7 @@
         protected $year_vacation_days = 0;
 
         /**
-         * @ORM\Column(type="string", nullable=false)
+         * @ORM\Column(type="string", nullable=false, length=64)
          * @var string
          */
         protected $password_hash;
@@ -108,7 +108,7 @@
         }
 
         public function getPassword_hash(){
-            return $this->hidden;
+            return $this->password_hash;
         }
 
         public function setPassword_hash($password_hash){

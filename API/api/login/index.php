@@ -1,55 +1,83 @@
-<!--
--- index.php
---
--- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-08-09 / Maximilian T. | Kontr0x
--->
+
+
 <?php
+
+    // index.php
+    
+    // author: Maximilian T. | Kontr0x
+    // last edit / by: 2020-08-09 / Maximilian T. | Kontr0x
+
     require '../prepareExec.php';
 
     final class Main {
         //Method invoked on script execution
         public static function run() {
-            //$request = json_decode($_POST['request']);
-            $request = json_decode(json_encode(array('session' => 'null', 'name' => 'kevin')));
-            $entityManager = Bootstrap::getEntityManager();
-            $user = $entityManager->getRepository('User')->findBy(array('name' => $request['name'])); 
 
-            if($request->session==null){
-                Logger::getLogger()->log('INFO', 'no existing session for api request');
-                if($user!=null){
-                    Logger::getLogger()->log('INFO', 'user from request found in db checking credentials');
-                    if($user->getPassword_hash()==$request['password_hash']){
-                        Logger::getLogger()->log('INFO', 'credentials OK, creating new session');
-                        $session = new Session();
-                        $session->setId(generateRandomString(20));
-                        $session->setExpiration_date();
-                        $session->setUser_id($user->getid());
-                        Logger::getLogger()->log('INFO', 'new session created with id = '.$session->getId());
-                        $entityManager->persist($session);
-                        $entityManager->flush();
-                        Logger::getLogger()->log('INFO', 'flushed session');
-                        $respondJSON->successfull = true;
-                        echo(json_encode($respondJSON));
-                    }
+            checkApiKey(jsondecode($_POST['request'])->Api_key);
+
+            $request = json_decode($_POST['request']);
+            $entityManager = Bootstrap::getEntityManager();
+            header('Content-Type: application/json');
+
+            if(!empty($request->session)&&empty($request->name)&&empty($request->password_hash)){
+                $session = $entityManager->find('Session', $request->session);
+                if($session==null){
+                    Logger::getLogger()->log('INFO', 'session is invalid');
+                    $respondJSON = array('successfull' => 'false');
+                    echo(json_encode($respondJSON));
+                    exit();
+
+                }elseif($session->getExpiration_date()<new DateTime('now')){
+                    Logger::getLogger()->log('INFO', 'session expired');
+                    $respondJSON = array('successfull' => 'false');
+                    echo(json_encode($respondJSON));
+                    exit();
+
                 }else{
-                    Logger::getLogger()->log('INFO', 'user '.$request['name'].' not found');
-                    $respondJSON->successfull = false;
-                        echo(json_encode($respondJSON));
+                    Logger::getLogger()->log('INFO', 'session valid until '.$session->getExpiration_date()->format('yy-m-d H:m:s'));
+                    $respondJSON = array('successfull' => 'true');
+                    echo(json_encode($respondJSON));
+                    exit();
+
+                }
+            }elseif(empty($request->session)&&!empty($request->name)&&!empty($request->password_hash)){
+                $user = $entityManager->getRepository('User')->findBy(array('name' => $request->name));
+                if($user==null){
+                    Logger::getLogger()->log('INFO', 'user not found');
+                    $respondJSON = array('successfull' => 'false');
+                    echo(json_encode($respondJSON));
+                    exit();
+
+                }elseif($user[0]->getPassword_hash()==$request->password_hash){
+                    Logger::getLogger()->log('INFO', 'password ok');
+                    $session = new Session();
+                    $sessionKey = generateRandomString(20);
+                    while($sessionKey==$entityManager->find('Session', $sessionKey)){
+                        $sessionKey = generateRandomString(20);
+                    }
+                    $session->setId($sessionKey); //todo check if random already exist
+                    $session->setExpiration_date();
+                    $session->setUser_id($user[0]->getid());
+                    $entityManager->persist($session);
+                    $entityManager->flush();
+                    Logger::getLogger()->log('INFO', 'new session created with id = '.$session->getId());
+                    $respondJSON = array('successfull' => 'true', 'session' => $session->getId);
+                    echo(json_encode($respondJSON));
+                    exit();
+
+                }else{
+                    Logger::getLogger()->log('INFO', 'wrong password');
+                    $respondJSON = array('successfull' => 'false');
+                    echo(json_encode($respondJSON));
+                    exit();
                 }
             }else{
-                Logger::getLogger()->log('INFO', 'checking if session is valid');
-                $session = $entityManager->find('Session', $request['session'])!=null;
-                if($session!=null&&$session->getExpiration_date()>=date()){
-                    Logger::getLogger()->log('INFO', 'session is valid until '.$session->getExpiration_date());
-                    $respondJSON->successfull = true;
-                    echo(json_encode($respondJSON));
-                }else{
-                    Logger::getLogger()->log('INFO', 'session expired on '.$session->getExpiration_date());
-                    $respondJSON->successfull = false;
-                    echo(json_encode($respondJSON));
-                }
+                Logger::getLogger()->log('ERROR', 'wrong arguments in post request');
+                $respondJSON = array('successfull' => 'false');
+                echo(json_encode($respondJSON));
+                exit();
             }
+            
         }
     }
 
