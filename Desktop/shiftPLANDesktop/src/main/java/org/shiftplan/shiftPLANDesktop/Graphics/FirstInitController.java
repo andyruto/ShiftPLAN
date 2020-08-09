@@ -17,6 +17,9 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.StackPane;
+import org.shiftplan.shiftPLANDesktop.Logic.HttpConnector;
+
+import java.net.HttpURLConnection;
 
 /**
  * Controller for the FirstInit xml file.
@@ -45,7 +48,7 @@ public class FirstInitController {
     //Adding all events
     @FXML
     private void OnNextButtonClick(Event event) {
-        parentController.setResource("/Login.fxml");
+        HttpConnector httpConnector = new HttpConnector();
     }
 
     //Set parentcontroller for LoginBorder
