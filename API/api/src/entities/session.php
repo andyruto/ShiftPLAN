@@ -18,13 +18,13 @@ class Session
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @var int
+     * @var string
      */
     protected $id;
 
     /**
      * @ORM\Column(type="date")
-     * @var string
+     * @var date
      */
     protected $expiration_date;
 
@@ -34,6 +34,10 @@ class Session
      * @var int
      */
     protected $user_id;
+
+    public function setId($id){
+        $this->id = $id;
+    }
 
     public function getId()
     {

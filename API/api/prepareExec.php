@@ -65,6 +65,17 @@
         fwrite($fileWriter, 'Deny from all');
         fclose($fileWriter);
     }
+
+    //Function to get random string by length
+    function generateRandomString($length) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
     
     //Loading composer packages
     require ROOT . '/vendor/autoload.php';
