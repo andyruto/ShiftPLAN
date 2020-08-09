@@ -10,6 +10,7 @@ package org.shiftplan.shiftPLANDesktop.Graphics;
 
 //Import statements
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.Event;
@@ -19,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -29,20 +31,24 @@ public class LoginController {
     //Initialize variables
     private double xOffset = 0;
     private double yOffset = 0;
+    private JFXDialog loading;
 
     //Insert all fx id's
     @FXML
-    protected JFXButton NextButton;
+    private JFXButton NextButton;
 
     @FXML
-    protected JFXTextField Username;
+    private JFXTextField Username;
 
     @FXML
-    protected JFXPasswordField Password;
+    private JFXPasswordField Password;
+    
+    @FXML
+    private StackPane LoginStackPane;
 
     //Adding all events
     @FXML
-    protected void OnNextButtonClick(Event event) {
+    private void OnNextButtonClick(Event event) {
         try {
 
             //Getting stage
@@ -73,5 +79,17 @@ public class LoginController {
             stage.show();
         }catch(Exception e) {}
     }
-
+    
+    //Show and load loading screen
+    private void showLoading() {
+        try {
+            FXMLLoader stackPaneLoader = new FXMLLoader(getClass().getResource("/Loading.fxml"));
+            loading = new JFXDialog(LoginStackPane, stackPaneLoader.load(), JFXDialog.DialogTransition.CENTER);
+            loading.setOverlayClose(false);
+            loading.show();
+        }catch(Exception e) {}
+    }
+    private void hideLoading() {
+        loading.close();
+    }
 }

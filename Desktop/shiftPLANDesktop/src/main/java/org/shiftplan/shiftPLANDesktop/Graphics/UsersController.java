@@ -31,35 +31,35 @@ public class UsersController {
 
     //Insert all fx id's
     @FXML
-    protected JFXButton ActiveUsersButton;
+    private JFXButton ActiveUsersButton;
 
     @FXML
-    protected JFXButton HiddenUsersButton;
+    private JFXButton HiddenUsersButton;
 
     @FXML
-    protected JFXTextField UserSearchBar;
+    private JFXTextField UserSearchBar;
 
     @FXML
-    protected JFXListView UserList;
+    private JFXListView UserList;
 
     @FXML
-    protected JFXButton AddButton;
+    private JFXButton AddButton;
 
     @FXML
-    protected StackPane UserStackPane;
+    private StackPane UsersStackPane;
 
     @FXML
-    protected AnchorPane AnchorPaneColor;
+    private AnchorPane AnchorPaneColor;
 
     @FXML
-    protected JFXButton SearchUserButton;
+    private JFXButton SearchUserButton;
 
     //Add data to UserList
     public void initialize() {
         for(int o = 0; o < 20; o++) {
 
             HBox hbox = new HBox();
-            Label name = new Label(new User("Sascha" + o, 1).toString());
+            Label name = new Label("Sascha "+ o);
             JFXButton btn = new JFXButton("Hide");
             JFXButton btn2 = new JFXButton("Change");
             Pane pane = new Pane();
@@ -87,7 +87,7 @@ public class UsersController {
 
     //Adding all events
     @FXML
-    protected void OnActiveUsersButtonClick(Event event) {
+    private void OnActiveUsersButtonClick(Event event) {
         activeUsers = true;
         ActiveUsersButton.setStyle("-fx-background-color: #5D9FF5; -fx-background-radius: 0;");
         HiddenUsersButton.setStyle("-fx-background-color: #F9DAA0; -fx-background-radius: 0;");
@@ -97,7 +97,7 @@ public class UsersController {
     }
 
     @FXML
-    protected void OnHiddenUsersButtonClick(Event event) {
+    private void OnHiddenUsersButtonClick(Event event) {
         activeUsers = false;
         ActiveUsersButton.setStyle("-fx-background-color: #9DC5F8; -fx-background-radius: 0;");
         HiddenUsersButton.setStyle("-fx-background-color: #F5C162; -fx-background-radius: 0;");
@@ -107,21 +107,34 @@ public class UsersController {
     }
 
     @FXML
-    protected void OnAddButtonClick(Event event) {
+    private void OnAddButtonClick(Event event) {
         try {
             FXMLLoader stackPaneLoader = new FXMLLoader(getClass().getResource("/AddUser.fxml"));
-            dialog = new JFXDialog(UserStackPane, stackPaneLoader.load(), JFXDialog.DialogTransition.CENTER);
+            dialog = new JFXDialog(UsersStackPane, stackPaneLoader.load(), JFXDialog.DialogTransition.CENTER);
             stackPaneLoader.<AddUserController>getController().setParentController(this);
-
+            dialog.setOverlayClose(false);
             dialog.show();
         }catch(Exception e) {}
     }
 
     @FXML
-    protected void OnSearchUserButtonClick(Event event) {}
+    private void OnSearchUserButtonClick(Event event) {}
 
     //Method to close the dialog
-    public void closeDialog() {
+    protected void closeDialog() {
+        dialog.close();
+    }
+
+    //Show and load loading screen
+    private void showLoading() {
+        try {
+            FXMLLoader stackPaneLoader = new FXMLLoader(getClass().getResource("/Loading.fxml"));
+            dialog = new JFXDialog(UsersStackPane, stackPaneLoader.load(), JFXDialog.DialogTransition.CENTER);
+            dialog.setOverlayClose(false);
+            dialog.show();
+        }catch(Exception e) {}
+    }
+    private void hideLoading() {
         dialog.close();
     }
 }

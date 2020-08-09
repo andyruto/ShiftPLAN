@@ -9,28 +9,49 @@
 package org.shiftplan.shiftPLANDesktop.Graphics;
 
 //Import statements
+import com.jfoenix.controls.JFXDialog;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 
 /**
  * Controller for the Home xml file.
  */
 public class HomeController {
-
+    
+    //Initialize variables
+    private JFXDialog loading;
+    
     //Insert all fx id's
     @FXML
-    protected Label DayDisplay;
+    private Label DayDisplay;
 
     @FXML
-    protected Label MonthDisplay;
+    private Label MonthDisplay;
 
     @FXML
-    protected Label ShiftDisplay;
+    private Label ShiftDisplay;
 
     @FXML
-    protected Label LengthDisplay;
+    private Label LengthDisplay;
 
     @FXML
-    protected Label SupervisorDisplay;
+    private Label SupervisorDisplay;
+    
+    @FXML
+    private StackPane HomeStackPane;
 
+    //Show and load loading screen
+    private void showLoading() {
+        try {
+            FXMLLoader stackPaneLoader = new FXMLLoader(getClass().getResource("/Loading.fxml"));
+            loading = new JFXDialog(HomeStackPane, stackPaneLoader.load(), JFXDialog.DialogTransition.CENTER);
+            loading.setOverlayClose(false);
+            loading.show();
+        }catch(Exception e) {}
+    }
+    private void hideLoading() {
+        loading.close();
+    }
 }

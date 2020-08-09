@@ -24,13 +24,13 @@ public class LoginBorderController {
 
     //Insert all fx id's
     @FXML
-    protected JFXButton ExitButton;
+    private JFXButton ExitButton;
 
     @FXML
-    protected JFXButton MinimizeButton;
+    private JFXButton MinimizeButton;
 
     @FXML
-    protected Pane LoginScreen;
+    private Pane LoginScreen;
 
     //Set parentcontroller for FirstInit
     public void initialize()  {
@@ -43,17 +43,17 @@ public class LoginBorderController {
 
     //Adding all events
     @FXML
-    protected void OnExitButtonClick(Event event) {
+    private void OnExitButtonClick(Event event) {
         Platform.exit();
     }
 
     @FXML
-    protected void OnMinimizeButtonClick(Event event) {
+    private void OnMinimizeButtonClick(Event event) {
         ((Stage)((JFXButton)event.getSource()).getScene().getWindow()).setIconified(true);
     }
 
     //Load new resource into LoginScreen
-    public void setResource(String resource) {
+    protected void setResource(String resource) {
         try {
             LoginScreen.getChildren().clear();
             LoginScreen.getChildren().add(FXMLLoader.load(getClass().getResource(resource)));

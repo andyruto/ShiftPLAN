@@ -10,38 +10,59 @@ package org.shiftplan.shiftPLANDesktop.Graphics;
 
 //Import statements
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.StackPane;
 
 /**
  * Controller for the FirstInit xml file.
  */
 public class FirstInitController {
 
+    //Initialize Variables
+    private JFXDialog loading;
+
     //Initialize parentcontroller for AddUser
     private LoginBorderController parentController;
 
     //Insert all fx id's
     @FXML
-    protected JFXButton NextButton;
+    private JFXButton NextButton;
 
     @FXML
-    protected JFXTextField APIURL;
+    private JFXTextField APIURL;
 
     @FXML
-    protected JFXPasswordField APIKey;
+    private JFXPasswordField APIKey;
+
+    @FXML
+    private StackPane FirstInitStackPane;
 
     //Adding all events
     @FXML
-    protected void OnNextButtonClick(Event event) {
-            parentController.setResource("/Login.fxml");
+    private void OnNextButtonClick(Event event) {
+        parentController.setResource("/Login.fxml");
     }
 
     //Set parentcontroller for LoginBorder
-    public void setParentController(LoginBorderController parentController) {
+    protected void setParentController(LoginBorderController parentController) {
         this.parentController = parentController;
     }
 
+    //Show and load loading screen
+    private void showLoading() {
+        try {
+            FXMLLoader stackPaneLoader = new FXMLLoader(getClass().getResource("/Loading.fxml"));
+            loading = new JFXDialog(FirstInitStackPane, stackPaneLoader.load(), JFXDialog.DialogTransition.CENTER);
+            loading.setOverlayClose(false);
+            loading.show();
+        }catch(Exception e) {}
+    }
+    private void hideLoading() {
+        loading.close();
+    }
 }

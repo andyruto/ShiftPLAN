@@ -17,13 +17,16 @@ last edit / by: 2020-08-08 / Sascha W.
 <?import javafx.scene.text.Font?>
 
 <!--Graphic overlay-->
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="600.0" style="-fx-background-color: #2F64A8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.shiftplan.shiftPLANDesktop.Graphics.FirstInitController">
-   <children>
-      <JFXButton fx:id="NextButton" layoutX="265.0" layoutY="217.0" onAction="#OnNextButtonClick" prefHeight="51.0" prefWidth="71.0" style="-fx-background-radius: 60;" text="⇒" textFill="WHITE">
-         <font>
-            <Font size="30.0" />
-         </font></JFXButton>
-      <JFXPasswordField fx:id="APIKey" focusColor="#a8781e" layoutX="233.0" layoutY="168.0" promptText="API-Key" style="-fx-background-color: white;" unFocusColor="WHITE" />
-      <JFXTextField fx:id="APIURL" focusColor="#a8781e" layoutX="233.0" layoutY="120.0" promptText="API-URL" style="-fx-background-color: white;" unFocusColor="WHITE" />
-   </children>
-</AnchorPane>
+<?import javafx.scene.layout.StackPane?>
+<StackPane fx:id="FirstInitStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="600.0" style="-fx-background-color: #2F64A8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.shiftplan.shiftPLANDesktop.Graphics.FirstInitController">
+   <AnchorPane>
+      <children>
+         <JFXButton fx:id="NextButton" layoutX="265.0" layoutY="217.0" onAction="#OnNextButtonClick" prefHeight="51.0" prefWidth="71.0" style="-fx-background-radius: 60;" text="⇒" textFill="WHITE">
+            <font>
+               <Font size="30.0" />
+            </font></JFXButton>
+         <JFXPasswordField fx:id="APIKey" focusColor="#a8781e" layoutX="233.0" layoutY="168.0" promptText="API-Key" style="-fx-background-color: white;" unFocusColor="WHITE" />
+         <JFXTextField fx:id="APIURL" focusColor="#a8781e" layoutX="233.0" layoutY="120.0" promptText="API-URL" style="-fx-background-color: white;" unFocusColor="WHITE" />
+      </children>
+   </AnchorPane>
+</StackPane>

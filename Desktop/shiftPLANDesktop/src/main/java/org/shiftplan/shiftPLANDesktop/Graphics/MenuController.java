@@ -10,6 +10,7 @@ package org.shiftplan.shiftPLANDesktop.Graphics;
 
 //Import statements
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -20,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -30,31 +32,35 @@ public class MenuController {
     //Initialize variables
     private double xOffset = 0;
     private double yOffset = 0;
+    private JFXDialog loading;
 
     //Insert all fx id's
     @FXML
-    protected JFXButton ExitButton;
+    private JFXButton ExitButton;
 
     @FXML
-    protected JFXButton MinimizeButton;
+    private JFXButton MinimizeButton;
 
     @FXML
-    protected JFXButton LogoutButton;
+    private JFXButton LogoutButton;
 
     @FXML
-    protected Label UserInformation;
+    private Label UserInformation;
 
     @FXML
-    protected JFXButton HomeButton;
+    private JFXButton HomeButton;
 
     @FXML
-    protected JFXButton ShiftsButton;
+    private JFXButton ShiftsButton;
 
     @FXML
-    protected JFXButton UsersButton;
+    private JFXButton UsersButton;
 
     @FXML
-    protected HBox MainApplicationField;
+    private HBox MainApplicationField;
+    
+    @FXML
+    private StackPane MenuStackPane;
 
     //On Initialization
     public void initialize() {
@@ -65,7 +71,7 @@ public class MenuController {
 
     //Adding all events
     @FXML
-    protected void OnLogoutButtonClick(Event event) {
+    private void OnLogoutButtonClick(Event event) {
         try {
 
             //Getting stage
@@ -98,17 +104,17 @@ public class MenuController {
     }
 
     @FXML
-    protected void OnExitButtonClick(Event event) {
+    private void OnExitButtonClick(Event event) {
         Platform.exit();
     }
 
     @FXML
-    protected void OnMinimizeButtonClick(Event event) {
+    private void OnMinimizeButtonClick(Event event) {
         ((Stage)((JFXButton)event.getSource()).getScene().getWindow()).setIconified(true);
     }
 
     @FXML
-    protected void OnHomeButtonClick(Event event) {
+    private void OnHomeButtonClick(Event event) {
         try {
             MainApplicationField.getChildren().clear();
             MainApplicationField.getChildren().add(FXMLLoader.load(getClass().getResource("/Home.fxml")));
@@ -120,7 +126,7 @@ public class MenuController {
     }
 
     @FXML
-    protected void OnShiftsButtonClick(Event event) {
+    private void OnShiftsButtonClick(Event event) {
         try {
             MainApplicationField.getChildren().clear();
             MainApplicationField.getChildren().add(FXMLLoader.load(getClass().getResource("/Shifts.fxml")));
@@ -132,7 +138,7 @@ public class MenuController {
     }
 
     @FXML
-    protected void OnUsersButtonClick(Event event) {
+    private void OnUsersButtonClick(Event event) {
         try {
             MainApplicationField.getChildren().clear();
             MainApplicationField.getChildren().add(FXMLLoader.load(getClass().getResource("/Users.fxml")));
@@ -142,5 +148,17 @@ public class MenuController {
             UsersButton.setStyle("-fx-background-color: #F1AA29;");
         }catch(Exception e){}
     }
-
+    
+    //Show and load loading screen
+    private void showLoading() {
+        try {
+            FXMLLoader stackPaneLoader = new FXMLLoader(getClass().getResource("/Loading.fxml"));
+            loading = new JFXDialog(MenuStackPane, stackPaneLoader.load(), JFXDialog.DialogTransition.CENTER);
+            loading.setOverlayClose(false);
+            loading.show();
+        }catch(Exception e) {}
+    }
+    private void hideLoading() {
+        loading.close();
+    }
 }

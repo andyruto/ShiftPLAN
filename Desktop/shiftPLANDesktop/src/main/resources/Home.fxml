@@ -15,45 +15,48 @@ last edit / by: 2020-08-08 / Sascha W.
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.StackPane?>
 
 <!--Graphic overlay-->
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.shiftplan.shiftPLANDesktop.Graphics.HomeController">
-   <children>
-      <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="10.0">
-         <children>
-            <Label prefHeight="60.0" prefWidth="10.0" style="-fx-background-color: #A8781E;" />
-            <Label prefHeight="60.0" prefWidth="8.0" style="-fx-background-color: #F1AA29;" />
-            <Label prefHeight="60.0" prefWidth="10.0" style="-fx-background-color: #F5C162;" visible="false" />
-            <Label prefHeight="60.0" prefWidth="10.0" style="-fx-background-color: #F5C162;" visible="false" />
-         </children>
-      </VBox>
-      <AnchorPane prefHeight="570.0" prefWidth="760.0">
-         <children>
-            <Label fx:id="DayDisplay" layoutX="102.0" layoutY="98.0" prefHeight="119.0" prefWidth="192.0" text="DD.">
-               <font>
-                  <Font size="96.0" />
-               </font>
-            </Label>
-            <Label fx:id="MonthDisplay" layoutX="286.0" layoutY="125.0" prefHeight="88.0" prefWidth="206.0" text="Month">
-               <font>
-                  <Font size="57.0" />
-               </font>
-            </Label>
-            <Label fx:id="ShiftDisplay" layoutX="102.0" layoutY="260.0" prefHeight="71.0" prefWidth="157.0" text="Shift xy">
-               <font>
-                  <Font size="39.0" />
-               </font>
-            </Label>
-            <Label fx:id="LengthDisplay" layoutX="102.0" layoutY="331.0" prefHeight="60.0" prefWidth="331.0" text="Hour:Minute - Hour:Minute">
-               <font>
-                  <Font size="25.0" />
-               </font></Label>
-            <Label fx:id="SupervisorDisplay" layoutX="102.0" layoutY="406.0" prefHeight="26.0" prefWidth="137.0" text="Supervisor">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </children>
-</HBox>
+<StackPane fx:id="HomeStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.shiftplan.shiftPLANDesktop.Graphics.HomeController">
+   <HBox>
+      <children>
+         <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="10.0">
+            <children>
+               <Label prefHeight="60.0" prefWidth="10.0" style="-fx-background-color: #A8781E;" />
+               <Label prefHeight="60.0" prefWidth="8.0" style="-fx-background-color: #F1AA29;" />
+               <Label prefHeight="60.0" prefWidth="10.0" style="-fx-background-color: #F5C162;" visible="false" />
+               <Label prefHeight="60.0" prefWidth="10.0" style="-fx-background-color: #F5C162;" visible="false" />
+            </children>
+         </VBox>
+         <AnchorPane prefHeight="570.0" prefWidth="760.0">
+            <children>
+               <Label fx:id="DayDisplay" layoutX="102.0" layoutY="98.0" prefHeight="119.0" prefWidth="192.0" text="DD.">
+                  <font>
+                     <Font size="96.0" />
+                  </font>
+               </Label>
+               <Label fx:id="MonthDisplay" layoutX="286.0" layoutY="125.0" prefHeight="88.0" prefWidth="206.0" text="Month">
+                  <font>
+                     <Font size="57.0" />
+                  </font>
+               </Label>
+               <Label fx:id="ShiftDisplay" layoutX="102.0" layoutY="260.0" prefHeight="71.0" prefWidth="157.0" text="Shift xy">
+                  <font>
+                     <Font size="39.0" />
+                  </font>
+               </Label>
+               <Label fx:id="LengthDisplay" layoutX="102.0" layoutY="331.0" prefHeight="60.0" prefWidth="331.0" text="Hour:Minute - Hour:Minute">
+                  <font>
+                     <Font size="25.0" />
+                  </font></Label>
+               <Label fx:id="SupervisorDisplay" layoutX="102.0" layoutY="406.0" prefHeight="26.0" prefWidth="137.0" text="Supervisor">
+                  <font>
+                     <Font size="26.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
+      </children>
+   </HBox>
+</StackPane>

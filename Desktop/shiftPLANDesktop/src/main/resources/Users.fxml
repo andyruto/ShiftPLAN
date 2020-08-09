@@ -21,7 +21,7 @@ last edit / by: 2020-08-08 / Sascha W.
 <?import javafx.scene.text.Font?>
 
 <!--Graphic overlay-->
-<StackPane fx:id="UserStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.shiftplan.shiftPLANDesktop.Graphics.UsersController">
+<StackPane fx:id="UsersStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.shiftplan.shiftPLANDesktop.Graphics.UsersController">
    <HBox>
       <children>
          <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="10.0">

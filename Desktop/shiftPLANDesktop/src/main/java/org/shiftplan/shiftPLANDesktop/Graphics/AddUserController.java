@@ -10,9 +10,12 @@ package org.shiftplan.shiftPLANDesktop.Graphics;
 
 //Import statements
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.StackPane;
 
 /**
  * Controller for the AddUser xml file.
@@ -22,42 +25,60 @@ public class AddUserController {
     //Initialize parentcontroller for AddUser
     private UsersController parentController;
 
+    //Initialize variables
+    private JFXDialog loading;
+
     //Insert all fx id's
     @FXML
-    protected JFXTextField UserName;
+    private JFXTextField Username;
 
     @FXML
-    protected JFXTextField WeeklyWorkingMinutes;
+    private JFXTextField WeeklyWorkingMinutes;
 
     @FXML
-    protected JFXTextField WorkingWeekDays;
+    private JFXTextField WorkingWeekDays;
 
     @FXML
-    protected JFXTextField YearVacationDays;
+    private JFXTextField YearVacationDays;
 
     @FXML
-    protected JFXButton AddUserButton;
+    private JFXButton AddUserButton;
 
     @FXML
-    protected JFXButton CancelUserButton;
+    private JFXButton CancelUserButton;
 
     @FXML
-    protected JFXTextField UserPassword;
+    private JFXTextField UserPassword;
+
+    @FXML
+    private StackPane AddUserStackPane;
 
     //Adding all events
     @FXML
-    protected void OnAddUserButtonClick(Event event) {
+    private void OnAddUserButtonClick(Event event) {
         parentController.closeDialog();
     }
 
     @FXML
-    protected void OnCancelUserButtonClick(Event event) {
+    private void OnCancelUserButtonClick(Event event) {
         parentController.closeDialog();
     }
 
     //Set parentcontroller for AddUser
-    public void setParentController(UsersController parentController) {
+    protected void setParentController(UsersController parentController) {
         this.parentController = parentController;
     }
 
+    //Show and load loading screen
+    private void showLoading() {
+        try {
+            FXMLLoader stackPaneLoader = new FXMLLoader(getClass().getResource("/Loading.fxml"));
+            loading = new JFXDialog(AddUserStackPane, stackPaneLoader.load(), JFXDialog.DialogTransition.CENTER);
+            loading.setOverlayClose(false);
+            loading.show();
+        }catch(Exception e) {}
+    }
+    private void hideLoading() {
+        loading.close();
+    }
 }
