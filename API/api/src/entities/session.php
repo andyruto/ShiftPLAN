@@ -1,64 +1,67 @@
 <?php
-/**
- * session.php
- * sessions table definition for doctrine framework
- * author: Maximilian T. | Kontr0x
- * last edit / by: 2020-08-08 / Maximilian T. | Kontr0x
- */
-
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity 
- * @ORM\Table(name="sessions")
- */
-class Session
-{
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @var string
+     * session.php
+     * 
+     * Sessions table definition for doctrine framework.
+     * 
+     * author: Maximilian T. | Kontr0x
+     * last edit / by: 2020-08-09 / Andreas G.
      */
-    protected $id;
+
+    use Doctrine\ORM\Mapping as ORM;
 
     /**
-     * @ORM\Column(type="date")
-     * @var date
+     * @ORM\Entity 
+     * @ORM\Table(name="tb_sessions")
      */
-    protected $expiration_date;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="User", mappedBy="id")
-     * @var int
-     */
-    protected $user_id;
-
-    public function setId($id){
-        $this->id = $id;
-    }
-
-    public function getId()
+    class Session
     {
-        return $this->id;
-    }
+        /**
+         * @ORM\Id
+         * @ORM\Column(type="string")
+         * @var string
+         */
+        protected $id;
 
-    public function getExpiration_date()
-    {
-        return $this->expiration_date;
-    }
+        /**
+         * @ORM\Column(type="datetime", nullable=false)
+         * @var DateTime
+         */
+        protected $expiration_date;
 
-    public function setExpiration_date($expiration_date)
-    {
-        $this->expiration_date = $expiration_date;
-    }
+        /**
+         * @ORM\Column(type="integer", nullable=false)
+         * @ORM\OneToMany(targetEntity="User", mappedBy="id")
+         * @var int
+         */
+        protected $user_id;
 
-    public function getUser_id(){
-        return $this->user_id;
-    }
+        public function getId()
+        {
+            return $this->id;
+        }
+        
+        public function setId($id) {
+            $this->id = $id;
+        }
 
-    public function setUser_id($user_id){
-        $this->user_id = $user_id;
+        public function getExpiration_date()
+        {
+            return $this->expiration_date;
+        }
+
+        public function setExpiration_date()
+        {
+            $this->expiration_date = new DateTime('now');
+            $this->expiration_date->modify('+1 month');
+        }
+
+        public function getUser_id(){
+            return $this->user_id;
+        }
+
+        public function setUser_id($user_id){
+            $this->user_id = $user_id;
+        }
     }
-}
+?>

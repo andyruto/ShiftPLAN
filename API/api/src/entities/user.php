@@ -1,115 +1,118 @@
 <?php
-/**
- * user.php
- * users table definition for doctrine framework
- * author: Maximilian T. | Kontr0x
- * last edit / by: 2020-08-08 / Maximilian T. | Kontr0x
- */
-
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity 
- * @ORM\Table(name="users")
- */
-class User
-{
     /**
-     * @ORM\Id 
-     * @ORM\GeneratedValue 
-     * @ORM\Column(type="integer")
-     * @var int
+     * user.php
+     * 
+     * Users table definition for doctrine framework.
+     * 
+     * author: Maximilian T. | Kontr0x
+     * last edit / by: 2020-08-09 / Andreas G.
      */
-    protected $id;
+
+    use Doctrine\ORM\Mapping as ORM;
 
     /**
-     * @ORM\Column(type="string")
-     * @var string
+     * @ORM\Entity 
+     * @ORM\Table(name="tb_users")
      */
-    protected $name;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    protected $hidden = 0;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    protected $weekly_working_minutes = 0;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    protected $working_week_days = 0;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    protected $year_vacation_days = 0;
-
-    /**
-     * @ORM\Column(type="string")
-     * @var string
-     */
-    protected $password_hash;
-
-    public function getId()
+    class User
     {
-        return $this->id;
-    }
+        /**
+         * @ORM\Id 
+         * @ORM\GeneratedValue 
+         * @ORM\Column(type="integer")
+         * @var int
+         */
+        protected $id;
 
-    public function getName()
-    {
-        return $this->name;
-    }
+        /**
+         * @ORM\Column(type="string", unique=true, nullable=false)
+         * @var string
+         */
+        protected $name;
 
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
+        /**
+         * @ORM\Column(type="integer", nullable=false)
+         * @var int
+         */
+        protected $hidden = 0;
 
-    public function getHidden(){
-        return $this->hidden;
-    }
+        /**
+         * @ORM\Column(type="integer", nullable=false)
+         * @var int
+         */
+        protected $weekly_working_minutes = 0;
 
-    public function setHidden($hidden){
-        $this->hidden = $hidden;
-    }
+        /**
+         * @ORM\Column(type="integer", nullable=false)
+         * @var int
+         */
+        protected $working_week_days = 0;
 
-    public function getWeekly_working_minutes(){
-        return $this->weekly_working_minutes;
-    }
+        /**
+         * @ORM\Column(type="integer", nullable=false)
+         * @var int
+         */
+        protected $year_vacation_days = 0;
 
-    public function setWeekly_working_minutes($weekly_working_minutes){
-        $this->weekly_working_minutes = $weekly_working_minutes;
-    }
+        /**
+         * @ORM\Column(type="string", nullable=false)
+         * @var string
+         */
+        protected $password_hash;
 
-    public function getWorking_week_days(){
-        return $this->working_week_days;
-    }
+        public function getId()
+        {
+            return $this->id;
+        }
 
-    public function setWorking_week_days($working_week_days){
-        $this->working_week_days = $working_week_days;
-    }
+        public function getName()
+        {
+            return $this->name;
+        }
 
-    public function getYear_vacation_days(){
-        return $this->year_vacation_days;
-    }
+        public function setName($name)
+        {
+            $this->name = $name;
+        }
 
-    public function setYear_vacation_days($year_vacation_days){
-        $this->year_vacation_days = $year_vacation_days;
-    }
+        public function getHidden(){
+            return $this->hidden;
+        }
 
-    public function getPassword_hash(){
-        return $this->hidden;
-    }
+        public function setHidden($hidden){
+            $this->hidden = $hidden;
+        }
 
-    public function setPassword_hash($password_hash){
-        $this->password_hash = $password_hash;
+        public function getWeekly_working_minutes(){
+            return $this->weekly_working_minutes;
+        }
+
+        public function setWeekly_working_minutes($weekly_working_minutes){
+            $this->weekly_working_minutes = $weekly_working_minutes;
+        }
+
+        public function getWorking_week_days(){
+            return $this->working_week_days;
+        }
+
+        public function setWorking_week_days($working_week_days){
+            $this->working_week_days = $working_week_days;
+        }
+
+        public function getYear_vacation_days(){
+            return $this->year_vacation_days;
+        }
+
+        public function setYear_vacation_days($year_vacation_days){
+            $this->year_vacation_days = $year_vacation_days;
+        }
+
+        public function getPassword_hash(){
+            return $this->hidden;
+        }
+
+        public function setPassword_hash($password_hash){
+            $this->password_hash = $password_hash;
+        }
     }
-}
+?>
