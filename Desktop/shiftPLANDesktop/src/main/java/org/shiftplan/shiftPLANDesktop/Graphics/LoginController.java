@@ -50,7 +50,7 @@ public class LoginController {
     @FXML
     private void OnNextButtonClick(Event event) {
         try {
-
+            
             //Getting stage
             Stage stage = ((Stage) ((JFXButton) event.getSource()).getScene().getWindow());
 

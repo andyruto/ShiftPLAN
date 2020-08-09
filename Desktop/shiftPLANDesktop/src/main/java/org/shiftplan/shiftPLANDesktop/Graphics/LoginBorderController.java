@@ -12,15 +12,24 @@ package org.shiftplan.shiftPLANDesktop.Graphics;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.shiftplan.shiftPLANDesktop.Helper.ConfigReader;
 
 /**
  * Controller for the LoginBorder xml file.
  */
 public class LoginBorderController {
+
+    //Initialize variables
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     //Insert all fx id's
     @FXML
@@ -34,11 +43,50 @@ public class LoginBorderController {
 
     //Set parentcontroller for FirstInit
     public void initialize()  {
-        try {
-            FXMLLoader loginScreenLoader = new FXMLLoader(getClass().getResource("/FirstInit.fxml"));
-            LoginScreen.getChildren().add(loginScreenLoader.load());
-            loginScreenLoader.<FirstInitController>getController().setParentController(this);
-        }catch(Exception e) {}
+        ConfigReader configReader = ConfigReader.getConfigReader();
+        configReader.readConfigFile();
+        if(configReader.GetAPIKey() == "") {
+            try {
+                FXMLLoader loginScreenLoader = new FXMLLoader(getClass().getResource("/FirstInit.fxml"));
+                LoginScreen.getChildren().add(loginScreenLoader.load());
+                loginScreenLoader.<FirstInitController>getController().setParentController(this);
+            }catch(Exception e) {}
+        }else if(configReader.GetSessionKey() == "") {
+            try {
+                LoginScreen.getChildren().add(FXMLLoader.load(getClass().getResource("/Login.fxml")));
+            }catch(Exception e) {}
+        }else {
+            try {
+
+                //Getting stage
+                Stage stage = ((Stage) ExitButton.getScene().getWindow());
+                //Load Menu xml file into parent root
+                Parent root = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
+
+                //Make Window movable
+                root.setOnMousePressed(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        xOffset = event.getSceneX();
+                        yOffset = event.getSceneY();
+                    }
+                });
+                root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        stage.setX(event.getScreenX() - xOffset);
+                        stage.setY(event.getScreenY() - yOffset);
+                    }
+                });
+
+                //Insert into stage and show it
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }catch(Exception e) {}
+        }
+
+
     }
 
     //Adding all events

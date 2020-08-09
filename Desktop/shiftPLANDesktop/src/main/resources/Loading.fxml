@@ -2,15 +2,25 @@
 
 <?import com.jfoenix.controls.JFXSpinner?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" style="-fx-border-radius: 100; -fx-background-radius: 100;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXSpinner prefHeight="20.0" prefWidth="20.0" StackPane.alignment="CENTER">
-         <StackPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </StackPane.margin>
+      <JFXSpinner prefHeight="97.0" prefWidth="150.0">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
       </JFXSpinner>
+      <Label text="Please wait">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Label>
    </children>
-</StackPane>
+</VBox>

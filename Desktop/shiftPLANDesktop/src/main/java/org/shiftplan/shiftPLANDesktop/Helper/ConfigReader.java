@@ -32,7 +32,7 @@ public class ConfigReader {
     }
     public void readConfigFile(){
         try{
-            BufferedReader reader = new BufferedReader(new InputStreamReader(ConfigReader.class.getResourceAsStream("/config.txt")));
+            BufferedReader reader = new BufferedReader(new FileReader("./config.txt"));
             String line = reader.readLine();
             while(line!= null){
                 if(line.matches("\\s*([a-zA-Z]+)\\s+\\=\\s+([^\\|\\<\\>\\;\\&\\$\\#\\!\\*\\`\\´\\?\\%\\\"\\§\\²\\³\\¼\\½\\¬\\{\\[\\]\\}\\′\\+\\=\\:]+)")){

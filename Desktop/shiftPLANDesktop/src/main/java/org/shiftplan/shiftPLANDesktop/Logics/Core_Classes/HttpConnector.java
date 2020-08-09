@@ -6,10 +6,9 @@
  * author: Sascha W.
  * last edit / by: 2020-08-09 / Sascha W.
  */
-package org.shiftplan.shiftPLANDesktop.Logic;
+package org.shiftplan.shiftPLANDesktop.Logics.Core_Classes;
 
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -17,10 +16,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpConnector {
+    private static HttpConnector httpConnector = null;
 
-    public HttpConnector() {
+    private HttpConnector() {
     }
 
+    public static HttpConnector getHttpConnector() {
+        if(httpConnector==null){
+            httpConnector=new HttpConnector();
+        }
+        return httpConnector;
+    }
+    
     public JSONObject request(String targetUrl, String json) {
 
         String answer = new String();

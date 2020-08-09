@@ -18,7 +18,7 @@ public class ConfigWriter {
     }
     public boolean writeConfigFile(String apiKey,String apiLink, String sessionKey) {
         try{
-            BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/config.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./config.txt"));
             writer.write("[API]\napiKey = "+apiKey+"\napiLink = "+apiLink+"\n\n[Session]\nsessionKey = "+sessionKey);
             writer.close();
             return true;
