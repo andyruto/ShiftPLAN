@@ -9,7 +9,6 @@
 package org.shiftplan.shiftPLANDesktop.Graphics;
 
 //Import statements
-
 import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -21,12 +20,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Controller for the Users xml file.
+ */
 public class UsersController {
 
+    //Initialize variables
     private boolean activeUsers = true;
-
     private JFXDialog dialog;
 
+    //Insert all fx id's
     @FXML
     protected JFXButton ActiveUsersButton;
 
@@ -51,6 +54,7 @@ public class UsersController {
     @FXML
     protected JFXButton SearchUserButton;
 
+    //Add data to UserList
     public void initialize() {
         for(int o = 0; o < 20; o++) {
 
@@ -81,6 +85,7 @@ public class UsersController {
         }
     }
 
+    //Adding all events
     @FXML
     protected void OnActiveUsersButtonClick(Event event) {
         activeUsers = true;
@@ -105,9 +110,7 @@ public class UsersController {
     protected void OnAddButtonClick(Event event) {
         try {
             FXMLLoader stackPaneLoader = new FXMLLoader(getClass().getResource("/AddUser.fxml"));
-
             dialog = new JFXDialog(UserStackPane, stackPaneLoader.load(), JFXDialog.DialogTransition.CENTER);
-
             stackPaneLoader.<AddUserController>getController().setParentController(this);
 
             dialog.show();
@@ -117,6 +120,7 @@ public class UsersController {
     @FXML
     protected void OnSearchUserButtonClick(Event event) {}
 
+    //Method to close the dialog
     public void closeDialog() {
         dialog.close();
     }

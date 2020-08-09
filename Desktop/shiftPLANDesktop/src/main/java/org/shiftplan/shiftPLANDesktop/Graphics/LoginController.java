@@ -21,12 +21,16 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * Controller for the Login xml file.
+ */
 public class LoginController {
 
-    //define your offsets here
+    //Initialize variables
     private double xOffset = 0;
     private double yOffset = 0;
 
+    //Insert all fx id's
     @FXML
     protected JFXButton NextButton;
 
@@ -36,13 +40,18 @@ public class LoginController {
     @FXML
     protected JFXPasswordField Password;
 
+    //Adding all events
     @FXML
     protected void OnNextButtonClick(Event event) {
         try {
+
+            //Getting stage
             Stage stage = ((Stage) ((JFXButton) event.getSource()).getScene().getWindow());
 
+            //Load Menu xml file into parent root
             Parent root = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
 
+            //Make Window movable
             root.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -50,7 +59,6 @@ public class LoginController {
                     yOffset = event.getSceneY();
                 }
             });
-
             root.setOnMouseDragged(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -59,6 +67,7 @@ public class LoginController {
                 }
             });
 
+            //Insert into stage and show it
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

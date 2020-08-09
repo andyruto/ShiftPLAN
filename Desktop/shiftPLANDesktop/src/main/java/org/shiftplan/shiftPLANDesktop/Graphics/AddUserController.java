@@ -10,19 +10,19 @@ package org.shiftplan.shiftPLANDesktop.Graphics;
 
 //Import statements
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
+/**
+ * Controller for the AddUser xml file.
+ */
 public class AddUserController {
 
+    //Initialize parentcontroller for AddUser
     private UsersController parentController;
 
+    //Insert all fx id's
     @FXML
     protected JFXTextField UserName;
 
@@ -44,6 +44,7 @@ public class AddUserController {
     @FXML
     protected JFXTextField UserPassword;
 
+    //Adding all events
     @FXML
     protected void OnAddUserButtonClick(Event event) {
         parentController.closeDialog();
@@ -54,6 +55,7 @@ public class AddUserController {
         parentController.closeDialog();
     }
 
+    //Set parentcontroller for AddUser
     public void setParentController(UsersController parentController) {
         this.parentController = parentController;
     }

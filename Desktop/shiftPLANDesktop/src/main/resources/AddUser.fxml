@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+AddUser.fxml
+
+Xml file for the graphic overlay of the AddUser screen.
+
+author: Sascha W.
+last edit / by: 2020-08-08 / Sascha W.
+-->
+
+<!--Import statements-->
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -7,6 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<!--Graphic overlay-->
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.shiftplan.shiftPLANDesktop.Graphics.AddUserController">
    <children>
       <JFXTextField fx:id="UserName" focusColor="#1e406c" prefHeight="16.0" prefWidth="150.0" promptText="Name">

@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+Users.fxml
+
+Xml file for the graphic overlay of the Users screen.
+
+author: Sascha W.
+last edit / by: 2020-08-08 / Sascha W.
+-->
+
+<!--Import statements-->
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -10,6 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<!--Graphic overlay-->
 <StackPane fx:id="UserStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.shiftplan.shiftPLANDesktop.Graphics.UsersController">
    <HBox>
       <children>

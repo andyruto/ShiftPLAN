@@ -12,8 +12,12 @@ package org.shiftplan.shiftPLANDesktop.Graphics;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * Controller for the Home xml file.
+ */
 public class HomeController {
 
+    //Insert all fx id's
     @FXML
     protected Label DayDisplay;
 

@@ -22,14 +22,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.awt.*;
-
+/**
+ * Controller for the Menu xml file.
+ */
 public class MenuController {
 
-    //define your offsets here
+    //Initialize variables
     private double xOffset = 0;
     private double yOffset = 0;
 
+    //Insert all fx id's
     @FXML
     protected JFXButton ExitButton;
 
@@ -54,19 +56,25 @@ public class MenuController {
     @FXML
     protected HBox MainApplicationField;
 
+    //On Initialization
     public void initialize() {
         try {
         MainApplicationField.getChildren().add(FXMLLoader.load(getClass().getResource("/Home.fxml")));
         }catch(Exception e) {}
     }
 
+    //Adding all events
     @FXML
     protected void OnLogoutButtonClick(Event event) {
         try {
+
+            //Getting stage
             Stage stage = ((Stage) ((JFXButton) event.getSource()).getScene().getWindow());
 
-            Parent root = FXMLLoader.load(getClass().getResource("/LoginRahmen.fxml"));
+            //Load LoginBorder xml file into parent root
+            Parent root = FXMLLoader.load(getClass().getResource("/LoginBorder.fxml"));
 
+            //Make Window movable
             root.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -74,7 +82,6 @@ public class MenuController {
                     yOffset = event.getSceneY();
                 }
             });
-
             root.setOnMouseDragged(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -83,6 +90,7 @@ public class MenuController {
                 }
             });
 
+            //Insert into stage and show it
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

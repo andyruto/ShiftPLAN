@@ -14,10 +14,12 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 
-import javax.swing.text.html.ListView;
-
+/**
+ * Controller for the Shifts xml file.
+ */
 public class ShiftsController {
 
+    //Insert all fx id's
     @FXML
     protected JFXTextField UserSearchBar;
 

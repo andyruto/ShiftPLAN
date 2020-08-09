@@ -32,21 +32,27 @@ public class Main extends Application {
         launch(args);
     }
 
-    //define your offsets here
+    //Initialize variables
     private double xOffset = 0;
     private double yOffset = 0;
 
+    /**
+     * Start of stage.
+     *
+     * @param stage initialized
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
-        //Making Window without Border
+        //Making window without border and not resizable
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
 
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginRahmen.fxml"));
+        //Load xml file into parent root
+        Parent root = FXMLLoader.load(getClass().getResource("/LoginBorder.fxml"));
 
-
-
+        //Make Window movable
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -54,7 +60,6 @@ public class Main extends Application {
                 yOffset = event.getSceneY();
             }
         });
-
         root.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -63,6 +68,7 @@ public class Main extends Application {
             }
         });
 
+        //Insert into stage and show it
         Scene scene = new Scene (root);
         stage.setScene(scene);
         stage.show();

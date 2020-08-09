@@ -12,20 +12,18 @@ package org.shiftplan.shiftPLANDesktop.Graphics;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.application.Platform;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
+/**
+ * Controller for the FirstInit xml file.
+ */
 public class FirstInitController {
 
-    private LoginRahmenController parentController;
+    //Initialize parentcontroller for AddUser
+    private LoginBorderController parentController;
 
+    //Insert all fx id's
     @FXML
     protected JFXButton NextButton;
 
@@ -35,12 +33,14 @@ public class FirstInitController {
     @FXML
     protected JFXPasswordField APIKey;
 
+    //Adding all events
     @FXML
     protected void OnNextButtonClick(Event event) {
             parentController.setResource("/Login.fxml");
     }
 
-    public void setParentController(LoginRahmenController parentController) {
+    //Set parentcontroller for LoginBorder
+    public void setParentController(LoginBorderController parentController) {
         this.parentController = parentController;
     }
 
