@@ -25,6 +25,14 @@
                     <release>11</release>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.1</version>
+                <configuration>
+                    <mainClass>App</mainClass>  <!--main-Class angeben-->
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
