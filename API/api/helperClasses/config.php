@@ -5,13 +5,16 @@
 -- for our project. It's a config reader / provider class that provides all necesarry settings.
 --
 -- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-08-08 / Maximilian T. | Kontr0x
+-- last edit / by: 2020-08-08 / Andreas G.
 -->
 <?php
-    //Importing all config and config helper classes from path
+    //Importing general class first
+    require ROOT . '/helperClasses/configClasses/general.php';
+
+    //Importing all other config and config helper classes from path
     foreach (scandir(ROOT . '/helperClasses/configClasses'.'/') as $filename) {
         $path = ROOT . '/helperClasses/configClasses'.'/'.$filename;
-        if (is_file($path)) {
+        if (is_file($path) && $path != ROOT . '/helperClasses/configClasses/general.php') {
             require $path;
         }
     }
