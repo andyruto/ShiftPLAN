@@ -1,0 +1,6 @@
+[API]
+apiKey = regvfd
+apiLink = vfdvd
+
+[Session]
+sessionKey = vdfvd

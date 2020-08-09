@@ -17,6 +17,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.shiftplan.shiftPLANDesktop.Helper.ConfigReader;
+
+import java.io.File;
 
 /**
  * A small shift planning project. Class containing the main entry point for the application.
