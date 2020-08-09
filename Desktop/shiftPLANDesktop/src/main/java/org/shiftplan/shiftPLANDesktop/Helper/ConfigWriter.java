@@ -24,7 +24,6 @@ public class ConfigWriter {
             return true;
         }
         catch (Exception e){
-            System.out.println("not working");
             return false;
         }
     }

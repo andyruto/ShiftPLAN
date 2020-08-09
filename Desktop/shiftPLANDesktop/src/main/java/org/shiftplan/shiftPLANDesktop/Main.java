@@ -23,6 +23,6 @@ public class Main {
      * @param args Startup arguments provided at application startup
      */
     public static void main(String[] args) {
-        
+
     }
 }
