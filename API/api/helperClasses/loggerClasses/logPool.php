@@ -1,14 +1,16 @@
-<!--
--- logPool.php
---
--- LogPool class managing all log files in the log directory and
--- realizing the log rotation functionality.
---
--- author: Andreas G.
--- last edit / by: 2020-08-08 / Andreas G.
--->
 <?php
+/**
+ * logPool.php
+ * 
+ * LogPool class managing all log files in the log directory and
+ * realizing the log rotation functionality.
+ * 
+ * author: Andreas G.
+ * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x 
+ */
+
     final class LogPool {
+
         //Array storing the log files in the log path
         private $logFiles = array();
 
@@ -43,7 +45,9 @@
             }
 
             $this->logPath = $logPathResult;
-
+            if(!is_dir($this->logPath)){
+                createWebHiddenFolder(ROOT . '/logs/');
+            }
             //Refreshing the logFiles array
             $this->refreshLogFilesArray();
         }

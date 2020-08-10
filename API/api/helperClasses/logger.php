@@ -1,16 +1,18 @@
-<!--
--- logger.php
---
--- PHP file containing the specific monolog implementation
--- for our project. It's a logger singleton class.
---
--- author: Andreas G.
--- last edit / by: 2020-08-08 / Andreas G.
--->
 <?php
+    /**
+     * logger.php
+     * 
+     * PHP file containing the specific monolog implementation
+     * for our project. It's a logger singleton class.
+     * 
+     * author: Andreas G.
+     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x 
+     */
+
     require ROOT . '/helperClasses/loggerClasses/logPool.php';
 
     final class Logger {
+        
         //The static property to store the project logger object
         private static $logger = null;
 

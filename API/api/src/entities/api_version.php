@@ -5,7 +5,7 @@
      * Api_versions table definition for doctrine framework.
      * 
      * author: Andreas G.
-     * last edit / by: 2020-08-09 / Andreas G.
+     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
      */
 
     use Doctrine\ORM\Mapping as ORM;
@@ -29,15 +29,14 @@
          * @var string
          */
         protected $version;
-
+// id
         public function getId() {
             return $this->id;
         }
-
+// version
         public function getVersion() {
             return $this->version;
         }
-
         public function setVersion($version) {
             $this->version = $version;
         }

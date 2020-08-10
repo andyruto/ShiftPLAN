@@ -1,13 +1,14 @@
-<!--
--- config.php
---
--- PHP file containing the specific config reader / provider implementation
--- for our project. It's a config reader / provider class that provides all necesarry settings.
---
--- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-08-08 / Andreas G.
--->
 <?php
+    /**
+     * config.php
+     * 
+     * PHP file containing the specific config reader / provider implementation
+     * for our project. It's a config reader / provider class that provides all necesarry settings.
+     * 
+     * author: Maximilian T. | Kontr0x
+     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     */
+
     //Importing general class first
     require ROOT . '/helperClasses/configClasses/general.php';
 

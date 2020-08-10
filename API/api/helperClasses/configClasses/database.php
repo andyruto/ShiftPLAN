@@ -1,13 +1,15 @@
-<!--
--- Database.php
---
--- PHP file containing the specific database config for our project.
---
--- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-08-08 / Maximilian T. | Kontr0x
--->
 <?php
+    /**
+     * Database.php
+     * 
+     * PHP file containing the specific database config for our project.
+     * 
+     * author: Maximilian T. | Kontr0x
+     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     */
+
     final class Database extends General{
+        
         //Hostname or ip of database 
         private $dbHost = null;
 

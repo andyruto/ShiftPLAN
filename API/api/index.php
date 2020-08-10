@@ -1,14 +1,14 @@
 <?php
-
-// index.php
-// 
-// Script checking the structure of the current api version. If
-// the structure is missing this script will provide the functionality
-// to create the api structure and DB. If it exists and is valid for
-// the current version it'll show a message.
-// 
-// author: Andreas G.
-// last edit / by: 2020-08-09 / Maximilian T. | Kontr0x
+    /**
+     * index.php
+     * Script checking the structure of the current api version. If
+     * the structure is missing this script will provide the functionality
+     * to create the api structure and DB. If it exists and is valid for
+     * the current version it'll show a message.
+     * 
+     * author: Andreas G.
+     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     */
 
     require 'prepareExec.php';
 
@@ -42,22 +42,30 @@
                     }
             }
             $entityManager = Bootstrap::getEntityManager();
-            if($entityManager->getRepository('Api_key')->findAll()==null){
-                $standartuser = new User();
-                $standartuser->setName('admin');
-                $standartuser->setPassword_hash('8122cba12b897aa5546baf90b6c82c9f646f976b3555033cbc5e0b72d4f7a5bc');
-                $standartApiKey = new Api_key();
-                $standartApiKey->setid(generateRandomString(20));
-                $standartApiKey->setName('standartApiKey');
-                $entityManager->persist($standartApiKey);
+            if($entityManager->getRepository('api_key')->findAll()==null){
+                $standarduser = new User();
+                $standarduser->setName('admin');
+                $standarduser->setPassword_hash('8122cba12b897aa5546baf90b6c82c9f646f976b3555033cbc5e0b72d4f7a5bc');
+                $entityManager->persist($standarduser);
+                $standardApiKey = new Api_key();
+                $standardApiKey->setid(generateRandomString(20));
+                $standardApiKey->setName('standardApiKey');
+                $entityManager->persist($standardApiKey);
                 $entityManager->flush();
                 header('Content-Type: application/json');
-                $respondJSON = array('success' => false, 'apikey' => apiKey);
+                $respondJSON = array('success' => false, 'apikey' => $standardApiKey->getId());
                 echo(json_encode($respondJSON));
                 exit();
-            }elseif(checkApiKey()){
-
             }
+            // Takes raw data from the request
+            $json = file_get_contents('php://input');
+            
+            if(checkApiKey(json_decode($json)->api_key)) {
+                header('Content-Type: application/json');
+                     $respondJSON = array('success' => true);
+                     echo(json_encode($respondJSON));
+                     exit();}
+            
         }
     }
 

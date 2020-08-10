@@ -1,13 +1,15 @@
-<!--
--- file.php
---
--- File class representing a specific file on filesystem.
---
--- author: Andreas G.
--- last edit / by: 2020-08-07 / Andreas G.
--->
 <?php
+    /**
+     * file.php
+     * 
+     * File class representing a specific file on filesystem.
+     * 
+     * author: Andreas G.
+     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     */
+
     final class File {
+        
         //The path to the folder where the file is located in
         private $path = null;
 

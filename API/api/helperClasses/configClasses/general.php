@@ -1,12 +1,13 @@
-<!--
--- general.php
---
--- PHP file containing functions to fill an validate configs.
---
--- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-08-06 / Maximilian T. | Kontr0x
--->
 <?php
+    /**
+     * general.php
+     * 
+     * PHP file containing functions to fill an validate configs.
+     * 
+     * author: Maximilian T. | Kontr0x
+     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     */
+
     abstract class General{
 
         //Function to fill the paramters with values

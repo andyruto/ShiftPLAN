@@ -1,14 +1,13 @@
-
-
 <?php
-
-// prepareExec.php
-//
-// Script preparing all imports and requirements for
-// all the script executions.
-//
-// author: Andreas G.
-// last edit / by: 2020-08-08 / Andreas G.
+/**
+ * prepareExec.php
+ * 
+ * Script preparing all imports and requirements for
+ * all the script executions.
+ * 
+ * author: Andreas G.
+ * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+ */
 
     if(!defined('ROOT')) {
         define('ROOT', __DIR__);
@@ -68,18 +67,6 @@
         fclose($fileWriter);
     }
     
-    function checkApiKey($apiKey) : bool{
-        $eM = Bootstrap::getEntityManager();
-        if($eM->find('Api_keys', $apiKey)!=null){
-            Logger::getLogger()->log('ERROR', 'api key invalid');
-            header('Content-Type: application/json');
-            $respondJSON = array('success' => false);
-            echo(json_encode($respondJSON));
-            exit();
-        }
-    }
-
-
     //Function to get random string by length
     //@param $length: length of random string
     //@return: returning random genrated string
@@ -95,7 +82,7 @@
     
     //Loading composer packages
     require ROOT . '/vendor/autoload.php';
-
+    
     //Importing all classes from path
     foreach (scandir(ROOT . '/helperClasses'.'/') as $filename) {
         $path = ROOT . '/helperClasses'.'/'.$filename;
@@ -103,10 +90,40 @@
             require $path;
         }
     }
-
+    
     //Loading main doctrine config class
     require ROOT . '/src/bootstrap.php';
+    
+    function checkApiKey($apiKey) : bool{
+        $eM = Bootstrap::getEntityManager();
+        if(empty($apiKey)||$eM->find('Api_key', $apiKey)==null){
+            header('Content-Type: application/json');
+            $respondJSON = array('success' => false);
+            echo(json_encode($respondJSON));
+            exit();
+        }
+        return true;
+    }
+
+    function checkSessionKey($sessionKey) : bool{
+        $eM = Bootstrap::getEntityManager();
+        $session_key = $eM->find('Session', $sessionKey);
+        header('Content-Type: application/json');
+        if($session_key==null){
+            $respondJSON = array('success' => 'false');
+            echo(json_encode($respondJSON));
+            exit();
+        }elseif($session_key->getExpiration_date()<new DateTime('now')){
+            $eM->remove($session_key);
+            $eM->flush();
+            $eM->clear();
+            $respondJSON = array('success' => 'false');
+            echo(json_encode($respondJSON));
+            exit();
+        }
+        return true;
+    }
 
     Config::getConfig()->printConfig();
-
-?>
+    
+    ?>

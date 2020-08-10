@@ -1,12 +1,12 @@
-<!--
--- bootstrap.php
---
--- PHP file containing doctrine main config
---
--- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-08-08 / Maximilian T. | Kontr0x
--->
 <?php
+/**
+ * bootstrap.php
+ * 
+ * PHP file containing doctrine main config
+ * 
+ * author: Maximilian T. | Kontr0x
+ * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+ */
 
 //Importing all entities classes from path
 foreach (scandir(ROOT . '/src/entities'.'/') as $filename) {

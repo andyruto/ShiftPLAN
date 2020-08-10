@@ -1,7 +1,0 @@
-<?php
-
-    final class apikey{
-
-    }
-
-?>

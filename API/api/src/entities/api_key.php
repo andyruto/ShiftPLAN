@@ -88,102 +88,90 @@
          * @var int
          */
         protected $shift_write = 0;
-
+// id
         public function getId()
         {
             return $this->id;
         }
-
         public function setId($id){
             $this->id=$id;
         }
-
+// name
         public function getName()
         {
             return $this->name;
         }
-
         public function setName($name)
         {
             $this->name = $name;
         }
-
+// users_read
         public function getUsers_read(){
             return $this->users_read;
         }
-
         public function setUsers_read($users_read){
             $this->users_read = $users_read;
         }
-
+// users_write
         public function getUsers_write(){
             return $this->users_write;
         }
-
         public function setUsers_write($users_write){
             $this->users_write = $users_write;
         }
-
+// tasks_read
         public function getTasks_read(){
             return $this->tasks_read;
         }
-
         public function setTasks_read($tasks_read){
             $this->tasks_read = $tasks_read;
         }
-
+// tasks_write
         public function getTasks_write(){
             return $this->tasks_write;
         }
-
         public function setTasks_write($tasks_write){
             $this->tasks_write = $tasks_write;
         }
-
+// vacation_read
         public function getVacation_read(){
             return $this->vacation_read;
         }
-
         public function setVacation_read($vacation_read){
             $this->vacation_read = $vacation_read;
         }
-
+// vacation write
         public function getVacation_write(){
             return $this->vacation_write;
         }
-
         public function setVacation_write($vacation_write){
             $this->vacation_write = $vacation_write;
         }
-
+// disability_certificate_read
         public function getDisability_certificate_read(){
             return $this->disability_certificate_read;
         }
-
         public function setDisabilty_certificate_read($disability_certificate_read){
             $this->disability_certificate_read = $disability_certificate_read;
         }
-
+// disability_certificate_write
         public function getDisability_certificate_write(){
             return $this->disability_certificate_write;
         }
-
         public function setDisabilty_certificate_write($disability_certificate_write){
             $this->disability_certificate_write = $disability_certificate_write;
         }
-
+// shift_read
         public function getShift_read(){
             return $this->shift_read;
         }
-
         public function setShift_read($shift_read){
             $this->shift_read = $shift_read;
         }
-
+// shift_write
         public function getShift_write(){
             return $this->shift_write;
         }
-
         public function setShift_write($shift_write){
             $this->shift_write = $shift_write;
         }

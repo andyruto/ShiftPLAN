@@ -1,12 +1,13 @@
-<!--
--- Logging.php
---
--- PHP file containing the specific logging config for our project.
---
--- author: Maximilian T. | Kontr0x
--- last edit / by: 2020-08-06 / Maximilian T. | Kontr0x
--->
 <?php
+    /**
+     * Logging.php
+     * 
+     * PHP file containing the specific logging config for our project.
+     * 
+     * author: Maximilian T. | Kontr0x
+     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     */
+
     final class Logging extends General{
 
         //Default values as constants
