@@ -1,0 +1,8 @@
+#######################################################
+# The htaccess for all directories.
+# author: Maximilian T. | Kontr0x
+# last edit / by: 2020-08-07 / Maximilian T. | Kontr0x
+#######################################################
+
+#Restrict access to doctrine folder
+Deny from all
