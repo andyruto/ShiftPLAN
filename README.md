@@ -3,12 +3,12 @@ This is a small shift planning app. This app provides the ability to
 plan shifts for all workers, assigning responsible persons for one worker
 and sending notifications to all users after changing the shift plan.
 The backend is also provided in this repository. Backend is written in PHP and
-the Desktop app in Java with JavaFX. This project is founded as university project.
+the Frontend is a WebApp and written in angular.js. This project is founded as university project.
 
 ## Contributors
-Andreas G. | Moritz W. | Sascha W. | Maximilian T.     
+Andreas G. | Anne N. | Sascha W. | Maximilian T.     
 ---------- | --------- | --------- | -------- 
-Backend | n/a | n/a | Backend
+Planung/Springer | Frontend | Frontend | Backend
 
 ## Features
 * viewing the own current shift
@@ -45,43 +45,3 @@ It should contain the author, last edit timestamp and the last editors name.
 * Methods with open changes or implementations should be commented before pushing 
 the last commit.
 * For every new functionality there should be a new branch to work on. (feature branch organization)
-
-## Package structure
-Package structure is still in discussion. This is just a template structure tree. It will be edited
-afterwards.
-<pre>
-org.shiftPLAN.shiftPLANDesktop
-|
-|---Graphics
-|   |
-|   |---Interfaces
-|   |---Enums
-|
-|---Helper
-|   |
-|   |---Grapics
-|   |---Logics
-|       |
-|       |---Actors
-|       |---Stages
-|
-|---Logics
-    |
-    |---Interfaces
-    |---Enum
-    |---Actors
-    |   |
-    |   |---Interfaces
-    |   |---Enum
-    |
-    |---Stages
-        |
-        |---Interfaces
-        |---Enum
-</pre>
-
-## UML and Plan diagrams
-The UML and Plan diagrams where made with modelio v4.0. An open source tool for creating software
-architecture diagrams and more. <br/>
-<br/>
-Link: https://www.modelio.org/
