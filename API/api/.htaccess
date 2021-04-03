@@ -6,3 +6,21 @@
 
 #Disabling the indexes for this and all subfolders
 Options -Indexes
+
+<Files ~ "\.conf$">
+	Deny from All
+</Files>
+
+<Files ~ "composer.*">
+        Deny from All
+</Files>
+
+<Files ~ ".gitignore">
+        Deny from All
+</Files>
+
+<Files ~ "prepareExec.php">
+        Deny from All
+</Files>
+
+

@@ -1,0 +1,8 @@
+#######################################################
+# The htaccess for all directories.
+# author: Maximilian T. | Kontr0x
+# last edit / by: 2021-04-03 / Maximilian T. | Kontr0x
+#######################################################
+
+#Restrict access to folder
+Deny from all
