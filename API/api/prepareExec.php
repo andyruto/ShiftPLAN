@@ -86,7 +86,7 @@
     //Importing all classes from path
     foreach (scandir(ROOT . '/helperClasses'.'/') as $filename) {
         $path = ROOT . '/helperClasses'.'/'.$filename;
-        if (is_file($path)) {
+        if (is_file($path) && $filename != '.htaccess') {
             require $path;
         }
     }
