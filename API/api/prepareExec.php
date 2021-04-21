@@ -6,8 +6,9 @@
  * all the script executions.
  * 
  * author: Andreas G.
- * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+ * last edit / by: 2021-04-21 / Maximilian T. | Kontr0x
  */
+    ini_set('display_errors','off');
 
     if(!defined('ROOT')) {
         define('ROOT', __DIR__);
