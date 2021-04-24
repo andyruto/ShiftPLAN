@@ -5,7 +5,7 @@
  * PHP file containing doctrine main config
  * 
  * author: Maximilian T. | Kontr0x
- * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+ * last edit / by: 2021-04-24 / Maximilian T. | Kontr0x
  */
 
 //Importing all entities classes from path
@@ -53,13 +53,25 @@ final class Bootstrap{
             //Creating doctrine config with parameters made in class
             self::$config = Setup::createAnnotationMetadataConfiguration(self::$paths, self::$isDevMode, self::$proxyDir, self::$cache, self::$useSimpleAnnotationReader);
             //Setting connection parameters for database connection
-            self::$conn = array(
-                'driver' => 'pdo_mysql',
-                'user'     => Config::getConfig()->get("Database")->getValue("dbUser"),
-                'password' => Config::getConfig()->get("Database")->getValue("dbPassword"),
-                'dbname'   => Config::getConfig()->get("Database")->getValue("dbName"),
-                'host' => Config::getConfig()->get("Database")->getValue("dbHost")
-            );
+            if(Config::getConfig()->get("Database")->getValue("dbPort") == 0){
+                self::$conn = array(
+                    'driver' => 'pdo_mysql',
+                    'user'     => Config::getConfig()->get("Database")->getValue("dbUser"),
+                    'password' => Config::getConfig()->get("Database")->getValue("dbPassword"),
+                    'dbname'   => Config::getConfig()->get("Database")->getValue("dbName"),
+                    'host' => Config::getConfig()->get("Database")->getValue("dbHost")
+                );
+            }else{
+                self::$conn = array(
+                    'driver' => 'pdo_mysql',
+                    'user'     => Config::getConfig()->get("Database")->getValue("dbUser"),
+                    'password' => Config::getConfig()->get("Database")->getValue("dbPassword"),
+                    'dbname'   => Config::getConfig()->get("Database")->getValue("dbName"),
+                    'host' => Config::getConfig()->get("Database")->getValue("dbHost"),
+                    'port' => Config::getConfig()->get("Database")->getValue("dbPort")
+                );
+            }
+            
             //Creating entityManager
             self::$entityManager = EntityManager::create(self::$conn, self::$config);
             try {

@@ -5,13 +5,16 @@
      * PHP file containing the specific database config for our project.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-04-24 / Maximilian T. | Kontr0x
      */
 
     final class Database extends General{
         
         //Hostname or ip of database 
         private $dbHost = null;
+
+        //Port for host
+        private $dbPort = 0;
 
         //Database name for active db
         private $dbName = null;
@@ -27,6 +30,8 @@
         //Function to print all variables with values of object
         public function printAllValues(){
             Logger::getLogger()->log('DEBUG','dbHost = '.$this->getValue('dbHost'));
+            if($this->dbPort != 0){Logger::getLogger()->log('DEBUG','dbPort = '.$this->getValue('dbPort'));}
+            else{Logger::getLogger()->log('DEBUG', 'database port not set using defaults');} 
             Logger::getLogger()->log('DEBUG','dbName = '.$this->getValue('dbName'));
             Logger::getLogger()->log('DEBUG','dbUser = '.$this->getValue('dbUser'));
             Logger::getLogger()->log('DEBUG','dbPassword = '.$this->getValue('dbPassword'));
@@ -35,13 +40,20 @@
         //Function to validate the properties values
         public function checkCompleteness(){
             if(!(empty($this->dbHost))){
-                if(!(preg_match('/^\w[^@]*\w[^@]$|[a-zA-Z0-9:%._\+~#=[^@]]{1,256}\.[a-zA-Z0-9()[^@]]{1,6}\b[a-zA-Z0-9():%_\+.~#?&=\/[^@]]+$/', $this->dbHost))){
+                if(!(preg_match('/(?:^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|(?=^(?:.){1,255}$)^(?:(?:(?:[-_a-zA-Z0-9])+(?:.)?)+(?:[-_a-zA-Z0-9])+$)/', $this->dbHost))){
                     Logger::getFatalLogger()->log('CRITICAL', 'database host "'.$this->dbHost.'" contains invalid characters');
                     exit();
                 }
             } else{
                 Logger::getFatalLogger()->log('CRITICAL', 'database host not set');
                 exit();
+            }
+
+            if($this->dbPort != 0){
+                if(!(preg_match('/^(?:[0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/', $this->dbPort))){
+                    Logger::getFatalLogger()->log('CRITICAL', 'database port "'.$this->dbPort.'" contains invalid characters');
+                    exit();
+                }
             }
 
             if(!(empty($this->dbName))){
