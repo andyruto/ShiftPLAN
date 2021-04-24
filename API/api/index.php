@@ -7,7 +7,7 @@
      * the current version it'll show a message.
      * 
      * author: Andreas G.
-     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-04-24 / Maximilian T. | Kontr0x
      */
 
     require 'prepareExec.php';
@@ -60,11 +60,12 @@
             // Takes raw data from the request
             $json = file_get_contents('php://input');
             
-            if(checkApiKey(json_decode($json)->api_key)) {
+            if(checkApiKey(json_decode($json)->api_key)){
                 header('Content-Type: application/json');
-                     $respondJSON = array('success' => true);
-                     echo(json_encode($respondJSON));
-                     exit();}
+                $respondJSON = array('success' => true);
+                echo(json_encode($respondJSON));
+                exit();
+            }
             
         }
     }
