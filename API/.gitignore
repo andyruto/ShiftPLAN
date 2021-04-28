@@ -1,0 +1,8 @@
+##################################################
+# The gitignore for release folder
+# files and directory
+# author: Kontr0x | Maximilian T.
+# last edit / by: 2021-04-28 / Kontr0x | Maximilian T.
+##################################################
+
+release/*
