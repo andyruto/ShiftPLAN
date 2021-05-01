@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python3 ../pyscript/release.py
+../pyversion/python394_linux/python ../pyscript/release.py
