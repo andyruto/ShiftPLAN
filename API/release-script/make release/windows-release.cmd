@@ -1,3 +1,3 @@
 @echo off
 
-"..\pyversion\python394\python.exe" "..\pyscript\release.py"
+"..\pyversion\python394_windows\python.exe" "..\pyscript\release.py"
