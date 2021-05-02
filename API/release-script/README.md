@@ -6,6 +6,6 @@
 
 > linux 
 > + make the linux-release<nolink>.sh executable with the command "chmod a+x linux-release.<nolink>sh" if that finished properly
->+ enter "./linux-release" in the terminal
+> + enter "./linux-release" in the terminal. On the first run this may take up to 4min to build.
 
 a folder 2 layers above with the name releases" has been created containig the realease.zip file. Extract the compressed folder "api" and place it into your web servers folder.
