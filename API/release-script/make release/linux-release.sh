@@ -10,5 +10,6 @@ else
 	rm -r ./Python-3.9.4
 	cd ../pyversion/python394/
 	./configure; make
+	cd ../../make\ release/
 	../pyversion/python394/python ../pyscript/release.py
 fi
