@@ -5,7 +5,7 @@
      * Vacation table definition for doctrine framework.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-04-21 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-05 / Maximilian T. | Kontr0x
      */
 
     use Doctrine\ORM\Mapping as ORM;
@@ -26,13 +26,13 @@
 
         /**
          * @ORM\Column(type="date", unique=true, nullable=false)
-         * @var date
+         * @var Date
          */
         protected $start_date;
 
         /**
          * @ORM\Column(type="date", nullable=false)
-         * @var date
+         * @var Date
          */
         protected $end_date;
 
@@ -44,18 +44,19 @@
 
         /**
          * @ORM\Column(type="boolean", nullable=false)
-         * @var boolean
+         * @var bool
          */
         protected $approved;
 
         /**
-         * @ORM\Column(type="date", nullable=true)
-         * @var date
+         * @ORM\Column(type="datetime", nullable=true)
+         * @var DateTime
          */
         protected $last_modified;
 
         /**
          * @ORM\Column(type="integer", nullable=true)
+         * @ORM\OneToMany(targetEntity="User", mappedBy="id")
          * @var int
          */
         protected $last_modified_by;

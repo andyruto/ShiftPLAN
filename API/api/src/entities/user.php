@@ -5,7 +5,7 @@
      * Users table definition for doctrine framework.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2020-08-21 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-05 / Maximilian T. | Kontr0x
      */
 
     use Doctrine\ORM\Mapping as ORM;
@@ -37,10 +37,10 @@
         protected $name;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $hidden = 0;
+        protected $hidden = false;
 
         /**
          * @ORM\Column(type="integer", nullable=false)

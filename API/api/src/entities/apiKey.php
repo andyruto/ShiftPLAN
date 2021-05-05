@@ -30,64 +30,88 @@
         protected $name;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $users_read = 0;
+        protected $apiKey_read = false;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $users_write = 0;
+        protected $apiKey_write = false;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $tasks_read = 0;
+        protected $sessions_read = false;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $tasks_write = 0;
+        protected $sessions_write = false;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $vacation_read = 0;
+        protected $users_read = false;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $vacation_write = 0;
+        protected $users_write = false;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $disability_certificate_read = 0;
+        protected $tasks_read = false;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $disability_certificate_write = 0;
+        protected $tasks_write = false;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $shift_read = 0;
+        protected $vacation_read = false;
 
         /**
-         * @ORM\Column(type="integer", nullable=false)
-         * @var int
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
          */
-        protected $shift_write = 0;
+        protected $vacation_write = false;
+
+        /**
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
+         */
+        protected $sick_note_read = false;
+
+        /**
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
+         */
+        protected $sick_note_write = false;
+
+        /**
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
+         */
+        protected $shift_read = false;
+
+        /**
+         * @ORM\Column(type="boolean", nullable=false)
+         * @var bool
+         */
+        protected $shift_write = false;
 // id
         public function getId(){
             return $this->id;
@@ -101,6 +125,34 @@
         }
         public function setName($name){
             $this->name = $name;
+        }
+// apiKey_read
+        public function getApiKey_read(){
+            return $this->apiKey_read;
+        }
+        public function setApiKey_read($apiKey_read){
+            $this->apiKey_read = $apiKey_read;
+        }
+// apiKey_write
+        public function getApiKey_write(){
+            return $this->apiKey_write;
+        }
+        public function setApiKey_write($apiKey_write){
+            $this->apiKey_write = $apiKey_write;
+        }
+// sessions_read
+        public function getSessions_read(){
+            return $this->sessions_read;
+        }
+        public function setSessions_read($sessions_read){
+            $this->sessions_read = $sessions_read;
+        }
+// sessions_write
+        public function getSessions_write(){
+            return $this->sessions_write;
+        }
+        public function setSessions_write($sessions_write){
+            $this->sessions_write = $sessions_write;
         }
 // users_read
         public function getUsers_read(){
@@ -144,19 +196,19 @@
         public function setVacation_write($vacation_write){
             $this->vacation_write = $vacation_write;
         }
-// disability_certificate_read
-        public function getDisability_certificate_read(){
-            return $this->disability_certificate_read;
+// sick_note_read
+        public function getSick_note_read(){
+            return $this->sick_note_read;
         }
-        public function setDisabilty_certificate_read($disability_certificate_read){
-            $this->disability_certificate_read = $disability_certificate_read;
+        public function setSick_note_read($sick_note_read){
+            $this->sick_note_read = $sick_note_read;
         }
-// disability_certificate_write
-        public function getDisability_certificate_write(){
-            return $this->disability_certificate_write;
+// sick_note_write
+        public function getSick_note_write(){
+            return $this->sick_note_write;
         }
-        public function setDisabilty_certificate_write($disability_certificate_write){
-            $this->disability_certificate_write = $disability_certificate_write;
+        public function setSick_note_write($sick_note_write){
+            $this->sick_note_write = $sick_note_write;
         }
 // shift_read
         public function getShift_read(){

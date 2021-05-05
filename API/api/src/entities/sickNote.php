@@ -26,28 +26,23 @@
 
         /**
          * @ORM\Column(type="date", unique=true, nullable=false)
-         * @var date
+         * @var Date
          */
         protected $start_date;
 
         /**
          * @ORM\Column(type="date", nullable=false)
-         * @var date
+         * @var Date
          */
         protected $end_date;
 
         /**
          * @ORM\Column(type="integer", nullable=false)
+         * @ORM\OneToMany(targetEntity="User", mappedBy="id")
          * @var int
          */
         protected $user_id;
 
-        /**
-         * @ORM\Column(type="boolean", nullable=false)
-         * @var boolean
-         */
-        protected $approved;
-// id
         public function getId(){
             return $this->id;
         }
@@ -71,13 +66,6 @@
         }
         public function setUser_id($user_id){
             $this->user_id = $user_id;
-        }
-// approved
-        public function getApproved(){
-            return $this->approved;
-        }
-        public function setApproved($approved){
-            $this->approved = $approved;
         }
     }
 ?>

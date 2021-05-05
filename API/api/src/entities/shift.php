@@ -5,7 +5,7 @@
      * Shifts table definition for doctrine framework.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-04-14 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-05 / Maximilian T. | Kontr0x
      */
 
     use Doctrine\ORM\Mapping as ORM;
@@ -40,19 +40,20 @@
 
         /**
          * @ORM\Column(type="integer", nullable=false)
+         * @ORM\OneToMany(targetEntity="Task", mappedBy="id")
          * @var int
          */
         protected $task;
 
         /**
-         * @ORM\Column(type="date", nullable=false)
-         * @var date
+         * @ORM\Column(type="datetime", nullable=false)
+         * @var DateTime
          */
         protected $shift_start;
 
         /**
-         * @ORM\Column(type="date", nullable=false)
-         * @var date
+         * @ORM\Column(type="datetime", nullable=false)
+         * @var DateTime
          */
         protected $shift_end;
 
@@ -64,13 +65,14 @@
 
         /**
          * @ORM\Column(type="integer", nullable=false)
+         * @ORM\OneToMany(targetEntity="User", mappedBy="id")
          * @var int
          */
         protected $last_modified_by;
 
         /**
-         * @ORM\Column(type="date", nullable=false)
-         * @var date
+         * @ORM\Column(type="datetime", nullable=false)
+         * @var DateTime
          */
         protected $last_modified;
 // id

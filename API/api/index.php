@@ -43,14 +43,19 @@
             }
             $entityManager = Bootstrap::getEntityManager();
             if($entityManager->getRepository('apiKey')->findAll()==null){
+                //Creating new user
                 $standarduser = new User();
                 $standarduser->setName('admin');
                 $standarduser->setPassword_hash('8122cba12b897aa5546baf90b6c82c9f646f976b3555033cbc5e0b72d4f7a5bc');
+                //Storeing created user
                 $entityManager->persist($standarduser);
+                //Creating new api key
                 $standardApiKey = new ApiKey();
                 $standardApiKey->setid(generateRandomString(20));
                 $standardApiKey->setName('standardApiKey');
+                //Storeing created api key
                 $entityManager->persist($standardApiKey);
+                //Flushing changes
                 $entityManager->flush();
                 header('Content-Type: application/json');
                 $respondJSON = array('success' => false, 'apiKey' => $standardApiKey->getId());
