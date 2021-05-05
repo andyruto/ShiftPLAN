@@ -12,7 +12,9 @@
 
         //Method that calls class code to execute
         static public function run(){
+            //Log the script location
             Main::logUrl();
+            //Run called code
             Main::run();
         }
     }

@@ -17,7 +17,7 @@
             
             // Takes raw data from the request
             $request = (new RequestParser())->getBodyObject();
-            Logger::getLogger()->log('DEBUG', 'api key '.$request->apiKey);
+            //Checking validation of api key
             if((new ApiKeyManager($request->apiKey))->checkApiKey()){
                 $respondJSON = array('success' => true, 'errorCode' => ErrorCode::NoError);
                 sendOutput($respondJSON);
@@ -26,6 +26,7 @@
 
         //Method invoked before script execution
         static public function logUrl(){
+            //Logging the called script location
             Logger::getLogger()->log('INFO', 'Api path /key/check/ was called');
         }
 

@@ -125,7 +125,9 @@
         return true;
     }
 
+    //Global function to send output to the client
     function sendOutput($respondJSON){
+        //Setting header from respons to json format
         header('Content-Type: application/json');
         echo(json_encode($respondJSON));
     }

@@ -10,13 +10,15 @@
 
     class ApiKeyManager{
 
-        private $eM = null;
+        private $eM = null; //Variable to store entity manager in
         private $apiKey = null;
 
         function __construct($apiKey){
             Logger::getLogger()->log('DEBUG', 'Called api key manager');
+            //Getting entity manager for database access
             $this->eM = Bootstrap::getEntityManager();
             if(!empty($apiKey)){
+                //Looking for api key in database
                 $this->apiKey = $this->eM->find('ApiKey', $apiKey);
                 if($this->apiKey == null){
                     Logger::getLogger()->log('ERROR', "Api key ".$apiKey." doesn't exist in database");
@@ -32,15 +34,20 @@
             }
         }
 
+        //Returning true if the api key is valid otherwise the script will stop due to code in constructor
         function checkApiKey() : bool{
             Logger::getLogger()->log('DEBUG', 'api key '.$this->apiKey->getId().' valid');
             return true;
         }
         
-        //todo
-        function addApiKey(){}
+        //Adding an api key
+        function addApiKey(){
+            //todo
+        }
 
-        //todo
-        function checkPermission(){}
+        //Checking specific permissions of api key
+        function checkPermission(){
+            //todo
+        }
     }
 ?>
