@@ -12,9 +12,9 @@
 
     /**
      * @ORM\Entity 
-     * @ORM\Table(name="tb_api_version")
+     * @ORM\Table(name="tb_db_version")
      */
-    class ApiVersion
+    class DbVersion
     {
         /**
          * @ORM\Id 

@@ -91,13 +91,13 @@
             require $path;
         }
     }
-    
+
     //Loading main doctrine config class
     require ROOT . '/src/bootstrap.php';
     
     function checkApiKey($apiKey) : bool{
         $eM = Bootstrap::getEntityManager();
-        if(empty($apiKey)||$eM->find('Api_key', $apiKey)==null){
+        if(empty($apiKey)||$eM->find('ApiKey', $apiKey)==null){
             header('Content-Type: application/json');
             $respondJSON = array('success' => false);
             echo(json_encode($respondJSON));
@@ -125,6 +125,10 @@
         return true;
     }
 
+    function sendOutput($respondJSON){
+        header('Content-Type: application/json');
+        echo(json_encode($respondJSON));
+    }
+
     Config::getConfig()->printConfig();
-    
     ?>

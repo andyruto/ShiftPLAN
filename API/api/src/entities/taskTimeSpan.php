@@ -26,19 +26,19 @@
 
         /**
          * @ORM\Column(type="date", nullable=false)
-         * @var date
+         * @var Date
          */
         protected $appointed_day;
 
         /**
-         * @ORM\Column(type="date", nullable=false)
-         * @var date
+         * @ORM\Column(type="datetime", nullable=false)
+         * @var DateTime
          */
         protected $start;
 
         /**
-         * @ORM\Column(type="date", nullable=false)
-         * @var date
+         * @ORM\Column(type="datetime", nullable=false)
+         * @var DateTime
          */
         protected $end;
 
@@ -56,8 +56,8 @@
         protected $last_modified_by;
 
         /**
-         * @ORM\Column(type="date", nullable=false)
-         * @var date
+         * @ORM\Column(type="datetime", nullable=false)
+         * @var DateTime
          */
         protected $last_modified;
 
