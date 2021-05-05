@@ -14,12 +14,15 @@
 
         function __construct(){
             Logger::getLogger()->log('DEBUG', 'Called request parser');
+            //Storeing current request as string
             $this->requestBody = file_get_contents('php://input');
         }
 
+        //Checking and if body is not null returning the json encoded version
         public function getBodyObject(){
             if($this->requestBody != null){
                 try{
+                    //When request body is not empty returning the json encodede version
                     return json_decode($this->requestBody);
                 }catch(Exception $e){
                     Logger::getLogger()->log('ERROR', "couldn't decode request body");
@@ -31,6 +34,7 @@
             }
         }
 
+        //Returning the request body
         public function getJson(){
             return $this->requestBody;
         }
