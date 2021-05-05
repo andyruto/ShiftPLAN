@@ -42,18 +42,18 @@
                     }
             }
             $entityManager = Bootstrap::getEntityManager();
-            if($entityManager->getRepository('api_key')->findAll()==null){
+            if($entityManager->getRepository('apiKey')->findAll()==null){
                 $standarduser = new User();
                 $standarduser->setName('admin');
                 $standarduser->setPassword_hash('8122cba12b897aa5546baf90b6c82c9f646f976b3555033cbc5e0b72d4f7a5bc');
                 $entityManager->persist($standarduser);
-                $standardApiKey = new Api_key();
+                $standardApiKey = new ApiKey();
                 $standardApiKey->setid(generateRandomString(20));
                 $standardApiKey->setName('standardApiKey');
                 $entityManager->persist($standardApiKey);
                 $entityManager->flush();
                 header('Content-Type: application/json');
-                $respondJSON = array('success' => false, 'apikey' => $standardApiKey->getId());
+                $respondJSON = array('success' => false, 'apiKey' => $standardApiKey->getId());
                 echo(json_encode($respondJSON));
                 exit();
             }
