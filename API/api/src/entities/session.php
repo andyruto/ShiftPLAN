@@ -36,20 +36,17 @@
          */
         protected $user_id;
 // id
-        public function getId()
-        {
+        public function getId(){
             return $this->id;
         }
-        public function setId($id) {
+        public function setId($id){
             $this->id = $id;
         }
 // expiration date
-        public function getExpiration_date()
-        {
+        public function getExpiration_date(){
             return $this->expiration_date;
         }
-        public function setExpiration_date()
-        {
+        public function setExpiration_date(){
             $this->expiration_date = new DateTime('now');
             $this->expiration_date->modify('+1 month');
         }

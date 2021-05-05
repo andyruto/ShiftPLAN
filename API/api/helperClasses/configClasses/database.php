@@ -9,12 +9,15 @@
      */
 
     final class Database extends General{
+
+        //Default values as constants
+        const DB_PORT = 0;
         
         //Hostname or ip of database 
         private $dbHost = null;
 
         //Port for host
-        private $dbPort = 0;
+        private $dbPort = null;
 
         //Database name for active db
         private $dbName = null;
@@ -31,7 +34,7 @@
         public function printAllValues(){
             Logger::getLogger()->log('DEBUG','dbHost = '.$this->getValue('dbHost'));
             if($this->dbPort != 0){Logger::getLogger()->log('DEBUG','dbPort = '.$this->getValue('dbPort'));}
-            else{Logger::getLogger()->log('DEBUG', 'database port not set using defaults');} 
+            else{Logger::getLogger()->log('DEBUG', 'database port set to 0 using default port');} 
             Logger::getLogger()->log('DEBUG','dbName = '.$this->getValue('dbName'));
             Logger::getLogger()->log('DEBUG','dbUser = '.$this->getValue('dbUser'));
             Logger::getLogger()->log('DEBUG','dbPassword = '.$this->getValue('dbPassword'));

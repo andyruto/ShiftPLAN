@@ -1,11 +1,11 @@
 <?php
     /**
-     * api_key.php
+     * apiKey.php
      * 
      * Api_keys table definition for doctrine framework.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2020-08-09 / Andreas G.
+     * last edit / by: 2021-05-05 / Maximilian T. | Kontr0x
      */
 
     use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +14,7 @@
      * @ORM\Entity 
      * @ORM\Table(name="tb_api_keys")
      */
-    class Api_key
+    class ApiKey
     {
         /**
          * @ORM\Id
@@ -89,20 +89,17 @@
          */
         protected $shift_write = 0;
 // id
-        public function getId()
-        {
+        public function getId(){
             return $this->id;
         }
         public function setId($id){
             $this->id=$id;
         }
 // name
-        public function getName()
-        {
+        public function getName(){
             return $this->name;
         }
-        public function setName($name)
-        {
+        public function setName($name){
             $this->name = $name;
         }
 // users_read
