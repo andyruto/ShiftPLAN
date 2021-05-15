@@ -29,6 +29,7 @@
          * @var string
          */
         protected $version;
+
 // id
         public function getId(){
             return $this->id;

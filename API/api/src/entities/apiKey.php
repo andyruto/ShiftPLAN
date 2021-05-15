@@ -155,7 +155,7 @@
             $this->sessions_write = $sessions_write;
         }
 // users_read
-        public function getUsers_read(){
+        public function getUsers_read():bool{
             return $this->users_read;
         }
         public function setUsers_read($users_read){

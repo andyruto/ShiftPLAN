@@ -9,19 +9,19 @@
      */
 
     abstract class Permission{
-        const ApiKeyRead = "getApiKey_read";
-        const ApiKeyWrite = "getApiKey_write";
-        const SessionsRead = "getSessions_read";
-        const SessionsWrite = "getSessions_write";
-        const UserRead = "getUsers_read";
-        const UserWrite = "getUsers_write";
-        const TasksRead = "getTasks_read";
-        const TasksWrite = "getTasks_write";
-        const VacationRead = "getVacation_read";
-        const VacationWrite = "getVacation_write";
-        const SickNoteRead = "getSick_note_read";
-        const SickNoteWrite = "setSick_note_write";
-        const ShiftRead = "getShift_read";
-        const ShiftWrite = "getShift_write";
+        const ApiKeyRead = "ApiKey_read";
+        const ApiKeyWrite = "ApiKey_write";
+        const SessionsRead = "Sessions_read";
+        const SessionsWrite = "Sessions_write";
+        const UserRead = "Users_read";
+        const UserWrite = "Users_write";
+        const TasksRead = "Tasks_read";
+        const TasksWrite = "Tasks_write";
+        const VacationRead = "Vacation_read";
+        const VacationWrite = "Vacation_write";
+        const SickNoteRead = "Sick_note_read";
+        const SickNoteWrite = "Sick_note_write";
+        const ShiftRead = "Shift_read";
+        const ShiftWrite = "Shift_write";
     }
 ?>

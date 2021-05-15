@@ -19,7 +19,7 @@
     }
 
     //Function to fix new line error on fgets
-    //@param $recource: source string to apply fix
+    //@param $recourc: source string to apply fix
     //@return: returning the fixed string
     function read_line($recource) : string {
         $buffer = fgets($recource);
@@ -92,6 +92,14 @@
         }
     }
 
+    //Importing enums
+    foreach (scandir(ROOT . '/helperClasses/enums'.'/') as $filename) {
+        $path = ROOT . '/helperClasses/enums'.'/'.$filename;
+        if (is_file($path)) {
+            require $path;
+        }
+    }
+
     //Loading main doctrine config class
     require ROOT . '/src/bootstrap.php';
     
@@ -126,11 +134,12 @@
     }
 
     //Global function to send output to the client
-    function sendOutput($respondJSON){
+    function sendOutput($finishCode, $providedRespondArray){
+        $respondArray = array_merge(array('errorCode' => $finishCode),$providedRespondArray);
         //Setting header from respons to json format
         header('Content-Type: application/json');
-        echo(json_encode($respondJSON));
+        echo(json_encode($respondArray));
     }
 
     Config::getConfig()->printConfig();
-    ?>
+?>
