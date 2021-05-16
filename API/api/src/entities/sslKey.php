@@ -17,11 +17,18 @@
     class SslKey
     {
         /**
-         * @ORM\Id
+         * @ORM\Id 
+         * @ORM\GeneratedValue 
+         * @ORM\Column(type="integer")
+         * @var int
+         */
+        protected $id;
+
+        /**
          * @ORM\Column(type="string", nullable=false)
          * @var string
          */
-        protected $id;
+        protected $keyPair;
 
         /**
          * @ORM\Column(type="datetime", nullable=false)
@@ -33,8 +40,12 @@
         public function getId(){
             return $this->id;
         }
-        public function setId($id){
-            $this->id = $id;
+// keyPair
+        public function getKeyPair(){
+            return $this->keyPair;
+        }
+        public function setKeyPair($keyPair){
+            $this->keyPair = $keyPair;
         }
 // expiration date
         public function getExpiration_date(){

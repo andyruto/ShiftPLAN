@@ -19,5 +19,8 @@
         const UserNotFound = 7; //User not found in database
         const WrongPassword = 8; //Wrong password for user
         const ApiKeyNameAlreadyInUse = 9; //An api key with the given name is already in use
+        const BadCyperText = 10; //Cyper text was bad
+        const MalformedMessageOrInvalidMAC = 11; //message malformed
+        const DatabaseValidationFailed = 12; // validation of the database failed
     }
 ?>

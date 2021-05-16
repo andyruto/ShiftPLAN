@@ -86,5 +86,21 @@
             }
             return $this->errorCode;
         }
+
+        public static function createDefaultApiKey(){
+            $eM = Bootstrap::getEntityManager();
+            if($eM->getRepository('apiKey')->findAll()==null){
+                //Creating new api key
+                $standardApiKey = new ApiKey();
+                $standardApiKey->setid(generateRandomString(20));
+                $standardApiKey->setName('standardApiKey');
+                //Storeing created api key
+                $eM->persist($standardApiKey);
+                //Flushing changes
+                $eM->flush();
+                return true;
+            }
+            return false;
+        }
     }
 ?>
