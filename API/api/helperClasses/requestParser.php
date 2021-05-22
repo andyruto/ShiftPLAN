@@ -23,7 +23,22 @@
             if($this->requestBody != null){
                 try{
                     //When request body is not empty returning the json encodede version
-                    return json_decode($this->requestBody);
+                    $tmpJson = json_decode($this->requestBody);
+                    $emptyParameters = array();
+                    foreach ($tmpJson as $key => $value){
+                        if($value == null){
+                            Logger::getLogger()->log('ERROR', 'parameter '.$key.' on request was empty');
+                            array_push($emptyParameters, $key);
+                        }
+                    }
+                    if(!empty($emptyParameters)){
+                        $finishCode = ErrorCode::EmptyParameter;
+                        $respondArray = array('parameters' => $emptyParameters);
+                        sendOutput($finishCode, $respondArray);
+                        exit();
+                    }
+                    Logger::getLogger()->log('DEBUG', 'succesfull parsed request');
+                    return $tmpJson;
                 }catch(Exception $e){
                     Logger::getLogger()->log('ERROR', "couldn't decode request body");
                     exit();

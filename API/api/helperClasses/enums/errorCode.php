@@ -22,5 +22,7 @@
         const BadCyperText = 10; //Cyper text was bad
         const MalformedMessageOrInvalidMAC = 11; //message malformed
         const DatabaseValidationFailed = 12; // validation of the database failed
+        const EmptyParameter = 13; // parameter was empty
+        const ValidationFailed = 14; // value mismatched regex
     }
 ?>

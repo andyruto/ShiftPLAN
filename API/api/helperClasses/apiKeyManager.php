@@ -14,13 +14,20 @@
         private $apiKey = null; //Variable to store an apiKey object
         private $errorCode = ErrorCode::NoError; // The error code associated with this object
 
-        private function __construct($apiKey){
+        public function __construct($apiKey){
             Logger::getLogger()->log('DEBUG', 'Called api key manager');
             //Getting entity manager for database access
             $this->eM = Bootstrap::getEntityManager();
             if(!empty($apiKey)){
                 //Looking for api key in database
-                $this->apiKey = $this->eM->find('ApiKey', $apiKey);
+                $apiKeysFromDB = $this->eM->getRepository('ApiKey')->findAll();
+                foreach($apiKeysFromDB as $apiKeyFromDB){
+                    if($apiKeyFromDB->getId() === $apiKey){
+                        $this->apiKey = $apiKeyFromDB;
+                    }
+                }
+
+                //$this->apiKey = $this->eM->find('ApiKey', $apiKey);
                 if($this->apiKey == null){
                     Logger::getLogger()->log('ERROR', "Api key ".$apiKey." doesn't exist in database");
                     $this->errorCode = ErrorCode::InvalidApiKey;

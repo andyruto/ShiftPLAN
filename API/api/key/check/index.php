@@ -19,6 +19,7 @@
             $request = (new RequestParser())->getBodyObject();
             //Checkinew executionChecker(ng validation of api key
             $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
+            $eC->check();
             //Preparing output
             $respondArray = array();
             sendOutput(ErrorCode::NoError, $respondArray);

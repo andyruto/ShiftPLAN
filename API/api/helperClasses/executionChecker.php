@@ -18,53 +18,102 @@
         private $userType = null;
         public function setUserType($userType){$this->userType = $userType;}
 
-        private function __construct(){}
+        private function __construct(){
+            Logger::getLogger()->log('DEBUG', 'Called execution checker');
+        }
 
         public static function apiKeyChecker(String $apiKey){
-            $obj = new self();
-            $obj->setApiKey($apiKey);
-            return $obj;
+            if(!empty($apiKey)){
+                $obj = new self();
+                if(preg_match(Validation::ApiKey, $apiKey)){
+                    $obj->setApiKey($apiKey);
+                    return $obj;
+                }else{
+                    Logger::getLogger()->log('DEBUG', 'api key failed regex validation');    
+                    $finishCode = ErrorCode::ValidationFailed;
+                }
+            }else{
+                Logger::getLogger()->log('DEBUG', 'api key is empty');
+                $finishCode = ErrorCode::EmptyParameter;
+            }
+            $respondArray = array('parameter' => 'apiKey');
+            sendOutput($finishCode, $respondArray);
+            exit();
         }
 
         public static function apiKeyPermissionChecker(String $apiKey, Array $permissions){
-            $obj = self::apiKeyChecker($apiKey);
-            $obj->setPermissions($permissions);
-            return $obj;
+            if(!empty($permissions)){
+                $obj = self::apiKeyChecker($apiKey);
+                $obj->setPermissions($permissions);
+                return $obj;
+            }else{
+                Logger::getLogger()->log('DEBUG', 'execution failed permissions is empty');
+                $finishCode = ErrorCode::EmptyParameter;
+            }
+            $respondArray = array('parameter' => 'permissions');
+            sendOutput($finishCode, $respondArray);
+            exit();
         }
 
         public static function apiKeyPermissionSessionChecker(String $apiKey, Array $permissions, String $session){
-            $obj = self::apiKeyPermissionChecker($apiKey, $permissions);
-            $obj->setSession($session);
-            return $obj;
+            if(!empty($session)){
+                $obj = self::apiKeyPermissionChecker($apiKey, $permissions);
+                if(preg_match(Validation::Session, $session)){
+                    $obj->setSession($session);
+                    return $obj;
+                }else{
+                    Logger::getLogger()->log('DEBUG', 'session failed regex validation');    
+                    $finishCode = ErrorCode::ValidationFailed;
+                }
+            }else{
+                Logger::getLogger()->log('DEBUG', 'execution failed session is empty');
+                $finishCode = ErrorCode::EmptyParameter;
+            }
+            $respondArray = array('parameter' => 'session');
+            sendOutput($finishCode, $respondArray);
+            exit();
         }
 
         public static function apiKeyPermissionSessionUserTypeChecker(String $apiKey, Array $permissions, String $session, Int $userType){
-            $obj = self::apiKeyPermissionSessionChecker($apiKey, $permissions, $session);
-            $obj->setUserType($userType);
-            return $obj;
+            if(!empty($userType)){
+                $obj = self::apiKeyPermissionSessionChecker($apiKey, $permissions, $session);
+                $obj->setUserType($userType);
+                return $obj;
+            }else{
+                Logger::getLogger()->log('DEBUG', 'execution failed user type is empty');
+                $finishCode = ErrorCode::EmptyParameter;
+                $respondArray = array('parameter' => 'user type');
+                sendOutput($finishCode, $respondArray);
+                exit();
+            }
         }
 
         public function check(){
-            checkDb();
-
-            $apiKeyManager = new ApiKeyManager($this->apiKey);
-            $finishCode = $apiKeyManager->checkApiKey();
-
-            if($this->success($finishCode)){
-                if(!empty($this->permissions)){
-                    $finishCode = $apiKeyManager->checkPermission($permissions);
-                }else{
-                    Logger::getLogger()->log('DEBUG', 'check permission skiped');
+            Logger::getLogger()->log('DEBUG', 'validating execution');
+            #$this->checkDb();
+            if(preg_match(Validation::ApiKey, $this->apiKey)){
+                $apiKeyManager = new ApiKeyManager($this->apiKey);
+                $finishCode = $apiKeyManager->checkApiKey();
+    
+                if($this->success($finishCode)){
+                    if(!empty($this->permissions)){
+                        $finishCode = $apiKeyManager->checkPermission($permissions);
+                    }else{
+                        Logger::getLogger()->log('DEBUG', 'check permission skiped');
+                    }
+                    if($this->success($finishCode)&&!empty($this->session)){
+                        $sessionManager = new SessionManager($this->session);
+                        $finishCode = $sessionManager.checkSession();
+                    }else{
+                        Logger::getLogger()->log('DEBUG', 'check session skiped');
+                    }
                 }
-                if($this->success($finishCode)&&!empty($this->session)){
-                    $sessionManager = new SessionManager($this->session);
-                    $finishCode = $sessionManager.checkSession();
-                }else{
-                    Logger::getLogger()->log('DEBUG', 'check session skiped');
-                }
+            }else{
+                Logger::getLogger()->log('DEBUG', 'api key failed validation');
+                $finishCode = ErrorCode::InvalidApiKey;
             }
 
-            if(!$success){
+            if(!$this->success($finishCode)){
                 $respondArray = array();
                 sendOutput($finishCode, $respondArray);
                 exit();
