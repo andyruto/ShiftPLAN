@@ -4,7 +4,7 @@
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-01 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-15 / Maximilian T. | Kontr0x
      */
 
     require '../../prepareExec.php';
@@ -12,20 +12,21 @@
     final class Main extends ApiRunnable{
 
         //Method invoked on script execution
-        static public function run(){
+        public static function run(){
             Logger::getLogger()->log('DEBUG', 'checking api key');
             
             // Takes raw data from the request
             $request = (new RequestParser())->getBodyObject();
-            //Checking validation of api key
-            if((new ApiKeyManager($request->apiKey))->checkApiKey()){
-                $respondJSON = array('success' => true, 'errorCode' => ErrorCode::NoError);
-                sendOutput($respondJSON);
-            }
+            //Checkinew executionChecker(ng validation of api key
+            $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
+            //Preparing output
+            $respondArray = array();
+            sendOutput(ErrorCode::NoError, $respondArray);
+            exit();
         }
 
         //Method invoked before script execution
-        static public function logUrl(){
+        public static function logUrl(){
             //Logging the called script location
             Logger::getLogger()->log('INFO', 'Api path /key/check/ was called');
         }

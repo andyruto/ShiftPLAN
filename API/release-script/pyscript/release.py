@@ -25,7 +25,7 @@ def main():
     regex = r"(?:[\s]*)(?:define\('API_VERSION', ')([0-9.]{3,})(?:'\);)"
     version = re.findall(regex, fileContent)[0]
     zipFileName = path + "/release-" + version + ".zip"
-    excudedFiles = r"(?:api\\.vscode|api\\logs|api\\settings.conf|api\\.gitignore|api\\composer.*)|(?:api\/.vscode|api\/logs|api\/settings.conf|api\/.gitignore|api\/composer.*)"
+    excudedFiles = r"(?:api\\.vscode|api\\logs|api\\settings.conf|api\\devConsole.php|api\\.gitignore|api\\composer.*)|(?:api\/.vscode|api\/logs|api\/settings.conf|api\/devConsole.php|api\/.gitignore|api\/composer.*)"
     make_zipfile(zipFileName, "../../api", excudedFiles)
 
 if __name__ == "__main__":

@@ -11,9 +11,9 @@
     abstract class ApiRunnable{
 
         //Function to execute code from class
-        abstract static public function run();
+        abstract public static function run();
 
         //Function to log the called api URL
-        abstract static public function logUrl();
+        abstract public static function logUrl();
     }
 ?>

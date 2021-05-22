@@ -10,6 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectManagerAware;
 use InvalidArgumentException;
 use RuntimeException;
+
 use function lcfirst;
 use function substr;
 
@@ -108,6 +109,7 @@ abstract class PersistentObject implements ObjectManagerAware
             if (! ($args[0] instanceof $targetClass) && $args[0] !== null) {
                 throw new InvalidArgumentException("Expected persistent object of type '" . $targetClass . "'");
             }
+
             $this->$field = $args[0];
             $this->completeOwningSide($field, $targetClass, $args[0]);
         } else {
@@ -136,9 +138,9 @@ abstract class PersistentObject implements ObjectManagerAware
     /**
      * If this is an inverse side association, completes the owning side.
      *
-     * @param string        $field
-     * @param ClassMetadata $targetClass
-     * @param object        $targetObject
+     * @param string $field
+     * @param string $targetClass
+     * @param object $targetObject
      *
      * @return void
      */
@@ -178,9 +180,11 @@ abstract class PersistentObject implements ObjectManagerAware
         if (! ($args[0] instanceof $targetClass)) {
             throw new InvalidArgumentException("Expected persistent object of type '" . $targetClass . "'");
         }
+
         if (! ($this->$field instanceof Collection)) {
             $this->$field = new ArrayCollection($this->$field ?: []);
         }
+
         $this->$field->add($args[0]);
         $this->completeOwningSide($field, $targetClass, $args[0]);
     }

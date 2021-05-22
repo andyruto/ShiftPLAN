@@ -73,7 +73,7 @@
         protected $login_attemps = 0;
 
         /**
-         * @ORM\Column(type="string", nullable=false, length=64)
+         * @ORM\Column(type="string", nullable=false)
          * @var string
          */
         protected $password_hash;
