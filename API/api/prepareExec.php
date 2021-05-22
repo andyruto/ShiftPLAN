@@ -138,6 +138,9 @@
         $respondArray = array_merge(array('errorCode' => $finishCode),$providedRespondArray);
         //Setting header from respons to json format
         header('Content-Type: application/json');
+        if(Config::getConfig()->get("Webserver")->getValue("sameOrigin") == "false"){
+            header('Access-Control-Allow-Origin:*');
+        }
         echo(json_encode($respondArray));
     }
 

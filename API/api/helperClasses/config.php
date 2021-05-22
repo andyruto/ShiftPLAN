@@ -31,10 +31,14 @@
         //Property to store database object
         private $database = null;
 
+        //Property to store web server object
+        private $webserver = null;
+
         //Constructor for building the config object
         private function __construct(){
             $this->logging = new Logging();
             $this->database = new Database();
+            $this->webserver = new Webserver();
         }
 
         //Function to get config or create if not already exists
@@ -57,11 +61,13 @@
             while(!feof($configStream)){ //looping through to the end of file
                 $line = read_line($configStream); //getting the current stream as string
 
-                if(preg_match('/\s*\[([[:upper:]][a-zA-Z0-9]+)\]\s*/',$line ,$matchInRow, PREG_UNMATCHED_AS_NULL)==1 && !(in_array(null, $matchInRow))){
-                    $currentSection=strtolower($matchInRow[1]);
-                } else if(preg_match('/\s*([a-zA-Z]+)\s+\=\s+([^\|\<\>\;\&\`\´\?\%\"\§\²\³\¼\½\¬\{\[\]\}\′\+\=\:]+)/',$line ,$matchInRow, PREG_UNMATCHED_AS_NULL)==1 && !(in_array(null, $matchInRow))){
-                    if(property_exists($this, $currentSection)){
-                        $this->$currentSection->putInValue($matchInRow[1], trim($matchInRow[2]));
+                if($line[0] != '#'){
+                    if(preg_match('/\s*\[([[:upper:]][a-zA-Z0-9]+)\]\s*/',$line ,$matchInRow, PREG_UNMATCHED_AS_NULL)==1 && !(in_array(null, $matchInRow))){
+                        $currentSection=strtolower($matchInRow[1]);
+                    } else if(preg_match('/\s*([a-zA-Z]+)\s+\=\s+([^\|\<\>\;\&\`\´\?\%\"\§\²\³\¼\½\¬\{\[\]\}\′\+\=\:]+)/',$line ,$matchInRow, PREG_UNMATCHED_AS_NULL)==1 && !(in_array(null, $matchInRow))){
+                        if(property_exists($this, $currentSection)){
+                            $this->$currentSection->putInValue($matchInRow[1], trim($matchInRow[2]));
+                        }
                     }
                 }
             }
