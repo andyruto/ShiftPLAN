@@ -9,6 +9,7 @@
      */
 
     class ExecutionChecker{
+
         private $apiKey = null; //Storing api key to check
         private function setApiKey($apiKey){$this->apiKey = $apiKey;}
         private $permissions = null; //Storing permission to check on api key
@@ -20,6 +21,7 @@
 
         private function __construct(){
             Logger::getLogger()->log('DEBUG', 'Called execution checker');
+
         }
 
         //Overloaded constructor to check api key

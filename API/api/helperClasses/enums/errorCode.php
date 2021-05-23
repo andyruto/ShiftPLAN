@@ -26,5 +26,6 @@
         const ValidationFailed = 14; // value mismatched regex
         const RequestBodyMalformed = 15; // request body couldnt be parsed
         const RequestBodyEmpty = 16; // request body was empty
+        const MigrationMissing = 17; //A required migration file is missing
     }
 ?>

@@ -15,7 +15,8 @@
         function __construct(){
             Logger::getLogger()->log('DEBUG', 'Called request parser');
             //Storeing current request as string
-            $this->requestBody = file_get_contents('php://input');
+            $this->requestBody = file_get_contents('php://input');etLogger()->log('DEBUG', 'Called request parser');
+            //Storeing current request as string
         }
 
         //Checking and if body is not null returning the json encoded version

@@ -16,16 +16,24 @@
             $this->eM = Bootstrap::getEntityManager();
         }
 
+        function getUserPasswordHash($name){
+            $user = $this->eM->getRepository('user')->findBy(array('name' => $name))[0];
+            return $user->getPassword_hash();
+        }
+
         public static function createDefaultUser(){
             $eM = Bootstrap::getEntityManager();
             if($eM->getrepository('user')->findAll()==null){
                 //Creating new user
                 $standarduser = new User();
                 $standarduser->setName('admin');
-                $pwHash = \Sodium\crypto_pwhash_scryptsalsa208sha256_str('admin', 
-                    SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_OPSLIMIT_INTERACTIVE,
-                    SODIUM_CRYPTO_PWHASH_SCRYPTSALSA208SHA256_MEMLIMIT_INTERACTIVE);
-                $standarduser->setPassword_hash($pwHash);
+                if(DEV_MODE){
+                    Logger::getLogger()->log('DEBUG', 'Dev mode is active');
+                    $pwHash = \Sodium\crypto_generichash('ProgrammersHatePhp');
+                }else{
+                    $pwHash = \Sodium\crypto_generichash('admin');
+                }
+                $standarduser->setPassword_hash(\Sodium\bin2hex($pwHash));
                 //Storeing created user
                 $eM->persist($standarduser);
                 //Flushing changes
