@@ -5,7 +5,7 @@
      * PHP file containing all defined error codes.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-05 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-23 / Maximilian T. | Kontr0x
      */
 
     abstract class ErrorCode{
@@ -24,5 +24,7 @@
         const DatabaseValidationFailed = 12; // validation of the database failed
         const EmptyParameter = 13; // parameter was empty
         const ValidationFailed = 14; // value mismatched regex
+        const RequestBodyMalformed = 15; // request body couldnt be parsed
+        const RequestBodyEmpty = 16; // request body was empty
     }
 ?>

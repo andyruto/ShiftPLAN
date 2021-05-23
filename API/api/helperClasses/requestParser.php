@@ -5,12 +5,12 @@
      * PHP file containing class to parse request body.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-05 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-23 / Maximilian T. | Kontr0x
      */
 
     class RequestParser{
 
-        private $requestBody = null;
+        private $requestBody = null; //Storing the request body
 
         function __construct(){
             Logger::getLogger()->log('DEBUG', 'Called request parser');
@@ -28,12 +28,12 @@
                     foreach ($tmpJson as $key => $value){
                         if($value == null){
                             Logger::getLogger()->log('ERROR', 'parameter '.$key.' on request was empty');
-                            array_push($emptyParameters, $key);
+                            $finishCode = ErrorCode::EmptyParameter;
                         }
                     }
-                    if(!empty($emptyParameters)){
-                        $finishCode = ErrorCode::EmptyParameter;
-                        $respondArray = array('parameters' => $emptyParameters);
+                    //If an paramter on the request was empty stop the script
+                    if($finishCode == ErrorCode::EmptyParameter){
+                        $respondArray = array();
                         sendOutput($finishCode, $respondArray);
                         exit();
                     }
@@ -41,10 +41,16 @@
                     return $tmpJson;
                 }catch(Exception $e){
                     Logger::getLogger()->log('ERROR', "couldn't decode request body");
+                    $finishCode = ErrorCode::RequestBodyMalformed;
+                    $respondArray = array();
+                    sendOutput($finishCode, $respondArray);
                     exit();
                 }
             }else{
                 Logger::getLogger()->log('ERROR', 'request body was empty');
+                $finishCode = ErrorCode::RequestBodyEmpty;
+                $respondArray = array();
+                sendOutput($finishCode, $respondArray);
                 exit();
             }
         }
