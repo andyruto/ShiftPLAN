@@ -22,6 +22,10 @@
         const BadCyperText = 10; //Cyper text was bad
         const MalformedMessageOrInvalidMAC = 11; //message malformed
         const DatabaseValidationFailed = 12; // validation of the database failed
+        const EmptyParameter = 13; // parameter was empty
+        const ValidationFailed = 14; // value mismatched regex
+        const RequestBodyMalformed = 15; // request body couldnt be parsed
+        const RequestBodyEmpty = 16; // request body was empty
         const MigrationMissing = 17; //A required migration file is missing
     }
 ?>
