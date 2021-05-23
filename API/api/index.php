@@ -8,7 +8,7 @@
      * the current version it'll show a message.
      * 
      * author: Andreas G.
-     * last edit / by: 2021-05-15 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-23 / Maximilian T. | Kontr0x
      */
 
     require 'prepareExec.php';
@@ -24,7 +24,7 @@
         private static $errorCode;
 
         //Method invoked on script execution
-        public static function run() {
+        public static function run(){
             self::$entityManager = Bootstrap::getEntityManager();
             self::$respond = array();
             self::$errorCode = ErrorCode::NoError;
@@ -51,7 +51,7 @@
                
                 UserManager::createDefaultUser();
     
-                if(ApiKeyManager::createDefaultApiKey()){
+                if((ApiKeyManager::creator())->createDefaultApiKey()){
                     $standardApiKey = self::$entityManager->getRepository('apiKey')->findBy(array('name' => "standardApiKey"))[0];
                     self::$respond = self::$respond + array('apiKey' => $standardApiKey->getId());
                 }
