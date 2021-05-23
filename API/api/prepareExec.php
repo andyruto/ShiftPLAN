@@ -18,6 +18,14 @@
         define('API_VERSION', '0.0.1');
     }
 
+    if(!defined('DEV_MODE')) {
+        if(is_file('devConsole.php')){
+            define('DEV_MODE', true);
+        }else{
+            define('DEV_MODE', false);
+        }
+    }
+
     //Function to fix new line error on fgets
     //@param $recourc: source string to apply fix
     //@return: returning the fixed string

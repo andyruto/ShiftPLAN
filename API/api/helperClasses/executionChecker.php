@@ -18,7 +18,9 @@
         private $userType = null;
         public function setUserType($userType){$this->userType = $userType;}
 
-        private function __construct(){}
+        private function __construct(){
+            
+        }
 
         public static function apiKeyChecker(String $apiKey){
             $obj = new self();

@@ -5,7 +5,7 @@
      * PHP file containing class to parse request body.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-05 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-23 / Maximilian T. | Kontr0x
      */
 
     class RequestParser{
@@ -15,7 +15,8 @@
         function __construct(){
             Logger::getLogger()->log('DEBUG', 'Called request parser');
             //Storeing current request as string
-            $this->requestBody = file_get_contents('php://input');
+            $this->requestBody = file_get_contents('php://input');etLogger()->log('DEBUG', 'Called request parser');
+            //Storeing current request as string
         }
 
         //Checking and if body is not null returning the json encoded version

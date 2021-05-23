@@ -5,7 +5,7 @@
      * PHP file containing all defined error codes.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-05 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-23 / Maximilian T. | Kontr0x
      */
 
     abstract class ErrorCode{
@@ -22,5 +22,6 @@
         const BadCyperText = 10; //Cyper text was bad
         const MalformedMessageOrInvalidMAC = 11; //message malformed
         const DatabaseValidationFailed = 12; // validation of the database failed
+        const MigrationMissing = 17; //A required migration file is missing
     }
 ?>
