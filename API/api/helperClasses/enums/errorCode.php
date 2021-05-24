@@ -27,5 +27,9 @@
         const RequestBodyMalformed = 15; // request body couldnt be parsed
         const RequestBodyEmpty = 16; // request body was empty
         const MigrationMissing = 17; //A required migration file is missing
+        const NoUserNameGiven = 18; //the user name parameter was empty
+        const DefaultUserUsesDefaultPassword = 19; //default user still uses default passsword
+        const DatabaseCorrupt = 20; //necessary database tables are corrupt, empty or not existing
+        const ApiVersionNotDbVersion = 21; //api version is different form database version
     }
 ?>

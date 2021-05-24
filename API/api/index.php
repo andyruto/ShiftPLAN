@@ -52,19 +52,25 @@
             if($dbFinishCode==ErrorCode::DatabaseValidationFailed){
                 self::$errorCode = ErrorCode::DatabaseValidationFailed;
             }else{
-                //ToDo: Run the db check manually (Not with Execution checker)
-    
                 SslKeyManager::createOrReplaceKeyPair();
                
-                UserManager::createDefaultUser();
-    
-                //Checking if default user still uses the default password
-                $defaultUserChangedPassword = self::$entityManager->getRepository('user')->findBy(array('name' => "admin"))[0]->getPassword_hash() != \Sodium\bin2hex(\Sodium\crypto_generichash('admin'));
+                $uM = UserManager::creator();
+                $uM->createDefaultUser();
 
-                if(ApiKeyManager::createDefaultApiKey() || !$defaultUserChangedPassword){
+                //Checking if default user still uses the default password
+                $defaultUserChangedPassword = (UserManager::obj('admin'))->getPasswordHash() != \Sodium\bin2hex(\Sodium\crypto_generichash('admin'));
+
+                $aM = ApiKeyManager::creator();
+                if($aM->createDefaultApiKey() || !$defaultUserChangedPassword){
                     $standardApiKey = self::$entityManager->getRepository('apiKey')->findBy(array('name' => "standardApiKey"))[0];
                     self::$respond = self::$respond + array('apiKey' => $standardApiKey->getId());
                 }
+
+                $dbM = new DbManager();
+                self::$errorCode = $dbM->checkDb(true);
+            }
+            if(self::$errorCode != ErrorCode::NoError){
+                self::$respond = array();
             }
             sendOutput(self::$errorCode, self::$respond);
             exit();
