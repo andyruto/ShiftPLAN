@@ -4,7 +4,7 @@
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-15 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-24 / Maximilian T. | Kontr0x
      */
 
     require '../../prepareExec.php';
@@ -19,7 +19,7 @@
             $request = (new RequestParser())->getBodyObject();
             //Checkinew executionChecker(ng validation of api key
             $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
-            $eC->check();
+            $eC->check(true);
             //Preparing output
             $respondArray = array();
             sendOutput(ErrorCode::NoError, $respondArray);

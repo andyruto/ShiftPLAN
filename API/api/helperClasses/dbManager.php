@@ -17,6 +17,30 @@
             $this->eM = Bootstrap::getEntityManager();
         }
 
+        public function checkDb($skipDefaultPwCheck){
+            $uM = UserManager::obj('admin');
+            $this->errorCode = $uM->getFinishCode();
+            if($this->errorCode == ErrorCode::NoError){
+                if($uM->getPasswordHash() != \Sodium\bin2hex(\Sodium\crypto_generichash('admin')) || $skipDefaultPwCheck){
+                    if($this->eM->getrepository('apiKey')->findAll()!=null){
+                        SslKeyManager::createOrReplaceKeyPair();
+                        $dbVersion = $this->eM->getRepository('DbVersion')->findBy(array('id' => 1))[0]->getVersion();
+                        if(API_VERSION != $dbVersion){
+                            Logger::getLogger()->log('ERROR', 'Api version and database version are different');
+                            $this->errorCode = ErrorCode::ApiVersionNotDbVersion;
+                        }
+                    }else{
+                        Logger::getLogger()->log('ERROR', 'Database is corrupt');
+                        $this->errorCode = ErrorCode::DatabaseCorrupt;
+                    }
+                }else{
+                    Logger::getLogger()->log('ERROR', 'Default user password not changed');
+                    $this->errorCode = ErrorCode::DefaultUserUsesDefaultPassword;
+                }
+            }
+            return $this->errorCode;
+        }
+
         //Sync method for the db making the db sync with the data model
         public function syncDb(){
             //Getting pending changes for the current db scheme
@@ -25,11 +49,11 @@
             $SchemaUpdate = $schemaTool->getUpdateSchemaSql($classes);
 
             //Checking if changes are pending
-            if (sizeof($SchemaUpdate) == 0) {
+            if(sizeof($SchemaUpdate) == 0){
                 //No pending changes, just sync the DB version if required
                 Logger::getLogger()->log('INFO', 'The database is synchronized. Nothing to do.');
                 $this->syncDbVersion();
-            } else {
+            }else{
                 //There are pending changes
                 Logger::getLogger()->log('INFO', 'The database isn\'t synchronized. DB update will be triggered.');
 
@@ -44,29 +68,28 @@
                 $SchemaUpdate = $schemaTool->getUpdateSchemaSql($classes);
 
                 //Checking if changes are pending
-                if (sizeof($SchemaUpdate) == 0) {
+                if(sizeof($SchemaUpdate) == 0){
                     //No changes pending. Everything fine.
                     Logger::getLogger()->log('INFO', 'The database successfully synchronized.');
                     $this->syncDbVersion();
-                } else {
+                }else{
                     //Something went wrong. Admin has to stop coffee break.
                     Logger::getLogger()->log('ERROR', 'Error while validation of the database.' . '\n' . 'Please run \'php vendor/bin/doctrine orm:schema-tool:update\' manually.');
                     $this->errorCode = ErrorCode::DatabaseValidationFailed;
                 }
             }
-
             return $this->errorCode;
         }
 
         //Method updating the db version to be sync with the api version
         private function syncDbVersion(){
             $dbVersion = $this->eM->find('DbVersion', 1);
-            if ($dbVersion == null) {
+            if($dbVersion == null){
                 $dbVersion = new DbVersion();
                 $dbVersion->setVersion(API_VERSION);
                 $this->eM->persist($dbVersion);
                 $this->eM->flush();
-            } else {
+            }else{
                 $dbVersion->setVersion(API_VERSION);
                 $this->eM->flush();
             }

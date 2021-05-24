@@ -100,25 +100,32 @@
             exit();
         }
 
-        public function check(){
+        public function check($skipDefaultPwCheck){
             Logger::getLogger()->log('DEBUG', 'validating execution');
-            #$this->checkDb();
-            $apiKeyManager = ApiKeyManager::checker($this->apiKey);
-            $finishCode = $apiKeyManager->checkApiKey();
+            $dbM = new DbManager();
+            $finishCode = $dbM->checkDb($skipDefaultPwCheck);
 
             if($this->success($finishCode)){
-                if(!empty($this->permissions)){
-                    $finishCode = $apiKeyManager->checkPermission($permissions);
-                }else{
-                    Logger::getLogger()->log('DEBUG', 'check permission skipped');
+                Logger::getLogger()->log('DEBUG', 'Database check successful');
+                $apiKeyManager = ApiKeyManager::checker($this->apiKey);
+                $finishCode = $apiKeyManager->checkApiKey();
+    
+                if($this->success($finishCode)){
+                    if(!empty($this->permissions)){
+                        $finishCode = $apiKeyManager->checkPermission($permissions);
+                    }else{
+                        Logger::getLogger()->log('DEBUG', 'check permission skipped');
+                    }
+                    if($this->success($finishCode)&&!empty($this->session)){
+                        $sessionManager = new SessionManager($this->session);
+                        $finishCode = $sessionManager.checkSession();
+                    }else{
+                        Logger::getLogger()->log('DEBUG', 'check session skipped');
+                    }
+                    //todo user type checker
                 }
-                if($this->success($finishCode)&&!empty($this->session)){
-                    $sessionManager = new SessionManager($this->session);
-                    $finishCode = $sessionManager.checkSession();
-                }else{
-                    Logger::getLogger()->log('DEBUG', 'check session skipped');
-                }
-                //todo user type checker
+            }else{
+                Logger::getLogger()->log('ERROR', 'Database check failed');
             }
 
             if(!$this->success($finishCode)){
