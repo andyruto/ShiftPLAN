@@ -1,0 +1,58 @@
+/**
+ * toolbar.component.scss
+ * 
+ * The stylesheet document for the toolbar component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-05-26 / Anne Naumann
+ */ 
+ .spacer{
+    flex: 1 1 auto;
+}
+.toolbar-icon-text{
+    display: flex;
+}
+:host{
+    #backBtn{
+        display: none;
+    }
+    #profileBtn{
+        display: none;
+    }
+    #settingsBtn{
+        display: none;
+    }
+    #adminBtn{
+        display: none;
+    }
+    &.backActive{
+        #backBtn{
+            display: block;
+        }
+        #profileBtn{
+            display: none;
+        }
+        #settingsBtn{
+            display: none;
+        }
+        #adminBtn{
+            display: none;
+        }
+    }
+    &.profileActive{
+        #profileBtn{
+            display: block;
+        }
+    }
+    &.settingsActive{
+        #settingsBtn{
+            display: block;
+        }
+    }
+    &.adminActive{
+        #adminBtn{
+            display: block;
+        }
+    }
+}

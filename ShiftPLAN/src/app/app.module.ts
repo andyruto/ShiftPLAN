@@ -15,6 +15,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { ToolbarComponent} from '../app/modules/view-elements/toolbar/toolbar.component'
+import { IconService } from './services/icon.service';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -27,12 +32,16 @@ export function translateHttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -49,7 +58,7 @@ export class AppModule {
   availableLng = ['en', 'de'];
 
   //start the translation service
-  constructor(private translateService: TranslateService) {
+  constructor(private translateService: TranslateService, private iconService : IconService) {
       //defines the default language
       let tmpLng: string = 'en';
   
@@ -60,6 +69,7 @@ export class AppModule {
         tmpLng = currentLng;
       }
   
-      translateService.setDefaultLang(tmpLng);
+      this.translateService.setDefaultLang(tmpLng);
+      this.iconService.registerIcons()
   }
  }
