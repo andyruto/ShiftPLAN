@@ -69,7 +69,7 @@ export class AppModule {
         tmpLng = currentLng;
       }
   
-      translateService.setDefaultLang(tmpLng);
+      this.translateService.setDefaultLang(tmpLng);
       this.iconService.registerIcons()
   }
  }
