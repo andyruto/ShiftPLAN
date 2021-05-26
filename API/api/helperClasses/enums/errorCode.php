@@ -5,7 +5,7 @@
      * PHP file containing all defined error codes.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-23 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
      */
 
     abstract class ErrorCode{
@@ -31,5 +31,9 @@
         const DefaultUserUsesDefaultPassword = 19; //default user still uses default passsword
         const DatabaseCorrupt = 20; //necessary database tables are corrupt, empty or not existing
         const ApiVersionNotDbVersion = 21; //api version is different form database version
+        const UserIsHidden = 22; //The user is not visible
+        const UserTypeNotMatching = 23; //The user isn't matching the required user type
+        const ChallengeFailed = 24; //The saved challenge does not match the decryptet one
+        const ChallengeExpired = 25; //Challenge expired
     }
 ?>

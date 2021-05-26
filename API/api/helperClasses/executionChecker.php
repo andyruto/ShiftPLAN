@@ -5,7 +5,7 @@
      * PHP file that checks all permissions to execute a request.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-14 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
      */
 
     class ExecutionChecker{
@@ -48,12 +48,13 @@
 
         //Overloaded constructor to check perssions on api key
         public static function apiKeyPermissionChecker(String $apiKey, Array $permissions){
-            if(!empty($permissions)){
+            //Checking if permissions array is null
+            if($permissions !== null){
                 $obj = self::apiKeyChecker($apiKey);
                 $obj->setPermissions($permissions);
                 return $obj;
             }else{
-                Logger::getLogger()->log('DEBUG', 'execution failed permissions is empty');
+                Logger::getLogger()->log('DEBUG', 'execution failed permissions is null');
                 $finishCode = ErrorCode::EmptyParameter;
             }
             //If something failed in the overload constructor print the error code and stoping the script
@@ -73,7 +74,7 @@
                 }else{
                     Logger::getLogger()->log('DEBUG', 'session failed regex validation');    
                     $finishCode = ErrorCode::ValidationFailed;
-                }
+                } 
             }else{
                 Logger::getLogger()->log('DEBUG', 'execution failed session is empty');
                 $finishCode = ErrorCode::EmptyParameter;
@@ -117,8 +118,16 @@
                         Logger::getLogger()->log('DEBUG', 'check permission skipped');
                     }
                     if($this->success($finishCode)&&!empty($this->session)){
-                        $sessionManager = new SessionManager($this->session);
-                        $finishCode = $sessionManager.checkSession();
+                        $sessionManager = SessionManager::obj($this->session);
+                        $finishCode = $sessionManager->checkSession();
+                        //If the session manager returned no error
+                        if($this->success($finishCode)){
+                            if(!empty($this->userType)){
+                                $finishCode = $sessionManager->checkUserType($this->userType);
+                            }
+                        }else{
+                            Logger::getLogger()->log('DEBUG', 'Session check failed');
+                        }
                     }else{
                         Logger::getLogger()->log('DEBUG', 'check session skipped');
                     }
@@ -135,10 +144,12 @@
             }
         }
 
+        //Checking if the finish code is no error
         private function success($finishCode){
             return $finishCode==ErrorCode::NoError;
         }
 
+        //Checking the database if version and model are runnable
         public function checkDb(){
             $entityManager = Bootstrap::getEntityManager();
             try{

@@ -77,6 +77,19 @@
          * @var string
          */
         protected $password_hash;
+
+        /**
+         * @ORM\Column(type="string", nullable=true)
+         * @var string
+         */
+        protected $chlg;
+
+         /**
+         * @ORM\Column(type="datetime", nullable=true)
+         * @var DateTime
+         */
+        protected $chlg_expiration_date;
+
 // id
         public function getId(){
             return $this->id;
@@ -143,6 +156,23 @@
         }
         public function setPassword_hash($password_hash){
             $this->password_hash = $password_hash;
+        }
+
+// challenge
+        public function getChallenge(){
+            return $this->chlg;
+        }
+        public function setChallenge($chlg){
+            $this->chlg = $chlg;
+        }
+
+// challenge expiration date
+        public function getChlgExpiration_date(){
+            return $this->chlg_expiration_date;
+        }
+        public function setChlgExpiration_date(){
+            $this->chlg_expiration_date = new DateTime('now');
+            $this->chlg_expiration_date->modify('+4 second');
         }
     }
 ?>

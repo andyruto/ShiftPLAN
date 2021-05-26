@@ -5,7 +5,7 @@
      * PHP file containing class to manage the users.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-23 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
      */
 
     class UserManager{
@@ -29,22 +29,22 @@
             }
         }
 
+        //Overload constructor to create new entities
         public static function creator(){
             return new self(null);
         }
 
+        //Overload constructor to work wirh existing entities
         public static function obj($name){
             return new self($name);
         }
 
+        //Function to return passworh hash of user
         public function getPasswordHash(){
             return $this->user->getPassword_hash();
         }
-
-        public function getFinishCode(){
-            return $this->errorCode;
-        }
-
+        
+        //Function to create a default user if the user table is empty
         public function createDefaultUser(){
             if($this->eM->getrepository('user')->findAll()==null){
                 //Creating new user
@@ -61,6 +61,50 @@
                 $this->eM->persist($standarduser);
                 //Flushing changes
                 $this->eM->flush();
+            }
+        }
+
+        //Creating a new challenge to be encrypt be the client for authentification
+        public function createChallenge(){
+            Logger::getLogger()->log('DEBUG', 'creating challenge');
+            $chlg = preg_replace('/(0)\.(\d+) (\d+)/', '$3$1$2', microtime()) . generateRandomString(20);
+            $this->user->setChallenge($chlg);
+            $this->user->setChlgExpiration_date();
+            $this->eM->flush();
+            $this->eM->clear();
+            return $this->user->getChallenge();
+        }
+
+        //Validation the challenge
+        public function checkChallenge($chlg, $nonce, $key){
+            Logger::getLogger()->log('DEBUG', 'checking challenge');
+            if($this->errorCode == ErrorCode::NoError){
+                //Checking if the challenge is expired
+                if($this->user->getChlgExpiration_date() <= new DateTime('now')){
+                    $sM = new SslKeyManager();
+                    $this->errorCode = $sM->sDecrypt($chlg, $nonce, $key);
+                    //if the decrytion worked out with no errors
+                    if($this->errorCode == ErrorCode::NoError){
+                        if($this->user->getChallenge != $sM->getResult()){
+                            $this->errorCode = ErrorCode::ChallengeFailed;
+                        }
+                    }
+                }else{
+                    $this->errorCode = ErrorCode::ChallengeExpired;
+                }
+            }
+            return $this->errorCode;
+        }
+        
+        //Returning the finish code
+        public function getFinishCode(){
+            return $this->errorCode;
+        }
+
+        //Returning database object of class
+        public function getDbObject(){
+            if($this->errorCode == ErrorCode::NoError){
+                return $this->user;
             }
         }
     }

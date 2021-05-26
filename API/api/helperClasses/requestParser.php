@@ -5,7 +5,7 @@
      * PHP file containing class to parse request body.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-23 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
      */
 
     class RequestParser{
@@ -57,8 +57,29 @@
         }
 
         //Returning the request body
-        public function getJson(){
+        public function getBody(){
             return $this->requestBody;
+        }
+
+        //Function returning all request keys
+        public function getParameters(){
+            $parameters = array();
+            $requestJSON = json_decode($this->requestBody);
+            foreach($requestJSON as $param => $value){
+                array_push($parameters, $param);
+            }
+            return $parameters;
+        }
+
+        //Function checking if parameters are in request
+        public function hasParameters($parameters){
+            $requestJSON = json_decode($this->requestBody);
+            foreach($parameters as $param){
+                if(!array_key_exists($param, $requestJSON)){
+                    return false;
+                }
+            }
+            return true;
         }
     }
 ?>
