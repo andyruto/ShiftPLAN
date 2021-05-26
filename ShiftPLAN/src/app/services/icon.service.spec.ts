@@ -1,5 +1,13 @@
+/**
+ * icon.service.spec
+ * 
+ * Typescript class containing the tests for the 
+ * icon service.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-05-26 / Anne Naumann
+ */
 import { TestBed } from '@angular/core/testing';
-
 import { IconService } from './icon.service';
 
 describe('IconServiceService', () => {
