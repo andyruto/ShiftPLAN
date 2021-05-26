@@ -5,7 +5,7 @@
      * PHP file containing class to manage the api keys.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-15 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
      */
 
     class ApiKeyManager{
@@ -124,6 +124,13 @@
                 return true;
             }
             return false;
+        }
+
+        //Returning database object of class
+        public function getDbObject(){
+            if($this->errorCode == ErrorCode::NoError){
+                return $this->apiKey;
+            }
         }
     }
 ?>

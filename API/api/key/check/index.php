@@ -4,7 +4,7 @@
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-24 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
      */
 
     require '../../prepareExec.php';
@@ -13,11 +13,9 @@
 
         //Method invoked on script execution
         public static function run(){
-            Logger::getLogger()->log('DEBUG', 'checking api key');
-            
             // Takes raw data from the request
             $request = (new RequestParser())->getBodyObject();
-            //Checkinew executionChecker(ng validation of api key
+            //Checking validation of api key
             $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
             $eC->check(true);
             //Preparing output
@@ -31,7 +29,7 @@
             //Logging the called script location
             Logger::getLogger()->log('INFO', 'Api path /key/check/ was called');
         }
-
+        
     }
     Runner::run();
 ?>

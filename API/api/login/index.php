@@ -4,46 +4,78 @@
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-15 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
      */
 
-    require '../../prepareExec.php';
+    require '../prepareExec.php';
 
     final class Main extends ApiRunnable{
+        private static $errorCode = ErrorCode::NoError;
 
         //Method invoked on script execution
         public static function run(){
-            Logger::getLogger()->log('DEBUG', 'logging in');
+            $respondArray = array();
             // Takes raw data from the request
-            $request = (new RequestParser())->getBodyObject();
-            // Checking Api Key
-            $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
-            $eC.check();
-            // Checking password for user
-            if(!empty($request->username)&&!empty($request->passwordHash)){
-                $entityManager = Bootstrap::getEntityManager();
-                $errorCode = ErrorCode::NoError;
-                // Looking for user with username in database
-                $user = $entityManager->getRepository('User')->findBy(array('name' => $request->username));
-                // If user not found the entity managaer returns null
-                if($user[0]==null){
-                    Logger::getLogger()->log('INFO', $request->username.' user not found');
-                    $errorCode = ErrorCode::UserNotFound;
-                // Checking of password hash matches stored password hash
-                }elseif($user[0]->getPassword_hash()==$request->passwordHash){
-                    Logger::getLogger()->log('INFO', 'password for '.$request->username.' ok');                 
+            $rP = new RequestParser();
+            $request = $rP->getBodyObject();
+            //Looking for parameters
+            if($rP->hasParameters(array('apiKey', 'userName')) && !$rP->hasParameters(array('chlgSolved', 'nonce'))){
+                $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
+                $uM = UserManager::obj($request->userName); 
+                //Checking if the user is hidden to hinder a login
+                if(!($uM->getDbObject())->getHidden()){
+                    $eC->check($request->userName == 'admin');
+                    $chlg = $uM->createChallenge();
+                    //Adding the challenge to the respond
+                    $respondArray = array_merge($respondArray, array('chlg' => $chlg));
+                    Logger::getLogger()->log('DEBUG', 'appending challenge to output');
                 }else{
-                    // user were found in db but password was incorrect
-                    Logger::getLogger()->log('INFO', 'wrong password for'.$request->username);
-                    $errorCode = ErrorCode::WrongPassword;
+                    self::$errorCode = ErrorCode::UserIsHidden;
+                }
+            }else{
+                //Checking if request has parameters to validate challenge
+                if($rP->hasParameters(array('apiKey', 'userName', 'chlgSolved', 'nonce'))){
+                    $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
+                    $uM = UserManager::obj($request->userName);
+                    //Checking if user is hidden to hinder a login
+                    if(!($uM->getDbObject())->getHidden()){
+                        $eC->check($request->userName == 'admin');
+                        //Validating the challenge
+                        self::$errorCode = $uM->checkChallenge($request->chlgSolved, $request->nonce, $uM->getPasswordHash());
+                        if(self::$errorCode == ErrorCode::NoError){
+                            //Creating session mananger
+                            $sM = SessionManager::creator();
+                            self::$errorCode = $sM->createSession($request->userName);
+                            if(self::$errorCode == ErrorCode::NoError){
+                                $nonce = SslKeyManager::getNonce();
+                                $ssM = new SslKeyManager();
+                                //Encrypting session for respond
+                                self::$errorCode = $ssM->sEncrypt(($sM->getDbObject())->getId(), $nonce, $uM->getPasswordHash());
+                                if(self::$errorCode == ErrorCode::NoError){
+                                    $respondArray = array_merge($respondArray, array('session' => ($ssM->getResult()), 'nonce' => $nonce));
+                                }
+                            }
+                        }
+                    }else{
+                        self::$errorCode = ErrorCode::UserIsHidden;
+                    }                    
+                }else{
+                    //If request has parameters to login through a session or to check if session is still valid
+                    if($rP->hasParameters(array('apiKey', 'session'))){
+                        //Calling execution checker for validating parameters
+                        $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(), $request->session);
+                        $sM = SessionManager::obj($request->session);
+                        self::$errorCode = $sM->getFinishCode();
+                        if(self::$errorCode == ErrorCode::NoError){
+                            $userNameFromSession = $sM->getUserName();
+                            $eC->check($userNameFromSession == 'admin');
+                        }
+                    }
                 }
             }
-            //Creating session
-            $sM = new SessionManager();
-            $finishCode = $sM.createSession($request->user, $request->passwordHash);
+            
             //Preparing output
-            $respondArray = array();
-            sendOutput($finishCode, $respondArray);
+            sendOutput(self::$errorCode, $respondArray);
             exit();
         }
 

@@ -5,87 +5,144 @@
      * PHP file containing class to manage the sessions.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-15 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
      */
 
     class SessionManager{
-
         private $eM = null; //Variable to store entity manager in
-        private $session = null;
-        private $errorCode = ErrorCode::NoError;
+        private $session = null; //Storing a session entity object
+        private $errorCode = ErrorCode::NoError; //The error code for the current object
 
-        function __construct($session){
+        private function __construct($sessionId){
             Logger::getLogger()->log('DEBUG', 'Called session manager');
             //Getting entity manager for database access
             $this->eM = Bootstrap::getEntityManager();
-            if(!empty($session)){
+            //If session is not empty
+            if(!empty($sessionId)){
                 //Looking for session in database
-                $this->session = $this->eM->find('Session', $session);
+                $this->session = $this->eM->find('Session', $sessionId);
+                //If the manager found the session with given id continue
                 if($this->session == null){
-                    Logger::getLogger()->log('ERROR', "Session ".$session." doesn't exist in database");
+                    Logger::getLogger()->log('ERROR', "Session ".$sessionId." doesn't exist in database");
                     $this->errorCode = ErrorCode::InvalidSession;
                 }
             }else{
-                Logger::getLogger()->log('ERROR', 'Parameter session is empty');
+                Logger::getLogger()->log('WARNING', 'Parameter session is empty. Probably called as creator');
                 $this->errorCode = ErrorCode::NoSessionGiven;
             }
         }
 
-        function checkSession(){
+        //Overload constructor to create new entities
+        public static function creator(){
+            return new self(null);
+        }
+
+        //Overload constructor to work wirh existing entities
+        public static function obj($sessionId){
+            return new self($sessionId);
+        }
+
+        //Check if session is still valid otherwise delete the session and give feedback
+        public function checkSession(){
+            //check if session was found
             if($this->errorCode == ErrorCode::NoError){
-                if($session->getExpiration_date() < new DateTime('now')){
+                Logger::getLogger()->log('DEBUG', 'Checking session');
+                //Check if session is not expired
+                if($this->session->getExpiration_date() < new DateTime('now')){
                     Logger::getLogger()->log('DEBUG', 'session '.$this->session->getId().' expired');
-                    $eM->remove($session);
-                    $eM->flush();
-                    $eM->clear();
+                    $this->eM->remove($this->session);
+                    $this->eM->flush();
+                    $this->eM->clear();
                     $this->errorCode = ErrorCode::SessionExpired;
+                }else{
+                    //Check if user is not hidden
+                    $user = $this->eM->find('user', $this->session->getUser_id());
+                    //If the user is hidden remove the session to hinder a login
+                    if($user->getHidden()){
+                        Logger::getLogger()->log('DEBUG', 'user '.$user->getName().' not visible any more. Session will be closed.');
+                        $this->eM->remove($this->session);
+                        $this->eM->flush();
+                        $this->eM->clear();
+                        $this->errorCode = ErrorCode::SessionExpired;
+                    }else{
+                        Logger::getLogger()->log('DEBUG', 'Session valid');
+                    }
                 }
+            }
+            //Check if session was valid and exend the expiration date
+            if($this->errorCode == ErrorCode::NoError){
+                $this->session->setExpiration_date();
+                $this->eM->flush();
             }
             return $this->errorCode;
         }
         
         //Adding a Session
-        function createSession($username, $passwordHash){
+        public function createSession($userName){
             // Checking of parameters are set
-            if(!empty($username)&&!empty($passwordHash&&$this->errorCode==Error::NoSessionGiven)){
+            if(!empty($userName)){
                 $this->errorCode = ErrorCode::NoError;
                 // Looking for user with username in database
-                $user = $entityManager->getRepository('User')->findBy(array('name' => $username));
+                $user = $this->eM->getRepository('User')->findBy(array('name' => $userName))[0];
                 // If user not found the entity managaer returns null
-                if($user[0]==null){
-                    Logger::getLogger()->log('INFO', $username.' user not found');
+                if($user==null){
+                    Logger::getLogger()->log('Error', $userName.' user not found');
                     $this->errorCode = ErrorCode::UserNotFound;
-                // Checking of password hash matches stored password hash
-                }elseif($user[0]->getPassword_hash()==$passwordHash){
-                    Logger::getLogger()->log('INFO', 'password for '.$username.' ok');
-                    $session = new Session();
+                }else{
+                    $this->session = new Session();
                     $sessionKey = generateRandomString(20);
-                    while($sessionKey==$entityManager->find('Session', $sessionKey)){
+                    while($this->eM->find('Session', $sessionKey) != null){
                         $sessionKey = generateRandomString(20);
                     }
                     // creating new session for user
-                    $session->setId($sessionKey);
-                    $session->setExpiration_date();
-                    $session->setUser_id($user[0]->getid());
-                    $entityManager->persist($session);
-                    $entityManager->flush();
-                    Logger::getLogger()->log('INFO', 'new session created with id = '.$session->getId());
-                    $respondArray = array('session' => $session->getId());
-                    sendOutput($this->errorCode, $respondArray);
-                }else{
-                    // user were found in db but password was incorrect
-                    Logger::getLogger()->log('INFO', 'wrong password for'.$username);
-                    $this->errorCode = ErrorCode::WrongPassword;
+                    $this->session->setId($sessionKey);
+                    $this->session->setExpiration_date();
+                    $this->session->setUser_id($user->getid());
+                    $this->eM->persist($this->session);
+                    $this->eM->flush();
+                    Logger::getLogger()->log('DEBUG', 'new session created with id = '.$this->session->getId());
                 }
             }
             return $this->errorCode;
         }
 
-        //Checking linked user permission
-        function checkPermission($permissions){
-            if($this->errorCode==ErrorCode::NoError){
-
+        //Function to remove session from database
+        public function removeSession(){
+            if($this->errorCode == ErrorCode::NoError){
+                $this->eM->remove($this->session);
+                $this->eM->flush();
+                $this->eM->clear();
             }
+        }
+
+        //Checking linked user type
+        public function checkUserType($userType){
+            if($this->errorCode==ErrorCode::NoError){
+                $user = $this->eM->find('user', $this->session->getUser_id());
+                //Checking if user has enough permissions to run script
+                if($user->getType()<$userType){
+                    Logger::getLogger()->log('Error', 'user '.$user->getName().' is not privileged enough');
+                    $this->errorCode = ErrorCode::UserTypeNotMatching;
+                }
+            }
+            return $this->errorCode;
+        }
+
+        //Returning user name associted with the session
+        public function getUserName(){
+            $user = $this->eM->find('user', $this->session->getUser_id());
+            return $user->getName();
+        }
+
+        //Returning database object of class
+        public function getDbObject(){
+            if($this->errorCode == ErrorCode::NoError){
+                return $this->session;
+            }
+        }
+
+        //Returning the finish code of that object
+        public function getFinishCode() {
             return $this->errorCode;
         }
     }
