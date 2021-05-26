@@ -6,9 +6,4 @@ import { IconService } from './services/icon.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  constructor(private iconService : IconService){
-    this.iconService.registerIcons()
-  }
-  title = 'ShiftPLAN';
-}
+export class AppComponent {}

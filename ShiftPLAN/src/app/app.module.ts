@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ToolbarComponent} from '../app/modules/view-elements/toolbar/toolbar.component'
+import { IconService } from './services/icon.service';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -46,7 +47,7 @@ export class AppModule {
   availableLng = ['en', 'de'];
 
   //start the translation service
-  constructor(private translateService: TranslateService) {
+  constructor(private translateService: TranslateService, private iconService : IconService) {
       //defines the default language
       let tmpLng: string = 'en';
   
@@ -58,5 +59,6 @@ export class AppModule {
       }
   
       translateService.setDefaultLang(tmpLng);
+      this.iconService.registerIcons()
   }
  }
