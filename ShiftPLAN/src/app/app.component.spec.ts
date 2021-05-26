@@ -1,3 +1,13 @@
+/**
+ * app.component.spec
+ts * 
+ * Typescript class containing the tests for the 
+ * app component.
+ * 
+ * author: Sascha W.
+ * last edit / by: 2021-05-22 / Sascha W.
+ */
+
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
@@ -18,12 +28,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'ShiftPLAN'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('ShiftPLAN');
   });
 
   it('should render title', () => {

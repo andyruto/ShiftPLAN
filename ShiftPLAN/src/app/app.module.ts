@@ -1,3 +1,13 @@
+/**
+ * app.module.ts
+ * 
+ * Main Angular module of our app importing and bootstrapping
+ * all the required elements for our application.
+ * 
+ * author: Sascha W.
+ * last edit / by: 2021-05-23 / Sascha W.
+ */
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { EncryptionService } from './services/encryption.service';
 
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -31,7 +42,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [],
+  providers: [EncryptionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
