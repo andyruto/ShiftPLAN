@@ -1,0 +1,30 @@
+<!--
+ -- bottom-bar.component.html
+ -- 
+ -- HTML file specifying the layout for the bottom-bar.component.
+ -- 
+ -- author: Anne Naumann
+ -- last edit / by: 2021-05-26 / Anne Naumann
+ -->
+ <ngx-bottom-nav :host>
+     <!--TODO: Need to set routerLink to home component-->
+    <button ngx-bottom-nav label="Home" id="homeBtn" routerLink="/">
+      <mat-icon ngxBottomNavIcon svgIcon="home"></mat-icon>
+    </button>
+    <!--TODO: Need to set routerLink to shifts component-->
+    <button ngx-bottom-nav label="Shifts" id="shiftsBtn" routerLink="/">
+      <mat-icon ngxBottomNavIcon svgIcon="calendar"></mat-icon>
+    </button>
+    <!--TODO: Need to set routerLink to tasks component-->
+    <button ngx-bottom-nav label="Tasks" id="tasksBtn" routerLink="/">
+      <mat-icon ngxBottomNavIcon svgIcon="tasks"></mat-icon>
+    </button>
+    <!--TODO: Need to set routerLink to applications component-->
+    <button ngx-bottom-nav label="Applications" id="applicationsBtn" routerLink="/">
+        <mat-icon ngxBottomNavIcon svgIcon="applications"></mat-icon>
+    </button>
+    <!--TODO: Need to set routerLink to statistics component-->
+    <button ngx-bottom-nav label="Statistics" id="statisticsBtn" routerLink="/">
+        <mat-icon ngxBottomNavIcon svgIcon="statistics"></mat-icon>
+    </button>
+  </ngx-bottom-nav>

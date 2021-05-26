@@ -1,0 +1,31 @@
+/**
+ * bottom-bar.component.scss
+ * 
+ * The stylesheet document for the bottom-bar component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-05-26 / Anne Naumann
+ */ 
+ @import '~ngx-bottom-nav/theming'; 
+ @import '../../../../styles.scss';
+ @include ngx-bottom-nav-theme($ShiftPLAN-theme); 
+ 
+ :host{
+    #tasksBtn{
+        display: none;
+    }
+    #applicationsBtn{
+        display: none;
+    }
+    &.tasksAllowed{
+        #tasksBtn{
+            display: block;
+        }
+    }
+    &.applicationsAllowed{
+        #applicationsBtn{
+            display: block;
+        }
+    }
+}
