@@ -5,7 +5,7 @@
  * all the required elements for our application.
  * 
  * author: Sascha W.
- * last edit / by: 2021-05-23 / Sascha W.
+ * last edit / by: 2021-05-26 / Anne Naumann
  */
 
 import { NgModule } from '@angular/core';
@@ -19,8 +19,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ToolbarComponent} from '../app/modules/view-elements/toolbar/toolbar.component'
-import { IconService } from './services/icon.service';
 
+import { BottomNavModule } from 'ngx-bottom-nav'
+import { BottomBarComponent } from '../app/modules/view-elements/bottom-bar/bottom-bar.component'
+
+import { IconService } from './services/icon.service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -33,7 +36,8 @@ export function translateHttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    BottomBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    BottomNavModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
