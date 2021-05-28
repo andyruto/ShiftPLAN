@@ -4,5 +4,12 @@
  -- HTML file specifying the layout for the wizard-address.component.
  -- 
  -- author: Anne Naumann
- -- last edit / by: 2021-05-26 / Anne Naumann
+ -- last edit / by: 2021-05-28 / Anne Naumann
  -->
+<app-toolbar title="API Address"></app-toolbar>
+<div id="outerContainer">
+    <label id="labelAddress" for="inputAddress">Please enter the API address:</label>
+    <input id="inputAddress" #userInput type="text">
+    <p id="warning">The given address is not available.</p>
+    <button id="nextBtn" (click)="checkInput(userInput.value)">Next</button>
+</div>

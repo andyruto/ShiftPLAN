@@ -4,7 +4,7 @@
  * Main typescript class for the wizard-address component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-05-26 / Anne Naumann
+ * last edit / by: 2021-05-28 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 
@@ -14,10 +14,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wizard-address.component.scss']
 })
 export class WizardAddressComponent implements OnInit {
-
+  
   constructor() { }
+  ngOnInit(): void { }
+  
+  checkInput(userInput: string): void{
+    let warning = document.getElementById('warning')
+    var inputValid: Boolean = false
 
-  ngOnInit(): void {
+    //check Input
+    console.log(userInput)
+
+    if(inputValid){
+      //navigate to next component
+    }else{
+      warning!.style.visibility = 'visible'
+    }
   }
-
 }
