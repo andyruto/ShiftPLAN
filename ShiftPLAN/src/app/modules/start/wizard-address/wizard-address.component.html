@@ -6,10 +6,10 @@
  -- author: Anne Naumann
  -- last edit / by: 2021-05-29 / Anne Naumann
  -->
-<app-toolbar title="API Address"></app-toolbar>
+<app-toolbar title={{title}}></app-toolbar>
 <div id="outerContainer">
-    <label id="labelAddress" for="inputAddress">Please enter the API address:</label>
+    <label id="labelAddress" for="inputAddress">{{label}}</label>
     <input id="inputAddress" #userInput type="text">
-    <p id="warning">The address is invalid.</p>
-    <button id="nextBtn" (click)="checkInput(userInput.value)">Next</button>
+    <p id="warning">{{warning}}</p>
+    <button id="nextBtn" (click)="checkInput(userInput.value)">{{nextButton}}</button>
 </div>

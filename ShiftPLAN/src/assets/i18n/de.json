@@ -1,3 +1,9 @@
 {
-    "Welcome": "Wilkommen"
+    "Welcome": "Wilkommen",
+    "NextButton": "Weiter",
+    "WizardAddress": {
+        "Title": "API Adresse",
+        "Label": "Bitte geben Sie die API Adresse ein:",
+        "Warning": "Die Adresse ist ungültig."
+    }
 }
