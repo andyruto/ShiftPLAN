@@ -6,14 +6,36 @@
  * author: Anne Naumann
  * last edit / by: 2021-05-29 / Anne Naumann
  */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-wizard-password',
   templateUrl: './wizard-password.component.html',
   styleUrls: ['./wizard-password.component.scss']
 })
-export class WizardPasswordComponent{
+export class WizardPasswordComponent implements OnInit{
+
+  title = ''
+  labelPasswordOld = ''
+  labelPasswordNew = ''
+  labelPasswordCheck = ''
+  warningOld = ''
+  warningNew = ''
+  nextButton = ''
+
+  constructor(private translate : TranslateService) { }
+  ngOnInit(): void {
+    this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+      this.title = translation.WizardPassword.Title;
+      this.labelPasswordOld = translation.WizardPassword.LabelPasswordOld;
+      this.labelPasswordNew = translation.WizardPassword.LabelPasswordNew;
+      this.labelPasswordCheck = translation.WizardPassword.LabelPasswordCheck;
+      this.warningOld = translation.WizardPassword.WarningOld;
+      this.warningNew = translation.WizardPassword.WarningNew;
+      this.nextButton = translation.NextButton;
+    });
+  }
 
   checkPassword(password: string): void{
     //TODO: get initial password
