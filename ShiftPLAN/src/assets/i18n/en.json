@@ -18,5 +18,8 @@
         "LabelPasswordCheck": "Confirm the password:",
         "WarningOld": "Wrong password.",
         "WarningNew": "The password is not the same."
+    },
+    "WizardPermission": {
+        "Title": "Permissions"
     }
 }

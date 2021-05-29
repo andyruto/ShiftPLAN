@@ -18,5 +18,8 @@
         "LabelPasswordCheck": "Passwort bestätigen:",
         "WarningOld": "Falsches Passwort.",
         "WarningNew": "Das Passwort ist nicht gleich."
+    },
+    "WizardPermission": {
+        "Title": "Berechtigungen"
     }
 }

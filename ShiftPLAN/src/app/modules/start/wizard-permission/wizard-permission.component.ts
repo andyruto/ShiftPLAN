@@ -4,9 +4,10 @@
  * Main typescript class for the wizard-permission component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-05-26 / Anne Naumann
+ * last edit / by: 2021-05-29 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-wizard-permission',
@@ -15,9 +16,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WizardPermissionComponent implements OnInit {
 
-  constructor() { }
-
+  title = ''
+  
+  constructor(private translate : TranslateService) { }
   ngOnInit(): void {
+    this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+      this.title = translation.WizardPermission.Title;
+    });
   }
 
 }
