@@ -11,6 +11,11 @@
 @import '../../../../styles.scss';
 @include ngx-bottom-nav-theme($ShiftPLAN-theme); 
 
+button[ngx-bottom-nav]{
+    font-family: Nunito;
+    font-size: 10pt;
+    font-weight: bold;
+}
 :host{
     #tasksBtn{
         display: none;
