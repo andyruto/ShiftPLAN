@@ -1,3 +1,10 @@
 {
-    "Welcome": "Welcome"
+    "Welcome": "Welcome",
+    "BottomBar": {
+        "Home": "Home",
+        "Shifts": "Shifts",
+        "Tasks": "Tasks",
+        "Applications": "Applications",
+        "Statistics": "Statistics"
+    }
 }
