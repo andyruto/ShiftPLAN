@@ -5,5 +5,10 @@
         "Title": "API Adresse",
         "Label": "Bitte geben Sie die API Adresse ein:",
         "Warning": "Die Adresse ist ungültig."
+    },
+    "WizardKey": {
+        "Title": "API Schlüssel",
+        "Label": "Bitte geben Sie den API Schlüssel ein:",
+        "Warning": "Der Schlüssel ist ungültig."
     }
 }

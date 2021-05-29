@@ -7,10 +7,10 @@
  -- last edit / by: 2021-05-29 / Anne Naumann
  -->
 
-<app-toolbar title="API Key"></app-toolbar>
+<app-toolbar title={{title}}></app-toolbar>
 <div id="outerContainer">
-    <label id="labelKey" for="inputKey">Please enter the API key:</label>
+    <label id="labelKey" for="inputKey">{{label}}</label>
     <input id="inputKey" #userInput type="text">
-    <p id="warning">The key is invalid.</p>
-    <button id="nextBtn" (click)="checkInput(userInput.value)">Next</button>
+    <p id="warning">{{warning}}</p>
+    <button id="nextBtn" (click)="checkInput(userInput.value)">{{NextButton}}</button>
 </div>

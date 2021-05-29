@@ -5,5 +5,10 @@
         "Title": "API Address",
         "Label": "Please enter the API address:",
         "Warning": "The address is invalid."
+    },
+    "WizardKey": {
+        "Title": "API Key",
+        "Label": "Please enter the API key:",
+        "Warning": "The key is invalid."
     }
 }
