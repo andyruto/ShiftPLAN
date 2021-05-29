@@ -1,0 +1,24 @@
+/**
+ * _bottom-bar.component.scss
+ * 
+ * The stylesheet document for the bottom-bar component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-05-29 / Anne Naumann
+ */ 
+@import '~@angular/material/theming';
+
+@mixin ngx-bottom-nav-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  button[ngx-bottom-nav]{
+      color: #{rgba(mat-color($accent), 500)};
+  }
+  
+  button[ngx-bottom-nav]:not(.active) {
+    --ngx-bottom-nav-button-color: #757575;
+  }
+}
