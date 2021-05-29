@@ -7,11 +7,19 @@
  * author: Anne Naumann
  * last edit / by: 2021-05-26 / Anne Naumann
  */ 
+
+ #title{
+     font-family: Nunito;
+     font-weight: bold;
+     font-size: 20pt;
+ }
  .spacer{
     flex: 1 1 auto;
 }
 .toolbar-icon-text{
     display: flex;
+    font-family: Nunito;
+    font-size: 10pt;
 }
 :host{
     #backBtn{
