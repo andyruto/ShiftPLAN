@@ -6,25 +6,25 @@
  -- author: Anne Naumann
  -- last edit / by: 2021-05-26 / Anne Naumann
  -->
- <mat-toolbar color="primary" :host>
+ <mat-toolbar id="toolbar" :host>
     <button mat-icon-button id="backBtn" (click)="navigateBack()">
-        <mat-icon svgIcon="back-arrow"></mat-icon>
+        <mat-icon class="toolbar-icon" svgIcon="back-arrow"></mat-icon>
     </button>
-    <span>{{title}}</span>
+    <span id="title">{{title}}</span>
     <span class="spacer"></span>
     <!--TODO: Need to set routerLink to profile component-->
     <button mat-button id="profileBtn" routerLink="" routerLinkActive="active">
-        <mat-icon svgIcon="profile"></mat-icon>
+        <mat-icon class="toolbar-icon" svgIcon="profile"></mat-icon>
         <span class="toolbar-icon-text">Profil</span>
     </button>
     <!--TODO: Need to set routerLink to settings component-->
     <button mat-button id="settingsBtn" routerLink="" routerLinkActive="active">
-        <mat-icon svgIcon="settings"></mat-icon>
+        <mat-icon class="toolbar-icon" svgIcon="settings"></mat-icon>
         <span class="toolbar-icon-text">Einstellungen</span>
     </button>
     <!--TODO: Need to set routerLink to admin component-->
-    <button mat-button id="adminBtn" routerLink="" routerLinkActive="active">
-        <mat-icon svgIcon="admin"></mat-icon>
+    <button mat-button class="toolbar-icon" id="adminBtn" routerLink="" routerLinkActive="active">
+        <mat-icon class="toolbar-icon" svgIcon="admin"></mat-icon>
         <span class="toolbar-icon-text">Admin</span>
     </button>
 </mat-toolbar>
