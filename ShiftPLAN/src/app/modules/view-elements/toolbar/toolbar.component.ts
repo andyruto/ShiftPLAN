@@ -7,8 +7,8 @@
  * last edit / by: 2021-05-29 / Anne Naumann
  */
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-toolbar',
@@ -22,7 +22,7 @@ export class ToolbarComponent implements OnInit{
   settings = ''
   admin = ''
 
-  constructor(private router: Router, private translate : TranslateService){}
+  constructor(private translate : TranslateService, private location: Location){}
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.profile = translation.Toolbar.Profile;
@@ -32,9 +32,6 @@ export class ToolbarComponent implements OnInit{
   }
 
   @Input() public title: string = "Initial"
-
-  //TODO: need to set default value to home-component
-  @Input() public backUrl: string = ""
 
   @Input() public backBtn: boolean = false
   @HostBinding('class.backActive')
@@ -61,6 +58,6 @@ export class ToolbarComponent implements OnInit{
   }
 
   navigateBack(): void{
-    this.router.navigate(['/', this.backUrl])
+    this.location.back()
   }
 }
