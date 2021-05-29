@@ -5,38 +5,48 @@
  * layout defined in the html document.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-05-28 / Anne Naumann
+ * last edit / by: 2021-05-29 / Anne Naumann
  */ 
  @import '../../../../styles.scss';
 
  #outerContainer{
-    width: 100%;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+   width: 100%;
+   margin: 0;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   -ms-transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%);
  }
  #labelAddress{
-    margin-left: 10%;
+   margin-left: 8.5%;
+   font-family: Nunito;
+   font-size: 16pt;
  }
  #inputAddress{
-    width: 80%;
-    margin: 5% auto;
-    display: block;
+   width: 80%;
+   margin: 5% auto;
+   display: block;
+   border-style: solid;
+   border-width: 1px;
+   border-color: black;
+   padding: 5px;
  }
  #nextBtn{
-    margin:0 auto;
-    display:block;
-    padding: 3% 6% 3% 6%;
-    background-color: #{rgba(mat-color($ShiftPLAN-accent), 500)};
-    border: none;
-    color: white;
+   margin:0 auto;
+   display:block;
+   padding: 2% 6% 2% 6%;
+   background-color: #{rgba(mat-color($ShiftPLAN-accent), 500)};
+   border: none;
+   color: white;
+   font-family: Nunito;
+   font-size: 16pt;
  }
  #warning{
-    visibility: hidden;
-    margin-left: 10%;
-    margin-bottom: 18px;
-    color: #E20321;
+   visibility: hidden;
+   margin-left: 8.5%;
+   margin-bottom: 18px;
+   color: #E20321;
+   font-family: Nunito;
+   font-size: 14pt;
  }
