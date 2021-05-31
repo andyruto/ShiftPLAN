@@ -10,6 +10,10 @@
 
  #toolbar{
      background-image: linear-gradient(to left, #375E99, #6A9BE6);
+     padding-right: 5px;
+ }
+ #backBtn{
+     padding-right: 10px;
  }
  #title{
      color: white;
@@ -17,12 +21,16 @@
  .spacer{
     flex: 1 1 auto;
 }
+.toolbar-button{
+    padding-left: 0px;
+    padding-right: 0px;
+}
 .toolbar-icon{
     color: white;
 }
 .toolbar-icon-text{
-    display: flex;
     color: white;
+    line-height: normal;
 }
 :host{
     #backBtn{

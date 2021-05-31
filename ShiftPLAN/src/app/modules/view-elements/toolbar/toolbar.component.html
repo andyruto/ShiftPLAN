@@ -13,18 +13,18 @@
     <span id="title">{{title}}</span>
     <span class="spacer"></span>
     <!--TODO: Need to set routerLink to profile component-->
-    <button mat-button id="profileBtn" routerLink="" routerLinkActive="active">
+    <button mat-button id="profileBtn" class="toolbar-button" routerLink="" routerLinkActive="active">
         <mat-icon class="toolbar-icon" svgIcon="profile"></mat-icon>
-        <span class="toolbar-icon-text">{{profile}}</span>
+        <div class="toolbar-icon-text">{{profile}}</div>
     </button>
     <!--TODO: Need to set routerLink to settings component-->
-    <button mat-button id="settingsBtn" routerLink="" routerLinkActive="active">
+    <button mat-button id="settingsBtn" class="toolbar-button" routerLink="" routerLinkActive="active">
         <mat-icon class="toolbar-icon" svgIcon="settings"></mat-icon>
-        <span class="toolbar-icon-text">{{settings}}</span>
+        <div class="toolbar-icon-text">{{settings}}</div>
     </button>
     <!--TODO: Need to set routerLink to admin component-->
-    <button mat-button class="toolbar-icon" id="adminBtn" routerLink="" routerLinkActive="active">
+    <button mat-button class="toolbar-icon" class="toolbar-button" id="adminBtn" routerLink="" routerLinkActive="active">
         <mat-icon class="toolbar-icon" svgIcon="admin"></mat-icon>
-        <span class="toolbar-icon-text">{{admin}}</span>
+        <div class="toolbar-icon-text">{{admin}}</div>
     </button>
 </mat-toolbar>
