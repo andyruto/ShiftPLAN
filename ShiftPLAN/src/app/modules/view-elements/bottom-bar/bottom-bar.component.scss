@@ -5,13 +5,18 @@
  * layout defined in the html document.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-05-26 / Anne Naumann
+ * last edit / by: 2021-05-29 / Anne Naumann
  */ 
- @import '~ngx-bottom-nav/theming'; 
- @import '../../../../styles.scss';
- @include ngx-bottom-nav-theme($ShiftPLAN-theme); 
- 
- :host{
+@import './_bottom-bar.component.scss';
+@import '../../../../styles.scss';
+@include ngx-bottom-nav-theme($ShiftPLAN-theme); 
+
+button[ngx-bottom-nav]{
+    font-family: Nunito;
+    font-size: 10pt;
+    font-weight: bold;
+}
+:host{
     #tasksBtn{
         display: none;
     }
