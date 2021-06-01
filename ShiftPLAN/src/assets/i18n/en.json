@@ -4,12 +4,12 @@
     "WizardAddress": {
         "Title": "API Address",
         "Label": "Please enter the API address:",
-        "Warning": "The address is invalid."
+        "Warning": "The address is invalid!"
     },
     "WizardKey": {
         "Title": "API Key",
         "Label": "Please enter the API key:",
-        "Warning": "The key is invalid."
+        "Warning": "The key is invalid!"
     },
     "WizardPassword": {
         "Title": "Password",
@@ -17,9 +17,15 @@
         "LabelPasswordNew": "New password:",
         "LabelPasswordCheck": "Confirm the password:",
         "WarningOld": "Wrong password.",
-        "WarningNew": "The password is not the same."
+        "WarningNew": "The password is not the same!"
     },
     "WizardPermission": {
         "Title": "Permissions"
+    },
+    "Login": {
+        "UserName": "Username",
+        "Password": "Password",
+        "ResetButton": "Reset password",
+        "Warning": "Username or password are wrong!"
     }
 }
