@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ToolbarComponent} from '../app/modules/view-elements/toolbar/toolbar.component'
 import { IconService } from './services/icon.service';
 
@@ -42,6 +43,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatButtonToggleModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
