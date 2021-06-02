@@ -5,84 +5,61 @@
  * layout defined in the html document.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-01 / Anne Naumann
+ * last edit / by: 2021-06-02 / Anne Naumann
  */ 
  @import '../../../../styles.scss';
 
  #outerContainer{
-    background-image: linear-gradient( #375E99, #6A9BE6);
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+   background-image: linear-gradient( #375E99, #6A9BE6);
+   height: 100%;
+   width: 100%;
+   margin: 0;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   -ms-transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%);
  }
  #banner{
-    margin-right: auto;
-    margin-left: auto;
-    width: 80%;
-    height: auto;
-    display: flex;
-    align-items: center;
+   margin-right: auto;
+   margin-left: auto;
+   width: 80%;
+   height: auto;
+   display: flex;
+   align-items: center;
  }
  #labelUserName, #labelUserPassword{
-    margin-left: 8.5%;
-    font-family: Nunito;
-    font-size: 16pt;
-    color: white;
+   font-family: Nunito;
+   font-size: 16pt;
+   color: white;
  }
  #inputUserName, #inputUserPassword{
-    width: 75%;
-    margin-left: 8.5%;
-    margin-top: 2%;
-    margin-bottom: 4%;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    padding: 5px;
+   width: 80%;
+   display: block;
+   margin: 5% auto;
  }
  #toggleBtn{
-    background-color: transparent;
-    border-style: none;
-    vertical-align: middle;
+   background-color: transparent;
+   border-style: none;
+   vertical-align: middle;
  }
  #eyeIcon{
-    color: white;
+   color: white;
  }
  #resetPasswordBtn{
-    border: none;
-    color: white;
-    font-family: Nunito;
-    font-size: 12pt;
-    background-color: transparent;
-    display: block;
-    margin-left: 8.5%;
-    padding-left: 0;
+   color: white;
+   font-family: Nunito;
+   font-size: 12pt;
+   margin-left: 6%;
  }
  #warning{
-    visibility: hidden;
-    width: fit-content;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: Nunito;
-    font-size: 13pt;
-    border: 2px solid white;
-    border-radius: 25px;
-    background-color: #F6F6F6;
-    padding: 10px;
+   font-family: Nunito;
+   font-size: 13pt;
  }
  #loginBtn{
-    margin:0 auto;
-    display:block;
-    padding: 2% 6% 2% 6%;
-    background-color: #{rgba(mat-color($ShiftPLAN-accent), 500)};
-    border: none;
-    color: white;
-    font-family: Nunito;
-    font-size: 16pt;
+   margin:5% auto;
+   display:block;
+   padding: 2% 6% 2% 6%;
+   font-family: Nunito;
+   font-size: 16pt;
  }

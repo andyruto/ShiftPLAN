@@ -4,7 +4,7 @@
  * Main typescript class for the login component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-01 / Anne Naumann
+ * last edit / by: 2021-06-02 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,8 +16,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LoginComponent implements OnInit {
 
-  eyeIcon: string = 'eye-slash'
-  inputType: string = 'password'
   userName = ''
   password = ''
   resetBtn = ''
@@ -34,15 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   showPassword(): void{
-    var toggleBtn = document.getElementById('toggleBtn')
-
-    if(toggleBtn?.classList.contains('mat-button-toggle-checked')){
-      this.eyeIcon = 'eye'
-      this.inputType = 'text'
-    }else {
-      this.eyeIcon = 'eye-slash'
-      this.inputType = 'password'
-    }
+    //hide or show password
   }
 
   checkLoginValues(inputName: string, inputPassword: string): void{
