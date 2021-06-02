@@ -1,5 +1,10 @@
 {
-    "Welcome": "Wilkommen",
+    "Welcome": "Willkommen",
+    "Toolbar": {
+        "Profile": "Profil",
+        "Settings": "Einstellungen",
+        "Admin": "Admin"
+    },
     "BottomBar": {
         "Home": "Übersicht",
         "Shifts": "Schichten",

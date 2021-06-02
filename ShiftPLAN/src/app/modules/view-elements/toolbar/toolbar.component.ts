@@ -4,10 +4,11 @@
  *  Main typescript class for the toolbar component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-05-26 / Anne Naumann
+ * last edit / by: 2021-05-29 / Anne Naumann
  */
-import { Component, HostBinding, Input } from '@angular/core';
-import { Router } from '@angular/router'
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-toolbar',
@@ -15,14 +16,22 @@ import { Router } from '@angular/router'
   styleUrls: ['./toolbar.component.scss']
 })
 
-export class ToolbarComponent{
+export class ToolbarComponent implements OnInit{
 
-  constructor(private router: Router){}
+  profile = ''
+  settings = ''
+  admin = ''
+
+  constructor(private translate : TranslateService, private location: Location){}
+  ngOnInit(): void {
+    this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+      this.profile = translation.Toolbar.Profile;
+      this.settings = translation.Toolbar.Settings;
+      this.admin = translation.Toolbar.Admin;
+    });
+  }
 
   @Input() public title: string = "Initial"
-
-  //TODO: need to set default value to home-component
-  @Input() public backUrl: string = ""
 
   @Input() public backBtn: boolean = false
   @HostBinding('class.backActive')
@@ -49,6 +58,6 @@ export class ToolbarComponent{
   }
 
   navigateBack(): void{
-    this.router.navigate(['/', this.backUrl])
+    this.location.back()
   }
 }
