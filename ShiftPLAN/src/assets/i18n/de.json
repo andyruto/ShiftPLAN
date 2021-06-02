@@ -4,5 +4,12 @@
         "Profile": "Profil",
         "Settings": "Einstellungen",
         "Admin": "Admin"
+    },
+    "BottomBar": {
+        "Home": "Übersicht",
+        "Shifts": "Schichten",
+        "Tasks": "Aufgaben",
+        "Applications": "Anträge",
+        "Statistics": "Statistiken"
     }
 }

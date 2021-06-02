@@ -4,5 +4,12 @@
         "Profile": "Profile",
         "Settings": "Settings",
         "Admin": "Admin"
+    },
+    "BottomBar": {
+        "Home": "Home",
+        "Shifts": "Shifts",
+        "Tasks": "Tasks",
+        "Applications": "Applications",
+        "Statistics": "Statistics"
     }
 }
