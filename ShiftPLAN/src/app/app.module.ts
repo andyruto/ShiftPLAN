@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatInputModule } from '@angular/material/input';
 import { ToolbarComponent} from '../app/modules/view-elements/toolbar/toolbar.component'
 import { IconService } from './services/icon.service';
 
@@ -44,6 +45,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
     MatButtonModule,
     MatIconModule,
     MatButtonToggleModule,
+    MatInputModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
