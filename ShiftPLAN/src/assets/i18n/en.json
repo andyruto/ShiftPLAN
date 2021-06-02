@@ -13,10 +13,8 @@
     },
     "WizardPassword": {
         "Title": "Password",
-        "LabelPasswordOld": "Please enter the password:",
-        "LabelPasswordNew": "New password:",
-        "LabelPasswordCheck": "Confirm the password:",
-        "WarningOld": "Wrong password.",
+        "LabelPasswordNew": "Set password:",
+        "LabelPasswordCheck": "Confirm password:",
         "WarningNew": "The password is not the same!"
     },
     "WizardPermission": {

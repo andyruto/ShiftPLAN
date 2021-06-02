@@ -3,20 +3,18 @@
     "NextButton": "Weiter",
     "WizardAddress": {
         "Title": "API Adresse",
-        "Label": "Bitte geben Sie die API Adresse ein:",
+        "Label": "Geben Sie die API Adresse ein:",
         "Warning": "Die Adresse ist ungültig!"
     },
     "WizardKey": {
         "Title": "API Schlüssel",
-        "Label": "Bitte geben Sie den API Schlüssel ein:",
+        "Label": "Geben Sie den API Schlüssel ein:",
         "Warning": "Der Schlüssel ist ungültig!"
     },
     "WizardPassword": {
         "Title": "Passwort",
-        "LabelPasswordOld": "Bitte geben Sie das Passwort ein:",
-        "LabelPasswordNew": "Neues Passwort:",
+        "LabelPasswordNew": "Passwort eingeben:",
         "LabelPasswordCheck": "Passwort bestätigen:",
-        "WarningOld": "Falsches Passwort.",
         "WarningNew": "Das Passwort ist nicht gleich!"
     },
     "WizardPermission": {
