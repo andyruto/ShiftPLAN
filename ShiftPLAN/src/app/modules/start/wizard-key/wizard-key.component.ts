@@ -4,7 +4,7 @@
  * Main typescript class for the wizard-key component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-05-29 / Anne Naumann
+ * last edit / by: 2021-06-02 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -32,7 +32,6 @@ export class WizardKeyComponent implements OnInit {
   }
 
   checkInput(userInput: string): void{
-    let warning = document.getElementById('warning')
     var inputValid: Boolean = false
 
     //check Input
@@ -41,7 +40,7 @@ export class WizardKeyComponent implements OnInit {
     if(inputValid){
       //navigate to next component
     }else{
-      warning!.style.visibility = 'visible'
+      //display warning?
     }
   }
 }
