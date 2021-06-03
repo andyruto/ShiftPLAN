@@ -1,3 +1,11 @@
+/**
+ * main.module.ts
+ * 
+ * Module that contains all main components.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-03 / Anne Naumann
+ */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
@@ -7,8 +15,6 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
-
-
 
 @NgModule({
   declarations: [
@@ -21,7 +27,7 @@ import { AdminComponent } from './admin/admin.component';
     AdminComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
 export class MainModule { }
