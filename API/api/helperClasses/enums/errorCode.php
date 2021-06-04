@@ -35,5 +35,6 @@
         const UserTypeNotMatching = 23; //The user isn't matching the required user type
         const ChallengeFailed = 24; //The saved challenge does not match the decryptet one
         const ChallengeExpired = 25; //Challenge expired
+        const NotImplementedYet = 26; //Requested function is not implemented yet
     }
 ?>
