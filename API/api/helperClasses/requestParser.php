@@ -22,6 +22,7 @@
         //Checking and if body is not null returning the json encoded version
         public function getBodyObject(){
             if($this->requestBody != null){
+                $finishCode = ErrorCode::NoError;
                 try{
                     //When request body is not empty returning the json encodede version
                     $tmpJson = json_decode($this->requestBody);
