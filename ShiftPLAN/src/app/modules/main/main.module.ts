@@ -4,11 +4,12 @@
  * Module that contains all main components.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-03 / Anne Naumann
+ * last edit / by: 2021-06-05 / Anne Naumann
  */
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { MainRoutingModule } from './main-routing.module';
+import { ViewElementsModule } from '../view-elements/view-elements.module';
 import { HomeComponent } from './home/home.component';
 import { ShiftsComponent } from './shifts/shifts.component';
 import { TasksComponent } from './tasks/tasks.component';
@@ -34,6 +35,7 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
   imports: [
     SharedModule,
     MainRoutingModule,
+    ViewElementsModule
   ]
 })
 export class MainModule { }

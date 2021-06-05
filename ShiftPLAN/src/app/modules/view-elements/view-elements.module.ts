@@ -4,7 +4,7 @@
  * Module that contains all components that are used multiple times in the application.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-05-26 / Anne Naumann
+ * last edit / by: 2021-06-05 / Anne Naumann
  */
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module'
@@ -16,12 +16,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
   declarations: [
     ToolbarComponent,
-    BottomBarComponent,
+    BottomBarComponent
   ],
   imports: [
     SharedModule,
     BottomNavModule,
     MatToolbarModule
+  ],
+  exports: [
+    ToolbarComponent,
+    BottomBarComponent
   ]
 })
 export class ViewElementsModule { }
