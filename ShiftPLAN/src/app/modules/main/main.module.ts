@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
 import { MainComponent } from './main.component';
+import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import { MainComponent } from './main.component';
     StatisticsComponent,
     ProfileComponent,
     SettingsComponent,
-    AdminComponent
+    AdminComponent,
     MainComponent,
+    MainNavigationComponent
   ],
   imports: [
     SharedModule,
