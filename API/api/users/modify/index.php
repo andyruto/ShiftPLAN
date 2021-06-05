@@ -34,7 +34,8 @@
                     ||$rP->hasParameters(array('overtime'))
                     ||$rP->hasParameters(array('weeklyWorkingMinutes'))
                     ||$rP->hasParameters(array('weeklyWorkingDays'))
-                    ||$rP->hasParameters(array('yearVacationDays'))){
+                    ||$rP->hasParameters(array('yearVacationDays'))
+                    ||$rP->hasParameters(array('user'))){
                         $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(), $session, 1);
                         //Checking if execution privileges a granted
                         $eC->check($sM->isAdmin());
@@ -51,7 +52,11 @@
                     //Checking the session manager succesfully found a valid session
                     if(self::$errorCode == ErrorCode::NoError){
                         //Creating a user manager for modifications
-                        $uM = UserManager::obj($sM->getUserName());
+                        if($isAdmin && $rP->hasParameters(array('user'))){
+                            $uM = UserManager::obj($request->user);
+                        }else{
+                            $uM = UserManager::obj($sM->getUserName());
+                        }
                         self::$errorCode = $uM->getFinishCode();
                         //Checking if the user manager was successfull finding a valid user
                         if(self::$errorCode == ErrorCode::NoError){
@@ -62,7 +67,7 @@
                                     Logger::getLogger()->log('DEBUG', 'found password in request');
                                     self::$errorCode = $ssM->sDecrypt($request->password, $request->nonce, $uM->getPasswordHash());
                                     if(self::$errorCode == ErrorCode::NoError){
-                                        Logger::getLogger()->log('INFO', 'Changing value of password for user '.$sM->getUserName());
+                                        Logger::getLogger()->log('INFO', 'Changing value of password for user '.$uM->getUserName());
                                         $user->setPassword_hash($ssM->getResult());
                                     }
                                 }
@@ -71,7 +76,7 @@
                                 if($rP->hasParameters(array('hidden'))){
                                     Logger::getLogger()->log('DEBUG', 'found hidden in request');
                                     if(preg_match(Validation::BooleanValue, $request->hidden)){
-                                        Logger::getLogger()->log('INFO', 'Changing value of hidden for user '.$sM->getUserName());
+                                        Logger::getLogger()->log('INFO', 'Changing value of hidden for user '.$uM->getUserName());
                                         $user->setHidden($request->hidden);
                                     }else{
                                         self::$errorCode = ErrorCode::ValidationFailed;
@@ -81,7 +86,7 @@
                                 if($rP->hasParameters(array('type'))){
                                     Logger::getLogger()->log('DEBUG', 'found type in request');
                                     if(preg_match(Validation::UserType, $request->type)){
-                                        Logger::getLogger()->log('INFO', 'Changing value of type for user '.$sM->getUserName());
+                                        Logger::getLogger()->log('INFO', 'Changing value of type for user '.$uM->getUserName());
                                         $user->setUser_type($request->type);
                                     }else{
                                         self::$errorCode = ErrorCode::ValidationFailed;
@@ -91,7 +96,7 @@
                                 if($rP->hasParameters(array('name'))){
                                     Logger::getLogger()->log('DEBUG', 'found name in request');
                                     if(preg_match(Validation::UserName, $request->name)){
-                                        Logger::getLogger()->log('INFO', 'Changing value of name for user '.$sM->getUserName());
+                                        Logger::getLogger()->log('INFO', 'Changing value of name for user '.$uM->getUserName());
                                         $user->setName($request->name);
                                     }else{
                                         self::$errorCode = ErrorCode::ValidationFailed;
@@ -101,7 +106,7 @@
                                 if($rP->hasParameters(array('overtime'))){
                                     Logger::getLogger()->log('DEBUG', 'found overtime in request');
                                     if(preg_match(Validation::Overtime, $request->overtime)){
-                                        Logger::getLogger()->log('INFO', 'Changing value of overtime for user '.$sM->getUserName());
+                                        Logger::getLogger()->log('INFO', 'Changing value of overtime for user '.$uM->getUserName());
                                         $user->setOvertime($request->overtime);
                                     }else{
                                         self::$errorCode = ErrorCode::ValidationFailed;
@@ -111,7 +116,7 @@
                                 if($rP->hasParameters(array('weeklyWorkingMinutes'))){
                                     Logger::getLogger()->log('DEBUG', 'found weeklyWorkingMinutes in request');
                                     if(preg_match(Validation::WeeklyWorkingMinutes, $request->weeklyWorkingMinutes)){
-                                        Logger::getLogger()->log('INFO', 'Changing value of weekly working minutes for user '.$sM->getUserName());
+                                        Logger::getLogger()->log('INFO', 'Changing value of weekly working minutes for user '.$uM->getUserName());
                                         $user->setWeekly_working_minutes($request->weeklyWorkingMinutes);
                                     }else{
                                         self::$errorCode = ErrorCode::ValidationFailed;
@@ -121,7 +126,7 @@
                                 if($rP->hasParameters(array('weeklyWorkingDays'))){
                                     Logger::getLogger()->log('DEBUG', 'found weeklyWorkingDays in request');
                                     if(preg_match(Validation::WeeklyWorkingDays, $request->weeklyWorkingDays)){
-                                        Logger::getLogger()->log('INFO', 'Changing value of weekly working days for user '.$sM->getUserName());
+                                        Logger::getLogger()->log('INFO', 'Changing value of weekly working days for user '.$uM->getUserName());
                                         $user->setWeekly_working_days($request->weeklyWorkingDays);
                                     }else{
                                         self::$errorCode = ErrorCode::ValidationFailed;
@@ -131,7 +136,7 @@
                                 if($rP->hasParameters(array('yearVacationDays'))){
                                     Logger::getLogger()->log('DEBUG', 'found yearVacationDays in request');
                                     if(preg_match(Validation::YearVacationDays, $request->weeklyWorkinyearVacationDaysgDays)){
-                                        Logger::getLogger()->log('INFO', 'Changing value of weekly working minutes for user '.$sM->getUserName());
+                                        Logger::getLogger()->log('INFO', 'Changing value of weekly working minutes for user '.$uM->getUserName());
                                         $user->setYear_vacation_days($request->yearVacationDays);
                                     }else{
                                         self::$errorCode = ErrorCode::ValidationFailed;
