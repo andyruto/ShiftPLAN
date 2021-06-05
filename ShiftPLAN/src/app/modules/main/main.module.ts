@@ -8,6 +8,7 @@
  */
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
+import { MainRoutingModule } from './main-routing.module';
 import { HomeComponent } from './home/home.component';
 import { ShiftsComponent } from './shifts/shifts.component';
 import { TasksComponent } from './tasks/tasks.component';
@@ -32,6 +33,7 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
   ],
   imports: [
     SharedModule,
+    MainRoutingModule,
   ]
 })
 export class MainModule { }
