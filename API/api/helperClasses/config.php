@@ -61,7 +61,7 @@
             while(!feof($configStream)){ //looping through to the end of file
                 $line = read_line($configStream); //getting the current stream as string
 
-                if($line[0] != '#'){
+                if(substr($line, 0, 1) != '#'){
                     if(preg_match('/\s*\[([[:upper:]][a-zA-Z0-9]+)\]\s*/',$line ,$matchInRow, PREG_UNMATCHED_AS_NULL)==1 && !(in_array(null, $matchInRow))){
                         $currentSection=strtolower($matchInRow[1]);
                     } else if(preg_match('/\s*([a-zA-Z]+)\s+\=\s+([^\|\<\>\;\&\`\´\?\%\"\§\²\³\¼\½\¬\{\[\]\}\′\+\=\:]+)/',$line ,$matchInRow, PREG_UNMATCHED_AS_NULL)==1 && !(in_array(null, $matchInRow))){

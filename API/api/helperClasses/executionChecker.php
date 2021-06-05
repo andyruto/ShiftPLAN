@@ -20,12 +20,12 @@
         private function setUserType($userType){$this->userType = $userType;}
 
         private function __construct(){
-            Logger::getLogger()->log('DEBUG', 'Called execution checker');
-
+            Logger::getLogger()->log('DEBUG', 'Called constructer');
         }
 
         //Overloaded constructor to check api key
         public static function apiKeyChecker(String $apiKey){
+            Logger::getLogger()->log('DEBUG', 'Called constructer with params: apikey');
             if(!empty($apiKey)){
                 $obj = new self();
                 //Checking if api key matches an api key pattern
@@ -37,7 +37,7 @@
                     $finishCode = ErrorCode::ValidationFailed;
                 }
             }else{
-                Logger::getLogger()->log('DEBUG', 'api key is empty');
+                Logger::getLogger()->log('ERROR', 'api key is empty');
                 $finishCode = ErrorCode::EmptyParameter;
             }
             //If something failed in the overload constructor print the error code and stoping the script
@@ -48,13 +48,14 @@
 
         //Overloaded constructor to check perssions on api key
         public static function apiKeyPermissionChecker(String $apiKey, Array $permissions){
+            Logger::getLogger()->log('DEBUG', 'Called constructer with params: apikey, permission');
             //Checking if permissions array is null
             if($permissions !== null){
                 $obj = self::apiKeyChecker($apiKey);
                 $obj->setPermissions($permissions);
                 return $obj;
             }else{
-                Logger::getLogger()->log('DEBUG', 'execution failed permissions is null');
+                Logger::getLogger()->log('ERROR', 'execution failed permissions is null');
                 $finishCode = ErrorCode::EmptyParameter;
             }
             //If something failed in the overload constructor print the error code and stoping the script
@@ -65,6 +66,7 @@
 
         //Overloaded constructor to check session validity
         public static function apiKeyPermissionSessionChecker(String $apiKey, Array $permissions, String $session){
+            Logger::getLogger()->log('DEBUG', 'Called constructer with params: apikey, permission, session');
             if(!empty($session)){
                 $obj = self::apiKeyPermissionChecker($apiKey, $permissions);
                 //Checking if session matches an session pattern
@@ -72,11 +74,11 @@
                     $obj->setSession($session);
                     return $obj;
                 }else{
-                    Logger::getLogger()->log('DEBUG', 'session failed regex validation');    
+                    Logger::getLogger()->log('ERROR', 'session failed regex validation');    
                     $finishCode = ErrorCode::ValidationFailed;
                 } 
             }else{
-                Logger::getLogger()->log('DEBUG', 'execution failed session is empty');
+                Logger::getLogger()->log('ERROR', 'execution failed session is empty');
                 $finishCode = ErrorCode::EmptyParameter;
             }
             //If something failed in the overload constructor print the error code and stoping the script
@@ -87,12 +89,13 @@
 
         //Overloaded constructor to check if user is supervised
         public static function apiKeyPermissionSessionUserTypeChecker(String $apiKey, Array $permissions, String $session, Int $userType){
+            Logger::getLogger()->log('DEBUG', 'Called constructer with params:  apikey, permission, session, usertype');
             if(!empty($userType)){
                 $obj = self::apiKeyPermissionSessionChecker($apiKey, $permissions, $session);
                 $obj->setUserType($userType);
                 return $obj;
             }else{
-                Logger::getLogger()->log('DEBUG', 'execution failed user type is empty');
+                Logger::getLogger()->log('ERROR', 'execution failed user type is empty');
                 $finishCode = ErrorCode::EmptyParameter;
             }
             //If something failed in the overload constructor print the error code and stoping the script
@@ -102,12 +105,12 @@
         }
 
         public function check($skipDefaultPwCheck){
-            Logger::getLogger()->log('DEBUG', 'validating execution');
+            Logger::getLogger()->log('INFO', 'validating execution');
             $dbM = new DbManager();
             $finishCode = $dbM->checkDb($skipDefaultPwCheck);
 
             if($this->success($finishCode)){
-                Logger::getLogger()->log('DEBUG', 'Database check successful');
+                Logger::getLogger()->log('INFO', 'Database valid');
                 $apiKeyManager = ApiKeyManager::checker($this->apiKey);
                 $finishCode = $apiKeyManager->checkApiKey();
     
@@ -123,6 +126,7 @@
                         //If the session manager returned no error
                         if($this->success($finishCode)){
                             if(!empty($this->userType)){
+                                Logger::getLogger()->log('DEBUG', 'checking user type');
                                 $finishCode = $sessionManager->checkUserType($this->userType);
                             }
                         }else{

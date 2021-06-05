@@ -65,7 +65,7 @@
                         $this->eM->clear();
                         $this->errorCode = ErrorCode::SessionExpired;
                     }else{
-                        Logger::getLogger()->log('DEBUG', 'Session valid');
+                        Logger::getLogger()->log('INFO', 'Session valid');
                     }
                 }
             }
@@ -120,9 +120,11 @@
             if($this->errorCode==ErrorCode::NoError){
                 $user = $this->eM->find('user', $this->session->getUser_id());
                 //Checking if user has enough permissions to run script
-                if($user->getType()<$userType){
-                    Logger::getLogger()->log('Error', 'user '.$user->getName().' is not privileged enough');
+                if($user->getUser_type()<$userType){
+                    Logger::getLogger()->log('Error', 'user '.$user->getName().' is not privileged for operation');
                     $this->errorCode = ErrorCode::UserTypeNotMatching;
+                }else{
+                    Logger::getLogger()->log('INFO', 'user '.$user->getName().' is privileged for operation');
                 }
             }
             return $this->errorCode;
@@ -132,6 +134,10 @@
         public function getUserName(){
             $user = $this->eM->find('user', $this->session->getUser_id());
             return $user->getName();
+        }
+
+        public function isAdmin(){
+            return $this->getUserName() == 'admin';
         }
 
         //Returning database object of class

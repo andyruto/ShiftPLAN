@@ -51,7 +51,7 @@
         //Returning true if the api key is valid otherwise the script will stop due to code in constructor
         function checkApiKey(){
             if($this->errorCode == ErrorCode::NoError){
-                Logger::getLogger()->log('DEBUG', 'api key '.$this->apiKey->getId().' valid');
+                Logger::getLogger()->log('INFO', 'Api key '.$this->apiKey->getId().' valid');
             }
             return $this->errorCode;
         }
