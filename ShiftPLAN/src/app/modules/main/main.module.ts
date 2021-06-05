@@ -7,7 +7,7 @@
  * last edit / by: 2021-06-03 / Anne Naumann
  */
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { ShiftsComponent } from './shifts/shifts.component';
 import { TasksComponent } from './tasks/tasks.component';
@@ -27,7 +27,7 @@ import { AdminComponent } from './admin/admin.component';
     AdminComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
   ]
 })
 export class MainModule { }
