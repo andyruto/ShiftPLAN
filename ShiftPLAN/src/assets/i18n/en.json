@@ -3,7 +3,16 @@
     "Toolbar": {
         "Profile": "Profile",
         "Settings": "Settings",
-        "Admin": "Admin"
+        "Admin": "Admin",
+        "Title": {
+            "Home": "Home",
+            "Shifts": "Shifts",
+            "Tasks": "Tasks",
+            "Statistics": "Statistics",
+            "Profile": "Profile",
+            "Settings": "Settings",
+            "Admin": "Admin"
+        }
     },
     "BottomBar": {
         "Home": "Home",
