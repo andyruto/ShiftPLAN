@@ -15,7 +15,7 @@
         const BooleanValue = '/^(?:True){1}$|^(?:False){1}$/';
         const Overtime = '/^(?:[0-9]|[1-9][0-9]|[1-9][0-9][0-9])$/';
         const WeeklyWorkingMinutes = '/^(?:[0-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-2][0-9][0-9][0-9]|[1-3][0]{3})$/';
-        const WeeklyWorkingDays = '/^(?:[0-6]{1})$/';
+        const WeeklyWorkingDays = '/^(?:[0-7]{1})$/';
         const YearVacationDays = '/^(?:[0-9]|[1-9][0-9]|[1][0-9][0-9]|[2][0-7][0-9]|[2][8][0])$/';
         const UserType = '/^(?:[0-2]{1})$/';
     }
