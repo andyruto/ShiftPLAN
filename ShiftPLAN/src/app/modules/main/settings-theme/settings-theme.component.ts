@@ -17,11 +17,17 @@ import { TranslateService } from '@ngx-translate/core';
 export class SettingsThemeComponent implements OnInit {
 
   title = ''
+  labelMode = ''
+  lightBtn = ''
+  darkBtn = ''
 
   constructor(private translate: TranslateService) { }
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Settings.LabelTheme;
+      this.labelMode = translation.Settings.Theme.LabelMode;
+      this.lightBtn = translation.Settings.Theme.LightButton;
+      this.darkBtn = translation.Settings.Theme.DarkButton;
     });
   }
 }

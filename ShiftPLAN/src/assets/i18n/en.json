@@ -34,6 +34,11 @@
         "LabelTheme": "Change App Theme",
         "LabelAdapt": "Adapt Homescreen",
         "LabelPassword": "Change Password",
-        "LabelInfo": "App Information"
+        "LabelInfo": "App Information",
+        "Theme": {
+            "LabelMode": "Theme",
+            "LightButton": "Light Mode",
+            "DarkButton": "Dark Mode"
+        }
     }
 }

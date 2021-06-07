@@ -34,6 +34,11 @@
         "LabelTheme": "Erscheinungbild ändern",
         "LabelAdapt": "Übersicht anpassen",
         "LabelPassword": "Passwort ändern",
-        "LabelInfo": "App Informationen"
+        "LabelInfo": "App Informationen",
+        "Theme": {
+            "LabelMode": "Darstellungsmodus",
+            "LightButton": "Hell",
+            "DarkButton": "Dunkel"
+        }
     }
 }
