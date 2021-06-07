@@ -10,28 +10,28 @@
 <app-toolbar title="{{title}}" [settingsBtn]=true [adminBtn]=true></app-toolbar>
 <mat-list>
     <mat-list-item id="labelUserName">
-        <span>Benutzername:</span>
+        <span>{{username}}:</span>
         <span id="contentUserName" class="alignText">Test Username</span>
     </mat-list-item>
-    <mat-list-item id="labelPosition">
-        <span>Rolle:</span>
-        <span id="contentPosition" class="alignText">Test Rolle</span>
+    <mat-list-item id="labelRole">
+        <span>{{role}}:</span>
+        <span id="contentRole" class="alignText">Test Rolle</span>
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item id="labelDepartment">
-        <span>Abteilung:</span>
+        <span>{{department}}:</span>
         <span id="contentDepartment" class="alignText">Test Abteilung</span>
     </mat-list-item>
     <mat-list-item id="labelDepartmentHead">
-        <span>Abteilungsleiter:</span>
+        <span>{{departmentHead}}:</span>
         <span id="contentDepartmentHead" class="alignText">Test Abteilungsleiter</span>
     </mat-list-item>
 </mat-list>
 <button mat-raised-button id="logoutBtn" color="accent" (click)="checkLogout()">Logout</button>
 <div id="checkLogout">
-    <p id="labelCheck">Wollen Sie sich wirklich abmelden?</p>
+    <p id="labelCheck">{{logoutLabel}}</p>
     <div class="distributeBtns">
-        <button mat-flat-button id="stopLogoutBtn" color="primary" (click)="stopLogout()">Nein</button>
-        <button mat-flat-button id="confirmLogoutBtn" color="primary" (click)="userLogout()">Ja</button>    
+        <button mat-flat-button id="stopLogoutBtn" color="primary" (click)="stopLogout()">{{noBtn}}</button>
+        <button mat-flat-button id="confirmLogoutBtn" color="primary" (click)="userLogout()">{{yesBtn}}</button>    
     </div>
 </div>

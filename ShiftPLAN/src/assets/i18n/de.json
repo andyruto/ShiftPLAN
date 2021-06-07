@@ -1,5 +1,7 @@
 {
     "Welcome": "Willkommen",
+    "YesButton": "Ja",
+    "NoButton": "Nein",
     "Toolbar": {
         "Profile": "Profil",
         "Settings": "Einstellungen",
@@ -20,5 +22,12 @@
         "Tasks": "Aufgaben",
         "Applications": "Anträge",
         "Statistics": "Statistiken"
+    },
+    "Profile": {
+        "Username": "Benutzername",
+        "Role": "Rolle",
+        "Department": "Abteilung",
+        "DepartmentHead": "Abteilungsleiter",
+        "LogoutLabel": "Wollen Sie sich wirklich abmelden?"
     }
 }
