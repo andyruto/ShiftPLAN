@@ -5,5 +5,14 @@
  * layout defined in the html document.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-05 / Anne Naumann
+ * last edit / by: 2021-06-07 / Anne Naumann
  */ 
+ 
+#bottomBar{
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
