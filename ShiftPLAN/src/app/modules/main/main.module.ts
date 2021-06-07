@@ -21,6 +21,10 @@ import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
 import { MainComponent } from './main.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
+import { SettingsInfoComponent } from './settings-info/settings-info.component';
+import { SettingsPasswordComponent } from './settings-password/settings-password.component';
+import { SettingsThemeComponent } from './settings-theme/settings-theme.component';
+import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-adapt-screen.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
     SettingsComponent,
     AdminComponent,
     MainComponent,
-    MainNavigationComponent
+    MainNavigationComponent,
+    SettingsInfoComponent,
+    SettingsPasswordComponent,
+    SettingsThemeComponent,
+    SettingsAdaptScreenComponent
   ],
   imports: [
     SharedModule,
