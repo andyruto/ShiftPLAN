@@ -5,5 +5,16 @@
  * layout defined in the html document.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-03 / Anne Naumann
+ * last edit / by: 2021-06-07 / Anne Naumann
  */ 
+@import '../../../../styles.scss';
+
+.mat-divider{
+    border-top-color: #{rgba(mat-color($ShiftPLAN-primary), 500)};
+    border-top-width: 2px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.alignText{
+    margin-left: 5%;
+}
