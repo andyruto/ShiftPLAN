@@ -7,6 +7,7 @@
  * last edit / by: 2021-06-07 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings-adapt-screen',
@@ -15,9 +16,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsAdaptScreenComponent implements OnInit {
 
-  constructor() { }
+  title = ''
 
+  constructor(private translate: TranslateService) { }
   ngOnInit(): void {
+    this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+      this.title = translation.Settings.LabelAdapt;
+    });
   }
-
 }
