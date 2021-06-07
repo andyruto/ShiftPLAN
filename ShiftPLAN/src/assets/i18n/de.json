@@ -29,5 +29,11 @@
         "Department": "Abteilung",
         "DepartmentHead": "Abteilungsleiter",
         "LogoutLabel": "Wollen Sie sich wirklich abmelden?"
+    },
+    "Settings": {
+        "LabelTheme": "Erscheinungbild ändern",
+        "LabelAdapt": "Übersicht anpassen",
+        "LabelPassword": "Passwort ändern",
+        "LabelInfo": "App Informationen"
     }
 }

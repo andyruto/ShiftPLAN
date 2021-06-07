@@ -29,5 +29,11 @@
         "Department": "Department",
         "DepartmentHead": "Head of Department",
         "LogoutLabel": "Do you really want to logout?"
+    },
+    "Settings": {
+        "LabelTheme": "Change App Theme",
+        "LabelAdapt": "Adapt Homescreen",
+        "LabelPassword": "Change Password",
+        "LabelInfo": "App Information"
     }
 }

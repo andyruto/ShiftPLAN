@@ -11,21 +11,21 @@
 <mat-list>
     <mat-list-item id="labelTheme" (click)="navigateToTheme()">
         <mat-icon svgIcon="palette"></mat-icon>
-        <span class="alignText">Erscheinungsbild ändern</span>
+        <span class="alignText">{{labelTheme}}</span>
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item id="labelAdaptScreen" (click)="navigateToAdaptHome()">
         <mat-icon svgIcon="levels"></mat-icon>
-        <span class="alignText">Übersicht anpassen</span>
+        <span class="alignText">{{labelAdapt}}</span>
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item id="labelPassword" (click)="navigateToPassword()">
         <mat-icon svgIcon="lock"></mat-icon>
-        <span class="alignText">Passwort ändern</span>
+        <span class="alignText">{{labelPassword}}</span>
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item id="labelInfo" (click)="navigateToInfo()">
         <mat-icon svgIcon="info"></mat-icon>
-        <span class="alignText">App Informationen</span>
+        <span class="alignText">{{labelInfo}}</span>
     </mat-list-item>
 </mat-list>

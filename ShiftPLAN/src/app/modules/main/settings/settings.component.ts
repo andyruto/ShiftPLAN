@@ -17,11 +17,19 @@ import { TranslateService } from '@ngx-translate/core';
 export class SettingsComponent implements OnInit {
 
   title = ''
+  labelTheme = ''
+  labelAdapt = ''
+  labelPassword = ''
+  labelInfo = ''
 
   constructor(private translate: TranslateService) { }
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Toolbar.Title.Settings;
+      this.labelTheme = translation.Settings.LabelTheme;
+      this.labelAdapt = translation.Settings.LabelAdapt;
+      this.labelPassword = translation.Settings.LabelPassword;
+      this.labelInfo = translation.Settings.LabelInfo;
     });
   }
 
