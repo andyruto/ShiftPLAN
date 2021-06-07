@@ -8,6 +8,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-settings',
@@ -22,7 +23,7 @@ export class SettingsComponent implements OnInit {
   labelPassword = ''
   labelInfo = ''
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService, private router : Router) { }
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Toolbar.Title.Settings;
@@ -34,18 +35,18 @@ export class SettingsComponent implements OnInit {
   }
 
   navigateToTheme(): void {
-    console.log('click on theme')
+    this.router.navigate(['/app/settings-theme'])
   }
 
   navigateToAdaptHome(): void {
-    console.log('click on adapt')
+    this.router.navigate(['/app/settings-adapt-screen'])
   }
 
   navigateToPassword(): void {
-    console.log('click on password')
+    this.router.navigate(['/app/settings-password'])
   }
 
   navigateToInfo(): void {
-    console.log('click on info')
+    this.router.navigate(['/app/settings-info'])
   }
 }

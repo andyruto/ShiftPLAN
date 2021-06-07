@@ -14,6 +14,10 @@
  import { HomeComponent } from './home/home.component';
  import { ProfileComponent } from './profile/profile.component';
  import { SettingsComponent } from './settings/settings.component';
+ import { SettingsInfoComponent } from './settings-info/settings-info.component'
+ import { SettingsPasswordComponent } from './settings-password/settings-password.component'
+ import { SettingsThemeComponent } from './settings-theme/settings-theme.component'
+ import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-adapt-screen.component'
  import { ShiftsComponent } from './shifts/shifts.component';
  import { StatisticsComponent } from './statistics/statistics.component';
  import { TasksComponent } from './tasks/tasks.component';
@@ -31,7 +35,10 @@
       {path: 'settings', component: SettingsComponent},
       {path: 'admin', component: AdminComponent},
     ]},
-    //paths where whole screen is reused
+    {path: 'settings-info', component: SettingsInfoComponent},
+    {path: 'settings-password', component: SettingsPasswordComponent},
+    {path: 'settings-theme', component: SettingsThemeComponent},
+    {path: 'settings-adapt-screen', component: SettingsAdaptScreenComponent}
   ]}
  ];
  
