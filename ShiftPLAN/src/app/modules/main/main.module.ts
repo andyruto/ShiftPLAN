@@ -8,6 +8,8 @@
  */
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 import { MainRoutingModule } from './main-routing.module';
 import { ViewElementsModule } from '../view-elements/view-elements.module';
 import { HomeComponent } from './home/home.component';
@@ -34,6 +36,8 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
   ],
   imports: [
     SharedModule,
+    MatListModule,
+    MatDividerModule,
     MainRoutingModule,
     ViewElementsModule
   ]

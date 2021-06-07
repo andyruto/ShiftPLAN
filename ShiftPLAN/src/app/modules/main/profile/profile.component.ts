@@ -4,7 +4,7 @@
  *  Main typescript class for the profile component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-03 / Anne Naumann
+ * last edit / by: 2021-06-07 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -25,4 +25,17 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  checkLogout(): void{
+    let checkDiv = document.getElementById('checkLogout')
+    checkDiv!.style.display = 'block'
+  }
+  
+  stopLogout(): void{
+    let checkDiv = document.getElementById('checkLogout')
+    checkDiv!.style.display = 'none'
+  }
+
+  userLogout(): void{
+    console.log("User logs out")
+  }
 }
