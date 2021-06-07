@@ -7,3 +7,15 @@
  * author: Anne Naumann
  * last edit / by: 2021-06-07 / Anne Naumann
  */ 
+
+#labelMode{
+    margin: 5% 5%
+}
+.mat-radio-group{
+    display: flex;
+    flex-direction: column;
+    margin: 0 5%;
+}
+.mat-radio-button{
+    margin: 10px
+}

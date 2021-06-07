@@ -4,14 +4,16 @@
  * Module that contains all main components.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-05 / Anne Naumann
+ * last edit / by: 2021-06-07 / Anne Naumann
  */
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
 import { MainRoutingModule } from './main-routing.module';
 import { ViewElementsModule } from '../view-elements/view-elements.module';
+
 import { HomeComponent } from './home/home.component';
 import { ShiftsComponent } from './shifts/shifts.component';
 import { TasksComponent } from './tasks/tasks.component';
@@ -47,6 +49,7 @@ import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-a
     MatListModule,
     MatDividerModule,
     MainRoutingModule,
+    MatRadioModule,
     ViewElementsModule
   ]
 })
