@@ -35,7 +35,7 @@
                     ||$rP->hasParameters(array('weeklyWorkingMinutes'))
                     ||$rP->hasParameters(array('weeklyWorkingDays'))
                     ||$rP->hasParameters(array('yearVacationDays'))){
-                        $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(), $session, 1);
+                        $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(Permission::UserWrite), $session, 1);
                         //Checking if execution privileges a granted
                         $eC->check($sM->isAdmin());
                         Logger::getLogger()->log('DEBUG', 'modifying users with admin rights');
