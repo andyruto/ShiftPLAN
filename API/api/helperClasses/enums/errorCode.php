@@ -5,7 +5,7 @@
      * PHP file containing all defined error codes.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-06-08 / Maximilian T. | Kontr0x
      */
 
     abstract class ErrorCode{
@@ -36,5 +36,7 @@
         const ChallengeFailed = 24; //The saved challenge does not match the decryptet one
         const ChallengeExpired = 25; //Challenge expired
         const NotImplementedYet = 26; //Requested function is not implemented yet
+        const ParameterMissmatch = 27; //Parameters do not match function requirements
+        const UserAlreadyExists = 28; //When trying to create a user that already exists in db
     }
 ?>
