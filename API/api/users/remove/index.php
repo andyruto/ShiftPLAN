@@ -1,59 +1,69 @@
 <?php
+
     /**
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-06-08 / Maximilian T. | Kontr0x
      */
 
     require '../../prepareExec.php';
 
-    final class Main {
+    final class Main extends ApiRunnable{
+        private static $errorCode = ErrorCode::NoError;
+        private static $respondArray = array();
 
         //Method invoked on script execution
-        public static function run() {
-
+        public static function run(){
             // Takes raw data from the request
-            $json = file_get_contents('php://input');
-            $request = json_decode($json);
-            checkApiKey($request->api_key);
-            checkSessionKey($request->session_key);
-
-            // Creating entity manager for doctrine framwork sql access
-            $entityManager = Bootstrap::getEntityManager();
-            // Setting header for html output type
-            header('Content-Type: application/json');
-
-            // Checking if only id was given
-            if(!empty($request->id)){
-                Logger::getLogger()->log('INFO', 'id found in "user remove" post');
-                $user = $entityManager->find('User', $request->id);
-                if($user->getHidden() == 0){
-                    $user->setHidden(1);
-                }elseif($user->getHidden() == 1){
-                    $user->setHidden(0);
-                }else{
-                    Logger::getLogger()->log('ERROR', 'data corrupt');
-                    $respondJSON = array('success' => 'false');
-                    echo(json_encode($respondJSON));
-                    exit();
+            $rP = new RequestParser();
+            $request = $rP->getBodyObject();
+            //Looking for parameters
+            if($rP->hasParameters(array('apiKey', 'session', 'name'))){
+                $ssM = new SslKeyManager();
+                //Decrypting the session
+                self::$errorCode = $ssM->aDecrypt($request->session);
+                //Checking if the decryption succeded
+                if(self::$errorCode == ErrorCode::NoError){
+                    //Saving the decrytped session
+                    $session = $ssM->getResult();
+                    $sM = SessionManager::obj($session);
+                    self::$errorCode = $sM->getFinishCode();
+                    //Checking if the session manager succeded
+                    if(self::$errorCode == ErrorCode::NoError){
+                        //Checking execution rights
+                        $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(Permission::UserWrite), $session);
+                        $eC->check(false);
+                        //Validating the given parameters
+                        if(preg_match(Validation::UserName, $request->name)){
+                            $uM = UserManager::obj($request->name);
+                            self::$errorCode = $uM->getFinishCode();
+                            if(self::$errorCode == ErrorCode::NoError){
+                                $user = $uM->getDbObject();
+                                $user->setHidden(1);
+                                (Bootstrap::getEntityManager())->flush();
+                                Logger::getLogger()->log('DEBUG', 'User with name '+$request->name+' set to hidden');
+                            }
+                        }else{
+                            self::$errorCode = ErrorCode::ValidationFailed;
+                            Logger::getLogger()->log('ERROR', 'Name validation failed');
+                        }
+                    }
                 }
-                //$entityManager->remove($user);
-                $entityManager->flush();
-                //$entityManager->clear();
-                $respondJSON = array('success' => 'true');
-                echo(json_encode($respondJSON));
-                exit();
             }else{
-                // combination of arguments was wrong
-                Logger::getLogger()->log('ERROR', 'wrong arguments in post request');
-                $respondJSON = array('success' => 'false');
-                echo(json_encode($respondJSON));
-                exit();
+                self::$errorCode = ErrorCode::ParameterMissmatch;
+                Logger::getLogger()->log('WARNING', 'Parameters doenst match function requirements');
             }
-            
+            //Preparing output
+            sendOutput(self::$errorCode, self::$respondArray);
+            exit();
+        }
+
+        //Method invoked before script execution
+        public static function logUrl(){
+            //Logging the called script location
+            Logger::getLogger()->log('INFO', 'Api path /user/create/ was called');
         }
     }
-
-    Main::run();
+    Runner::run();
 ?>
