@@ -4,13 +4,14 @@
  * Module that contains all main components.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-07 / Anne Naumann
+ * last edit / by: 2021-06-09 / Anne Naumann
  */
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MainRoutingModule } from './main-routing.module';
 import { ViewElementsModule } from '../view-elements/view-elements.module';
 
@@ -50,6 +51,7 @@ import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-a
     MatDividerModule,
     MainRoutingModule,
     MatRadioModule,
+    MatSlideToggleModule,
     ViewElementsModule
   ]
 })

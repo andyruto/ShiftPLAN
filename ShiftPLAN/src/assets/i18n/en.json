@@ -37,6 +37,9 @@
             "LabelMode": "Theme",
             "LightButton": "Light Mode",
             "DarkButton": "Dark Mode"
+        },
+        "Statistics": {
+            "LabelStatistic": "Show statistics"
         }
     }
 }

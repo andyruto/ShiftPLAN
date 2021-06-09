@@ -37,6 +37,9 @@
             "LabelMode": "Darstellungsmodus",
             "LightButton": "Hell",
             "DarkButton": "Dunkel"
+        },
+        "Statistics": {
+            "LabelStatistic": "Statistiken anzeigen"
         }
     }
 }
