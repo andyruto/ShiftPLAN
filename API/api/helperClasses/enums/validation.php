@@ -5,7 +5,7 @@
      * PHP file containing all defined regex validations.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-06-01 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-06-08 / Maximilian T. | Kontr0x
      */
 
     abstract class Validation{
@@ -18,5 +18,6 @@
         const WeeklyWorkingDays = '/^(?:[0-7]{1})$/';
         const YearVacationDays = '/^(?:[0-9]|[1-9][0-9]|[1][0-9][0-9]|[2][0-7][0-9]|[2][8][0])$/';
         const UserType = '/^(?:[0-2]{1})$/';
+        const UserFilters = '/^(?:id|type|name|hidden){1}$/';
     }
 ?>

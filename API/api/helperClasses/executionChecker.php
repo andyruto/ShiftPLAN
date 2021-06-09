@@ -5,7 +5,7 @@
      * PHP file that checks all permissions to execute a request.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-06-08 / Maximilian T. | Kontr0x
      */
 
     class ExecutionChecker{
@@ -116,7 +116,7 @@
     
                 if($this->success($finishCode)){
                     if(!empty($this->permissions)){
-                        $finishCode = $apiKeyManager->checkPermission($permissions);
+                        $finishCode = $apiKeyManager->checkPermission($this->permissions);
                     }else{
                         Logger::getLogger()->log('DEBUG', 'check permission skipped');
                     }

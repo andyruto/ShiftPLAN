@@ -34,9 +34,8 @@
                     ||$rP->hasParameters(array('overtime'))
                     ||$rP->hasParameters(array('weeklyWorkingMinutes'))
                     ||$rP->hasParameters(array('weeklyWorkingDays'))
-                    ||$rP->hasParameters(array('yearVacationDays'))
-                    ||$rP->hasParameters(array('user'))){
-                        $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(), $session, 1);
+                    ||$rP->hasParameters(array('yearVacationDays'))){
+                        $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(Permission::UserWrite), $session, 1);
                         //Checking if execution privileges a granted
                         $eC->check($sM->isAdmin());
                         Logger::getLogger()->log('DEBUG', 'modifying users with admin rights');
