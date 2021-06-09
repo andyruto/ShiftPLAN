@@ -32,8 +32,13 @@
                     self::$errorCode = $sM->getFinishCode();
                     //Checking if the session manager succeded
                     if(self::$errorCode == ErrorCode::NoError){
-                        //Checking execution rights
-                        $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(Permission::UserRead), $session);
+                        if($request->filter == 'name' && $sM->getUserName() ==  $request->value){
+                            //Checking execution rights
+                            $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(), $session);    
+                        }else{
+                            //Checking execution rights
+                            $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(Permission::UserRead), $session);
+                        }
                         $eC->check(false);
                         //Creating entity manager for db access
                         self::$eM = Bootstrap::getEntityManager();
@@ -45,7 +50,7 @@
                             //Formatting the output of the found users
                             foreach($users as $user){
                                 $userName = $user->getName();
-                                $userArray = array('id' => $user->getId(),'type' => $user->getUser_type(), 'hidden' => $user->getHidden());
+                                $userArray = array('id' => $user->getId(), 'type' => $user->getUser_type(), 'hidden' => $user->getHidden(), 'overtime' => $user->getOvertime(), 'wwm' => getWeekly_working_minutes(), 'wwd' => getWeekly_working_days(), 'yvd' => getYear_vacation_days());
                                 $usersArray = array_merge($usersArray, array($userName => $userArray));    
                             }
                             //Adding the found users to the output
