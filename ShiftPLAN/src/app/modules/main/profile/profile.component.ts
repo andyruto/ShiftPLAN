@@ -19,8 +19,6 @@ export class ProfileComponent implements OnInit {
   title = ''
   username = ''
   role = ''
-  department = ''
-  departmentHead = ''
   logoutLabel = ''
   yesBtn = ''
   noBtn = ''
@@ -31,8 +29,6 @@ export class ProfileComponent implements OnInit {
       this.title = translation.Toolbar.Title.Profile;
       this.username = translation.Profile.Username;
       this.role = translation.Profile.Role;
-      this.department = translation.Profile.Department;
-      this.departmentHead = translation.Profile.DepartmentHead;
       this.logoutLabel = translation.Profile.LogoutLabel;
       this.yesBtn = translation.YesButton
       this.noBtn = translation.NoButton

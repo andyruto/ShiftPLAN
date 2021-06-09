@@ -26,8 +26,6 @@
     "Profile": {
         "Username": "Benutzername",
         "Role": "Rolle",
-        "Department": "Abteilung",
-        "DepartmentHead": "Abteilungsleiter",
         "LogoutLabel": "Wollen Sie sich wirklich abmelden?"
     },
     "Settings": {

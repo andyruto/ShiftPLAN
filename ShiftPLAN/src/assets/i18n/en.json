@@ -26,8 +26,6 @@
     "Profile": {
         "Username": "Username",
         "Role": "Role",
-        "Department": "Department",
-        "DepartmentHead": "Head of Department",
         "LogoutLabel": "Do you really want to logout?"
     },
     "Settings": {
