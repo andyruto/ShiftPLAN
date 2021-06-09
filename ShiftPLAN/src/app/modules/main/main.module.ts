@@ -12,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatInputModule } from '@angular/material/input';
 import { MainRoutingModule } from './main-routing.module';
 import { ViewElementsModule } from '../view-elements/view-elements.module';
 
@@ -52,6 +53,7 @@ import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-a
     MainRoutingModule,
     MatRadioModule,
     MatSlideToggleModule,
+    MatInputModule,
     ViewElementsModule
   ]
 })

@@ -2,6 +2,9 @@
     "Welcome": "Welcome",
     "YesButton": "Yes",
     "NoButton": "No",
+    "NextButton": "Next",
+    "SaveButton": "Save",
+    "CancelButton": "Cancel",
     "Toolbar": {
         "Profile": "Profile",
         "Settings": "Settings",
@@ -38,8 +41,15 @@
             "LightButton": "Light Mode",
             "DarkButton": "Dark Mode"
         },
-        "Statistics": {
+        "Adapt": {
             "LabelStatistic": "Show statistics"
+        },
+        "Password": {
+            "LabelPassword": "Enter your current password",
+            "LabelNewPassword": "Enter new password",
+            "LabelCheckPassword": "Confirm password",
+            "WarningPassword": "Wrong password!",
+            "WarningCheckPassword": "password is not the same!"
         }
     }
 }

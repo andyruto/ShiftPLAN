@@ -23,7 +23,7 @@ export class SettingsAdaptScreenComponent implements OnInit {
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Settings.LabelAdapt;
-      this.statisticsLabel = translation.Settings.Statistics.LabelStatistic;
+      this.statisticsLabel = translation.Settings.Adapt.LabelStatistic;
     });
   }
 }
