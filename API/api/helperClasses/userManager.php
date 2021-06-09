@@ -39,9 +39,14 @@
             return new self($name);
         }
 
-        //Function to return passworh hash of user
+        //Function to return password hash of user
         public function getPasswordHash(){
             return $this->user->getPassword_hash();
+        }
+
+        //Function to return name of user
+        public function getUserName(){
+            return $this->user->getName();
         }
         
         //Function to create a default user if the user table is empty
