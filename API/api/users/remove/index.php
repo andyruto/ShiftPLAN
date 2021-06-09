@@ -32,7 +32,7 @@
                     //Checking if the session manager succeded
                     if(self::$errorCode == ErrorCode::NoError){
                         //Checking execution rights
-                        $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(Permission::UserWrite), $session);
+                        $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(Permission::UserWrite), $session, 1);
                         $eC->check(false);
                         //Validating the given parameters
                         if(preg_match(Validation::UserName, $request->name)){
