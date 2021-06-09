@@ -111,7 +111,7 @@
                 $standardApiKey->setName('standardApiKey');
                 //Setting all permission
                 $class = new ReflectionClass('Permission');
-                $staticProperties = $class->getStaticProperties();
+                $staticProperties = $class->getConstants();
                 foreach($staticProperties as $permission){
                     Logger::getLogger()->log('DEBUG', 'Permission '.$permission.' set for api key '.$standardApiKey->getId());
                     $permissionCall = "set".$permission;
