@@ -5,7 +5,7 @@
      * PHP file containing class to manage the users.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-06-08 / Maximilian T. | Kontr0x
      */
 
     class UserManager{
@@ -66,6 +66,23 @@
                 $this->eM->persist($standarduser);
                 //Flushing changes
                 $this->eM->flush();
+            }
+        }
+
+        //Function to create a user if the user
+        public function createUser($name, $pwHash){
+            if($this->eM->getRepository('user')->findBy(array('name' => $name))[0] === Null){
+                //Creating new user
+                $newUser = new User();
+                $newUser->setName($name);
+                $newUser->setPassword_hash(\Sodium\bin2hex($pwHash));
+                //Storeing created user
+                $this->eM->persist($newUser);
+                //Flushing changes
+                $this->eM->flush();
+                return ErrorCode::NoError;
+            }else{
+                return ErrorCode::UserAlreadyExists;
             }
         }
 
