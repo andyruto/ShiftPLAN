@@ -4,17 +4,19 @@
  * Module that contains all main components.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-09 / Anne Naumann
+ * last edit / by: 2021-06-10 / Anne Naumann
  */
 import { NgModule } from '@angular/core';
+import { MainRoutingModule } from './main-routing.module';
+import { ViewElementsModule } from '../view-elements/view-elements.module';
 import { SharedModule } from '../shared/shared.module';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
-import { MainRoutingModule } from './main-routing.module';
-import { ViewElementsModule } from '../view-elements/view-elements.module';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { HomeComponent } from './home/home.component';
 import { ShiftsComponent } from './shifts/shifts.component';
@@ -47,6 +49,7 @@ import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-a
     SettingsAdaptScreenComponent
   ],
   imports: [
+    ViewElementsModule,
     SharedModule,
     MatListModule,
     MatDividerModule,
@@ -54,7 +57,8 @@ import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-a
     MatRadioModule,
     MatSlideToggleModule,
     MatInputModule,
-    ViewElementsModule
+    MatTabsModule,
+    ScrollingModule
   ]
 })
 export class MainModule { }
