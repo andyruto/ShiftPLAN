@@ -17,6 +17,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { HomeComponent } from './home/home.component';
 import { ShiftsComponent } from './shifts/shifts.component';
@@ -60,7 +61,8 @@ import { AdminAddComponent } from './admin-add/admin-add.component';
     MatSlideToggleModule,
     MatInputModule,
     MatTabsModule,
-    ScrollingModule
+    ScrollingModule,
+    MatCheckboxModule
   ]
 })
 export class MainModule { }

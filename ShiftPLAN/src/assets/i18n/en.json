@@ -16,7 +16,8 @@
             "Statistics": "Statistics",
             "Profile": "Profile",
             "Settings": "Settings",
-            "Admin": "Admin"
+            "Admin": "Admin",
+            "AdminAdd": "New User"
         }
     },
     "BottomBar": {
@@ -54,6 +55,11 @@
     },
     "Admin": {
         "TabUser": "Users",
-        "LabelApiKey": "API Key"
+        "LabelApiKey": "API Key",
+        "Add" : {
+            "LabelUsername" : "Username",
+            "LabelPassword": "Password",
+            "CheckBoxUserHidden": "User is visible"
+        }
     }
 }
