@@ -34,6 +34,7 @@ import { SettingsThemeComponent } from './settings-theme/settings-theme.componen
 import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-adapt-screen.component';
 import { AdminAddComponent } from './admin-add/admin-add.component';
 import { AdminUserComponent } from './admin-user/admin-user.component';
+import { TasksAddComponent } from './tasks-add/tasks-add.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AdminUserComponent } from './admin-user/admin-user.component';
     SettingsThemeComponent,
     SettingsAdaptScreenComponent,
     AdminAddComponent,
-    AdminUserComponent
+    AdminUserComponent,
+    TasksAddComponent
   ],
   imports: [
     ViewElementsModule,
