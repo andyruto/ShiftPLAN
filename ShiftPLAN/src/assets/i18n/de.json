@@ -51,5 +51,9 @@
             "WarningPassword": "Falsches Passwort!",
             "WarningCheckPassword": "Passwörter sind nicht gleich!"
         }
+    },
+    "Admin": {
+        "TabUser": "Benutzer",
+        "LabelApiKey": "API Schlüssel"
     }
 }

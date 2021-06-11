@@ -51,5 +51,9 @@
             "WarningPassword": "Wrong password!",
             "WarningCheckPassword": "password is not the same!"
         }
+    },
+    "Admin": {
+        "TabUser": "Users",
+        "LabelApiKey": "API Key"
     }
 }

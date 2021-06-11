@@ -4,7 +4,7 @@
  *  Main typescript class for the admin component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-10 / Anne Naumann
+ * last edit / by: 2021-06-11 / Anne Naumann
  */
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,6 +17,9 @@ import { TranslateService } from '@ngx-translate/core';
 export class AdminComponent implements OnInit, AfterViewInit{
 
   title = ''
+  tabUsers = ''
+  labelKey = ''
+
   //test content that needs to be replaced
   users: Array<string> = ['a','b','c','d','e','f','g','h','i','b','c','d','e','f','g','h','i']
 
@@ -25,6 +28,8 @@ export class AdminComponent implements OnInit, AfterViewInit{
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Toolbar.Title.Admin;
+      this.tabUsers = translation.Admin.TabUser;
+      this.labelKey = translation.Admin.LabelApiKey;
     });
   }
 

@@ -4,11 +4,11 @@
  -- HTML file specifying the layout for the admin.component.
  -- 
  -- author: Anne Naumann
- -- last edit / by: 2021-06-10 / Anne Naumann
+ -- last edit / by: 2021-06-11 / Anne Naumann
 -->
 <app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true></app-toolbar>
 <mat-tab-group mat-align-tabs="center" color="accent" animationDuration="0ms">
-    <mat-tab label="Benutzer">
+    <mat-tab label={{tabUsers}}>
         <cdk-virtual-scroll-viewport id="userScrollView" itemSize=users.length>
             <div *cdkVirtualFor="let item of users">
                 <div id="userRow">
@@ -25,7 +25,7 @@
         <mat-list>
             <mat-list-item id="apiContent">
                 <mat-icon svgIcon="key"></mat-icon>
-                <span id="labelKey" class="alignText">API Schlüssel:</span>
+                <span id="labelKey" class="alignText">{{labelKey}}:</span>
                 <span id="contentKey" class="alignText">Platzhalter Key</span>
             </mat-list-item>
         </mat-list>
