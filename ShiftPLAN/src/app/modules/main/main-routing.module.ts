@@ -12,6 +12,7 @@
  import { RouterModule, Routes } from '@angular/router';
  import { AdminComponent } from './admin/admin.component';
  import { AdminAddComponent } from './admin-add/admin-add.component';
+ import { AdminUserComponent } from './admin-user/admin-user.component';
  import { HomeComponent } from './home/home.component';
  import { ProfileComponent } from './profile/profile.component';
  import { SettingsComponent } from './settings/settings.component';
@@ -40,7 +41,8 @@
     {path: 'settings-password', component: SettingsPasswordComponent},
     {path: 'settings-theme', component: SettingsThemeComponent},
     {path: 'settings-adapt-screen', component: SettingsAdaptScreenComponent},
-    {path: 'admin-add', component: AdminAddComponent }
+    {path: 'admin-add', component: AdminAddComponent },
+    {path: 'admin-user', component: AdminUserComponent }
   ]}
  ];
  

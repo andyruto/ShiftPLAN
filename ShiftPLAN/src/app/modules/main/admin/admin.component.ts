@@ -44,6 +44,10 @@ export class AdminComponent implements OnInit, AfterViewInit{
     scrollView!.style.height = screenHeight + 'px'
   }
 
+  navigateToUser(): void{
+    this.router.navigate(['/app/admin-user'])
+  }
+
   navigateToAddUser(): void{
     this.router.navigate(['/app/admin-add'])
   }
