@@ -33,6 +33,7 @@ import { SettingsPasswordComponent } from './settings-password/settings-password
 import { SettingsThemeComponent } from './settings-theme/settings-theme.component';
 import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-adapt-screen.component';
 import { AdminAddComponent } from './admin-add/admin-add.component';
+import { AdminUserComponent } from './admin-user/admin-user.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AdminAddComponent } from './admin-add/admin-add.component';
     SettingsPasswordComponent,
     SettingsThemeComponent,
     SettingsAdaptScreenComponent,
-    AdminAddComponent
+    AdminAddComponent,
+    AdminUserComponent
   ],
   imports: [
     ViewElementsModule,
