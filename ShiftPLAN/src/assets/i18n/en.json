@@ -17,7 +17,8 @@
             "Profile": "Profile",
             "Settings": "Settings",
             "Admin": "Admin",
-            "AdminAdd": "New User"
+            "AdminAdd": "New User",
+            "AdminUser": "Edit User"
         }
     },
     "BottomBar": {
