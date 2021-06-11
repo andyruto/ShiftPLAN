@@ -8,6 +8,7 @@
  */
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-admin',
@@ -23,7 +24,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
   //test content that needs to be replaced
   users: Array<string> = ['a','b','c','d','e','f','g','h','i','b','c','d','e','f','g','h','i']
 
-  constructor(private translate: TranslateService) {}
+  constructor(private translate: TranslateService, private router : Router) {}
 
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
@@ -41,5 +42,9 @@ export class AdminComponent implements OnInit, AfterViewInit{
 
     let screenHeight = window.innerHeight-toolbar.clientHeight-bottomBar.clientHeight-header.clientHeight
     scrollView!.style.height = screenHeight + 'px'
+  }
+
+  navigateToAddUser(): void{
+    this.router.navigate(['/app/admin-add'])
   }
 }

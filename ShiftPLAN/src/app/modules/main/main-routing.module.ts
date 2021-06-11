@@ -5,12 +5,13 @@
  * for the main routing module.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-05 / Anne Naumann
+ * last edit / by: 2021-06-11 / Anne Naumann
  */
 
  import { NgModule } from '@angular/core';
  import { RouterModule, Routes } from '@angular/router';
  import { AdminComponent } from './admin/admin.component';
+ import { AdminAddComponent } from './admin-add/admin-add.component';
  import { HomeComponent } from './home/home.component';
  import { ProfileComponent } from './profile/profile.component';
  import { SettingsComponent } from './settings/settings.component';
@@ -38,7 +39,8 @@
     {path: 'settings-info', component: SettingsInfoComponent},
     {path: 'settings-password', component: SettingsPasswordComponent},
     {path: 'settings-theme', component: SettingsThemeComponent},
-    {path: 'settings-adapt-screen', component: SettingsAdaptScreenComponent}
+    {path: 'settings-adapt-screen', component: SettingsAdaptScreenComponent},
+    {path: 'admin-add', component: AdminAddComponent }
   ]}
  ];
  
