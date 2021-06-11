@@ -4,6 +4,26 @@
 -- HTML file specifying the layout for the tasks.component.
 -- 
 -- author: Anne Naumann
--- last edit / by: 2021-06-05 / Anne Naumann
+-- last edit / by: 2021-06-11 / Anne Naumann
 -->
 <app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=true></app-toolbar>
+<mat-form-field id="searchBar" class="inputField">
+    <mat-label id="labelSearch">{{searchBarText}}</mat-label>
+    <input matInput #searchBar type="search">
+    <button matSuffix id="searchBtn">
+        <mat-icon svgIcon="search" id="searchIcon"></mat-icon>
+    </button>
+</mat-form-field>
+<div id="container">
+    <cdk-virtual-scroll-viewport id="tasksScrollView" itemSize=tasks.length>
+        <div *cdkVirtualFor="let item of tasks" (click)="navigateToTask()">
+            <div id="taskRow">
+                <div id="taskLabel">{{item}}</div>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+    </cdk-virtual-scroll-viewport>
+    <button mat-fab color="accent" id="addTaskBtn" (click)="navigateToAddTask()">
+        <mat-icon svgIcon="plus"></mat-icon>
+    </button>
+</div>

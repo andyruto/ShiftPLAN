@@ -5,5 +5,50 @@
  * layout defined in the html document.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-03 / Anne Naumann
+ * last edit / by: 2021-06-11 / Anne Naumann
  */ 
+@import '../../../../styles.scss';
+
+.inputField{ 
+    width: 80%; 
+    display: block; 
+    margin: 0 auto; 
+    padding-top: 10px;
+} 
+#searchBtn{
+    background-color: transparent;
+    border-style: none;
+    vertical-align: middle;
+}
+#searchIcon{
+    color: #{rgba(mat-color($ShiftPLAN-primary), 500)};
+}
+#tasksScrollView{
+    width: 95%;
+    display: block;
+    margin: 0 auto;
+}
+#taskRow{
+    height: 50px;
+    position: relative;
+}
+#taskLabel{
+    margin: auto 5%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.mat-divider{ 
+    border-top-color: #{rgba(mat-color($ShiftPLAN-primary), 500)}; 
+    border-top-width: 2px; 
+    margin-left: 20px; 
+    margin-right: 20px; 
+} 
+#container{
+    position: relative;
+}
+#addTaskBtn{
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+}

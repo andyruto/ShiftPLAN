@@ -62,5 +62,8 @@
             "LabelPassword": "Password",
             "CheckBoxUserHidden": "User is visible"
         }
+    },
+    "Tasks": {
+        "SearchBarText": "task name"
     }
 }
