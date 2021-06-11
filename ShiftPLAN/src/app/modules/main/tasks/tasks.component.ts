@@ -47,6 +47,6 @@ export class TasksComponent implements OnInit, AfterViewInit {
   }
 
   navigateToAddTask(): void{
-
+    this.router.navigate(['/app/tasks-add'])
   }
 }

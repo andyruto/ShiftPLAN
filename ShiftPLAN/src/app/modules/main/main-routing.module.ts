@@ -23,6 +23,7 @@
  import { ShiftsComponent } from './shifts/shifts.component';
  import { StatisticsComponent } from './statistics/statistics.component';
  import { TasksComponent } from './tasks/tasks.component';
+ import { TasksAddComponent } from './tasks-add/tasks-add.component';
  import { MainComponent } from './main.component'
  import { MainNavigationComponent } from './main-navigation/main-navigation.component'
  
@@ -42,7 +43,8 @@
     {path: 'settings-theme', component: SettingsThemeComponent},
     {path: 'settings-adapt-screen', component: SettingsAdaptScreenComponent},
     {path: 'admin-add', component: AdminAddComponent },
-    {path: 'admin-user', component: AdminUserComponent }
+    {path: 'admin-user', component: AdminUserComponent },
+    {path: 'tasks-add', component: TasksAddComponent }
   ]}
  ];
  
