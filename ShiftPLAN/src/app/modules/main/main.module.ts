@@ -4,7 +4,7 @@
  * Module that contains all main components.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-10 / Anne Naumann
+ * last edit / by: 2021-06-11 / Anne Naumann
  */
 import { NgModule } from '@angular/core';
 import { MainRoutingModule } from './main-routing.module';
@@ -31,6 +31,7 @@ import { SettingsInfoComponent } from './settings-info/settings-info.component';
 import { SettingsPasswordComponent } from './settings-password/settings-password.component';
 import { SettingsThemeComponent } from './settings-theme/settings-theme.component';
 import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-adapt-screen.component';
+import { AdminAddComponent } from './admin-add/admin-add.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-a
     SettingsInfoComponent,
     SettingsPasswordComponent,
     SettingsThemeComponent,
-    SettingsAdaptScreenComponent
+    SettingsAdaptScreenComponent,
+    AdminAddComponent
   ],
   imports: [
     ViewElementsModule,
