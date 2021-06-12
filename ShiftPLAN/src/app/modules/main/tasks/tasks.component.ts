@@ -4,7 +4,7 @@
  *  Main typescript class for the tasks component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-11 / Anne Naumann
+ * last edit / by: 2021-06-12 / Anne Naumann
  */
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,7 +21,21 @@ export class TasksComponent implements OnInit, AfterViewInit {
   searchBarText = ''
 
   //test content that needs to be replaced
-  tasks: Array<string> = ['a','b','c','d','e','f','g','h','i','b','c','d','e','f','g','h','i']
+  tasks = [
+    {name: 'Alabama', type: 'Montgomery'},
+    {name: 'Alaska', type: 'Juneau'},
+    {name: 'Arizona', type: 'Phoenix'},
+    {name: 'Arkansas', type: 'Little Rock'},
+    {name: 'California', type: 'Sacramento'},
+    {name: 'Colorado', type: 'Denver'},
+    {name: 'Connecticut', type: 'Hartford'},
+    {name: 'Delaware', type: 'Dover'},
+    {name: 'Florida', type: 'Tallahassee'},
+    {name: 'Georgia', type: 'Atlanta'},
+    {name: 'Hawaii', type: 'Honolulu'},
+    {name: 'Idaho', type: 'Boise'},
+    {name: 'Illinois', type: 'Springfield'}
+  ]
 
   constructor(private translate: TranslateService, private router : Router) { }
 

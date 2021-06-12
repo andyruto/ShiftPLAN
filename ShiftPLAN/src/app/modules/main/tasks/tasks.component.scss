@@ -5,7 +5,7 @@
  * layout defined in the html document.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-11 / Anne Naumann
+ * last edit / by: 2021-06-12 / Anne Naumann
  */ 
 @import '../../../../styles.scss';
 
@@ -32,10 +32,17 @@
     height: 50px;
     position: relative;
 }
-#taskLabel{
+#taskName{
     margin: auto 5%;
     position: absolute;
     top: 50%;
+    transform: translateY(-50%);
+}
+#taskType{
+    margin: auto 5%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transform: translateY(-50%);
 }
 .mat-divider{ 
