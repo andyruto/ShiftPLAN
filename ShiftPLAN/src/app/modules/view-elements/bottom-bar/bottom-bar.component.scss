@@ -1,0 +1,36 @@
+/**
+ * bottom-bar.component.scss
+ * 
+ * The stylesheet document for the bottom-bar component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-05-29 / Anne Naumann
+ */ 
+@import './_bottom-bar.component.scss';
+@import '../../../../styles.scss';
+@include ngx-bottom-nav-theme($ShiftPLAN-theme); 
+
+button[ngx-bottom-nav]{
+    font-family: Nunito;
+    font-size: 10pt;
+    font-weight: bold;
+}
+:host{
+    #tasksBtn{
+        display: none;
+    }
+    #applicationsBtn{
+        display: none;
+    }
+    &.tasksAllowed{
+        #tasksBtn{
+            display: block;
+        }
+    }
+    &.applicationsAllowed{
+        #applicationsBtn{
+            display: block;
+        }
+    }
+}

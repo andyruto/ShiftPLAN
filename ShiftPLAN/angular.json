@@ -33,7 +33,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "src/app/services/encryption.service.helper"
+            ]
           },
           "configurations": {
             "production": {
