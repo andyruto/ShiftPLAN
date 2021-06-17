@@ -27,6 +27,7 @@ import { IconService } from './services/icon.service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ApiService } from './services/api.service';
 import { EncryptionService } from './services/encryption.service';
 
 export function translateHttpLoaderFactory(http: HttpClient) {
@@ -56,7 +57,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [EncryptionService],
+  providers: [ApiService, EncryptionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
