@@ -25,5 +25,17 @@
         "Password": "Password",
         "ResetButton": "Reset password",
         "Warning": "Username or password are wrong!"
+    },
+    "Toolbar": {
+        "Profile": "Profile",
+        "Settings": "Settings",
+        "Admin": "Admin"
+    },
+    "BottomBar": {
+        "Home": "Home",
+        "Shifts": "Shifts",
+        "Tasks": "Tasks",
+        "Applications": "Applications",
+        "Statistics": "Statistics"
     }
 }
