@@ -10,22 +10,23 @@
 
  import { NgModule } from '@angular/core';
  import { RouterModule, Routes } from '@angular/router';
- import { AdminComponent } from './admin/admin.component';
- import { AdminAddComponent } from './admin-add/admin-add.component';
- import { AdminUserComponent } from './admin-user/admin-user.component';
- import { HomeComponent } from './home/home.component';
- import { ProfileComponent } from './profile/profile.component';
- import { SettingsComponent } from './settings/settings.component';
- import { SettingsInfoComponent } from './settings-info/settings-info.component'
- import { SettingsPasswordComponent } from './settings-password/settings-password.component'
- import { SettingsThemeComponent } from './settings-theme/settings-theme.component'
- import { SettingsAdaptScreenComponent } from './settings-adapt-screen/settings-adapt-screen.component'
- import { ShiftsComponent } from './shifts/shifts.component';
- import { StatisticsComponent } from './statistics/statistics.component';
- import { TasksComponent } from './tasks/tasks.component';
- import { TasksAddComponent } from './tasks-add/tasks-add.component';
+ import { AdminComponent } from './components/admin/admin.component';
+ import { AdminAddComponent } from './components/admin-add/admin-add.component';
+ import { AdminUserComponent } from './components/admin-user/admin-user.component';
+ import { HomeComponent } from './components/home/home.component';
+ import { ProfileComponent } from './components/profile/profile.component';
+ import { SettingsComponent } from './components/settings/settings.component';
+ import { SettingsInfoComponent } from './components/settings-info/settings-info.component'
+ import { SettingsPasswordComponent } from './components/settings-password/settings-password.component'
+ import { SettingsThemeComponent } from './components/settings-theme/settings-theme.component'
+ import { SettingsAdaptScreenComponent } from './components/settings-adapt-screen/settings-adapt-screen.component'
+ import { ShiftsComponent } from './components/shifts/shifts.component';
+ import { StatisticsComponent } from './components/statistics/statistics.component';
+ import { TasksComponent } from './components/tasks/tasks.component';
+ import { TasksAddComponent } from './components/tasks-add/tasks-add.component';
+ import { TasksTaskComponent } from './components/tasks-task/tasks-task.component';
  import { MainComponent } from './main.component'
- import { MainNavigationComponent } from './main-navigation/main-navigation.component'
+ import { MainNavigationComponent } from './components/main-navigation/main-navigation.component'
  
  const routes: Routes = [
   { path: '', component: MainComponent, children: [
@@ -44,7 +45,8 @@
     {path: 'settings-adapt-screen', component: SettingsAdaptScreenComponent},
     {path: 'admin-add', component: AdminAddComponent },
     {path: 'admin-user', component: AdminUserComponent },
-    {path: 'tasks-add', component: TasksAddComponent }
+    {path: 'tasks-add', component: TasksAddComponent },
+    {path: 'tasks-task', component: TasksTaskComponent }
   ]}
  ];
  
