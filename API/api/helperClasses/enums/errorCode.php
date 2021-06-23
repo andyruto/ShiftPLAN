@@ -38,5 +38,8 @@
         const NotImplementedYet = 26; //Requested function is not implemented yet
         const ParameterMissmatch = 27; //Parameters do not match function requirements
         const UserAlreadyExists = 28; //When trying to create a user that already exists in db
+        const TaskNotFound = 29; //Task not found in database
+        const TaskAlreadyExists = 30; //Task name already in use
+        const NoTaskIdGiven = 31; //Task name parameter was empty
     }
 ?>
