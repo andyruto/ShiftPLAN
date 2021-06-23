@@ -57,7 +57,12 @@
 
         //Function to get all Tasks
         public function getAllTasks(){
-            return $this->eM->getrepository('task')->findAll();
+            $tasksDb = $this->eM->getrepository('task')->findAll();
+            $tasks = array();
+            foreach($tasksDb as $task){
+                $tasks[$task->getId()] = $task->getName();
+            }
+            return $tasks;
         }
 
         //Returning the finish code
