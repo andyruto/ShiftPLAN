@@ -1,11 +1,11 @@
 /**
  * tasks-add.component.spec
  * 
- * Typescript class containing the tests-add for the 
- * tasks component.
+ * Typescript class containing the tests for the 
+ * tasks-add component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-11 / Anne Naumann
+ * last edit / by: 2021-06-15 / Anne Naumann
  */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TasksAddComponent } from './tasks-add.component';
