@@ -5,6 +5,16 @@
     "NextButton": "Next",
     "SaveButton": "Save",
     "CancelButton": "Cancel",
+    "EditButton": "Edit",
+    "Weekdays": {
+        "Monday": "Monday",
+        "Tuesday": "Tuesday",
+        "Wednesday": "Wednesday",
+        "Thursday": "Thursday",
+        "Friday": "Friday",
+        "Saturday": "Saturday",
+        "Sunday": "Sunday"
+    },
     "Toolbar": {
         "Profile": "Profile",
         "Settings": "Settings",
@@ -18,7 +28,8 @@
             "Settings": "Settings",
             "Admin": "Admin",
             "AdminAdd": "New User",
-            "AdminUser": "Edit User"
+            "AdminUser": "Edit User",
+            "TasksAdd": "New Task"
         }
     },
     "BottomBar": {
@@ -64,6 +75,29 @@
         }
     },
     "Tasks": {
-        "SearchBarText": "task name"
+        "SearchBarText": "task name",
+        "Add": {
+            "LabelDescription": "Description",
+            "CheckBoxOnce": "one-time task",
+            "LabelHint": "Specific times and employees can be set by creating a shift."
+        }
+    },
+    "Statistics": {
+        "LabelWorkingHours": "Working Hours",
+        "LabelWorkingDays": "Working Days",
+        "LabelSickDays": "Sick Days",
+        "LabelVacationDays": "Vacation Days",
+        "WordDays": "Days",
+        "WordHours": "Hours"
+    },
+    "Home": {
+        "WarningChanges": "There are changes in your shifts",
+        "WarningShifts": "Attention! There are unplaned shifts",
+        "WordFrom": "from",
+        "WordTo": "to",
+        "LabelContact": "Contact",
+        "LabelColleagues": "Colleagues",
+        "LabelTasks": "Task",
+        "LabelStatistics": "Statistics"
     }
 }

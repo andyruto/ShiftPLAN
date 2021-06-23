@@ -5,6 +5,16 @@
     "NextButton": "Weiter",
     "SaveButton": "Speichern",
     "CancelButton": "Abbrechen",
+    "EditButton": "Ändern",
+    "Weekdays": {
+        "Monday": "Montag",
+        "Tuesday": "Dienstag",
+        "Wednesday": "Mittwoch",
+        "Thursday": "Donnerstag",
+        "Friday": "Freitag",
+        "Saturday": "Samstag",
+        "Sunday": "Sonntag"
+    },
     "Toolbar": {
         "Profile": "Profil",
         "Settings": "Einstellungen",
@@ -18,7 +28,8 @@
             "Settings": "Einstellungen",
             "Admin": "Admin",
             "AdminAdd": "Neuer Benutzer",
-            "AdminUser": "Benutzer bearbeiten"
+            "AdminUser": "Benutzer bearbeiten",
+            "TasksAdd": "Neue Aufgabe"
         }
     },
     "BottomBar": {
@@ -64,6 +75,29 @@
         }
     },
     "Tasks": {
-        "SearchBarText": "Aufgabenname"
+        "SearchBarText": "Aufgabenname",
+        "Add": {
+            "LabelDescription": "Beschreibung",
+            "CheckBoxOnce": "Einmalige Aufgabe",
+            "LabelHint": "Konkrete Uhrzeiten und Mitarbeiter können bei der Schichterstellung festgelegt werden."
+        }
+    },
+    "Statistics": {
+        "LabelWorkingHours": "Arbeitsstunden",
+        "LabelWorkingDays": "Arbeitstage",
+        "LabelSickDays": "Krankheitstage",
+        "LabelVacationDays": "Urlaubstage",
+        "WordDays": "Tage",
+        "WordHours": "Stunden"
+    },
+    "Home": {
+        "WarningChanges": "Es gibt Änderungen in deinen Schichten",
+        "WarningShifts": "Vorsicht! Es gibt ungeplante Schichten",
+        "WordFrom": "von",
+        "WordTo": "bis",
+        "LabelContact": "Ansprechpartner/in",
+        "LabelColleagues": "Kollegen",
+        "LabelTasks": "Aufgabe",
+        "LabelStatistics": "Statistiken"
     }
 }
