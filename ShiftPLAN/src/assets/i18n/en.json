@@ -80,6 +80,11 @@
             "LabelDescription": "Description",
             "CheckBoxOnce": "one-time task",
             "LabelHint": "Specific times and employees can be set by creating a shift."
+        },
+        "Task":{
+            "LabelEdit": "Last Edited",
+            "LabelEditPerson": "from",
+            "LabelEditTime": "at"
         }
     },
     "Statistics": {

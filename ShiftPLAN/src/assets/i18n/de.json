@@ -80,6 +80,11 @@
             "LabelDescription": "Beschreibung",
             "CheckBoxOnce": "Einmalige Aufgabe",
             "LabelHint": "Konkrete Uhrzeiten und Mitarbeiter können bei der Schichterstellung festgelegt werden."
+        },
+        "Task":{
+            "LabelEdit": "Zuletzt geändert",
+            "LabelEditPerson": "von",
+            "LabelEditTime": "am"
         }
     },
     "Statistics": {
