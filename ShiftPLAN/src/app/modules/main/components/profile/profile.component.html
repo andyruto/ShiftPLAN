@@ -4,7 +4,7 @@
  -- HTML file specifying the layout for the profile.component.
  -- 
  -- author: Anne Naumann
- -- last edit / by: 2021-06-07 / Anne Naumann
+ -- last edit / by: 2021-06-23 / Anne Naumann
  -->
 
 <app-toolbar title="{{title}}" [settingsBtn]=true [adminBtn]=true></app-toolbar>
@@ -19,10 +19,3 @@
     </mat-list-item>
 </mat-list>
 <button mat-raised-button id="logoutBtn" color="accent" (click)="checkLogout()">Logout</button>
-<div id="checkLogout">
-    <p id="labelCheck">{{logoutLabel}}</p>
-    <div class="distributeBtns">
-        <button mat-flat-button id="stopLogoutBtn" color="primary" (click)="stopLogout()">{{noBtn}}</button>
-        <button mat-flat-button id="confirmLogoutBtn" color="primary" (click)="userLogout()">{{yesBtn}}</button>    
-    </div>
-</div>
