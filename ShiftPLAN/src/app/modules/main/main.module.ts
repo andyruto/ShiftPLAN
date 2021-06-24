@@ -44,6 +44,7 @@ import { AdminUserComponent } from './components/admin-user/admin-user.component
 import { TasksAddComponent } from './components/tasks-add/tasks-add.component';
 import { TasksInputComponent, TasksInputDialog } from './components/tasks-input/tasks-input.component';
 import { TasksTaskComponent } from './components/tasks-task/tasks-task.component';
+import { ShiftsAddComponent } from './components/shifts-add/shifts-add.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   observer: true,
@@ -74,6 +75,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     TasksInputComponent,
     TasksTaskComponent,
     TasksInputDialog
+    ShiftsAddComponent
   ],
   imports: [
     ViewElementsModule,
