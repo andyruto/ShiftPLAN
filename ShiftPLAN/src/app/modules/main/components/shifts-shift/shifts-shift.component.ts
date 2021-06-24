@@ -7,6 +7,7 @@
  * last edit / by: 2021-06-24 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shifts-shift',
@@ -15,9 +16,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShiftsShiftComponent implements OnInit {
 
-  constructor() { }
+  title = ''
+
+  constructor(private translate: TranslateService) { }
 
   ngOnInit(): void {
+    this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+      this.title = translation.Toolbar.Title.ShiftsShift;
+    });
   }
-
 }

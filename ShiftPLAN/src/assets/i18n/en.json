@@ -29,7 +29,9 @@
             "Admin": "Admin",
             "AdminAdd": "New User",
             "AdminUser": "Edit User",
-            "TasksAdd": "New Task"
+            "TasksAdd": "New Task",
+            "ShiftsAdd": "New Shift",
+            "ShiftsShift": "Shift Informations"
         }
     },
     "BottomBar": {
