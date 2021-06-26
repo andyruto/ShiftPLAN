@@ -106,5 +106,15 @@
         "LabelColleagues": "Colleagues",
         "LabelTasks": "Task",
         "LabelStatistics": "Statistics"
+    },
+    "Shifts": {
+        "LabelTask": "Task",   
+        "LabelTimespan": "Timespan",
+        "LabelValidity": "Valid from",
+        "LabelStart": "Shift Start",
+        "LabelEnd": "Shift End",
+        "LabelEmployee": "Employee",
+        "LabelContact": "Contact",
+        "LabelRemark": "Remark"
     }
 }

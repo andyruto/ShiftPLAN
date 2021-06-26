@@ -106,5 +106,15 @@
         "LabelColleagues": "Kollegen",
         "LabelTasks": "Aufgabe",
         "LabelStatistics": "Statistiken"
+    },
+    "Shifts": {
+        "LabelTask": "Aufgabe",   
+        "LabelTimespan": "Zeitspanne",
+        "LabelValidity": "Gültig ab",
+        "LabelStart": "Schichtbeginn",
+        "LabelEnd": "Schichtende",
+        "LabelEmployee": "Mitarbeiter",
+        "LabelContact": "Ansprechpartner",
+        "LabelRemark": "Anmerkung"
     }
 }

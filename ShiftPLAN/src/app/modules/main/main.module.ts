@@ -4,7 +4,7 @@
  * Module that contains all main components.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-12 / Anne Naumann
+ * last edit / by: 2021-06-26 / Anne Naumann
  */
 import { NgModule } from '@angular/core';
 import { MainRoutingModule } from './main-routing.module';
@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { SwiperModule, SwiperConfigInterface, SWIPER_CONFIG } from 'ngx-swiper-wrapper';
@@ -96,7 +97,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatRippleModule,
     MatDialogModule,
     SwiperModule,
-    NgxMaterialTimepickerModule.setLocale('de-DE')
+    NgxMaterialTimepickerModule.setLocale('de-DE'),
+    MatSelectModule
   ],
   providers: [
     {
