@@ -4,9 +4,9 @@
  *  Main typescript class for the shifts-add component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-26 / Anne Naumann
+ * last edit / by: 2021-06-27 / Anne Naumann
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 
@@ -15,7 +15,7 @@ import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
   templateUrl: './shifts-add.component.html',
   styleUrls: ['./shifts-add.component.scss']
 })
-export class ShiftsAddComponent implements OnInit {
+export class ShiftsAddComponent implements OnInit, AfterViewInit {
 
   timePickerTheme: NgxMaterialTimepickerTheme = {
     container: {

@@ -115,6 +115,8 @@
         "LabelEnd": "Shift End",
         "LabelEmployee": "Employee",
         "LabelContact": "Contact",
-        "LabelRemark": "Remark"
+        "LabelRemark": "Remark",
+        "LabelComments": "Comments",
+        "LabelWarning": "Information has changed"
     }
 }

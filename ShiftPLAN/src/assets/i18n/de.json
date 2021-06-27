@@ -115,6 +115,8 @@
         "LabelEnd": "Schichtende",
         "LabelEmployee": "Mitarbeiter",
         "LabelContact": "Ansprechpartner",
-        "LabelRemark": "Anmerkung"
+        "LabelRemark": "Anmerkung",
+        "LabelComments": "Kommentare",
+        "LabelWarning": "Angaben haben sich geändert"
     }
 }
