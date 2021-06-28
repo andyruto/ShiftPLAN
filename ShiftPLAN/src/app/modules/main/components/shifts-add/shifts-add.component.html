@@ -4,7 +4,7 @@
  -- HTML file specifying the layout for the shifts-add.component.
  -- 
  -- author: Anne Naumann
- -- last edit / by: 2021-06-26 / Anne Naumann
+ -- last edit / by: 2021-06-28 / Anne Naumann
  -->
 <app-toolbar title="{{title}}" [backBtn]=true></app-toolbar>
 <cdk-virtual-scroll-viewport id="shiftAddScrollView" itemSize="50">
@@ -47,7 +47,7 @@
     <div id="employeesContainer">
         <div *ngFor="let num of employeeCount">
             <mat-form-field class="employeeField">
-                <mat-label id="labelEmployees">{{labelEmployee}}</mat-label>
+                <mat-label>{{labelEmployee}}</mat-label>
                 <input matInput type="text">
             </mat-form-field>
         </div>

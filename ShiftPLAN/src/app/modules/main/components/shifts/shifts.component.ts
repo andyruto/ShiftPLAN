@@ -4,7 +4,7 @@
  *  Main typescript class for the shifts component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-26 / Anne Naumann
+ * last edit / by: 2021-06-28 / Anne Naumann
  */
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,11 +27,13 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
   ]
 
   title = ''
+  wordClock = ''
 
   constructor(private translate: TranslateService, private router : Router) { }
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Toolbar.Title.Shifts;
+      this.wordClock = translation.WordClock
     });
   }
 

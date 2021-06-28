@@ -4,7 +4,7 @@
  *  Main typescript class for the home component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-23 / Anne Naumann
+ * last edit / by: 2021-06-28 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   labelVacationDays = ''
   wordDays = ''
   wordHours = ''
+  wordClock = ''
 
   constructor(private translate: TranslateService) { }
   ngOnInit(): void {
@@ -55,6 +56,7 @@ export class HomeComponent implements OnInit {
       this.labelVacationDays = translation.Statistics.LabelVacationDays;
       this.wordDays = translation.Statistics.WordDays;
       this.wordHours = translation.Statistics.WordHours;
+      this.wordClock = translation.WordClock;
     });
   }
 

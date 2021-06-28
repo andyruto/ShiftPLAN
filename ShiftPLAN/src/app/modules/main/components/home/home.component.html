@@ -5,7 +5,7 @@
  -- HTML file specifying the layout for the home.component.
  -- 
  -- author: Anne Naumann
- -- last edit / by: 2021-06-24 / Anne Naumann
+ -- last edit / by: 2021-06-28 / Anne Naumann
  -->
 <app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=true></app-toolbar>
 <div id="containerWarnings">
@@ -24,8 +24,8 @@
             <mat-list-item>
                 <span id="firstShiftDate" class="firstShiftHeader">Montag 24.04</span>
                 <div class="alignText positionContainer">
-                    <div id="firstStartTime" class="firstShiftHeader">{{wordFrom}} 10:00 Uhr</div>
-                    <div id="firstEndTime" class="firstShiftHeader">{{wordTo}} 13:00 Uhr</div>
+                    <div id="firstStartTime" class="firstShiftHeader">{{wordFrom}} 10:00 {{wordClock}}</div>
+                    <div id="firstEndTime" class="firstShiftHeader">{{wordTo}} 13:00 {{wordClock}}</div>
                 </div>
             </mat-list-item>
             <mat-list-item>
@@ -51,8 +51,8 @@
             <mat-list-item>
                 <span id="secondShiftDate" class="secondShiftHeader">Mittwoch 28.04</span>
                 <div class="alignText">
-                    <div id="secondStartTime" class="secondShiftHeader">{{wordFrom}} 10:00 Uhr</div>
-                    <div id="secondEndTime" class="secondShiftHeader">{{wordTo}} 13:00 Uhr</div>
+                    <div id="secondStartTime" class="secondShiftHeader">{{wordFrom}} 10:00 {{wordClock}}</div>
+                    <div id="secondEndTime" class="secondShiftHeader">{{wordTo}} 13:00 {{wordClock}}</div>
                 </div>
             </mat-list-item>
             <mat-list-item>

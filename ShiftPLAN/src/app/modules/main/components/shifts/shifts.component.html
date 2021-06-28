@@ -4,17 +4,17 @@
  -- HTML file specifying the layout for the shifts.component.
  -- 
  -- author: Anne Naumann
- -- last edit / by: 2021-06-26 / Anne Naumann
+ -- last edit / by: 2021-06-28 / Anne Naumann
  -->
 <app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=true></app-toolbar>
 <div id="container">
     <cdk-virtual-scroll-viewport id="shiftsScrollView" itemSize=shifts.length>
         <div matRipple *cdkVirtualFor="let data of shifts; let last = last" (click)="navigateToShift()">
             <div class="shiftRow">
-                <mat-icon id="warningIcon" svgIcon="warning"></mat-icon>
-                <div id="dateLabel" class="headerText">{{data.weekday}}, {{data.date}}</div>
-                <div id="timeLabel" class="headerText">{{data.start}} - {{data.end}}Uhr</div>
-                <div id="taskLabel">{{data.task}}</div>
+                <mat-icon class="warningIcon" svgIcon="warning"></mat-icon>
+                <div class="headerText">{{data.weekday}}, {{data.date}}</div>
+                <div class="headerText">{{data.start}} - {{data.end}} {{wordClock}}</div>
+                <div>{{data.task}}</div>
                 <div *ngFor="let person of data.employees, index as i" class="personLabel">
                     <span>{{person}}</span>
                     <span *ngIf="i != data.employees.length-1">,</span>

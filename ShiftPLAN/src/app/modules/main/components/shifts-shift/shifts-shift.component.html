@@ -4,7 +4,7 @@
  -- HTML file specifying the layout for the shifts-shift.component.
  -- 
  -- author: Anne Naumann
- -- last edit / by: 2021-06-27 / Anne Naumann
+ -- last edit / by: 2021-06-28 / Anne Naumann
  -->
 <app-toolbar title="{{title}}" [backBtn]=true></app-toolbar>
 
@@ -47,7 +47,7 @@
     <div id="employeesContainer">
         <div *ngFor="let person of shift.employees">
             <mat-form-field class="employeeField">
-                <mat-label id="labelEmployees">{{labelEmployee}}</mat-label>
+                <mat-label>{{labelEmployee}}</mat-label>
                 <input matInput type="text" [value]=person (change)="contentChange()">
             </mat-form-field>
         </div>
