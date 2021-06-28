@@ -10,57 +10,58 @@
 <swiper [config]="config" (reachEnd)="addValidityDate(validityDates.length)">
   <div *ngFor="let date of validityDates, index as dateIndex">
     <div class="upperContainer">
-      <div id="dateContainer">
-        <mat-form-field id="datePicker">
+      <div class="dateContainer">
+        <mat-form-field class="datePicker">
           <mat-label>Gültig ab</mat-label>
-          <input matInput [matDatepicker]="picker" [value]="date.date">
+          <input matInput [matDatepicker]="picker" [value]="date.date" id="{{dateIndex}}-validityDate">
           <mat-datepicker-toggle matSuffix [for]="picker">
             <mat-icon matDatepickerToggleIcon svgIcon="calendar"></mat-icon>
           </mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <button mat-icon-button id="deleteTaskBtn" (click)="removeValidityDate(dateIndex)">
+        <button mat-icon-button (click)="removeValidityDate(dateIndex)">
           <mat-icon svgIcon="trash-can"></mat-icon>
         </button>
       </div>
     </div>
     
-    <cdk-virtual-scroll-viewport id="timespansScrollView" class="scrollView" itemSize="date.days.length">
+    <cdk-virtual-scroll-viewport class="scrollView" itemSize="date.days.length">
       <div *cdkVirtualFor="let day of date.days, let dayIndex = index">
         <span class="dayName">{{day.name}}</span>
-        <button mat-icon-button id="addTimeBtn" color="accent" (click)="addTimespan(dateIndex, dayIndex, day.timespans.length)">
+        <button mat-icon-button color="accent" (click)="addTimespan(dateIndex, dayIndex, day.timespans.length)">
           <mat-icon svgIcon="plus"></mat-icon>
         </button>
 
         <div *ngFor="let time of day.timespans, index as timeIndex">
-          <div id="timeContainer">
-            <mat-form-field id="mondayStart" class="inputField">
-              <mat-label id="labelMondayStart">Beginn</mat-label>
-              <input matInput #mondayStart [ngxTimepicker]="pickerStart" [format]=24 [value]=time.start>
+          <div class="timeContainer">
+            <mat-form-field class="inputField">
+              <mat-label>Beginn</mat-label>
+              <input matInput id="{{dateIndex}}-{{dayIndex}}-{{timeIndex}}-taskStart" 
+                [ngxTimepicker]="pickerStart" [format]=24 [value]=time.start>
               <ngx-material-timepicker #pickerStart [theme]="timePickerTheme"></ngx-material-timepicker>
             </mat-form-field>
-            <mat-form-field id="mondayEnd" class="inputField">
-              <mat-label id="labelMondayEnd">Ende</mat-label>
-              <input matInput #mondayEnd [ngxTimepicker]="pickerEnd" [format]=24 [value]=time.end>
+            <mat-form-field class="inputField">
+              <mat-label>Ende</mat-label>
+              <input matInput id="{{dateIndex}}-{{dayIndex}}-{{timeIndex}}-taskEnd" 
+                [ngxTimepicker]="pickerEnd" [format]=24 [value]=time.end>
               <ngx-material-timepicker #pickerEnd [theme]="timePickerTheme"></ngx-material-timepicker>
             </mat-form-field>
           </div>
-          <div id="personContainer">
+          <div class="personContainer">
             <div>
-              <mat-form-field id="mondayPersons" class="inputPerson">
-                <mat-label id="labelMondayPersons"></mat-label>
-                <input matInput #mondayPersons type="number" value={{time.persons}}>
+              <mat-form-field class="inputPerson">
+                <input matInput id="{{dateIndex}}-{{dayIndex}}-{{timeIndex}}-taskPersons" type="number" value={{time.persons}}>
               </mat-form-field>
               <span>benötigte Personen</span>
             </div>
-            <button mat-icon-button id="deleteTimeBtn" (click)="removeTimespan(dateIndex, dayIndex, timeIndex)">
+            <button mat-icon-button (click)="removeTimespan(dateIndex, dayIndex, timeIndex)">
               <mat-icon class="deleteIcon" svgIcon="trash-can"></mat-icon>
             </button>
           </div>
         </div>
         
       </div>
-      <button mat-flat-button id="addDayBtn" color="primary" (click)="showDialog(dateIndex)">Tag hinzufügen</button>
+      <button mat-flat-button class="addDayBtn" color="primary" (click)="showDialog(dateIndex)">Tag hinzufügen</button>
     </cdk-virtual-scroll-viewport>
   
   </div>

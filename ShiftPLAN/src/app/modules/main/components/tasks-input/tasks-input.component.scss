@@ -27,32 +27,32 @@
     width: 40px;
     margin-right: 10px;
 }
-#dateContainer{
+.dateContainer{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-#datePicker{
+.datePicker{
     width: 80%;
 }
-#timeContainer{
+.timeContainer{
     display: flex;
     justify-content: space-around;
 }
-#personContainer{
+.personContainer{
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-#addDayBtn{
+.addDayBtn{
     width: 100%;
-}
-.addTimeBtn{
-    display: block;
-    margin: 5% auto;
-    width: 250px;
 }
 .dayName{
     color: #375E99;
     font-weight: bold;
 }
+.addTimeBtn{ 
+    display: block; 
+    margin: 5% auto; 
+    width: 250px; 
+} 
