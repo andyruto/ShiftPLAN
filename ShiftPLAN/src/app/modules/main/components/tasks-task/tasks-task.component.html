@@ -4,7 +4,7 @@
 -- HTML file specifying the layout for the tasks-task.component.
 -- 
 -- author: Anne Naumann
--- last edit / by: 2021-06-24 / Anne Naumann
+-- last edit / by: 2021-06-28 / Anne Naumann
 -->
 <app-toolbar title="Aufgabe" [backBtn]=true></app-toolbar>
 <mat-form-field id="taskDescription" class="inputField">
@@ -23,13 +23,13 @@
     </div>
 </ng-template>
 <div id="buttonContainer">
-    <div id="editHeader">Zuletzt geändert</div>
+    <div id="editHeader">{{labelEdit}}<</div>
     <div class="editContent">
-        <span>am:</span>
+        <span>{{labelEditTime}}:</span>
         <span id="editContentUser" class="alignText">Username</span>
     </div>
     <div class="editContent">
-        <span>von:</span>
+        <span>{{labelEditPerson}}:</span>
         <span id="editContentTime" class="alignText">Datum</span>
     </div>
     <button mat-raised-button id="editTaskBtn" class="displayBtn" color="accent" >{{editBtn}}</button>
