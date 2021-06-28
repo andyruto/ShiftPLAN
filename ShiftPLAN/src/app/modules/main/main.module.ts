@@ -76,7 +76,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     TasksAddComponent,
     TasksInputComponent,
     TasksTaskComponent,
-    TasksInputDialog
+    TasksInputDialog,
     ShiftsAddComponent,
     ShiftsShiftComponent
   ],
