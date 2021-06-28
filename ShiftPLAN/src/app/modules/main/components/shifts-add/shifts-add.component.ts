@@ -4,9 +4,9 @@
  *  Main typescript class for the shifts-add component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-27 / Anne Naumann
+ * last edit / by: 2021-06-28 / Anne Naumann
  */
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 
@@ -15,7 +15,7 @@ import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
   templateUrl: './shifts-add.component.html',
   styleUrls: ['./shifts-add.component.scss']
 })
-export class ShiftsAddComponent implements OnInit, AfterViewInit {
+export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   timePickerTheme: NgxMaterialTimepickerTheme = {
     container: {
@@ -40,6 +40,7 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit {
 
   selectedTask = 0
   employeeCount = [1, 2]
+  contentLoaded = false
 
   title = ''
   labelTask = ''
@@ -51,6 +52,9 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit {
   labelContact = ''
   labelRemark = ''
   saveBtn = ''
+  cancelBtn = ''
+
+  timepickerTemp = {button: {name : ''}}
 
   constructor(private translate: TranslateService) { }
 
@@ -66,6 +70,7 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit {
       this.labelContact = translation.Shifts.LabelContact;
       this.labelRemark = translation.Shifts.LabelRemark;
       this.saveBtn = translation.SaveButton;
+      this.cancelBtn = translation.CancelButton;
     });
   }
 
@@ -76,6 +81,13 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit {
 
     let screenHeight = window.innerHeight-toolbar-container!
     scrollView!.style.height = screenHeight + 'px'
+  }
+
+  ngAfterViewChecked(): void{
+    if(this.cancelBtn != '' && this.contentLoaded == false){
+      this.timepickerTemp.button.name = this.cancelBtn
+      this.contentLoaded = true
+    }
   }
 
   addEmployee(){

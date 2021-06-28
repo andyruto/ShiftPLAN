@@ -6,7 +6,7 @@
  * author: Anne Naumann
  * last edit / by: 2021-06-28 / Anne Naumann
  */
-import { Component, OnInit, AfterViewChecked, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, Inject, TemplateRef } from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -73,7 +73,9 @@ export class TasksInputComponent implements OnInit, AfterViewChecked {
   labelEnd = ''
   labelPersons = ''
   addDayBtn = ''
+  cancelBtn = ''
 
+  timepickerTemp = {button: {name : ''}}
   weekdayNames = [{index: 0, name: ''}]
 
   validityDates = [
@@ -109,6 +111,7 @@ export class TasksInputComponent implements OnInit, AfterViewChecked {
       this.labelEnd = translation.Tasks.Input.LabelEnd;
       this.labelPersons = translation.Tasks.Input.LabelPersons;
       this.addDayBtn = translation.Tasks.Input.AddDayBtn;
+      this.cancelBtn = translation.CancelButton;
     });
   }
 
@@ -134,6 +137,7 @@ export class TasksInputComponent implements OnInit, AfterViewChecked {
         {index: 6, name: this.sundayName}
       ]
       this.weekdayNames = [...content]
+      this.timepickerTemp.button.name = this.cancelBtn
       this.contentLoaded = true
     }
   }

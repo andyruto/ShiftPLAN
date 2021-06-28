@@ -6,7 +6,7 @@
  * author: Anne Naumann
  * last edit / by: 2021-06-27 / Anne Naumann
  */
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 
@@ -15,7 +15,7 @@ import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
   templateUrl: './shifts-shift.component.html',
   styleUrls: ['./shifts-shift.component.scss']
 })
-export class ShiftsShiftComponent implements OnInit, AfterViewInit {
+export class ShiftsShiftComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   timePickerTheme: NgxMaterialTimepickerTheme = {
     container: {
@@ -45,6 +45,7 @@ export class ShiftsShiftComponent implements OnInit, AfterViewInit {
   //boolean to determine if warning is shown
   showWarningChanges = true
   contentChanged = false
+  contentLoaded = false
 
   title = ''
   labelWarning = ''
@@ -58,6 +59,9 @@ export class ShiftsShiftComponent implements OnInit, AfterViewInit {
   labelRemark = ''
   labelComments = ''
   editBtn = ''
+  cancelBtn = ''
+
+  timepickerTemp = {button: {name : ''}}
 
   constructor(private translate: TranslateService) { }
 
@@ -75,6 +79,7 @@ export class ShiftsShiftComponent implements OnInit, AfterViewInit {
       this.labelRemark = translation.Shifts.LabelRemark;
       this.labelComments = translation.Shifts.LabelComments;
       this.editBtn = translation.EditButton;
+      this.cancelBtn = translation.CancelButton;
     });
   }
 
@@ -85,6 +90,13 @@ export class ShiftsShiftComponent implements OnInit, AfterViewInit {
 
     let screenHeight = window.innerHeight-toolbar-textContainer!
     scrollView!.style.height = screenHeight + 'px'
+  }
+
+  ngAfterViewChecked(): void{
+    if(this.cancelBtn != '' && this.contentLoaded == false){
+      this.timepickerTemp.button.name = this.cancelBtn
+      this.contentLoaded = true
+    }
   }
 
   addEmployee(){

@@ -38,14 +38,29 @@
               <mat-label>{{labelStart}}</mat-label>
               <input matInput id="{{dateIndex}}-{{dayIndex}}-{{timeIndex}}-taskStart" 
                 [ngxTimepicker]="pickerStart" [format]=24 [value]=time.start>
-              <ngx-material-timepicker #pickerStart [theme]="timePickerTheme"></ngx-material-timepicker>
+
+              <ngx-material-timepicker #pickerStart [theme]="timePickerTheme"
+              [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
+              
             </mat-form-field>
             <mat-form-field class="inputField">
               <mat-label>{{labelEnd}}</mat-label>
               <input matInput id="{{dateIndex}}-{{dayIndex}}-{{timeIndex}}-taskEnd" 
                 [ngxTimepicker]="pickerEnd" [format]=24 [value]=time.end>
-              <ngx-material-timepicker #pickerEnd [theme]="timePickerTheme"></ngx-material-timepicker>
+              <ngx-material-timepicker #pickerEnd [theme]="timePickerTheme"
+              [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
             </mat-form-field>
+
+            <ng-template #cancelBtn>
+              <ng-container *ngTemplateOutlet="template; context: timepickerTemp.button"></ng-container>
+            </ng-template>
+            <ng-template #template let-name="name">
+              <button mat-button color="primary">{{name}}</button>
+            </ng-template>
+            <ng-template #confirmBtn>
+              <button mat-button color="primary">Ok</button>
+            </ng-template>
+
           </div>
           <div class="personContainer">
             <div>

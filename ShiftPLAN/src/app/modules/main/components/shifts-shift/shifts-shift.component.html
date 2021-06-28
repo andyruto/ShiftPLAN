@@ -31,13 +31,24 @@
             <mat-form-field id="shiftStart" class="timeInput">
                 <mat-label id="labelShiftStart">{{labelStart}}</mat-label>
                 <input matInput [ngxTimepicker]="pickerStart" [format]=24 [value]=shift.start>
-                <ngx-material-timepicker #pickerStart [theme]="timePickerTheme" (timeChanged)="contentChange()"></ngx-material-timepicker>
+                <ngx-material-timepicker #pickerStart [theme]="timePickerTheme" (timeChanged)="contentChange()"
+                [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
             </mat-form-field>
             <mat-form-field id="shiftEnd" class="timeInput">
                 <mat-label id="labelShiftEnd">{{labelEnd}}</mat-label>
                 <input matInput [ngxTimepicker]="pickerEnd" [format]=24 [value]=shift.end>
-                <ngx-material-timepicker #pickerEnd [theme]="timePickerTheme" (timeChanged)="contentChange()"></ngx-material-timepicker>
+                <ngx-material-timepicker #pickerEnd [theme]="timePickerTheme" (timeChanged)="contentChange()"
+                [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
             </mat-form-field>
+            <ng-template #cancelBtn>
+                <ng-container *ngTemplateOutlet="template; context: timepickerTemp.button"></ng-container>
+            </ng-template>
+            <ng-template #template let-name="name">
+                <button mat-button color="primary">{{name}}</button>
+            </ng-template>
+            <ng-template #confirmBtn>
+                <button mat-button color="primary">Ok</button>
+            </ng-template>
         </div>
     </div>
     <mat-form-field class="inputField">
