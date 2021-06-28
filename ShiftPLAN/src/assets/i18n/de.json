@@ -87,6 +87,13 @@
             "LabelEdit": "Zuletzt geändert",
             "LabelEditPerson": "von",
             "LabelEditTime": "am"
+        },
+        "Input": {
+            "LabelValidity": "Gültig ab",
+            "LabelStart": "Beginn",
+            "LabelEnd": "Ende",
+            "LabelPersons": "benötigte Personen",
+            "AddDayBtn": "Tag hinzufügen"
         }
     },
     "Statistics": {

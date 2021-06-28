@@ -68,6 +68,12 @@ export class TasksInputComponent implements OnInit, AfterViewChecked {
   saturdayName = ''
   sundayName = ''
 
+  labelValidity = ''
+  labelStart = ''
+  labelEnd = ''
+  labelPersons = ''
+  addDayBtn = ''
+
   weekdayNames = [{index: 0, name: ''}]
 
   validityDates = [
@@ -98,6 +104,11 @@ export class TasksInputComponent implements OnInit, AfterViewChecked {
       this.fridayName = translation.Weekdays.Friday;
       this.saturdayName = translation.Weekdays.Saturday;
       this.sundayName = translation.Weekdays.Sunday;
+      this.labelValidity = translation.Tasks.Input.LabelValidity;
+      this.labelStart = translation.Tasks.Input.LabelStart;
+      this.labelEnd = translation.Tasks.Input.LabelEnd;
+      this.labelPersons = translation.Tasks.Input.LabelPersons;
+      this.addDayBtn = translation.Tasks.Input.AddDayBtn;
     });
   }
 

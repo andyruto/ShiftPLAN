@@ -87,6 +87,13 @@
             "LabelEdit": "Last Edited",
             "LabelEditPerson": "from",
             "LabelEditTime": "at"
+        },
+        "Input": {
+            "LabelValidity": "Valid from",
+            "LabelStart": "Start",
+            "LabelEnd": "End",
+            "LabelPersons": "required persons",
+            "AddDayBtn": "Add Day"
         }
     },
     "Statistics": {
