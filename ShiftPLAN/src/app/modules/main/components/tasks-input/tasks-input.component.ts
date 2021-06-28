@@ -196,8 +196,28 @@ export class TasksInputComponent implements OnInit, AfterViewChecked {
 })
 export class TasksInputDialog {
 
+  mondayName = ''
+  tuesdayName = ''
+  wednesdayName = ''
+  thursdayName = ''
+  fridayName = ''
+  saturdayName = ''
+  sundayName = ''
+
   constructor(public dialogRef: MatDialogRef<TasksInputDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private translate: TranslateService) {}
+
+  ngOnInit(): void {
+    this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+      this.mondayName = translation.Weekdays.Monday;
+      this.tuesdayName = translation.Weekdays.Tuesday;
+      this.wednesdayName = translation.Weekdays.Wednesday;
+      this.thursdayName = translation.Weekdays.Thursday;
+      this.fridayName = translation.Weekdays.Friday;
+      this.saturdayName = translation.Weekdays.Saturday;
+      this.sundayName = translation.Weekdays.Sunday;
+    });
+  }
 
   selectDay(weekdayIndex: number){
     this.data.selectedDay = weekdayIndex

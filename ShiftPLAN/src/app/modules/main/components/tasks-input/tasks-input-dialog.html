@@ -4,14 +4,14 @@
 -- HTML file specifying the layout for the dialog used in the tasks-input.component.
 -- 
 -- author: Anne Naumann
--- last edit / by: 2021-06-23 / Anne Naumann
+-- last edit / by: 2021-06-28 / Anne Naumann
 -->
 <div>
-    <button mat-flat-button (click)="selectDay(0)" [disabled]="this.data.existingDays[0]" color="primary" class="addTimeBtn">Montag</button>
-    <button mat-flat-button (click)="selectDay(1)" [disabled]="this.data.existingDays[1]" color="primary" class="addTimeBtn">Dienstag</button>
-    <button mat-flat-button (click)="selectDay(2)" [disabled]="this.data.existingDays[2]" color="primary" class="addTimeBtn">Mittwoch</button>
-    <button mat-flat-button (click)="selectDay(3)" [disabled]="this.data.existingDays[3]" color="primary" class="addTimeBtn">Donnerstag</button>
-    <button mat-flat-button (click)="selectDay(4)" [disabled]="this.data.existingDays[4]" color="primary" class="addTimeBtn">Freitag</button>
-    <button mat-flat-button (click)="selectDay(5)" [disabled]="this.data.existingDays[5]" color="primary" class="addTimeBtn">Samstag</button>
-    <button mat-flat-button (click)="selectDay(6)" [disabled]="this.data.existingDays[6]" color="primary" class="addTimeBtn">Sonntag</button>  
+    <button mat-flat-button (click)="selectDay(0)" [disabled]="this.data.existingDays[0]" color="primary" class="addTimeBtn">{{mondayName}}</button>
+    <button mat-flat-button (click)="selectDay(1)" [disabled]="this.data.existingDays[1]" color="primary" class="addTimeBtn">{{tuesdayName}}</button>
+    <button mat-flat-button (click)="selectDay(2)" [disabled]="this.data.existingDays[2]" color="primary" class="addTimeBtn">{{wednesdayName}}</button>
+    <button mat-flat-button (click)="selectDay(3)" [disabled]="this.data.existingDays[3]" color="primary" class="addTimeBtn">{{thursdayName}}</button>
+    <button mat-flat-button (click)="selectDay(4)" [disabled]="this.data.existingDays[4]" color="primary" class="addTimeBtn">{{fridayName}}</button>
+    <button mat-flat-button (click)="selectDay(5)" [disabled]="this.data.existingDays[5]" color="primary" class="addTimeBtn">{{saturdayName}}</button>
+    <button mat-flat-button (click)="selectDay(6)" [disabled]="this.data.existingDays[6]" color="primary" class="addTimeBtn">{{sundayName}}</button>  
 </div>
