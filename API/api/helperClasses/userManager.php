@@ -107,7 +107,7 @@
                     $this->errorCode = $sM->sDecrypt($chlg, $nonce, $key);
                     //if the decrytion worked out with no errors
                     if($this->errorCode == ErrorCode::NoError){
-                        if($this->user->getChallenge != $sM->getResult()){
+                        if($this->user->getChallenge() != $sM->getResult()){
                             $this->errorCode = ErrorCode::ChallengeFailed;
                         }
                     }
