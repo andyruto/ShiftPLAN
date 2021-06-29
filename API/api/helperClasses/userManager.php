@@ -55,6 +55,7 @@
                 //Creating new user
                 $standarduser = new User();
                 $standarduser->setName('admin');
+                $standarduser->setUser_type(2);
                 if(DEV_MODE){
                     Logger::getLogger()->log('DEBUG', 'Dev mode is active');
                     $pwHash = \Sodium\crypto_generichash('ProgrammersHatePhp');
