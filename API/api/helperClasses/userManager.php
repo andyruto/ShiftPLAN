@@ -102,7 +102,7 @@
             Logger::getLogger()->log('DEBUG', 'checking challenge');
             if($this->errorCode == ErrorCode::NoError){
                 //Checking if the challenge is expired
-                if($this->user->getChlgExpiration_date() <= new DateTime('now')){
+                if($this->user->getChlgExpiration_date() >= new DateTime('now')){
                     $sM = new SslKeyManager();
                     $this->errorCode = $sM->sDecrypt($chlg, $nonce, $key);
                     //if the decrytion worked out with no errors
