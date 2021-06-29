@@ -4,7 +4,7 @@
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-06-01 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-06-29 / Maximilian T. | Kontr0x
      */
 
     require '../../prepareExec.php';
@@ -28,13 +28,7 @@
                     //Saving the decrytped session
                     $session = $ssM->getResult();
                     $sM = SessionManager::obj($session);
-                    if($rP->hasParameters(array('hidden'))
-                    ||$rP->hasParameters(array('type'))
-                    ||$rP->hasParameters(array('name'))
-                    ||$rP->hasParameters(array('overtime'))
-                    ||$rP->hasParameters(array('weeklyWorkingMinutes'))
-                    ||$rP->hasParameters(array('weeklyWorkingDays'))
-                    ||$rP->hasParameters(array('yearVacationDays'))){
+                    if($rP->hasParameters(array('name')) && !$rP->hasParameters(array('nonce'))){
                         $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(Permission::UserWrite), $session, 1);
                         //Checking if execution privileges a granted
                         $eC->check($sM->isAdmin());
@@ -140,6 +134,14 @@
                                     }else{
                                         self::$errorCode = ErrorCode::ValidationFailed;
                                         self::$respondArray = array_merge(self::$respondArray,array('yearVacationDays'));
+                                    }
+                                }
+                                if($rP->hasParameters(array('password')) && self::$errorCode == ErrorCode::NoError){
+                                    Logger::getLogger()->log('DEBUG', 'found password in request');
+                                    self::$errorCode = $ssM->aDecrypt($request->password);
+                                    if(self::$errorCode == ErrorCode::NoError){
+                                        Logger::getLogger()->log('INFO', 'Changing value of password for user '.$uM->getUserName());
+                                        $user->setPassword_hash($ssM->getResult());
                                     }
                                 }
                             }
