@@ -5,13 +5,15 @@
  * for our application.
  * 
  * author: Sascha W.
- * last edit / by: 2021-05-22 / Sascha W.
+ * last edit / by: 2021-06-05 / Anne Naumann
  */
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'app', loadChildren: () => import('./modules/main/main.module').then(m => m.MainModule) } 
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {useHash: true})],

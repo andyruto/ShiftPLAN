@@ -1,0 +1,55 @@
+/**
+ * shifts-add.component.scss
+ * 
+ * The stylesheet document for the shifts-add component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-27 / Anne Naumann
+ */ 
+
+#shiftAddScrollView{
+    width: 95%;
+    display: block;
+    margin: 0 auto;
+}
+.inputField{
+    width: 80%; 
+    display: block; 
+    margin: 0 auto; 
+    padding-top: 10px;
+}
+#timeContainer{
+    display: flex;
+    justify-content: space-around;
+}
+.timeInput{
+    display: inline-block;
+    width: 125px;
+}
+#employeesContainer{
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+}
+.employeeField{
+    display: block;
+    width: 250px;
+}
+#addEmployeeBtn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    mat-icon{
+        vertical-align: bottom;
+    }
+}
+#buttonContainer{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.displayBtn{
+    display: block;
+    margin: 5% auto;
+}

@@ -1,0 +1,40 @@
+/**
+ * admin.component.scss
+ * 
+ * The stylesheet document for the admin component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-28 / Anne Naumann
+ */ 
+@import '../../../../../styles.scss';
+
+#userScrollView{
+    width: 95%;
+    display: block;
+    margin: 0 auto;
+}
+.userRow{
+    height: 50px;
+    position: relative;
+}
+.userLabel{
+    margin: auto 5%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.mat-divider{ 
+    border-top-color: #{rgba(mat-color($ShiftPLAN-primary), 500)}; 
+    border-top-width: 2px; 
+    margin-left: 20px; 
+    margin-right: 20px; 
+} 
+#addUserBtn{
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+}
+.alignText{
+    margin-left: 5%; 
+}

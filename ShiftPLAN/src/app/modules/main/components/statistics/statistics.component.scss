@@ -1,0 +1,28 @@
+/**
+ * statistics.component.scss
+ * 
+ * The stylesheet document for the statistics component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-28 / Anne Naumann
+ */ 
+ @import '../../../../../styles.scss';
+
+.labelMonth{
+    display: block;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    text-align: center;
+    color: #375E99
+}
+.mat-divider{
+    border-top-color: #{rgba(mat-color($ShiftPLAN-primary), 500)};
+    border-top-width: 2px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.alignText{
+    position: absolute;
+    left: 50%;
+}

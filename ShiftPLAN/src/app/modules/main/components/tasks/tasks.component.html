@@ -1,0 +1,30 @@
+<!--
+-- tasks.component.html
+-- 
+-- HTML file specifying the layout for the tasks.component.
+-- 
+-- author: Anne Naumann
+-- last edit / by: 2021-06-28 / Anne Naumann
+-->
+<app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=true></app-toolbar>
+<mat-form-field id="searchBar" class="inputField">
+    <mat-label id="labelSearch">{{searchBarText}}</mat-label>
+    <input matInput #searchBar type="search">
+    <button matSuffix id="searchBtn">
+        <mat-icon svgIcon="search" id="searchIcon"></mat-icon>
+    </button>
+</mat-form-field>
+<div id="container">
+    <cdk-virtual-scroll-viewport id="tasksScrollView" itemSize=tasks.length>
+        <div matRipple *cdkVirtualFor="let item of tasks; let last = last" (click)="navigateToTask()">
+            <div class="taskRow">
+                <div class="taskName">{{item.name}}</div>
+                <span class="taskType">{{item.type}}</span>
+            </div>
+            <mat-divider *ngIf="!last"></mat-divider>
+        </div>
+    </cdk-virtual-scroll-viewport>
+    <button mat-fab color="accent" id="addTaskBtn" (click)="navigateToAddTask()">
+        <mat-icon svgIcon="plus"></mat-icon>
+    </button>
+</div>

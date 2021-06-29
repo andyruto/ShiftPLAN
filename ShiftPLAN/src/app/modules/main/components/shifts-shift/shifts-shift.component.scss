@@ -1,0 +1,101 @@
+/**
+ * shifts-shift.component.scss
+ * 
+ * The stylesheet document for the shifts-shift component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-27 / Anne Naumann
+ */ 
+@import '../../../../../styles.scss';
+
+.warnings{
+    mat-icon{
+        color:  #{rgba(mat-color($ShiftPLAN-accent), 500)};
+        margin-right: 2%;
+        vertical-align: middle;
+    }
+    display: block;
+    margin: 5% 2%;
+    border: solid 2px;
+    border-color: #{rgba(mat-color($ShiftPLAN-accent), 500)};
+    padding: 5px;
+}
+#shiftScrollView{
+    width: 95%;
+    display: block;
+    margin: 0 auto;
+}
+#headerContainer{
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+}
+#deleteShiftBtn{
+    margin: auto;
+}
+.dateField{
+    width: 85%;
+    display: inline-block;
+}
+.inputField{
+    width: 80%; 
+    display: block; 
+    margin: 0 auto; 
+    padding-top: 10px;
+}
+.timeContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.timeInput{
+    display: inline-block;
+    width: 125px;
+}
+#employeesContainer{
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+}
+.employeeField{
+    display: block;
+    width: 250px;
+}
+#addEmployeeBtn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    mat-icon{
+        vertical-align: bottom;
+    }
+}
+.displayBtn{
+    display: block;
+    margin: 2% auto;
+}
+#commentContainer{
+    display: block;
+    width: 90%;
+    margin: 5% auto;
+}
+#labelComments{
+    color: #375E99;
+}
+.comment{
+    display: block;
+    margin: 5% 0;
+}
+#textContainer{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+.textField{
+    width: 70%;
+    margin-left: auto;
+}
+#sendBtn{
+    margin: auto;
+}

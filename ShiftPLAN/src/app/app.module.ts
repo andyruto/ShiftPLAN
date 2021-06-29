@@ -5,24 +5,15 @@
  * all the required elements for our application.
  * 
  * author: Sascha W.
- * last edit / by: 2021-05-26 / Anne Naumann
+ * last edit / by: 2021-06-05 / Anne Naumann
  */
 
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './modules/shared/shared.module';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { ToolbarComponent} from '../app/modules/view-elements/toolbar/toolbar.component'
-
-import { BottomNavModule } from 'ngx-bottom-nav'
-import { BottomBarComponent } from '../app/modules/view-elements/bottom-bar/bottom-bar.component'
-
 import { IconService } from './services/icon.service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -36,18 +27,13 @@ export function translateHttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ToolbarComponent,
-    BottomBarComponent,
+    AppComponent
   ],
   imports: [
-    BrowserModule,
+    SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    BottomNavModule,
+    BrowserModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

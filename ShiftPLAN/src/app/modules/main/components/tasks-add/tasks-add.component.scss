@@ -1,0 +1,37 @@
+/**
+ * tasks-add.component.scss
+ * 
+ * The stylesheet document for the tasks-add component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-24 / Anne Naumann
+ */ 
+
+.inputField{ 
+    width: 80%; 
+    display: block; 
+    margin: 0 auto; 
+    padding-top: 10px;
+} 
+#checkBoxTaskOnce{
+    margin-left: 10%;
+}
+#taskOnceHint{
+    display: none;
+    margin: 5% auto;
+    text-align: center;
+}
+#inputContainer{
+    display: block;
+    margin: 0 auto;
+}
+#buttonContainer{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.displayBtn{
+    display: block;
+    margin: 5% auto;
+}

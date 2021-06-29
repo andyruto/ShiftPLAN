@@ -1,0 +1,85 @@
+
+<!--
+ -- home.component.html
+ -- 
+ -- HTML file specifying the layout for the home.component.
+ -- 
+ -- author: Anne Naumann
+ -- last edit / by: 2021-06-28 / Anne Naumann
+ -->
+<app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=true></app-toolbar>
+<div id="containerWarnings">
+    <div id="warningChanges" class="warnings" *ngIf=showWarningChanges>
+        <mat-icon svgIcon="warning"></mat-icon>
+        <span id="labelWarningChanges">{{warningChanges}}</span>
+    </div>
+    <div id="warningShifts" class="warnings" *ngIf=showWarningShifts>
+        <mat-icon svgIcon="warning"></mat-icon>
+        <span id="labelWarningShifts">{{warningShifts}}</span>
+    </div>
+</div>
+<cdk-virtual-scroll-viewport id="homeScrollView" itemSize=50>
+    <div id="firstShift">
+        <mat-list>
+            <mat-list-item>
+                <span id="firstShiftDate" class="firstShiftHeader">Montag 24.04</span>
+                <div class="alignText positionContainer">
+                    <div id="firstStartTime" class="firstShiftHeader">{{wordFrom}} 10:00 {{wordClock}}</div>
+                    <div id="firstEndTime" class="firstShiftHeader">{{wordTo}} 13:00 {{wordClock}}</div>
+                </div>
+            </mat-list-item>
+            <mat-list-item>
+                <span id="firstLabelContact">{{labelContact}}:</span>
+                <span id="firstContentContact" class="alignText">Andreas Gantner</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span id="labelColleagues">{{labelColleagues}}:</span>
+                <div class="alignText">
+                    <div id="firstContentColleague">Anne Naumann</div>
+                    <div id="secondContentColleague">Sascha Wirtz</div>
+                </div>
+            </mat-list-item>
+            <mat-list-item>
+                <span id="labelTask">{{labelTasks}}:</span>
+                <span id="contentTask" class="alignText">Prototyp erstellen</span>
+            </mat-list-item>
+        </mat-list>
+    </div>
+    <mat-divider></mat-divider>
+    <div id="secondShift">
+        <mat-list>
+            <mat-list-item>
+                <span id="secondShiftDate" class="secondShiftHeader">Mittwoch 28.04</span>
+                <div class="alignText">
+                    <div id="secondStartTime" class="secondShiftHeader">{{wordFrom}} 10:00 {{wordClock}}</div>
+                    <div id="secondEndTime" class="secondShiftHeader">{{wordTo}} 13:00 {{wordClock}}</div>
+                </div>
+            </mat-list-item>
+            <mat-list-item>
+                <span id="secondLabelContact">{{labelContact}}:</span>
+                <span id="secondContentContact" class="alignText">Andreas Gantner</span>
+            </mat-list-item>
+        </mat-list>
+    </div>
+    <div id="containerStatistics" *ngIf=showStatistics>
+        <h1 id="headerStatistics">{{labelStatistics}}</h1>
+        <mat-list>
+            <mat-list-item id="labelHours">
+                <span>{{labelWorkingHours}}:</span>
+                <span id="contentHours" class="alignText">1 {{wordHours}}</span>
+            </mat-list-item>
+            <mat-list-item id="labelDays">
+                <span>{{labelWorkingDays}}:</span>
+                <span id="contentDays" class="alignText">2 {{wordDays}}</span>
+            </mat-list-item>
+            <mat-list-item id="labelSick">
+                <span>{{labelSickDays}}:</span>
+                <span id="contentSick" class="alignText">3 {{wordDays}}</span>
+            </mat-list-item>
+            <mat-list-item id="labelVacation">
+                <span>{{labelVacationDays}}:</span>
+                <span id="contentVacation" class="alignText">4 {{wordDays}}</span>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</cdk-virtual-scroll-viewport>

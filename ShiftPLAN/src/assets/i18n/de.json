@@ -1,9 +1,39 @@
 {
     "Welcome": "Willkommen",
+    "YesButton": "Ja",
+    "NoButton": "Nein",
+    "NextButton": "Weiter",
+    "SaveButton": "Speichern",
+    "CancelButton": "Abbrechen",
+    "EditButton": "Ändern",
+    "WordClock": "Uhr",
+    "Weekdays": {
+        "Monday": "Montag",
+        "Tuesday": "Dienstag",
+        "Wednesday": "Mittwoch",
+        "Thursday": "Donnerstag",
+        "Friday": "Freitag",
+        "Saturday": "Samstag",
+        "Sunday": "Sonntag"
+    },
     "Toolbar": {
         "Profile": "Profil",
         "Settings": "Einstellungen",
-        "Admin": "Admin"
+        "Admin": "Admin",
+        "Title": {
+            "Home": "Übersicht",
+            "Shifts": "Schichten",
+            "Tasks": "Aufgaben",
+            "Statistics": "Statistiken",
+            "Profile": "Profil",
+            "Settings": "Einstellungen",
+            "Admin": "Admin",
+            "AdminAdd": "Neuer Benutzer",
+            "AdminUser": "Benutzer bearbeiten",
+            "TasksAdd": "Neue Aufgabe",
+            "ShiftsAdd": "Neue Schicht",
+            "ShiftsShift": "Schicht Informationen"
+        }
     },
     "BottomBar": {
         "Home": "Übersicht",
@@ -11,5 +41,90 @@
         "Tasks": "Aufgaben",
         "Applications": "Anträge",
         "Statistics": "Statistiken"
+    },
+    "Profile": {
+        "Username": "Benutzername",
+        "Role": "Rolle",
+        "LogoutLabel": "Wollen Sie sich wirklich abmelden?"
+    },
+    "Settings": {
+        "LabelTheme": "Erscheinungbild ändern",
+        "LabelAdapt": "Übersicht anpassen",
+        "LabelPassword": "Passwort ändern",
+        "LabelInfo": "App Informationen",
+        "Theme": {
+            "LabelMode": "Darstellungsmodus",
+            "LightButton": "Hell",
+            "DarkButton": "Dunkel"
+        },
+        "Adapt": {
+            "LabelStatistic": "Statistiken anzeigen"
+        },
+        "Password": {
+            "LabelPassword": "Aktuelles Passwort eingeben",
+            "LabelNewPassword": "Neues Passwort eingeben",
+            "LabelCheckPassword": "Passwort bestätigen",
+            "WarningPassword": "Falsches Passwort!",
+            "WarningCheckPassword": "Passwörter sind nicht gleich!"
+        }
+    },
+    "Admin": {
+        "TabUser": "Benutzer",
+        "LabelApiKey": "API Schlüssel",
+        "Add" : {
+            "LabelUsername" : "Benutzername",
+            "LabelPassword": "Passwort",
+            "CheckBoxUserHidden": "Benutzer ist sichtbar"
+        }
+    },
+    "Tasks": {
+        "SearchBarText": "Aufgabenname",
+        "Add": {
+            "LabelDescription": "Beschreibung",
+            "CheckBoxOnce": "Einmalige Aufgabe",
+            "LabelHint": "Konkrete Uhrzeiten und Mitarbeiter können bei der Schichterstellung festgelegt werden."
+        },
+        "Task":{
+            "LabelEdit": "Zuletzt geändert",
+            "LabelEditPerson": "von",
+            "LabelEditTime": "am"
+        },
+        "Input": {
+            "LabelValidity": "Gültig ab",
+            "LabelStart": "Beginn",
+            "LabelEnd": "Ende",
+            "LabelPersons": "benötigte Personen",
+            "AddDayBtn": "Tag hinzufügen"
+        }
+    },
+    "Statistics": {
+        "LabelWorkingHours": "Arbeitsstunden",
+        "LabelWorkingDays": "Arbeitstage",
+        "LabelSickDays": "Krankheitstage",
+        "LabelVacationDays": "Urlaubstage",
+        "WordDays": "Tage",
+        "WordHours": "Stunden"
+    },
+    "Home": {
+        "WarningChanges": "Es gibt Änderungen in deinen Schichten",
+        "WarningShifts": "Vorsicht! Es gibt ungeplante Schichten",
+        "WordFrom": "von",
+        "WordTo": "bis",
+        "LabelContact": "Ansprechpartner/in",
+        "LabelColleagues": "Kollegen",
+        "LabelTasks": "Aufgabe",
+        "LabelStatistics": "Statistiken"
+    },
+    "Shifts": {
+        "LabelTask": "Aufgabe",   
+        "LabelTimespan": "Zeitspanne",
+        "LabelValidity": "Gültig ab",
+        "LabelStart": "Schichtbeginn",
+        "LabelEnd": "Schichtende",
+        "LabelEmployee": "Mitarbeiter",
+        "LabelContact": "Ansprechpartner",
+        "LabelRemark": "Anmerkung",
+        "LabelComments": "Kommentare",
+        "LabelWarning": "Angaben haben sich geändert"
     }
 }

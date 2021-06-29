@@ -1,0 +1,24 @@
+/**
+ * settings-info.component.scss
+ * 
+ * The stylesheet document for the settings-info component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-07 / Anne Naumann
+ */ 
+@import '../../../../../styles.scss';
+
+#appIcon{
+    width: 40%;
+    display: block;
+    margin: 5% auto;
+}
+#appName{
+    color: #{rgba(mat-color($ShiftPLAN-primary), 500)};
+    text-align: center;
+}
+.alignText{
+    position: absolute;
+    left: 20%;
+}
