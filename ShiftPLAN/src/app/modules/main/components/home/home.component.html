@@ -5,20 +5,20 @@
  -- HTML file specifying the layout for the home.component.
  -- 
  -- author: Anne Naumann
- -- last edit / by: 2021-06-28 / Anne Naumann
+ -- last edit / by: 2021-06-30 / Anne Naumann
  -->
 <app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=true></app-toolbar>
-<div id="containerWarnings">
-    <div id="warningChanges" class="warnings" *ngIf=showWarningChanges>
-        <mat-icon svgIcon="warning"></mat-icon>
-        <span id="labelWarningChanges">{{warningChanges}}</span>
-    </div>
-    <div id="warningShifts" class="warnings" *ngIf=showWarningShifts>
-        <mat-icon svgIcon="warning"></mat-icon>
-        <span id="labelWarningShifts">{{warningShifts}}</span>
-    </div>
-</div>
 <cdk-virtual-scroll-viewport id="homeScrollView" itemSize=50>
+    <div id="containerWarnings">
+        <div id="warningChanges" class="warnings" *ngIf=showWarningChanges>
+            <mat-icon svgIcon="warning"></mat-icon>
+            <span id="labelWarningChanges">{{warningChanges}}</span>
+        </div>
+        <div id="warningShifts" class="warnings" *ngIf=showWarningShifts>
+            <mat-icon svgIcon="warning"></mat-icon>
+            <span id="labelWarningShifts">{{warningShifts}}</span>
+        </div>
+    </div>
     <div id="firstShift">
         <mat-list>
             <mat-list-item>
