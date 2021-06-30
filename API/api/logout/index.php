@@ -44,7 +44,7 @@
         //Method invoked before script execution
         public static function logUrl(){
             //Logging the called script location
-            Logger::getLogger()->log('INFO', 'Api path /login/ was called');
+            Logger::getLogger()->log('INFO', 'Api path /logout/ was called');
         }
     }
     Runner::run();
