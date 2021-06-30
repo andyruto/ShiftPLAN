@@ -10,14 +10,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
+import { BottomNavModule } from 'ngx-bottom-nav'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     ToolbarComponent,
     BottomBarComponent,
+    
   ],
   imports: [
     CommonModule,
+    BottomNavModule,
+    MatToolbarModule,
+    MatIconModule
+  ],
+  exports: [
+    ToolbarComponent,
+    BottomBarComponent
   ]
 })
 export class ViewElementsModule { }

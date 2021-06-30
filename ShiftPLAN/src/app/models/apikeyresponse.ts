@@ -11,4 +11,5 @@ import { GeneralResponse } from 'src/app/models/generalresponse';
 
 // response interface to receive a response of a apikey post request
 export interface ApiKeyResponse extends GeneralResponse  {
+  apiKey: string;
   }

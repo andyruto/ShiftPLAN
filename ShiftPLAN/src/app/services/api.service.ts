@@ -9,8 +9,9 @@
 
 // imports:
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 // marks this service as singelton
 @Injectable({
@@ -21,15 +22,25 @@ import { Observable } from 'rxjs';
 export class ApiService {
 
   // variables:
-  readonly URL_BEGINN: string = 'http://shiftplan.bplaced.net/api/';
+  private URL_BEGINN?: string = undefined;
   private urlEnd: string = '';
   private requestBody: object = {} as object;
 
   // constructor
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    this.setURLAdress();
+  }
+
+  setURLAdress() {
+        var urlAdress = localStorage.getItem('URLAdress')
+    if(urlAdress) {
+      this.URL_BEGINN = urlAdress;
+    }
+  }
 
   // method to initiate a post request
   public async sendPostRequest<T>(urlEnd: string, requestBody: object) {
+    this.setURLAdress();
     this.urlEnd = urlEnd;
     this.requestBody = requestBody;
     
@@ -40,6 +51,11 @@ export class ApiService {
   private notifyApi<T>(): Observable<T> {
     const headers = { 'Content-Type': 'application/json' };
     const body = JSON.stringify(this.requestBody);
-    return this.httpClient.post<T>(this.URL_BEGINN + this.urlEnd, body, {'headers': headers})
+    return this.httpClient.post<T>(this.URL_BEGINN + this.urlEnd, body, {'headers': headers}).pipe(catchError(this.errorHandler));
   } 
+
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(
+      error.status);
+  }
 }

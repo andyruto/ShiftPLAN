@@ -15,15 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatInputModule } from '@angular/material/input';
-import { ToolbarComponent} from '../app/modules/view-elements/toolbar/toolbar.component'
 
-import { BottomNavModule } from 'ngx-bottom-nav'
-import { BottomBarComponent } from '../app/modules/view-elements/bottom-bar/bottom-bar.component'
 
 import { IconService } from './services/icon.service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -32,6 +24,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { EncryptionService } from './services/encryption.service';
 
+import { SplashComponent } from './components/splash/splash.component';
+
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -39,19 +33,13 @@ export function translateHttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    ToolbarComponent,
-    BottomBarComponent,
+    SplashComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatButtonToggleModule,
-    MatInputModule,
-    BottomNavModule,
+
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -65,6 +53,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  
   availableLng = ['en', 'de'];
 
   //start the translation service
@@ -81,5 +70,13 @@ export class AppModule {
   
       this.translateService.setDefaultLang(tmpLng);
       this.iconService.registerIcons()
+
+      window.addEventListener('orientationchange', function () { 
+        if (window.innerHeight > window.innerWidth) { 
+          document.getElementsByTagName('body')[0].style.display = "none"; 
+        } else {
+          document.getElementsByTagName('body')[0].style.display = ""; 
+        }
+      });
   }
  }

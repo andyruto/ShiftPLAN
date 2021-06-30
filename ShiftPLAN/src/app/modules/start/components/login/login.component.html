@@ -6,8 +6,8 @@
  -- author: Anne Naumann
  -- last edit / by: 2021-06-02 / Anne Naumann
  -->
-<div id="outerContainer">
-    <img id="banner" src="../../../../assets/images/banner_transparent.png" >
+<div id="outerContainer"> 
+    <img id="banner" src="../../../../../assets/images/banner_transparent.png" >
     <mat-form-field id="inputUserName">
         <mat-label id="labelUserName">{{userName}}</mat-label>
         <input matInput #userInputName type="text">
@@ -18,7 +18,6 @@
         <button id="toggleBtn" matSuffix mat-button-toggle (click)="showPassword()">
             <mat-icon id="eyeIcon" svgIcon="eye-slash"></mat-icon>
         </button>
-        <mat-error id="warning">{{warning}}</mat-error>
     </mat-form-field>
     <button mat-button id="resetPasswordBtn" (click)="resetPassword()">{{resetBtn}}</button>
     <button mat-raised-button color="accent" id="loginBtn" (click)="checkLoginValues(userInputName.value, userInputPassword.value)">Login</button>

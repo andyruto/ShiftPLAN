@@ -8,6 +8,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-wizard-permission',
@@ -18,11 +19,14 @@ export class WizardPermissionComponent implements OnInit {
 
   title = ''
   
-  constructor(private translate : TranslateService) { }
+  constructor(
+    private translate : TranslateService,
+    private router : Router) { }
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.WizardPermission.Title;
     });
+    this.router.navigate(['start/login']);
   }
 
 }

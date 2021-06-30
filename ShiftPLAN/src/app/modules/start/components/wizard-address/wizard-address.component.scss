@@ -1,0 +1,40 @@
+/**
+ * wizard-address.component.scss
+ * 
+ * The stylesheet document for the wizard-address component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-02 / Anne Naumann
+ */ 
+ @import '../../../../../styles.scss';
+
+ #outerContainer{
+  width: 100%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+ }
+ #labelAddress{
+  font-family: Nunito;
+  font-size: 16pt;
+ }
+ #inputAddress{
+  width: 80%;
+  display: block;
+  margin: 5% auto;
+ }
+ #nextBtn{
+  margin:0 auto;
+  display:block;
+  padding: 2% 6% 2% 6%;
+  font-family: Nunito;
+  font-size: 16pt;
+ }
+ #warning{
+  font-family: Nunito;
+  font-size: 14pt;
+ }

@@ -5,13 +5,20 @@
  * for our application.
  * 
  * author: Sascha W.
- * last edit / by: 2021-05-22 / Sascha W.
+ * last edit / by: 2021-06-17 / Sascha W.
  */
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SplashComponent } from './components/splash/splash.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'start', loadChildren: () => import('./modules/start/start.module').then(m => m.StartModule) } ,
+  {
+    path: '',
+    component: SplashComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {useHash: true})],

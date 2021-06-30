@@ -4,18 +4,27 @@
     "WizardAddress": {
         "Title": "API Adresse",
         "Label": "Geben Sie die API Adresse ein:",
-        "Warning": "Die Adresse ist ungültig!"
+        "Warning": "Die Adresse ist ungültig!",
+        "Error404": "Error 404: Unter der angegebenen URL kann keine Verbindung gefunden werden!",
+        "Error": "Error!",
+        "SameOrigin": "Verbindung konnte unter der empfohlenen Adresse nicht gefunden werden bitte Kontaktieren sie ihren Admin!",
+        "NoInput": "Angabe Leer!",
+        "Ok": "Ok"
     },
     "WizardKey": {
         "Title": "API Schlüssel",
         "Label": "Geben Sie den API Schlüssel ein:",
-        "Warning": "Der Schlüssel ist ungültig!"
+        "Warning": "Der Schlüssel ist ungültig!",
+        "Key": "API-Key stimmt nicht überein!",
+        "Ok": "Ok"
     },
     "WizardPassword": {
         "Title": "Passwort",
         "LabelPasswordNew": "Passwort eingeben:",
         "LabelPasswordCheck": "Passwort bestätigen:",
-        "WarningNew": "Das Passwort ist nicht gleich!"
+        "WarningNew": "Das die Passwörter sind unterschiedlich!",
+        "InvalidPassword": "Password nicht zugelassen!",
+        "Ok": "Ok"
     },
     "WizardPermission": {
         "Title": "Berechtigungen"
@@ -24,7 +33,12 @@
         "UserName": "Benutzername",
         "Password": "Passwort",
         "ResetButton": "Passwort zurücksetzen",
-        "Warning": "Benutzername oder Passwort sind falsch!"
+        "Warning": "Benutzername oder Passwort sind falsch!",
+        "Ok": "Ok",
+        "Empty": "Formular ist nocht komplet ausgefüllt!",
+        "UserWrong": "Der Benutzername wurde nicht gefunden!",
+        "PasswordWrong": "Das Passwort ist Falsch!",
+        "DefaultWrong": "Etwas ist schief gelaufen!"
     },
     "Toolbar": {
         "Profile": "Profil",

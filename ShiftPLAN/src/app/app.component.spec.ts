@@ -1,6 +1,5 @@
 /**
- * app.component.spec
-ts * 
+ * app.component.spec.ts 
  * Typescript class containing the tests for the 
  * app component.
  * 
