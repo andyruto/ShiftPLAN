@@ -21,44 +21,48 @@
             //Looking for parameters
             if($rP->hasParameters(array('apiKey', 'userName')) && !$rP->hasParameters(array('chlgSolved', 'nonce'))){
                 $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
-                $uM = UserManager::obj($request->userName); 
-                //Checking if the user is hidden to hinder a login
-                if(!($uM->getDbObject())->getHidden()){
-                    $eC->check($request->userName == 'admin');
-                    $chlg = $uM->createChallenge();
-                    //Adding the challenge to the respond
-                    $respondArray = array_merge($respondArray, array('chlg' => $chlg));
-                    Logger::getLogger()->log('DEBUG', 'appending challenge to output');
-                }else{
-                    self::$errorCode = ErrorCode::UserIsHidden;
-                }
+                $uM = UserManager::obj($request->userName);
+                if($uM->getFinishCode() == ErrorCode::NoError){
+                    //Checking if the user is hidden to hinder a login
+                    if(!($uM->getDbObject())->getHidden()){
+                        $eC->check($request->userName == 'admin');
+                        $chlg = $uM->createChallenge();
+                        //Adding the challenge to the respond
+                        $respondArray = array_merge($respondArray, array('chlg' => $chlg));
+                        Logger::getLogger()->log('DEBUG', 'appending challenge to output');
+                    }else{
+                        self::$errorCode = ErrorCode::UserIsHidden;
+                    }
+                } 
             }else{
                 //Checking if request has parameters to validate challenge
                 if($rP->hasParameters(array('apiKey', 'userName', 'chlgSolved', 'nonce'))){
                     $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
                     $uM = UserManager::obj($request->userName);
-                    //Checking if user is hidden to hinder a login
-                    if(!($uM->getDbObject())->getHidden()){
-                        $eC->check($request->userName == 'admin');
-                        //Validating the challenge
-                        self::$errorCode = $uM->checkChallenge($request->chlgSolved, $request->nonce, $uM->getPasswordHash());
-                        if(self::$errorCode == ErrorCode::NoError){
-                            //Creating session mananger
-                            $sM = SessionManager::creator();
-                            self::$errorCode = $sM->createSession($request->userName);
+                    if($uM->getFinishCode() == ErrorCode::NoError){
+                        //Checking if user is hidden to hinder a login
+                        if(!($uM->getDbObject())->getHidden()){
+                            $eC->check($request->userName == 'admin');
+                            //Validating the challenge
+                            self::$errorCode = $uM->checkChallenge($request->chlgSolved, $request->nonce, $uM->getPasswordHash());
                             if(self::$errorCode == ErrorCode::NoError){
-                                $nonce = SslKeyManager::getNonce();
-                                $ssM = new SslKeyManager();
-                                //Encrypting session for respond
-                                self::$errorCode = $ssM->sEncrypt(($sM->getDbObject())->getId(), $nonce, $uM->getPasswordHash());
+                                //Creating session mananger
+                                $sM = SessionManager::creator();
+                                self::$errorCode = $sM->createSession($request->userName);
                                 if(self::$errorCode == ErrorCode::NoError){
-                                    $respondArray = array_merge($respondArray, array('session' => ($ssM->getResult()), 'nonce' => $nonce));
+                                    $nonce = SslKeyManager::getNonce();
+                                    $ssM = new SslKeyManager();
+                                    //Encrypting session for respond
+                                    self::$errorCode = $ssM->sEncrypt(($sM->getDbObject())->getId(), $nonce, $uM->getPasswordHash());
+                                    if(self::$errorCode == ErrorCode::NoError){
+                                        $respondArray = array_merge($respondArray, array('session' => ($ssM->getResult()), 'nonce' => $nonce));
+                                    }
                                 }
                             }
+                        }else{
+                            self::$errorCode = ErrorCode::UserIsHidden;
                         }
-                    }else{
-                        self::$errorCode = ErrorCode::UserIsHidden;
-                    }                    
+                    }                
                 }else{
                     //If request has parameters to login through a session or to check if session is still valid
                     if($rP->hasParameters(array('apiKey', 'session'))){
