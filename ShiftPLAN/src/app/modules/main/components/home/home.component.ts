@@ -7,7 +7,10 @@
  * last edit / by: 2021-06-28 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
+import { CheckboxControlValueAccessor } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { UsertypeService } from 'src/app/services/usertype.service';
+import { flattenDiagnosticMessageText } from 'typescript';
 
 @Component({
   selector: 'app-home',
@@ -37,8 +40,10 @@ export class HomeComponent implements OnInit {
   wordDays = ''
   wordHours = ''
   wordClock = ''
+  admin: boolean = false
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService, private usertype: UsertypeService) { }
+
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Toolbar.Title.Home;
@@ -58,6 +63,8 @@ export class HomeComponent implements OnInit {
       this.wordHours = translation.Statistics.WordHours;
       this.wordClock = translation.WordClock;
     });
+
+    this.checkBtn();
   }
 
   ngAfterViewInit(): void{
@@ -68,5 +75,9 @@ export class HomeComponent implements OnInit {
 
     let screenHeight = window.innerHeight-toolbar-bottomBar-warnings!
     scrollView!.style.height = screenHeight + 'px'
+  }
+
+  private async checkBtn() {
+    this.admin = (await this.usertype.getShown()).admin;
   }
 }

@@ -9,6 +9,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router'
+import { UsertypeService } from 'src/app/services/usertype.service';
 
 @Component({
   selector: 'app-tasks',
@@ -19,6 +20,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   title = ''
   searchBarText = ''
+  admin: boolean = false
 
   //test content that needs to be replaced
   tasks = [
@@ -37,13 +39,18 @@ export class TasksComponent implements OnInit, AfterViewInit {
     {name: 'Illinois', type: 'Springfield'}
   ]
 
-  constructor(private translate: TranslateService, private router : Router) { }
+  constructor(
+    private translate: TranslateService, 
+    private router : Router,
+    private usertype : UsertypeService) { }
 
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Toolbar.Title.Tasks;
       this.searchBarText = translation.Tasks.SearchBarText;
     });
+
+    this.checkBtn();
   }
 
   ngAfterViewInit(): void{
@@ -54,6 +61,10 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
     let screenHeight = window.innerHeight-toolbar.clientHeight-bottomBar.clientHeight-searchBar.clientHeight
     scrollView!.style.height = screenHeight + 'px'
+  }
+
+  private async checkBtn() {
+    this.admin = (await this.usertype.getShown()).admin;
   }
 
   navigateToTask(): void{

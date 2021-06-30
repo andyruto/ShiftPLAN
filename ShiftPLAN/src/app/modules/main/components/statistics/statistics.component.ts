@@ -9,6 +9,7 @@
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { UsertypeService } from 'src/app/services/usertype.service';
 
 @Component({
   selector: 'app-statistics',
@@ -40,8 +41,9 @@ export class StatisticsComponent implements OnInit, AfterViewChecked {
   labelVacationDays = ''
   wordDays = ''
   wordHours = ''
+  admin: boolean = false
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService, private usertype : UsertypeService) { }
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Toolbar.Title.Statistics;
@@ -52,6 +54,8 @@ export class StatisticsComponent implements OnInit, AfterViewChecked {
       this.wordDays = translation.Statistics.WordDays;
       this.wordHours = translation.Statistics.WordHours;
     });
+
+    this.checkBtn();
   }
 
   ngAfterViewChecked(): void{
@@ -61,5 +65,9 @@ export class StatisticsComponent implements OnInit, AfterViewChecked {
 
     let screenHeight = window.innerHeight-toolbar-bottomBar
     swiperContainer!.style.height = screenHeight + 'px'
+  }
+
+  private async checkBtn() {
+    this.admin = (await this.usertype.getShown()).admin;
   }
 }
