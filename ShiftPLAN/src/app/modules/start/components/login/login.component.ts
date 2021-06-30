@@ -137,14 +137,7 @@ export class LoginComponent implements OnInit {
         chlgSolved: chlgSolved,
         nonce: nonce
     });
-    console.log(this.apiKey)
-    console.log(inputName)
-    console.log(chlgSolved)
-    console.log(nonce)
-    console.log(secondAnswer)
     secondPromise = await secondAnswer.toPromise();
-    console.log(secondAnswer)
-    console.log(secondPromise)
     
     secondErrorCode = secondPromise.errorCode;
       if(secondErrorCode != 0) {
