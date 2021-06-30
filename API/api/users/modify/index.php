@@ -150,6 +150,7 @@
                     }
                 }
             }else{
+                self::$errorCode = ErrorCode::ParameterMissmatch;
                 Logger::getLogger()->log('WARNING', 'Parameters doenst match function requirements');
             }
             //Preparing output
