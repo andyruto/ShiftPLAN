@@ -4,7 +4,7 @@
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-06-08 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-06-30 / Maximilian T. | Kontr0x
      */
 
     require '../../prepareExec.php';
@@ -19,7 +19,7 @@
             $rP = new RequestParser();
             $request = $rP->getBodyObject();
             //Looking for parameters
-            if($rP->hasParameters(array('apiKey', 'session', 'name'))){
+            if($rP->hasParameters(array('apiKey', 'session', 'id'))){
                 $ssM = new SslKeyManager();
                 //Decrypting the session
                 self::$errorCode = $ssM->aDecrypt($request->session);
@@ -27,26 +27,24 @@
                 if(self::$errorCode == ErrorCode::NoError){
                     //Saving the decrytped session
                     $session = $ssM->getResult();
-                    $sM = SessionManager::obj($session);
-                    self::$errorCode = $sM->getFinishCode();
-                    //Checking if the session manager succeded
+                    $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(Permission::TasksWrite), $session, 1);
+                    //Checking if execution privileges a granted
+                    $eC->check(false);
+                    //Creating a task manager for modifications
+                    $tM = TaskManager::obj($request->id);
+                    self::$errorCode = $tM->getFinishCode();
                     if(self::$errorCode == ErrorCode::NoError){
-                        //Checking execution rights
-                        $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(Permission::UserWrite), $session, 1);
-                        $eC->check(false);
-                        //Validating the given parameters
-                        if(preg_match(Validation::UserName, $request->name)){
-                            $uM = UserManager::obj($request->name);
-                            self::$errorCode = $uM->getFinishCode();
-                            if(self::$errorCode == ErrorCode::NoError){
-                                $user = $uM->getDbObject();
-                                $user->setHidden(1);
+                        $task = $tM->getDbObject();
+                        if($rP->hasParameters(array('name'))){
+                            Logger::getLogger()->log('DEBUG', 'found name in request');
+                            if(preg_match(Validation::NameOfNumbersAndCharacters, $request->name)){
+                                Logger::getLogger()->log('INFO', 'Changing value of name for task '.$task->getName());
+                                $task->setName($request->name);
                                 (Bootstrap::getEntityManager())->flush();
-                                Logger::getLogger()->log('DEBUG', 'User with name '+$request->name+' set to hidden');
+                            }else{
+                                self::$errorCode = ErrorCode::ValidationFailed;
+                                self::$respondArray = array_merge(self::$respondArray,array('name'));
                             }
-                        }else{
-                            self::$errorCode = ErrorCode::ValidationFailed;
-                            Logger::getLogger()->log('ERROR', 'Name validation failed');
                         }
                     }
                 }
@@ -62,7 +60,7 @@
         //Method invoked before script execution
         public static function logUrl(){
             //Logging the called script location
-            Logger::getLogger()->log('INFO', 'Api path /user/remove/ was called');
+            Logger::getLogger()->log('INFO', 'Api path /task/modify/ was called');
         }
     }
     Runner::run();

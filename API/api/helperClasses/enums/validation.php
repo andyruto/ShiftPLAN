@@ -19,5 +19,7 @@
         const YearVacationDays = '/^(?:[0-9]|[1-9][0-9]|[1][0-9][0-9]|[2][0-7][0-9]|[2][8][0])$/';
         const UserType = '/^(?:[0-2]{1})$/';
         const UserFilters = '/^(?:id|type|name|hidden){1}$/';
+        const IdOfNumbers = '/^(?:[0-9]+)$/';
+        const NameOfNumbersAndCharacters = '/^[0-9a-zA-Z]{1,20}$/';
     }
 ?>
