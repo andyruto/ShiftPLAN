@@ -48,6 +48,11 @@
         public function getUserName(){
             return $this->user->getName();
         }
+
+        //Function to return type of user
+        public function getUserType(){
+            return $this->user->getUser_type();
+        }
         
         //Function to create a default user if the user table is empty
         public function createDefaultUser(){

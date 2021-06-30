@@ -4,7 +4,7 @@
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-30 / Maximilian T. | Kontr0x
      */
 
     require '../prepareExec.php';
@@ -66,18 +66,32 @@
                 }else{
                     //If request has parameters to login through a session or to check if session is still valid
                     if($rP->hasParameters(array('apiKey', 'session'))){
-                        //Calling execution checker for validating parameters
-                        $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(), $request->session);
-                        $sM = SessionManager::obj($request->session);
-                        self::$errorCode = $sM->getFinishCode();
+                        $ssM = new SslKeyManager();
+                        //Decrypting the session
+                        self::$errorCode = $ssM->aDecrypt($request->session);
+                        //Checking if the decryption succeded
                         if(self::$errorCode == ErrorCode::NoError){
-                            $userNameFromSession = $sM->getUserName();
-                            $eC->check($userNameFromSession == 'admin');
+                            //Saving the decrytped session
+                            $session = $ssM->getResult();
+                            //Calling execution checker for validating parameters
+                            $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(), $session);
+                            $sM = SessionManager::obj($session);
+                            self::$errorCode = $sM->getFinishCode();
+                            //Checking if the session manager succeded
+                            if(self::$errorCode == ErrorCode::NoError){
+                                $userNameFromSession = $sM->getUserName();
+                                $eC->check($userNameFromSession == 'admin');
+                                $uM = UserManager::obj($userNameFromSession);
+                                self::$errorCode = $uM->getFinishCode();
+                                if(self::$errorCode == ErrorCode::NoError){
+                                    //Adding the found users to the output
+                                    $respondArray = array_merge($respondArray, array('userType' => $uM->getUserType()));
+                                }
+                            }
                         }
                     }
                 }
             }
-            
             //Preparing output
             sendOutput(self::$errorCode, $respondArray);
             exit();
