@@ -1,0 +1,13 @@
+<!--
+-- profile-dialog.component.html
+-- 
+-- HTML file specifying the layout for the dialog used in the profile.component.
+-- 
+-- author: Anne Naumann
+-- last edit / by: 2021-06-23 / Anne Naumann
+-->
+<p id="labelCheck">{{logoutLabel}}</p>
+<div mat-dialog-actions id="container">
+    <button mat-flat-button [matDialogClose] id="stopLogoutBtn" class="dialogBtns" color="primary">{{noBtn}}</button>
+    <button mat-flat-button id="confirmLogoutBtn" (click)="userLogout()" class="dialogBtns" color="primary">{{yesBtn}}</button>    
+</div>

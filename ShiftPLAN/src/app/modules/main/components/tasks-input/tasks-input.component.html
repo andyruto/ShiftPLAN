@@ -1,0 +1,83 @@
+<!--
+-- tasks-input.component.html
+-- 
+-- HTML file specifying the layout for the tasks-input.component.
+-- 
+-- author: Anne Naumann
+-- last edit / by: 2021-06-28 / Anne Naumann
+-->
+
+<swiper [config]="config" (reachEnd)="addValidityDate(validityDates.length)">
+  <div *ngFor="let date of validityDates, index as dateIndex">
+    <div class="upperContainer">
+      <div class="dateContainer">
+        <mat-form-field class="datePicker">
+          <mat-label>{{labelValidity}}</mat-label>
+          <input matInput [matDatepicker]="picker" [value]="date.date" id="{{dateIndex}}-validityDate">
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon svgIcon="calendar"></mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button mat-icon-button (click)="removeValidityDate(dateIndex)">
+          <mat-icon svgIcon="trash-can"></mat-icon>
+        </button>
+      </div>
+    </div>
+    
+    <cdk-virtual-scroll-viewport class="scrollView" itemSize="date.days.length">
+      <div *cdkVirtualFor="let day of date.days, let dayIndex = index">
+        <span class="dayName">{{day.name}}</span>
+        <button mat-icon-button color="accent" (click)="addTimespan(dateIndex, dayIndex, day.timespans.length)">
+          <mat-icon svgIcon="plus"></mat-icon>
+        </button>
+
+        <div *ngFor="let time of day.timespans, index as timeIndex">
+          <div class="timeContainer">
+            <mat-form-field class="inputField">
+              <mat-label>{{labelStart}}</mat-label>
+              <input matInput id="{{dateIndex}}-{{dayIndex}}-{{timeIndex}}-taskStart" 
+                [ngxTimepicker]="pickerStart" [format]=24 [value]=time.start>
+
+              <ngx-material-timepicker #pickerStart [theme]="timePickerTheme"
+              [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
+              
+            </mat-form-field>
+            <mat-form-field class="inputField">
+              <mat-label>{{labelEnd}}</mat-label>
+              <input matInput id="{{dateIndex}}-{{dayIndex}}-{{timeIndex}}-taskEnd" 
+                [ngxTimepicker]="pickerEnd" [format]=24 [value]=time.end>
+              <ngx-material-timepicker #pickerEnd [theme]="timePickerTheme"
+              [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
+            </mat-form-field>
+
+            <ng-template #cancelBtn>
+              <ng-container *ngTemplateOutlet="template; context: timepickerTemp.button"></ng-container>
+            </ng-template>
+            <ng-template #template let-name="name">
+              <button mat-button color="primary">{{name}}</button>
+            </ng-template>
+            <ng-template #confirmBtn>
+              <button mat-button color="primary">Ok</button>
+            </ng-template>
+
+          </div>
+          <div class="personContainer">
+            <div>
+              <mat-form-field class="inputPerson">
+                <input matInput id="{{dateIndex}}-{{dayIndex}}-{{timeIndex}}-taskPersons" type="number" value={{time.persons}}>
+              </mat-form-field>
+              <span>{{labelPersons}}</span>
+            </div>
+            <button mat-icon-button (click)="removeTimespan(dateIndex, dayIndex, timeIndex)">
+              <mat-icon class="deleteIcon" svgIcon="trash-can"></mat-icon>
+            </button>
+          </div>
+        </div>
+        
+      </div>
+      <button mat-flat-button class="addDayBtn" color="primary" (click)="showDialog(dateIndex)">{{addDayBtn}}</button>
+    </cdk-virtual-scroll-viewport>
+  
+  </div>
+</swiper>

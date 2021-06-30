@@ -1,0 +1,33 @@
+/**
+ * profile.component.scss
+ * 
+ * The stylesheet document for the profile component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-23 / Anne Naumann
+*/ 
+ @import '../../../../../styles.scss';
+
+.mat-divider{
+    border-top-color: #{rgba(mat-color($ShiftPLAN-primary), 500)};
+    border-top-width: 2px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.alignText{
+    position: absolute;
+    left: 50%;
+}
+#logoutBtn{
+    display: block;
+    margin: 20% auto;
+}
+#container{
+    display: flex;
+    justify-content: space-evenly;
+}
+.dialogBtns{
+    display: block;
+    margin: 2%;
+}

@@ -1,7 +1,13 @@
 {
     "Welcome": "Welcome",
+    "YesButton": "Yes",
+    "NoButton": "No",
     "NextButton": "Next",
-    "WizardAddress": {
+    "SaveButton": "Save",
+    "CancelButton": "Cancel",
+    "EditButton": "Edit",
+    "WordClock": "o'clock",
+  "WizardAddress": {
         "Title": "API Address",
         "Label": "Please enter the API address:",
         "Warning": "The address is invalid!",
@@ -40,10 +46,33 @@
         "PasswordWrong": "The password is Incorrect!",
         "DefaultWrong": "Something went wrong!"
     },
+    "Weekdays": {
+        "Monday": "Monday",
+        "Tuesday": "Tuesday",
+        "Wednesday": "Wednesday",
+        "Thursday": "Thursday",
+        "Friday": "Friday",
+        "Saturday": "Saturday",
+        "Sunday": "Sunday"
+    },
     "Toolbar": {
         "Profile": "Profile",
         "Settings": "Settings",
-        "Admin": "Admin"
+        "Admin": "Admin",
+        "Title": {
+            "Home": "Home",
+            "Shifts": "Shifts",
+            "Tasks": "Tasks",
+            "Statistics": "Statistics",
+            "Profile": "Profile",
+            "Settings": "Settings",
+            "Admin": "Admin",
+            "AdminAdd": "New User",
+            "AdminUser": "Edit User",
+            "TasksAdd": "New Task",
+            "ShiftsAdd": "New Shift",
+            "ShiftsShift": "Shift Informations"
+        }
     },
     "BottomBar": {
         "Home": "Home",
@@ -51,5 +80,90 @@
         "Tasks": "Tasks",
         "Applications": "Applications",
         "Statistics": "Statistics"
+    },
+    "Profile": {
+        "Username": "Username",
+        "Role": "Role",
+        "LogoutLabel": "Do you really want to logout?"
+    },
+    "Settings": {
+        "LabelTheme": "Change App Theme",
+        "LabelAdapt": "Adapt Homescreen",
+        "LabelPassword": "Change Password",
+        "LabelInfo": "App Information",
+        "Theme": {
+            "LabelMode": "Theme",
+            "LightButton": "Light Mode",
+            "DarkButton": "Dark Mode"
+        },
+        "Adapt": {
+            "LabelStatistic": "Show statistics"
+        },
+        "Password": {
+            "LabelPassword": "Enter your current password",
+            "LabelNewPassword": "Enter new password",
+            "LabelCheckPassword": "Confirm password",
+            "WarningPassword": "Wrong password!",
+            "WarningCheckPassword": "password is not the same!"
+        }
+    },
+    "Admin": {
+        "TabUser": "Users",
+        "LabelApiKey": "API Key",
+        "Add" : {
+            "LabelUsername" : "Username",
+            "LabelPassword": "Password",
+            "CheckBoxUserHidden": "User is visible"
+        }
+    },
+    "Tasks": {
+        "SearchBarText": "task name",
+        "Add": {
+            "LabelDescription": "Description",
+            "CheckBoxOnce": "one-time task",
+            "LabelHint": "Specific times and employees can be set by creating a shift."
+        },
+        "Task":{
+            "LabelEdit": "Last Edited",
+            "LabelEditPerson": "from",
+            "LabelEditTime": "at"
+        },
+        "Input": {
+            "LabelValidity": "Valid from",
+            "LabelStart": "Start",
+            "LabelEnd": "End",
+            "LabelPersons": "required persons",
+            "AddDayBtn": "Add Day"
+        }
+    },
+    "Statistics": {
+        "LabelWorkingHours": "Working Hours",
+        "LabelWorkingDays": "Working Days",
+        "LabelSickDays": "Sick Days",
+        "LabelVacationDays": "Vacation Days",
+        "WordDays": "Days",
+        "WordHours": "Hours"
+    },
+    "Home": {
+        "WarningChanges": "There are changes in your shifts",
+        "WarningShifts": "Attention! There are unplaned shifts",
+        "WordFrom": "from",
+        "WordTo": "to",
+        "LabelContact": "Contact",
+        "LabelColleagues": "Colleagues",
+        "LabelTasks": "Task",
+        "LabelStatistics": "Statistics"
+    },
+    "Shifts": {
+        "LabelTask": "Task",   
+        "LabelTimespan": "Timespan",
+        "LabelValidity": "Valid from",
+        "LabelStart": "Shift Start",
+        "LabelEnd": "Shift End",
+        "LabelEmployee": "Employee",
+        "LabelContact": "Contact",
+        "LabelRemark": "Remark",
+        "LabelComments": "Comments",
+        "LabelWarning": "Information has changed"
     }
 }

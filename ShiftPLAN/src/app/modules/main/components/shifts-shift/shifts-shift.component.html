@@ -1,0 +1,93 @@
+<!--
+ -- shifts-shift.component.html
+ -- 
+ -- HTML file specifying the layout for the shifts-shift.component.
+ -- 
+ -- author: Anne Naumann
+ -- last edit / by: 2021-06-28 / Anne Naumann
+ -->
+<app-toolbar title="{{title}}" [backBtn]=true></app-toolbar>
+
+<cdk-virtual-scroll-viewport id="shiftScrollView" itemSize="50">
+    <div id="warningChanges" class="warnings" *ngIf=showWarningChanges>
+        <mat-icon svgIcon="warning"></mat-icon>
+        <span id="labelWarningChanges">{{labelWarning}}</span>
+    </div>
+    <div id="headerContainer">
+        <div class="timeContainer">
+            <mat-form-field class="dateField">
+                <mat-label>{{labelValidity}}</mat-label>
+                <input matInput [matDatepicker]="picker" [value]=shift.date (dateChange)="contentChange()">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon svgIcon="calendar"></mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <button mat-icon-button id="deleteShiftBtn">
+                <mat-icon svgIcon="trash-can"></mat-icon>
+            </button>
+        </div>
+        <div class="timeContainer">
+            <mat-form-field id="shiftStart" class="timeInput">
+                <mat-label id="labelShiftStart">{{labelStart}}</mat-label>
+                <input matInput [ngxTimepicker]="pickerStart" [format]=24 [value]=shift.start>
+                <ngx-material-timepicker #pickerStart [theme]="timePickerTheme" (timeChanged)="contentChange()"
+                [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
+            </mat-form-field>
+            <mat-form-field id="shiftEnd" class="timeInput">
+                <mat-label id="labelShiftEnd">{{labelEnd}}</mat-label>
+                <input matInput [ngxTimepicker]="pickerEnd" [format]=24 [value]=shift.end>
+                <ngx-material-timepicker #pickerEnd [theme]="timePickerTheme" (timeChanged)="contentChange()"
+                [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
+            </mat-form-field>
+            <ng-template #cancelBtn>
+                <ng-container *ngTemplateOutlet="template; context: timepickerTemp.button"></ng-container>
+            </ng-template>
+            <ng-template #template let-name="name">
+                <button mat-button color="primary">{{name}}</button>
+            </ng-template>
+            <ng-template #confirmBtn>
+                <button mat-button color="primary">Ok</button>
+            </ng-template>
+        </div>
+    </div>
+    <mat-form-field class="inputField">
+        <mat-label id="labelTask">{{labelTask}}</mat-label>
+        <input matInput type="text" [disabled]=true [value]=shift.task>
+    </mat-form-field>
+    <div id="employeesContainer">
+        <div *ngFor="let person of shift.employees">
+            <mat-form-field class="employeeField">
+                <mat-label>{{labelEmployee}}</mat-label>
+                <input matInput type="text" [value]=person (change)="contentChange()">
+            </mat-form-field>
+        </div>
+        <button mat-icon-button id="addEmployeeBtn" color="primary" (click)="addEmployee()">
+            <mat-icon svgIcon="plus"></mat-icon>
+        </button>
+    </div>
+    <mat-form-field class="inputField">
+        <mat-label id="labelContact">{{labelContact}}</mat-label>
+        <input matInput type="text" [value]=shift.contact (change)="contentChange()">
+    </mat-form-field>
+    <mat-form-field class="inputField">
+        <mat-label>{{labelRemark}}</mat-label>
+        <textarea matInput [value]=shift.remark (change)="contentChange()"></textarea>
+    </mat-form-field>
+    <button mat-raised-button *ngIf="contentChanged" id="editShiftBtn" class="displayBtn" color="accent" >{{editBtn}}</button>
+    <div id="commentContainer">
+        <div id="labelComments">{{labelComments}}:</div>
+        <div *ngFor="let comment of comments" class="comment">
+            <div>{{comment.text}}</div>
+            <div>{{comment.user}} - {{comment.time}}</div>
+        </div>
+    </div>
+</cdk-virtual-scroll-viewport>
+<div id="textContainer">
+    <mat-form-field class="textField">
+        <textarea matInput></textarea>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" id="sendBtn">
+        <mat-icon svgIcon="paper-plane"></mat-icon>
+    </button>
+</div>

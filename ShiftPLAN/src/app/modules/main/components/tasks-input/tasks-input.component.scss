@@ -1,0 +1,58 @@
+/**
+ * tasks-input.component.scss
+ * 
+ * The stylesheet document for the tasks-input component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-28 / Anne Naumann
+ */ 
+
+.upperContainer{
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+}
+.scrollView{
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+}
+.inputField{
+    display: inline-block;
+    width: 100px;
+}
+.inputPerson{
+    display: inline-block;
+    width: 40px;
+    margin-right: 10px;
+}
+.dateContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.datePicker{
+    width: 80%;
+}
+.timeContainer{
+    display: flex;
+    justify-content: space-around;
+}
+.personContainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.addDayBtn{
+    width: 100%;
+}
+.dayName{
+    color: #375E99;
+    font-weight: bold;
+}
+.addTimeBtn{ 
+    display: block; 
+    margin: 5% auto; 
+    width: 250px; 
+} 

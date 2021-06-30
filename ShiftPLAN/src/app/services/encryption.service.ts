@@ -5,7 +5,7 @@
  * to the whole frontend structure.
  * 
  * author: Sascha W.
- * last edit / by: 2021-05-23 / Sascha W.
+ * last edit / by: 2021-06-05 / Anne Naumann
  */
 
 // imports:
@@ -16,8 +16,6 @@ import { generateSodium } from 'src/app/services/encryption.service.helper';
 @Injectable({
   providedIn: 'root'
 })
-
-// this class is responsible for encryption
 export class EncryptionService {
 
   // variables:

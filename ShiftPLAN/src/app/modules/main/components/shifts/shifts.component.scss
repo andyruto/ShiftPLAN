@@ -1,0 +1,47 @@
+/**
+ * shifts.component.scss
+ * 
+ * The stylesheet document for the shifts component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-28 / Anne Naumann
+ */ 
+@import '../../../../../styles.scss';
+
+#shiftsScrollView{
+    width: 95%;
+    display: block;
+    margin: 0 auto;
+}
+.mat-divider{ 
+    border-top-color: #{rgba(mat-color($ShiftPLAN-primary), 500)}; 
+    border-top-width: 2px; 
+    margin-left: 20px; 
+    margin-right: 20px; 
+} 
+.shiftRow{
+    display: block;
+    margin: 5%;
+    position: relative;
+}
+.warningIcon{
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #{rgba(mat-color($ShiftPLAN-accent), 500)}; 
+}
+.headerText{
+    font-weight: bold;
+}
+.personLabel{
+    display: inline-block;
+}
+#container{
+    position: relative;
+}
+#addShiftBtn{
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+}

@@ -18,6 +18,7 @@ const routes: Routes = [
     path: '',
     component: SplashComponent
   }
+  { path: 'app', loadChildren: () => import('./modules/main/main.module').then(m => m.MainModule) } 
 ];
 
 @NgModule({

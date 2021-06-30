@@ -1,0 +1,15 @@
+<!--
+ -- admin-user.component.html
+ -- 
+ -- HTML file specifying the layout for the admin-user.component.
+ -- 
+ -- author: Anne Naumann
+ -- last edit / by: 2021-06-11 / Anne Naumann
+-->
+<app-toolbar title="{{title}}" [backBtn]=true></app-toolbar>
+<mat-form-field id="inputUsername" class="inputField">
+    <mat-label id="labelUsername">{{labelUsername}}</mat-label>
+    <input matInput #inputUsername type="text">
+</mat-form-field>
+<mat-checkbox id="checkBoxUserHidden">{{checkBoxUserHidden}}</mat-checkbox>
+<button mat-raised-button id="saveUserBtn" class="displayBtn" color="accent">{{saveBtn}}</button>

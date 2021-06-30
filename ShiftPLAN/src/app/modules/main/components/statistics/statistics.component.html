@@ -1,0 +1,38 @@
+<!--
+ -- statistics.component.html
+ -- 
+ -- HTML file specifying the layout for the statistics.component.
+ -- 
+ -- author: Anne Naumann
+ -- last edit / by: 2021-06-28 / Anne Naumann
+ -->
+<app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=true></app-toolbar>
+<div id="container">
+    <swiper [config]="config">
+        <div *ngFor="let data of allStatisticData">
+            <h1 class="labelMonth">{{data.month}}</h1>
+            <mat-list>
+                <mat-list-item>
+                    <span>{{labelWorkingHours}}</span>
+                    <span class="alignText">{{data.workHours}} {{wordHours}}</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <span>{{labelWorkingDays}}</span>
+                    <span class="alignText">{{data.workDays}} {{wordDays}}</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <span>{{labelSickDays}}</span>
+                    <span class="alignText">{{data.sickDays}} {{wordDays}}</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <span>{{labelVacationDays}}</span>
+                    <span class="alignText">{{data.vacationDays}} {{wordDays}}</span>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </swiper>
+</div>
+ 
