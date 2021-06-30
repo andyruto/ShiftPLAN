@@ -10,7 +10,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Error404Dialog, ErrorDialog, NoInputDialog, SameOriginDialog, WizardAddressComponent } from './components/wizard-address/wizard-address.component';
 import { KeyDialog, WizardKeyComponent } from './components/wizard-key/wizard-key.component';
-import { WizardPasswordComponent } from './components/wizard-password/wizard-password.component';
+import { InvalidPasswordDialog, PasswordDialog, WizardPasswordComponent } from './components/wizard-password/wizard-password.component';
 import { WizardPermissionComponent } from './components/wizard-permission/wizard-permission.component';
 import { LoginEmptyDialog, LoginComponent, LoginUserDialog, LoginPasswordDialog, LoginDefaultDialog } from './components/login/login.component';
 import { StartComponent } from './start.component';
@@ -41,7 +41,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     ErrorDialog,
     SameOriginDialog,
     NoInputDialog,
-    KeyDialog
+    KeyDialog,
+    PasswordDialog,
+    InvalidPasswordDialog
   ],
   imports: [
     StartRoutingModule,
