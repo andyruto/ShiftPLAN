@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { IconService } from './services/icon.service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -21,13 +22,16 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { EncryptionService } from './services/encryption.service';
 
+import { SplashComponent } from './components/splash/splash.component';
+
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SplashComponent
   ],
   imports: [
     SharedModule,
@@ -47,6 +51,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  
   availableLng = ['en', 'de'];
 
   //start the translation service
@@ -63,5 +68,13 @@ export class AppModule {
   
       this.translateService.setDefaultLang(tmpLng);
       this.iconService.registerIcons()
+
+      window.addEventListener('orientationchange', function () { 
+        if (window.innerHeight > window.innerWidth) { 
+          document.getElementsByTagName('body')[0].style.display = "none"; 
+        } else {
+          document.getElementsByTagName('body')[0].style.display = ""; 
+        }
+      });
   }
  }

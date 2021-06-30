@@ -7,6 +7,45 @@
     "CancelButton": "Cancel",
     "EditButton": "Edit",
     "WordClock": "o'clock",
+  "WizardAddress": {
+        "Title": "API Address",
+        "Label": "Please enter the API address:",
+        "Warning": "The address is invalid!",
+        "Error404": "Error 404: No connection can be found at the specified URL.",
+        "Error": "Error",
+        "SameOrigin": "Connection could not be found at the recommended address please contact your admin.",
+        "NoInput": "Empty indication.",
+        "Ok": "Ok"
+    },
+    "WizardKey": {
+        "Title": "API Key",
+        "Label": "Please enter the API key:",
+        "Warning": "The key is invalid!",
+        "Key": "API key does not match!",
+        "Ok": "Ok"
+    },
+    "WizardPassword": {
+        "Title": "Password",
+        "LabelPasswordNew": "Set password:",
+        "LabelPasswordCheck": "Confirm password:",
+        "WarningNew": "The passwords are not the same!",
+        "InvalidPassword": "Password not allowed!",
+        "Ok": "Ok"
+    },
+    "WizardPermission": {
+        "Title": "Permissions"
+    },
+    "Login": {
+        "UserName": "Username",
+        "Password": "Password",
+        "ResetButton": "Reset password",
+        "Warning": "Username or password are wrong!",
+        "Ok": "Ok",
+        "Empty": "Form isn't completely filled out yet!",
+        "UserWrong": "The username was not found!",
+        "PasswordWrong": "The password is Incorrect!",
+        "DefaultWrong": "Something went wrong!"
+    },
     "Weekdays": {
         "Monday": "Monday",
         "Tuesday": "Tuesday",
