@@ -12,7 +12,6 @@
     final class Main extends ApiRunnable{
         private static $errorCode = ErrorCode::NoError;
         private static $respondArray = array();
-        private static $eM = null; //Variable to store entity manager in
 
         //Method invoked on script execution
         public static function run(){
@@ -36,26 +35,29 @@
                             //Checking execution rights
                             $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(Permission::TasksRead), $session);
                             $eC->check(false);
-                            //Creating entity manager for db access
-                            self::$eM = Bootstrap::getEntityManager();
                             //Searching for the task in database
                             $tM = TaskManager::obj($request->id);
                             self::$errorCode = $tM->getFinishCode();
                             if(self::$errorCode == ErrorCode::NoError){
-                                //Formatting output
-                                $taskArray = array('id' => $tM->getDbObject()->getId(), 'name' => $tM->getDbObject()->getName());
                                 //Adding the found task to the output
-                                self::$respondArray = array_merge(self::$respondArray, array('task' => $taskArray));
+                                self::$respondArray = array_merge(self::$respondArray, array('task' => $tM->getTask()));
                             }
                         }
                     }
                 }else{
                     Logger::getLogger()->log('ERROR', 'id failed regex validation');    
                     $finishCode = ErrorCode::ValidationFailed;
-                } 
+                }  
             }else{
-                self::$errorCode = ErrorCode::ParameterMissmatch;
-                Logger::getLogger()->log('WARNING', 'Parameters doenst match function requirements');
+                if($rP->hasParameters(array('apiKey', 'session'))){
+                    $tasks = TaskManager::getAllTasks();
+                    //Adding the tasks to the output
+                    self::$respondArray = array_merge(self::$respondArray, array('tasks' => $tasks));
+                }
+                else{
+                    self::$errorCode = ErrorCode::ParameterMissmatch;
+                    Logger::getLogger()->log('WARNING', 'Parameters doenst match function requirements');
+                }
             }
             //Preparing output
             sendOutput(self::$errorCode, self::$respondArray);

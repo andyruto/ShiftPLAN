@@ -72,14 +72,24 @@
             return $this->errorCode;
         }
 
-        //Function to get all Tasks
-        public function getAllTasks(){
-            $tasksDb = $this->eM->getrepository('task')->findAll();
+        //Function to get all Tasks formatted and ready to print
+        static public function getAllTasks(){
+            $eM = Bootstrap::getEntityManager();
+            $tasksDb = $eM->getrepository('task')->findAll();
             $tasks = array();
             foreach($tasksDb as $task){
                 $tasks[$task->getId()] = $task->getName();
             }
             return $tasks;
+        }
+
+        //Function to get task formatted and ready to print
+        public function getTask(){
+            if($this->errorCode == ErrorCode::NoError){
+                $task = array();
+                $task[$this->task->getId()] = $this->task->getName();
+                return $task;
+            }
         }
 
         //Returning the finish code
