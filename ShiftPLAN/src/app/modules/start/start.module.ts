@@ -1,10 +1,18 @@
+/**
+ * start.module.ts
+ * 
+ * Module that contains all start components.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-30 / Anne Naumann
+ */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WizardAddressComponent } from './components/wizard-address/wizard-address.component';
 import { WizardKeyComponent } from './components/wizard-key/wizard-key.component';
 import { WizardPasswordComponent } from './components/wizard-password/wizard-password.component';
 import { WizardPermissionComponent } from './components/wizard-permission/wizard-permission.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginEmptyDialog, LoginComponent, LoginUserDialog, LoginPasswordDialog, LoginDefaultDialog } from './components/login/login.component';
 import { StartComponent } from './start.component';
 
 import { StartRoutingModule } from './start-routing.module';
@@ -24,7 +32,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     WizardPasswordComponent,
     WizardPermissionComponent,
     LoginComponent,
-    StartComponent
+    StartComponent, 
+    LoginEmptyDialog,
+    LoginUserDialog,
+    LoginPasswordDialog,
+    LoginDefaultDialog
   ],
   imports: [
     StartRoutingModule,
