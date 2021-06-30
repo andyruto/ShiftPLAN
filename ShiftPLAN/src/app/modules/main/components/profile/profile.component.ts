@@ -112,7 +112,6 @@ export class ProfileDialog {
       }
     );
     logoutPromise = await logoutAnswer.toPromise();
-    console.log(logoutPromise)
     logoutErrorCode = logoutPromise.errorCode;
   }
 }

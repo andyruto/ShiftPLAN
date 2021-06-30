@@ -15,6 +15,7 @@ import { LoginTwoResponse } from 'src/app/models/logintworesponse';
 import { ApiService } from 'src/app/services/api.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
 
 @Component({
   selector: 'app-login',
@@ -48,13 +49,35 @@ export class LoginComponent implements OnInit {
     //hide or show password
   }
 
-  checkSession(): void {
+  private async checkSession() {
+
+    //variables
+    let publicKeyAnswer;
+    let publicKeyPromise;
+
+    let publicKeyErrorCode: number;
+    let session: string = localStorage.getItem('Session') as string;
+    let sessionAsync: string;
+    let publicKey: string;
+
+    //get public key
+    publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
+      'key/publickey/', {
+        apiKey: this.apiKey
+      }
+    );
+    publicKeyPromise = await publicKeyAnswer.toPromise();
+    publicKey = publicKeyPromise.publicKey;
+    publicKeyErrorCode = publicKeyPromise.errorCode;
+
+    //encrypt session asyncronous
+    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
 
     //check if session is still open
     this.api.sendPostRequest<GeneralResponse>(
       'login/', {
         apiKey: this.apiKey,
-        session: localStorage.getItem('Session')
+        session: sessionAsync
       }).then(response => {
         response.subscribe(answer => {
           if(answer.errorCode === 0) {

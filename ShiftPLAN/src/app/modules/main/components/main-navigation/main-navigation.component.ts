@@ -25,6 +25,6 @@ export class MainNavigationComponent implements OnInit {
   }
 
   private async checkBtn() {
-    this.task = (await this.usertype.getShown()).admin;
+    this.task = (await this.usertype.getShown()).tasks;
   }
 }

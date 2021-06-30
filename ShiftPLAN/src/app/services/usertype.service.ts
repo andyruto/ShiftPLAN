@@ -54,8 +54,6 @@ export class UsertypeService {
     );
     userTypePromise = await userTypeAnswer.toPromise();
     userTypeErrorCode = userTypePromise.errorCode;
-    //DEBUG
-    console.log(userTypePromise)
     switch(userTypePromise.userType) {
       case 2:
         shown.tasks = true;
