@@ -4,7 +4,7 @@
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-06-08 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-07-01 / Maximilian T. | Kontr0x
      */
 
     require '../../prepareExec.php';
@@ -62,6 +62,7 @@
                     }
                 }
             }else{
+                self::$errorCode = ErrorCode::ParameterMissmatch;
                 Logger::getLogger()->log('WARNING', 'Parameters doenst match function requirements');
             }
             //Preparing output
