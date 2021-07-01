@@ -50,7 +50,7 @@
                             //Formatting the output of the found users
                             foreach($users as $user){
                                 $userName = $user->getName();
-                                $userArray = array('id' => $user->getId(), 'type' => $user->getUser_type(), 'hidden' => $user->getHidden(), 'overtime' => $user->getOvertime(), 'weeklyWorkingMinutes' => getWeekly_working_minutes(), 'weeklyWorkingDays' => getWeekly_working_days(), 'yearVacationDays' => getYear_vacation_days());
+                                $userArray = array('id' => $user->getId(), 'type' => $user->getUser_type(), 'hidden' => $user->getHidden(), 'overtime' => $user->getOvertime(), 'weeklyWorkingMinutes' => $user->getWeekly_working_minutes(), 'weeklyWorkingDays' => $user->getWeekly_working_days(), 'yearVacationDays' => $user->getYear_vacation_days());
                                 $usersArray = array_merge($usersArray, array($userName => $userArray));    
                             }
                             //Adding the found users to the output
