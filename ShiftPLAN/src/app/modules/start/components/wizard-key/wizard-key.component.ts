@@ -4,7 +4,7 @@
  * Main typescript class for the wizard-key component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-02 / Anne Naumann
+ * last edit / by: 2021-06-30 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -85,9 +85,5 @@ export class KeyDialog {
     this.warning = translation.WizardKey.Key;
     this.ok = translation.WizardKey.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }

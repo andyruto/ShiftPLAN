@@ -9,9 +9,9 @@
 <app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=admin></app-toolbar>
 <div id="container">
     <cdk-virtual-scroll-viewport id="shiftsScrollView" itemSize=shifts.length>
-        <div matRipple *cdkVirtualFor="let data of shifts; let last = last" (click)="navigateToShift()">
+        <div matRipple *cdkVirtualFor="let data of shifts; let last = last, let first = first" (click)="navigateToShift()">
             <div class="shiftRow">
-                <mat-icon class="warningIcon" svgIcon="warning"></mat-icon>
+                <mat-icon class="warningIcon" svgIcon="warning" *ngIf="first"></mat-icon>
                 <div class="headerText">{{data.weekday}}, {{data.date}}</div>
                 <div class="headerText">{{data.start}} - {{data.end}} {{wordClock}}</div>
                 <div>{{data.task}}</div>

@@ -28,7 +28,7 @@
         "Title": "Passwort",
         "LabelPasswordNew": "Passwort eingeben:",
         "LabelPasswordCheck": "Passwort bestätigen:",
-        "WarningNew": "Das die Passwörter sind unterschiedlich!",
+        "WarningNew": "Die Passwörter sind unterschiedlich!",
         "InvalidPassword": "Password nicht zugelassen!",
         "Ok": "Ok"
     },
@@ -41,7 +41,7 @@
         "ResetButton": "Passwort zurücksetzen",
         "Warning": "Benutzername oder Passwort sind falsch!",
         "Ok": "Ok",
-        "Empty": "Formular ist nocht komplet ausgefüllt!",
+        "Empty": "Formular ist nicht komplett ausgefüllt!",
         "UserWrong": "Der Benutzername wurde nicht gefunden!",
         "PasswordWrong": "Das Passwort ist Falsch!",
         "DefaultWrong": "Etwas ist schief gelaufen!"

@@ -4,7 +4,7 @@
  * Main typescript class for the wizard-address component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-28 / Sascha Wirtz
+ * last edit / by: 2021-06-30 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -140,10 +140,6 @@ export class Error404Dialog {
     this.ok = translation.WizardAddress.Ok;
     });
   }
-
-  closeDialog(): void {
-    this.dialogRef.close();
-  }
 }
 
 @Component({
@@ -162,10 +158,6 @@ export class ErrorDialog {
     this.warning = translation.WizardAddress.Error;
     this.ok = translation.WizardAddress.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }
 
@@ -186,10 +178,6 @@ export class SameOriginDialog {
     this.ok = translation.WizardAddress.Ok;
     });
   }
-
-  closeDialog(): void {
-    this.dialogRef.close();
-  }
 }
 
 @Component({
@@ -208,9 +196,5 @@ export class NoInputDialog {
     this.warning = translation.WizardAddress.NoInput;
     this.ok = translation.WizardAddress.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }
