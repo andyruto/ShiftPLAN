@@ -79,13 +79,16 @@ export class TasksInputComponent implements OnInit, AfterViewChecked {
   weekdayNames = [{index: 0, name: ''}]
 
   validityDates = [
-    {date: new Date('2021-05-18'), days : [
-      {index: 0, name: 'Monday', timespans : [
-        {start: '10:00', end: '18:00', persons: 2},
-        {start: '10:30', end: '18:30', persons: 1}
+    {date: new Date('2021-05-28'), days : [
+      {index: 0, name: 'Montag', timespans : [
+        {start: '08:00', end: '14:00', persons: 3},
+        {start: '14:00', end: '20:00', persons: 4}
       ]},
-      {index: 1, name: 'Tuesday', timespans : [
-        {start: '13:00', end: '21:00', persons: 2}
+      {index: 1, name: 'Dienstag', timespans : [
+        {start: '08:00', end: '14:00', persons: 3}
+      ]},
+      {index: 2, name: 'Mittwoch', timespans : [
+        {start: '08:00', end: '14:00', persons: 3}
       ]}
     ]}, 
     {date: new Date('2021-06-16'), days : [

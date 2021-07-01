@@ -28,7 +28,7 @@ export class TasksTaskComponent implements OnInit {
   //boolean that decides which html content is rendered
   oneTimeTask = false
   viewLoaded = false
-  taskName = 'Test Task Name'
+  taskName = 'Empfang_01'
 
   constructor(private translate: TranslateService) { }
 

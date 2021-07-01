@@ -22,18 +22,18 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
   //test content that needs to be replaced
   tasks = [
-    {name: 'Alabama', type: 'Montgomery'},
-    {name: 'Alaska', type: 'Juneau'},
-    {name: 'Arizona', type: 'Phoenix'},
-    {name: 'Arkansas', type: 'Little Rock'},
-    {name: 'California', type: 'Sacramento'},
-    {name: 'Colorado', type: 'Denver'},
-    {name: 'Connecticut', type: 'Hartford'},
-    {name: 'Delaware', type: 'Dover'},
-    {name: 'Florida', type: 'Tallahassee'},
-    {name: 'Georgia', type: 'Atlanta'},
-    {name: 'Hawaii', type: 'Honolulu'},
-    {name: 'Idaho', type: 'Boise'},
+    {name: 'Empfang_01', type: 'wiederholend'},
+    {name: 'Empfang_02', type: 'wiederholend'},
+    {name: 'Backup', type: 'wiederholend'},
+    {name: 'KickOff_Juni', type: 'einmalig'},
+    {name: 'Level1_Sup_01', type: 'wiederholend'},
+    {name: 'Level1_Sup_02', type: 'wiederholend'},
+    {name: 'HR_Schulung', type: 'einmalig'},
+    {name: 'Inventur', type: 'wiederholend'},
+    {name: 'Level2_Sup_01', type: 'wiederholend'},
+    {name: 'Level2_Sup_02', type: 'wiederholend'},
+    {name: 'Level2_Sup_03', type: 'wiederholend'},
+    {name: 'Meeting_Praktikant', type: 'einmalig'},
     {name: 'Illinois', type: 'Springfield'}
   ]
 

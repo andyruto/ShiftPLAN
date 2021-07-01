@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   //variables to determine what content is shown in the home component
   showWarningChanges = true
-  showWarningShifts = true
+  showWarningShifts = false
   showStatistics = true
 
   title = ''
