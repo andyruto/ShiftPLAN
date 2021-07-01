@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
   labelKey = ''
 
   //test content that needs to be replaced
-  users: Array<string> = ['a','b','c','d','e','f','g','h','i','b','c','d','e','f','g','h','i']
+  users: Array<string> = ['ag167','sw210','mt098','an055','mm123','ee456','wr246','ht135','os321','lp654','re642','tu531','lk133']
 
   constructor(private translate: TranslateService, private router : Router) {}
 

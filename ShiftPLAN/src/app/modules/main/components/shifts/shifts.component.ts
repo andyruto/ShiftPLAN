@@ -18,12 +18,18 @@ import { Router } from '@angular/router'
 export class ShiftsComponent implements OnInit, AfterViewInit {
 
   shifts = [
-    {weekday: 'Freitag', date: '25.06', start: '10:00', end: '13:00', task: 'Logistik', 
-      employees : ['Anne Naumann', 'Sascha Wirtz', 'Anne Naumann', 'Sascha Wirtz']},
-    {weekday: 'Freitag', date: '25.06', start: '10:00', end: '13:00', task: 'Logistik', 
-      employees : ['Anne Naumann', 'Sascha Wirtz']},
-    {weekday: 'Freitag', date: '25.06', start: '10:00', end: '13:00', task: 'Logistik', 
-      employees : ['Anne Naumann', 'Sascha Wirtz']}
+    {weekday: 'Montag', date: '05.07', start: '08:00', end: '14:00', task: 'Empfang_01', 
+      employees : ['ag167', 'an055', 'sw210']},
+    {weekday: 'Dienstag', date: '06.07', start: '14:00', end: '20:00', task: 'Empfang_02', 
+      employees : ['ag167', 'sw210']},
+    {weekday: 'Mittwoch', date: '07.07', start: '08:00', end: '09:00', task: 'Backup', 
+      employees : ['mt098', 'ag167']},
+    {weekday: 'Mittwoch', date: '07.07', start: '09:00', end: '14:00', task: 'Level1_Sup_01', 
+    employees : ['ag167']},
+    {weekday: 'Donnerstag', date: '08.07', start: '08:00', end: '14:00', task: 'Empfang_01', 
+      employees : ['ag167', 'an055', 'sw210']},
+    {weekday: 'Freitag', date: '09.07', start: '14:00', end: '20:00', task: 'Empfang_02', 
+    employees : ['ag167', 'sw210']},
   ]
 
   title = ''

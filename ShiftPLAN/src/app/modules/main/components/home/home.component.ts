@@ -4,7 +4,7 @@
  *  Main typescript class for the home component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-28 / Anne Naumann
+ * last edit / by: 2021-06-30 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   //variables to determine what content is shown in the home component
   showWarningChanges = true
-  showWarningShifts = true
+  showWarningShifts = false
   showStatistics = true
 
   title = ''
@@ -63,10 +63,9 @@ export class HomeComponent implements OnInit {
   ngAfterViewInit(): void{
     let toolbar =  document.getElementsByTagName('mat-toolbar')[0].clientHeight
     let bottomBar = document.getElementsByTagName('app-bottom-bar')[0].clientHeight
-    let warnings = document.getElementById('containerWarnings')?.clientHeight
     var scrollView = document.getElementById('homeScrollView')
 
-    let screenHeight = window.innerHeight-toolbar-bottomBar-warnings!
+    let screenHeight = window.innerHeight-toolbar-bottomBar
     scrollView!.style.height = screenHeight + 'px'
   }
 }

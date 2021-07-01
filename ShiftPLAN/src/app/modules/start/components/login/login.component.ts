@@ -4,7 +4,7 @@
  * Main typescript class for the login component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-02 / Anne Naumann
+ * last edit / by: 2021-06-30 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
 
   checkLoginValues(inputName: string, inputPassword: string){
     if(inputName === '' || inputPassword === ''){
-      this.dialog.open(EmptyDialog, {
+      this.dialog.open(LoginEmptyDialog, {
         autoFocus: false
       });
     }else {
@@ -108,12 +108,12 @@ export class LoginComponent implements OnInit {
     if(firstErrorCode != 0) {
       switch(firstErrorCode) {
         case 7:
-          this.dialog.open(UserDialog, {
+          this.dialog.open(LoginUserDialog, {
             autoFocus: false
           });
           return 7;
         default:
-          this.dialog.open(DefaultDialog, {
+          this.dialog.open(LoginDefaultDialog, {
             autoFocus: false
           });
           return -1;     
@@ -143,12 +143,12 @@ export class LoginComponent implements OnInit {
       if(secondErrorCode != 0) {
         switch(secondErrorCode) {
           case 10:
-            this.dialog.open(PasswordDialog, {
+            this.dialog.open(LoginPasswordDialog, {
               autoFocus: false
             });
             return 8;
           default:
-            this.dialog.open(DefaultDialog, {
+            this.dialog.open(LoginDefaultDialog, {
               autoFocus: false
             });
             return -1;        
@@ -174,15 +174,15 @@ export class LoginComponent implements OnInit {
 }
 
 @Component({
-  selector: 'empty-dialog',
+  selector: 'login-empty-dialog',
   templateUrl: 'dialog.html',
   styleUrls: ['./login.component.scss'],
 })
-export class EmptyDialog {
+export class LoginEmptyDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<EmptyDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<LoginEmptyDialog>, private translation: TranslateService) {}
 
   ngOnInit(): void {
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
@@ -190,22 +190,18 @@ export class EmptyDialog {
     this.ok = translation.Login.Ok;
     });
   }
-
-  closeDialog(): void {
-    this.dialogRef.close();
-  }
 }
 
 @Component({
-  selector: 'user-dialog',
+  selector: 'login-user-dialog',
   templateUrl: 'dialog.html',
   styleUrls: ['./login.component.scss'],
 })
-export class UserDialog {
+export class LoginUserDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<UserDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<LoginUserDialog>, private translation: TranslateService) {}
 
   ngOnInit(): void {
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
@@ -213,22 +209,18 @@ export class UserDialog {
     this.ok = translation.Login.Ok;
     });
   }
-
-  closeDialog(): void {
-    this.dialogRef.close();
-  }
 }
 
 @Component({
-  selector: 'password-dialog',
+  selector: 'login-password-dialog',
   templateUrl: 'dialog.html',
   styleUrls: ['./login.component.scss'],
 })
-export class PasswordDialog {
+export class LoginPasswordDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<PasswordDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<LoginPasswordDialog>, private translation: TranslateService) {}
 
   ngOnInit(): void {
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
@@ -236,31 +228,23 @@ export class PasswordDialog {
     this.ok = translation.Login.Ok;
     });
   }
-
-  closeDialog(): void {
-    this.dialogRef.close();
-  }
 }
 
 @Component({
-  selector: 'default-dialog',
+  selector: 'login-default-dialog',
   templateUrl: 'dialog.html',
   styleUrls: ['./login.component.scss'],
 })
-export class DefaultDialog {
+export class LoginDefaultDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<DefaultDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<LoginDefaultDialog>, private translation: TranslateService) {}
 
   ngOnInit(): void {
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
     this.warning = translation.Login.DefaultWrong;
     this.ok = translation.Login.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }

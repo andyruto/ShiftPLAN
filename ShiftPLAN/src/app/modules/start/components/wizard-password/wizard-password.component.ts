@@ -4,7 +4,7 @@
  * Main typescript class for the wizard-password component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-02 / Anne Naumann
+ * last edit / by: 2021-06-30 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -196,10 +196,6 @@ export class PasswordDialog {
     this.ok = translation.WizardPassword.Ok;
     });
   }
-
-  closeDialog(): void {
-    this.dialogRef.close();
-  }
 }
 
 @Component({
@@ -218,9 +214,5 @@ export class InvalidPasswordDialog {
     this.warning = translation.WizardPassword.InvalidPassword;
     this.ok = translation.WizardPassword.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }

@@ -21,7 +21,7 @@ export class StatisticsComponent implements OnInit, AfterViewChecked {
     {month: 'März 2021', workHours: '67', workDays: '20', sickDays: '2', vacationDays: '3'},
     {month: 'April 2021', workHours: '67', workDays: '20', sickDays: '2', vacationDays: '3'},
     {month: 'Mai 2021', workHours: '67', workDays: '20', sickDays: '2', vacationDays: '3'},
-    {month: 'Juni 2021', workHours: '67', workDays: '20', sickDays: '2', vacationDays: '3'}
+    {month: 'Juni 2021', workHours: '140', workDays: '20', sickDays: '1', vacationDays: '4'}
   ]
 
   public config: SwiperConfigInterface = {

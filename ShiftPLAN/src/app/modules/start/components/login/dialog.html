@@ -1,4 +1,12 @@
+<!--
+-- dialog.component.html
+-- 
+-- HTML file specifying the layout for the dialog used in the login.component.
+-- 
+-- author: Sascha W.
+-- last edit / by: 2021-06-30 / Anne Naumann
+-->
 <p>{{warning}}</p>
-<div>
-    <button  (click)="closeDialog()" color="primary">{{ok}}</button>
+<div mat-dialog-actions>
+    <button mat-flat-button [matDialogClose] color="primary">{{ok}}</button>
 </div>

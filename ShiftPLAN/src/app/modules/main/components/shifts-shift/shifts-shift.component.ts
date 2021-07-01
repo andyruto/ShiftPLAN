@@ -33,13 +33,12 @@ export class ShiftsShiftComponent implements OnInit, AfterViewInit, AfterViewChe
   };
 
   shift = {
-    date: new Date('2021-05-18'), start: '10:00', end: '13:00', task: 'Task1', contact: 'Andreas Gantner', 
-    remark: 'Anmerkungen sind wichtig', employees: ['Anne Naumann', 'Sascha Wirtz', 'Anne Naumann']
+    date: new Date('2021-07-05'), start: '08:00', end: '14:00', task: 'Empfang_01', contact: 'ag167', 
+    remark: 'Bitte auf die neue Beschränkungen achten.', employees: ['ag167', 'an055', 'sw210']
   }
 
   comments = [
-    {user: 'admin', time: '27.06.21, 16:29 Uhr', text: 'Ein Kommentar zu dieser Schicht'},
-    {user: 'user', time: '27.06.21, 16:30 Uhr', text: 'Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text'}
+    {user: 'sw210', time: '30.06.21, 16:29 Uhr', text: 'Wo kann ich das neue Dokument finden?'}
   ]
 
   //boolean to determine if warning is shown
