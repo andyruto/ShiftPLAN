@@ -8,7 +8,7 @@
  -- last edit / by: 2021-06-30 / Anne Naumann
  -->
 
-<app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=true></app-toolbar>
+<app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=admin></app-toolbar>
 <cdk-virtual-scroll-viewport id="homeScrollView" itemSize=50>
     <div id="containerWarnings">
         <div id="warningChanges" class="warnings" *ngIf=showWarningChanges>
