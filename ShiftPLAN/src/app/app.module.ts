@@ -21,8 +21,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { EncryptionService } from './services/encryption.service';
-
+import { UsertypeService } from './services/usertype.service';
 import { SplashComponent } from './components/splash/splash.component';
+
 
 export function translateHttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -47,7 +48,7 @@ export function translateHttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [ApiService, EncryptionService],
+  providers: [ApiService, EncryptionService, UsertypeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

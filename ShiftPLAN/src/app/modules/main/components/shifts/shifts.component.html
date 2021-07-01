@@ -6,7 +6,7 @@
  -- author: Anne Naumann
  -- last edit / by: 2021-06-28 / Anne Naumann
  -->
-<app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=true></app-toolbar>
+<app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=admin></app-toolbar>
 <div id="container">
     <cdk-virtual-scroll-viewport id="shiftsScrollView" itemSize=shifts.length>
         <div matRipple *cdkVirtualFor="let data of shifts; let last = last, let first = first" (click)="navigateToShift()">

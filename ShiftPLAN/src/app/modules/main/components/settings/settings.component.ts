@@ -9,6 +9,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router'
+import { UsertypeService } from 'src/app/services/usertype.service';
 
 @Component({
   selector: 'app-settings',
@@ -22,8 +23,12 @@ export class SettingsComponent implements OnInit {
   labelAdapt = ''
   labelPassword = ''
   labelInfo = ''
+  admin: boolean = false
 
-  constructor(private translate: TranslateService, private router : Router) { }
+  constructor(
+    private translate: TranslateService, 
+    private router : Router,
+    private usertype : UsertypeService) { }
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Toolbar.Title.Settings;
@@ -32,6 +37,12 @@ export class SettingsComponent implements OnInit {
       this.labelPassword = translation.Settings.LabelPassword;
       this.labelInfo = translation.Settings.LabelInfo;
     });
+
+    this.checkBtn();
+  }
+
+  private async checkBtn() {
+    this.admin = (await this.usertype.getShown()).admin;
   }
 
   navigateToTheme(): void {

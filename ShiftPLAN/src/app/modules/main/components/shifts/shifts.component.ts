@@ -9,6 +9,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router'
+import { UsertypeService } from 'src/app/services/usertype.service';
 
 @Component({
   selector: 'app-shifts',
@@ -34,13 +35,20 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
 
   title = ''
   wordClock = ''
+  admin: boolean = false
 
-  constructor(private translate: TranslateService, private router : Router) { }
+  constructor(
+    private translate: TranslateService, 
+    private router : Router,
+    private usertype : UsertypeService) { }
+
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
       this.title = translation.Toolbar.Title.Shifts;
       this.wordClock = translation.WordClock
     });
+
+    this.checkBtn();
   }
 
   ngAfterViewInit(): void{
@@ -50,6 +58,10 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
 
     let screenHeight = window.innerHeight-toolbar-bottomBar
     scrollView!.style.height = screenHeight + 'px'
+  }
+
+  private async checkBtn() {
+    this.admin = (await this.usertype.getShown()).admin;
   }
 
   navigateToShift(){
