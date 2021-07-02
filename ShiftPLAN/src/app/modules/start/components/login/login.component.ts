@@ -16,6 +16,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 
 @Component({
   selector: 'app-login',
@@ -37,12 +38,28 @@ export class LoginComponent implements OnInit {
     public dialog : MatDialog) { }
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Login_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('Login_spinnerTranslationGlobal')?.close();
+
       this.userName = translation.Login.UserName;
       this.password = translation.Login.Password;
       this.resetBtn = translation.Login.ResetButton;
     });
-    this.checkSession();
+
+    if(localStorage.getItem('Session')) {
+      this.checkSession();
+    }
+    
   }
 
   showPassword(): void{
@@ -50,6 +67,13 @@ export class LoginComponent implements OnInit {
   }
 
   private async checkSession() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Login_spinnercheck',
+      autoFocus: false,
+      disableClose: true
+    });
 
     //variables
     let publicKeyAnswer;
@@ -73,6 +97,7 @@ export class LoginComponent implements OnInit {
     //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
 
+
     //check if session is still open
     this.api.sendPostRequest<GeneralResponse>(
       'login/', {
@@ -81,10 +106,17 @@ export class LoginComponent implements OnInit {
       }).then(response => {
         response.subscribe(answer => {
           if(answer.errorCode === 0) {
+
+            //close spinner
+            this.dialog.closeAll();
+
             this.router.navigate(['app/main/home']);
           }
         });
       });
+
+    //close spinner
+    this.dialog.getDialogById('Login_spinnercheck')?.close();
   }
 
   checkLoginValues(inputName: string, inputPassword: string){
@@ -95,6 +127,10 @@ export class LoginComponent implements OnInit {
     }else {
       this.loginRequest(inputName, inputPassword).then( (errorCode) => {
         if(errorCode === 0) {
+
+          //close spinner
+          this.dialog.closeAll();
+
           this.router.navigate(['app/main/home']);
         }
     });
@@ -103,6 +139,14 @@ export class LoginComponent implements OnInit {
   }
 
   private async loginRequest(inputName: string, inputPassword: string) {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Login_spinnerCall',
+      autoFocus: false,
+      disableClose: true
+    });
+
     //variables
     let firstAnswer;
     let secondAnswer;
@@ -131,11 +175,19 @@ export class LoginComponent implements OnInit {
     if(firstErrorCode != 0) {
       switch(firstErrorCode) {
         case 7:
+
+          //close spinner
+          this.dialog.getDialogById('Login_spinnerCall')?.close();
+
           this.dialog.open(LoginUserDialog, {
             autoFocus: false
           });
           return 7;
         default:
+
+          //close spinner
+          this.dialog.getDialogById('Login_spinnerCall')?.close();
+
           this.dialog.open(LoginDefaultDialog, {
             autoFocus: false
           });
@@ -166,11 +218,19 @@ export class LoginComponent implements OnInit {
       if(secondErrorCode != 0) {
         switch(secondErrorCode) {
           case 10:
+
+            //close spinner
+            this.dialog.getDialogById('Login_spinnerCall')?.close();
+
             this.dialog.open(LoginPasswordDialog, {
               autoFocus: false
             });
             return 8;
           default:
+
+            //close spinner
+            this.dialog.getDialogById('Login_spinnerCall')?.close();
+
             this.dialog.open(LoginDefaultDialog, {
               autoFocus: false
             });
@@ -205,10 +265,22 @@ export class LoginEmptyDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<LoginEmptyDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<LoginEmptyDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Login_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
+
+    //close spinner
+    this.dialog.getDialogById('Login_spinner')?.close();
+
     this.warning = translation.Login.Empty;
     this.ok = translation.Login.Ok;
     });
@@ -224,10 +296,22 @@ export class LoginUserDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<LoginUserDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<LoginUserDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Login_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
+
+    //close spinner
+    this.dialog.getDialogById('Login_spinner')?.close();
+
     this.warning = translation.Login.UserWrong;
     this.ok = translation.Login.Ok;
     });
@@ -243,10 +327,22 @@ export class LoginPasswordDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<LoginPasswordDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<LoginPasswordDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Login_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
+
+    //close spinner
+    this.dialog.getDialogById('Login_spinner')?.close();
+
     this.warning = translation.Login.PasswordWrong;
     this.ok = translation.Login.Ok;
     });
@@ -262,10 +358,22 @@ export class LoginDefaultDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<LoginDefaultDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<LoginDefaultDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Login_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
+
+    //close spinner
+    this.dialog.getDialogById('Login_spinner')?.close();
+
     this.warning = translation.Login.DefaultWrong;
     this.ok = translation.Login.Ok;
     });

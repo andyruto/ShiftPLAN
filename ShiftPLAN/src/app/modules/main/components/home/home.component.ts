@@ -8,7 +8,9 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { CheckboxControlValueAccessor } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 import { UsertypeService } from 'src/app/services/usertype.service';
 import { flattenDiagnosticMessageText } from 'typescript';
 
@@ -42,10 +44,22 @@ export class HomeComponent implements OnInit {
   wordClock = ''
   admin: boolean = false
 
-  constructor(private translate: TranslateService, private usertype: UsertypeService) { }
+  constructor(private translate: TranslateService, private usertype: UsertypeService, public dialog : MatDialog) { }
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Home_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('Home_spinnerTranslationGlobal')?.close();
+
       this.title = translation.Toolbar.Title.Home;
       this.warningChanges = translation.Home.WarningChanges;
       this.warningShifts = translation.Home.WarningShifts;

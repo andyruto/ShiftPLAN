@@ -7,8 +7,10 @@
  * last edit / by: 2021-06-23 / Anne Naumann
  */
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 import { UsertypeService } from 'src/app/services/usertype.service';
 
 @Component({
@@ -43,9 +45,21 @@ export class StatisticsComponent implements OnInit, AfterViewChecked {
   wordHours = ''
   admin: boolean = false
 
-  constructor(private translate: TranslateService, private usertype : UsertypeService) { }
+  constructor(private translate: TranslateService, private usertype : UsertypeService, public dialog: MatDialog) { }
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Statistics_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('Statistics_spinnerTranslationGlobal')?.close();
+
       this.title = translation.Toolbar.Title.Statistics;
       this.labelWorkingHours = translation.Statistics.LabelWorkingHours;
       this.labelWorkingDays = translation.Statistics.LabelWorkingDays;

@@ -10,6 +10,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router'
 import { UsertypeService } from 'src/app/services/usertype.service';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tasks',
@@ -42,10 +44,23 @@ export class TasksComponent implements OnInit, AfterViewInit {
   constructor(
     private translate: TranslateService, 
     private router : Router,
-    private usertype : UsertypeService) { }
+    private usertype : UsertypeService, 
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+      
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('Tasks_spinnerTranslationGlobal')?.close();
+
       this.title = translation.Toolbar.Title.Tasks;
       this.searchBarText = translation.Tasks.SearchBarText;
     });

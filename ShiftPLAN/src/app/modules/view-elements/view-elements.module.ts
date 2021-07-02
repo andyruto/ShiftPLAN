@@ -10,22 +10,27 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module'
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
-import { BottomNavModule } from 'ngx-bottom-nav'
+import { BottomNavModule } from 'ngx-bottom-nav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     ToolbarComponent,
-    BottomBarComponent
+    BottomBarComponent,
+    SpinnerComponent
   ],
   imports: [
     SharedModule,
     BottomNavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     ToolbarComponent,
-    BottomBarComponent
+    BottomBarComponent,
+    SpinnerComponent
   ]
 })
 export class ViewElementsModule { }

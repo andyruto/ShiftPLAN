@@ -9,6 +9,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common'
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-settings-password',
@@ -26,9 +28,21 @@ export class SettingsPasswordComponent implements OnInit {
   warningCheck = ''
   warningSet = ''
 
-  constructor(private translate: TranslateService, private location: Location) { }
+  constructor(private translate: TranslateService, private location: Location, public dialog: MatDialog) { }
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'SettingsPassword_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('SettingsPassword_spinnerTranslationGlobal')?.close();
+
       this.title = translation.Settings.LabelPassword;
       this.nextBtn = translation.NextButton;
       this.saveBtn = translation.SaveButton;

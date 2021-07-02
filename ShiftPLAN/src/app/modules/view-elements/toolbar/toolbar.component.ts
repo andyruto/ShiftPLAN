@@ -10,6 +10,8 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common'
 import { Router } from '@angular/router'
+import { SpinnerComponent } from '../spinner/spinner.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-toolbar',
@@ -23,9 +25,21 @@ export class ToolbarComponent implements OnInit{
   settings = ''
   admin = ''
 
-  constructor(private translate : TranslateService, private location: Location, private router : Router){}
+  constructor(private translate : TranslateService, private location: Location, private router : Router, public dialog: MatDialog){}
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('spinnerTranslationGlobal')?.close();
+
       this.profile = translation.Toolbar.Profile;
       this.settings = translation.Toolbar.Settings;
       this.admin = translation.Toolbar.Admin;

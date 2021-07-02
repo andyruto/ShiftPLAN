@@ -9,7 +9,7 @@
 <app-toolbar title="{{title}}" [backBtn]=true></app-toolbar>
 <mat-form-field id="inputUsername" class="inputField">
     <mat-label id="labelUsername">{{labelUsername}}</mat-label>
-    <input matInput #inputUsername type="text">
+    <input matInput #inputUsername type="text" [value]=userName>
 </mat-form-field>
-<mat-checkbox id="checkBoxUserHidden">{{checkBoxUserHidden}}</mat-checkbox>
-<button mat-raised-button id="saveUserBtn" class="displayBtn" color="accent">{{saveBtn}}</button>
+<mat-checkbox id="checkBoxUserHidden" [checked]=checked>{{checkBoxUserHidden}}</mat-checkbox>
+<button mat-raised-button id="saveUserBtn" class="displayBtn" color="accent" (click)="changeUser(inputUsername.value)">{{saveBtn}}</button>

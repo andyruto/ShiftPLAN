@@ -10,7 +10,7 @@
 <mat-tab-group mat-align-tabs="center" color="accent" animationDuration="0ms">
     <mat-tab label={{tabUsers}}>
         <cdk-virtual-scroll-viewport id="userScrollView" itemSize=users.length>
-            <div matRipple *cdkVirtualFor="let item of users; let last = last" (click)="navigateToUser()">
+            <div matRipple *cdkVirtualFor="let item of users; let last = last" (click)="navigateToUser(item)">
                 <div class="userRow">
                     <div class="userLabel">{{item}}</div>
                 </div>

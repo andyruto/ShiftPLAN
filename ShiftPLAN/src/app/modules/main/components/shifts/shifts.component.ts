@@ -10,6 +10,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router'
 import { UsertypeService } from 'src/app/services/usertype.service';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-shifts',
@@ -40,10 +42,23 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
   constructor(
     private translate: TranslateService, 
     private router : Router,
-    private usertype : UsertypeService) { }
+    private usertype : UsertypeService, 
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Shifts_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('Shifts_spinnerTranslationGlobal')?.close();
+
       this.title = translation.Toolbar.Title.Shifts;
       this.wordClock = translation.WordClock
     });

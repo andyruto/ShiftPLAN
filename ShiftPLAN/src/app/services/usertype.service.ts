@@ -43,7 +43,7 @@ export class UsertypeService {
     publicKeyErrorCode = publicKeyPromise.errorCode;
 
     //encrypt session asyncronous
-    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
+    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
     //user type check
     userTypeAnswer = await this.api.sendPostRequest<LoginThreeResponse>(

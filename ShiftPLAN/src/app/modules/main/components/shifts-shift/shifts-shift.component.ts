@@ -7,8 +7,10 @@
  * last edit / by: 2021-06-27 / Anne Naumann
  */
 import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 
 @Component({
   selector: 'app-shifts-shift',
@@ -62,10 +64,22 @@ export class ShiftsShiftComponent implements OnInit, AfterViewInit, AfterViewChe
 
   timepickerTemp = {button: {name : ''}}
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'ShiftsShift_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('ShiftsShift_spinnerTranslationGlobal')?.close();
+
       this.title = translation.Toolbar.Title.ShiftsShift;
       this.labelWarning = translation.Shifts.LabelWarning;
       this.labelTask = translation.Shifts.LabelTask;
