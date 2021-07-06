@@ -5,7 +5,7 @@
      * PHP file containing class to manage the users.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-06-08 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-07-05 / Maximilian T. | Kontr0x
      */
 
     class UserManager{
@@ -13,19 +13,22 @@
         private $errorCode = ErrorCode::NoError;
         private $user = null; //Variable to store an user object
         
-        private function __construct($name){
+        private function __construct($NameOrId){
             $this->eM = Bootstrap::getEntityManager();
-            if(!empty($name)){
+            if(isset($NameOrId)){
                 //Looking for user in database
-                $this->user = $this->eM->getRepository('user')->findBy(array('name' => $name))[0];
-
+                if(is_numeric($NameOrId)){
+                    $this->user = $this->eM->find('user', $NameOrId);
+                }else{
+                    $this->user = $this->eM->getRepository('user')->findBy(array('name' => $NameOrId))[0];
+                }
                 if($this->user == null){
-                    Logger::getLogger()->log('ERROR', "User with name ".$name." doesn't exist in database");
+                    Logger::getLogger()->log('ERROR', "User with name / id ".$NameOrId." doesn't exist in database");
                     $this->errorCode = ErrorCode::UserNotFound;
                 }
             }else{
-                Logger::getLogger()->log('WARNING', 'Parameter user name is empty. Class probably created as UserManager::creator');
-                $this->errorCode = ErrorCode::NoUserNameGiven;
+                Logger::getLogger()->log('WARNING', 'Parameter user name / id is empty. Class probably created as UserManager::creator');
+                $this->errorCode = ErrorCode::NoUserNameOrIdGiven;
             }
         }
 
@@ -35,8 +38,8 @@
         }
 
         //Overload constructor to work wirh existing entities
-        public static function obj($name){
-            return new self($name);
+        public static function obj($NameOrId){
+            return new self($NameOrId);
         }
 
         //Function to return password hash of user
@@ -52,6 +55,88 @@
         //Function to return type of user
         public function getUserType(){
             return $this->user->getUser_type();
+        }
+
+        //Function to get user profile
+        public function getUserProfile(){
+            $user = array();
+            $userArray = array('id' => $this->user->getId(), 'type' => $this->user->getUser_type(), 'name' => $this->user->getName(), 'hidden' => $this->user->getHidden(), 'overtime' => $this->user->getOvertime(), 'weeklyWorkingMinutes' => $this->user->getWeekly_working_minutes(), 'weeklyWorkingDays' => $this->user->getWeekly_working_days(), 'yearVacationDays' => $this->user->getYear_vacation_days());
+            $user = array_merge($user, array($userArray));
+            Logger::getLogger()->log('INFO', 'Returning profile of own user profile');
+            return array('profile' => array_values($user));
+        }
+
+        //Get users from database with filter
+        public function getUsersWithFilter($filter, $value){
+            if($this->getUserType() >= UserType::Manager){
+                Logger::getLogger()->log('DEBUG', 'User who requested the search has privileges higher or exact like a manager');
+                if($filter == "all" && $value == "complete"){
+                    Logger::getLogger()->log('DEBUG', 'Searching for all users in database');
+                    $users = $this->eM->getrepository('user')->findAll();
+                }else{
+                    Logger::getLogger()->log('DEBUG', 'Searching for all users in database with filter '.$filter);
+                    $users = $this->eM->getRepository('user')->findBy(array($filter => $value));
+                }
+                $usersArray = array();
+                if($users != null){
+                    Logger::getLogger()->log('INFO', 'The search found users in the database');
+                    //Formatting the output of the found users
+                    foreach($users as $user){
+                        $userArray = array('id' => $user->getId(), 'type' => $user->getUser_type(), 'name' => $user->getName(), 'hidden' => $user->getHidden(), 'overtime' => $user->getOvertime(), 'weeklyWorkingMinutes' => $user->getWeekly_working_minutes(), 'weeklyWorkingDays' => $user->getWeekly_working_days(), 'yearVacationDays' => $user->getYear_vacation_days());
+                        $usersArray = array_merge($usersArray, array($userArray));
+                    }
+                }else{
+                    Logger::getLogger()->log('INFO', 'The search found no users in database');
+                    self::$errorCode = ErrorCode::FilterNotMatching;
+                }
+            }else{
+                if(preg_match(Validation::UserFiltersNoAdminRights, $filter)){
+                    Logger::getLogger()->log('DEBUG', 'User who requested the search has privileges of employee');
+                    $users = $this->eM->getRepository('user')->findBy(array($filter => $value));
+                    $usersArray = array();
+                    if($users != null){
+                        //Formatting the output of the found users
+                        foreach($users as $user){
+                            $userArray = array('id' => $user->getId(), 'name' => $user->getName());
+                            $usersArray = array_merge($usersArray, array($user->getName() => $userArray));
+                        }
+                    }else{
+                        Logger::getLogger()->log('INFO', 'The search found no users in database');
+                        self::$errorCode = ErrorCode::FilterNotMatching;
+                    }
+                }else{
+                    Logger::getLogger()->log('WARNING', 'User who requested the search has not enough privileges');
+                    self::$errorCode = ErrorCode::MissingRights;
+                }
+            }
+            return array('profiles' => array_values($usersArray));
+        }
+
+        //Get users with id and name
+        public function getUsers($value){
+            if($value == "visibel"){
+                Logger::getLogger()->log('INFO', 'Searching for all unhidden users in database');
+                $users = $this->eM->getRepository('user')->findBy(array('hidden' => 0));
+            }else{
+                if($value == "invisibel"){
+                    Logger::getLogger()->log('INFO', 'Searching for all hidden users in database');
+                    $users = $this->eM->getRepository('user')->findBy(array('hidden' => 1));
+                }else{
+                    if($value == "all"){
+                        Logger::getLogger()->log('INFO', 'Searching for all users in database');
+                        $users = $this->eM->getrepository('user')->findAll();
+                    }else{
+                        Logger::getLogger()->log('WARNING', 'A unknown filter for the search was requested');
+                        self::$errorCode = ErrorCode::UnknownValue;
+                    }
+                }
+            }
+            $usersArray = array();
+            foreach($users as $user){
+                $userArray = array('id' => $user->getId(), 'name' => $user->getName());
+                $usersArray = array_merge($usersArray, array($user->getName() => $userArray));
+            }
+            return array('profiles' => array_values($usersArray));
         }
         
         //Function to create a default user if the user table is empty
@@ -76,12 +161,13 @@
         }
 
         //Function to create a user if the user
-        public function createUser($name, $pwHash){
+        public function createUser($name, $pwHash, $hidden){
             if($this->eM->getRepository('user')->findBy(array('name' => $name))[0] === Null){
                 //Creating new user
                 $newUser = new User();
                 $newUser->setName($name);
                 $newUser->setPassword_hash(\Sodium\bin2hex($pwHash));
+                $newUser->setHidden($hidden);
                 //Storeing created user
                 $this->eM->persist($newUser);
                 //Flushing changes

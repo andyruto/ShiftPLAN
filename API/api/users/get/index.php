@@ -4,7 +4,7 @@
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-07-01 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-07-05 / Maximilian T. | Kontr0x
      */
 
     require '../../prepareExec.php';
@@ -32,29 +32,39 @@
                     self::$errorCode = $sM->getFinishCode();
                     //Checking if the session manager succeded
                     if(self::$errorCode == ErrorCode::NoError){
-                        if($request->filter == 'name' && $sM->getUserName() ==  $request->value){
-                            //Checking execution rights
-                            $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(), $session);    
-                        }else{
-                            //Checking execution rights
-                            $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(Permission::UserRead), $session);
-                        }
+                        //Checking execution rights
+                        $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(Permission::UserRead), $session);
                         $eC->check(false);
                         //Creating entity manager for db access
                         self::$eM = Bootstrap::getEntityManager();
                         //Validating the given filter
                         if(preg_match(Validation::UserFilters, $request->filter)){
-                            //Searching for users in database with filter
-                            $users = self::$eM->getRepository('user')->findBy(array($request->filter => $request->value));
-                            $usersArray = array();
-                            //Formatting the output of the found users
-                            foreach($users as $user){
-                                $userName = $user->getName();
-                                $userArray = array('id' => $user->getId(), 'type' => $user->getUser_type(), 'hidden' => $user->getHidden(), 'overtime' => $user->getOvertime(), 'weeklyWorkingMinutes' => $user->getWeekly_working_minutes(), 'weeklyWorkingDays' => $user->getWeekly_working_days(), 'yearVacationDays' => $user->getYear_vacation_days());
-                                $usersArray = array_merge($usersArray, array($userName => $userArray));    
+                            $uM = UserManager::obj($sM->getUserName());
+                            $users = array();
+                            //Searching for users in database with filter and adding the found users to the output
+                            if($request->filter == "all"){
+                                if(preg_match(Validation::AllUserReducedFilters, $request->value)){
+                                    Logger::getLogger()->log('DEBUG', 'Searching for all users with reduced output');
+                                    $users = $uM->getUsers($request->value);
+                                    self::$errorCode = $uM->getFinishCode();
+                                }else{
+                                    if(preg_match(Validation::AllUserFilters, $request->value)){
+                                        Logger::getLogger()->log('DEBUG', 'Searching for all users with complete output');
+                                        $users = $uM->getUsersWithFilter($request->filter, $request->value);
+                                        self::$errorCode = $uM->getFinishCode();
+                                    }else{
+                                        Logger::getLogger()->log('ERROR', 'Searching for all users with a undefined value');
+                                        self::$errorCode = ErrorCode::UnknownValue;
+                                    }
+                                }
+                            }else{
+                                Logger::getLogger()->log('DEBUG', 'Searching for users with filter '.$request->value);
+                                $users = $uM->getUsersWithFilter($request->filter, $request->value);
+                                self::$errorCode = $uM->getFinishCode();
                             }
-                            //Adding the found users to the output
-                            self::$respondArray = array_merge(self::$respondArray, array('users' => $usersArray));
+                            if(self::$errorCode == ErrorCode::NoError){
+                                self::$respondArray = array_merge(self::$respondArray, $users);
+                            }
                         }else{
                             self::$errorCode = ErrorCode::ValidationFailed;
                             Logger::getLogger()->log('ERROR', 'Filter validation failed');
@@ -62,8 +72,29 @@
                     }
                 }
             }else{
-                self::$errorCode = ErrorCode::ParameterMissmatch;
-                Logger::getLogger()->log('WARNING', 'Parameters doenst match function requirements');
+                if($rP->hasParameters(array('apiKey', 'session'))){
+                    $ssM = new SslKeyManager();
+                    //Decrypting the session
+                    self::$errorCode = $ssM->aDecrypt($request->session);
+                    //Checking if the decryption succeded
+                    if(self::$errorCode == ErrorCode::NoError){
+                        //Saving the decrytped session
+                        $session = $ssM->getResult();
+                        $sM = SessionManager::obj($session);
+                        self::$errorCode = $sM->getFinishCode();
+                        //Checking if the session manager succeded
+                        if(self::$errorCode == ErrorCode::NoError){
+                            $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(), $session);    
+                            $eC->check(false);
+                            $uM = UserManager::obj($sM->getUserName());
+                            self::$respondArray = array_merge(self::$respondArray, $uM->getUserProfile());
+                            self::$errorCode = $uM->getFinishCode();
+                        }
+                    }else{
+                        self::$errorCode = ErrorCode::ParameterMissmatch;
+                        Logger::getLogger()->log('WARNING', 'Parameters doenst match function requirements');
+                    }
+                }
             }
             //Preparing output
             sendOutput(self::$errorCode, self::$respondArray);
