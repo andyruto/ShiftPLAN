@@ -22,7 +22,7 @@
         const UserFiltersNoAdminRights = '/^(?:id|name){1}$/';
         const IdOfNumbers = '/^(?:[0-9]+)$/';
         const NameOfNumbersAndCharacters = '/^[0-9a-zA-Z]{1,20}$/';
-        const AllUserReducedFilters = '/^(?:visibel|invisibel|all){1}$/';
+        const AllUserReducedFilters = '/^(?:visible|invisible|all){1}$/';
         const AllUserFilters = '/^(?:complete){1}$/';
     }
 ?>

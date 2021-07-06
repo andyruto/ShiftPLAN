@@ -114,11 +114,11 @@
 
         //Get users with id and name
         public function getUsers($value){
-            if($value == "visibel"){
+            if($value == "visible"){
                 Logger::getLogger()->log('INFO', 'Searching for all unhidden users in database');
                 $users = $this->eM->getRepository('user')->findBy(array('hidden' => 0));
             }else{
-                if($value == "invisibel"){
+                if($value == "invisible"){
                     Logger::getLogger()->log('INFO', 'Searching for all hidden users in database');
                     $users = $this->eM->getRepository('user')->findBy(array('hidden' => 1));
                 }else{
