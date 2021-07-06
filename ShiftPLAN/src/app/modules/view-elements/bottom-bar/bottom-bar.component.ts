@@ -29,7 +29,7 @@ export class BottomBarComponent implements OnInit{
 
     //display spinner
     this.dialog.open(SpinnerComponent, {
-      id: 'spinnerTranslationGlobal',
+      id: 'BottomBar_spinnerTranslationGlobal',
       autoFocus: false,
       disableClose: true
     });
@@ -37,7 +37,7 @@ export class BottomBarComponent implements OnInit{
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
 
       //close spinner
-      this.dialog.getDialogById('spinnerTranslationGlobal')?.close();
+      this.dialog.getDialogById('BottomBar_spinnerTranslationGlobal')?.close();
 
       this.home = translation.BottomBar.Home;
       this.shifts = translation.BottomBar.Shifts;

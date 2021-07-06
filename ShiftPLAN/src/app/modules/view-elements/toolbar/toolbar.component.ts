@@ -30,7 +30,7 @@ export class ToolbarComponent implements OnInit{
 
     //display spinner
     this.dialog.open(SpinnerComponent, {
-      id: 'spinnerTranslationGlobal',
+      id: 'Toolbar_spinnerTranslationGlobal',
       autoFocus: false,
       disableClose: true
     });
@@ -38,12 +38,16 @@ export class ToolbarComponent implements OnInit{
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
 
       //close spinner
-      this.dialog.getDialogById('spinnerTranslationGlobal')?.close();
+      this.dialog.getDialogById('Toolbar_spinnerTranslationGlobal')?.close();
 
       this.profile = translation.Toolbar.Profile;
       this.settings = translation.Toolbar.Settings;
       this.admin = translation.Toolbar.Admin;
     });
+  }
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
   }
 
   @Input() public title: string = "Initial"
@@ -73,15 +77,47 @@ export class ToolbarComponent implements OnInit{
   }
 
   navigateBack(): void{
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Toolbar_spinnerNavigate_toolbar_back',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.location.back()
   }
   navigateToProfile(): void{
+    
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Toolbar_spinnerNavigate_toolbar_profile',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/main/profile'])
   }
   navigateToSettings(): void{
+        
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Toolbar_spinnerNavigate_toolbar_settings',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/main/settings'])
   }
   navigateToAdmin(): void{
+        
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Toolbar_spinnerNavigate_toolbar_admin',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/main/admin'])
   }
 }

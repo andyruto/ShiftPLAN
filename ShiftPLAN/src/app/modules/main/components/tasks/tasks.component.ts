@@ -78,15 +78,46 @@ export class TasksComponent implements OnInit, AfterViewInit {
     scrollView!.style.height = screenHeight + 'px'
   }
 
+  ngOnDestroy() {
+    this.dialog.closeAll();
+  }
+
   private async checkBtn() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinnerButtonCheck',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.admin = (await this.usertype.getShown()).admin;
+
+    //close spinner
+    this.dialog.getDialogById('Tasks_spinnerButtonCheck')?.close();
   }
 
   navigateToTask(): void{
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinnerNavigate_tasks-task',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/tasks-task'])
   }
 
   navigateToAddTask(): void{
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinnerNavigate_tasks-add',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/tasks-add'])
   }
 }

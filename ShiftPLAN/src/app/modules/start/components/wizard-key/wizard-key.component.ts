@@ -93,9 +93,10 @@ export class WizardKeyComponent implements OnInit {
           }
         })
       })
+    }else {
+      //close spinner
+      this.dialog.getDialogById('WizardKey_spinnerCall')?.close();
     }
-    //close spinner
-    this.dialog.getDialogById('WizardKey_spinnerCall')?.close();
   }
 }
 

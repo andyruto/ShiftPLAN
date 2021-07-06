@@ -92,13 +92,13 @@ export class WizardAddressComponent implements OnInit {
                 localStorage.setItem('APIKey', answer.apiKey);
 
                 //close spinner
-                this.dialog.closeAll;
+                this.dialog.closeAll();
 
                 this.router.navigate(['start/wizardPassword']);
               }else {
 
                 //close spinner
-                this.dialog.closeAll;
+                this.dialog.closeAll();
 
                 this.router.navigate(['start/wizardKey'])
               }
@@ -138,13 +138,13 @@ export class WizardAddressComponent implements OnInit {
                 localStorage.setItem('APIKey', answer.apiKey);
 
                 //close spinner
-                this.dialog.closeAll;
+                this.dialog.closeAll();
 
                 this.router.navigate(['start/wizardPassword']);
               }else {
 
                 //close spinner
-                this.dialog.closeAll;
+                this.dialog.closeAll();
 
                 this.router.navigate(['start/wizardKey'])
               }

@@ -68,11 +68,31 @@ export class AdminComponent implements OnInit, AfterViewInit{
     scrollView!.style.height = screenHeight + 'px'
   }
 
+  ngOnDestroy() {
+    this.dialog.closeAll();
+  }
+
   navigateToUser(user: string): void{
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Admin_spinnerNavigate_admin-user',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigateByUrl('/app/admin-user', {state: { user }})
   }
 
   navigateToAddUser(): void{
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Admin_spinnerNavigate_admin-add',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/admin-add'])
   }
 

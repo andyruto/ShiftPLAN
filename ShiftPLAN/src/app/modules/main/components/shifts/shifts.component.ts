@@ -75,15 +75,46 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     scrollView!.style.height = screenHeight + 'px'
   }
 
+  ngOnDestroy() {
+    this.dialog.closeAll();
+  }
+
   private async checkBtn() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Shifts_spinnerButtonCheck',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.admin = (await this.usertype.getShown()).admin;
+
+    //close spinner
+    this.dialog.getDialogById('Shifts_spinnerButtonCheck')?.close();
   }
 
   navigateToShift(){
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Shifts_spinnerNavigate_shifts-shift',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/shifts-shift'])
   }
 
   navigateToAddShift(){
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Shifts_spinnerNavigate_shifts-add',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/shifts-add'])
   }
 }

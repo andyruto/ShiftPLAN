@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 import { UsertypeService } from 'src/app/services/usertype.service';
 import { flattenDiagnosticMessageText } from 'typescript';
+import { MainNavigationComponent } from '../main-navigation/main-navigation.component';
 
 @Component({
   selector: 'app-home',
@@ -44,7 +45,11 @@ export class HomeComponent implements OnInit {
   wordClock = ''
   admin: boolean = false
 
-  constructor(private translate: TranslateService, private usertype: UsertypeService, public dialog : MatDialog) { }
+  constructor(
+    private translate: TranslateService, 
+    private usertype: UsertypeService, 
+    public dialog : MatDialog
+    ) { }
 
   ngOnInit(): void {
 
@@ -77,8 +82,10 @@ export class HomeComponent implements OnInit {
       this.wordHours = translation.Statistics.WordHours;
       this.wordClock = translation.WordClock;
     });
-
     this.checkBtn();
+
+    //close spinner
+    this.dialog.getDialogById('Home_spinnerCall')?.close();
   }
 
   ngAfterViewInit(): void{
@@ -91,6 +98,17 @@ export class HomeComponent implements OnInit {
   }
 
   private async checkBtn() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Home_spinnerButtonCheck',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.admin = (await this.usertype.getShown()).admin;
+    
+    //close spinner
+    this.dialog.getDialogById('Home_spinnerButtonCheck')?.close();
   }
 }

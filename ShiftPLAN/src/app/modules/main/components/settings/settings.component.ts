@@ -57,23 +57,70 @@ export class SettingsComponent implements OnInit {
     this.checkBtn();
   }
 
+  ngOnDestroy() {
+    this.dialog.closeAll();
+  }
+
   private async checkBtn() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Settings_spinnerButtonCheck',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.admin = (await this.usertype.getShown()).admin;
+        
+    //close spinner
+    this.dialog.getDialogById('Settings_spinnerButtonCheck')?.close();
   }
 
   navigateToTheme(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Settings_spinnerNavigate_settings-theme',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/settings-theme'])
   }
 
   navigateToAdaptHome(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Settings_spinnerNavigate_settings-adapt-screen',
+      autoFocus: false,
+      disableClose: true
+    });
+        
     this.router.navigate(['/app/settings-adapt-screen'])
   }
 
   navigateToPassword(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Settings_spinnerNavigate_settings-password',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/settings-password'])
   }
 
   navigateToInfo(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Settings_spinnerNavigate_settings-info',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/settings-info'])
   }
 }

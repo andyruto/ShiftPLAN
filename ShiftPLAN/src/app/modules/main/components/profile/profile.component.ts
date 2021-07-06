@@ -63,7 +63,18 @@ export class ProfileComponent implements OnInit {
   }
 
   private async checkBtn() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Profile_spinnerButtonCheck',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.admin = (await this.usertype.getShown()).admin;
+        
+    //close spinner
+    this.dialog.getDialogById('Profile_spinnerButtonCheck')?.close();
   }
 }
 
@@ -106,10 +117,21 @@ export class ProfileDialog {
     });
   }
 
+  ngOnDestroy() {
+    //close spinner
+    this.dialog.closeAll();
+  }
+
   userLogout(): void{
 
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Logout_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.logout().then( _ => {
-      this.dialogRef.close();
       this.router.navigate(['start/login']);
     });
   }

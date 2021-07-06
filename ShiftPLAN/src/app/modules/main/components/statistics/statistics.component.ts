@@ -82,6 +82,17 @@ export class StatisticsComponent implements OnInit, AfterViewChecked {
   }
 
   private async checkBtn() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Statistics_spinnerButtonCheck',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.admin = (await this.usertype.getShown()).admin;
+
+    //close spinner
+    this.dialog.getDialogById('Statistics_spinnerButtonCheck')?.close();
   }
 }

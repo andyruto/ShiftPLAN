@@ -62,6 +62,11 @@ export class LoginComponent implements OnInit {
     
   }
 
+  ngOnDestroy() {
+    //close spinner
+    this.dialog.closeAll();
+  }
+
   showPassword(): void{
     //hide or show password
   }
@@ -106,17 +111,13 @@ export class LoginComponent implements OnInit {
       }).then(response => {
         response.subscribe(answer => {
           if(answer.errorCode === 0) {
-
-            //close spinner
-            this.dialog.closeAll();
-
             this.router.navigate(['app/main/home']);
+          }else {
+            //close spinner
+            this.dialog.getDialogById('Login_spinnercheck')?.close();
           }
         });
       });
-
-    //close spinner
-    this.dialog.getDialogById('Login_spinnercheck')?.close();
   }
 
   checkLoginValues(inputName: string, inputPassword: string){
@@ -127,10 +128,6 @@ export class LoginComponent implements OnInit {
     }else {
       this.loginRequest(inputName, inputPassword).then( (errorCode) => {
         if(errorCode === 0) {
-
-          //close spinner
-          this.dialog.closeAll();
-
           this.router.navigate(['app/main/home']);
         }
     });
