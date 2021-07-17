@@ -5,7 +5,7 @@
      * PHP file containing all defined error codes.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-06-08 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-07-18 / Maximilian T. | Kontr0x
      */
 
     abstract class ErrorCode{
@@ -40,6 +40,9 @@
         const UserAlreadyExists = 28; //When trying to create a user that already exists in db
         const TaskNotFound = 29; //Task not found in database
         const TaskAlreadyExists = 30; //Task name already in use
-        const NoTaskIdGiven = 31; //Task name parameter was empty
+        const NoTaskIdGiven = 31; //Task Id parameter was empty
+        const TimeSpanNotFound = 32; //Time span not found in database
+        const NoTimeSpanIdGiven = 33; //Task span Id parameter was empty
+        const TaskAlreadyHasTimeSpan = 34; //The Time span couldnt be created becouse the connected task already has a time span
     }
 ?>
