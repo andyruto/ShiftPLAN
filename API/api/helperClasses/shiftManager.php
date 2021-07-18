@@ -29,7 +29,6 @@
                 }
             }else{
                 Logger::getLogger()->log('WARNING', 'Parameter shift id is empty. Class probably created as ShiftManager::handler');
-                $this->errorCode = ErrorCode::NoShiftIdGiven;
             }
         }
 
@@ -54,11 +53,11 @@
         //Function to create a shift
         public function createShift($assigned_user, $supervisor_user, $connected_task_id, $shift_start, $shift_end, $comment, $last_modified_by){
             Logger::getLogger()->log('INFO', 'Creating new shift');
-            if(taskHasNoShift($connected_task_id)){
+            if($this->taskHasNoShift($connected_task_id)){
                 //Creating new shift
                 $newShift = new Shift();
                 if(preg_match(Validation::IdOfNumbers, $assigned_user)){
-                    if(userExists($assigned_user)){
+                    if($this->userExists($assigned_user)){
                         $newShift->setAssigned_user($assigned_user);
                     }
                 }else{
@@ -66,7 +65,7 @@
                     $this->errorCode = ErrorCode::ValidationFailed;
                 }
                 if(preg_match(Validation::IdOfNumbers, $supervisor_user)){
-                    if(userExists($supervisor_user)){
+                    if($this->userExists($supervisor_user)){
                         $newShift->setSupervisor_user($supervisor_user);
                     }
                 }else{
@@ -74,8 +73,8 @@
                     $this->errorCode = ErrorCode::ValidationFailed;
                 }
                 if(preg_match(Validation::IdOfNumbers, $connected_task_id)){
-                    if(taskExists($arrayOfChanges->task)){
-                        if(taskHasNoShift($arrayOfChanges->task)){
+                    if($this->taskExists($connected_task_id)){
+                        if($this->taskHasNoShift($connected_task_id)){
                             $newShift->setTask($connected_task_id);
                         }
                     }
@@ -129,7 +128,7 @@
                     }
                     if(array_key_exists("assignedUser", $arrayOfChanges)){
                         if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->assignedUser)){
-                            if(userExists($arrayOfChanges->assignedUser)){
+                            if($this->userExists($arrayOfChanges->assignedUser)){
                                 $this->shift->setAssigned_user($arrayOfChanges->assignedUser);
                                 Logger::getLogger()->log('DEBUG', 'Shift modified assigned user to '.$arrayOfChanges->assignedUser);
                             }
@@ -140,7 +139,7 @@
                     }
                     if(array_key_exists("supervisorUser", $arrayOfChanges)){
                         if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->supervisorUser)){
-                            if(userExists($arrayOfChanges->supervisorUser)){
+                            if($this->userExists($arrayOfChanges->supervisorUser)){
                                 $this->shift->setSupervisor_user($arrayOfChanges->supervisorUser);
                                 Logger::getLogger()->log('DEBUG', 'Shift modified supervisor user to '.$arrayOfChanges->supervisorUser);
                             }
@@ -151,8 +150,8 @@
                     }
                     if(array_key_exists("task", $arrayOfChanges)){
                         if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->task)){
-                            if(taskExists($arrayOfChanges->task)){
-                                if(taskHasNoShift($arrayOfChanges->task)){
+                            if($this->taskExists($arrayOfChanges->task)){
+                                if($this->taskHasNoShift($arrayOfChanges->task)){
                                     $this->shift->setTask($arrayOfChanges->task);
                                     Logger::getLogger()->log('DEBUG', 'Shift modified task to '.$arrayOfChanges->task);
                                 }
@@ -307,7 +306,7 @@
         //Function to check if task already has a shift
         public function taskHasNoShift($taskId){
             if($this->errorCode == ErrorCode::NoError){
-                if($this->eM->getRepository('shift')->findBy(array('task' => $connected_task_id))[0] === Null){
+                if(empty($this->eM->getRepository('shift')->findBy(array('task' => $taskId)))){
                     return True;
                 }
                 Logger::getLogger()->log('ERROR', 'Task with id '.$taskId.' is already connected to a shift');

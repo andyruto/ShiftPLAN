@@ -29,14 +29,14 @@
          * @ORM\OneToMany(targetEntity="User", mappedBy="id")
          * @var int
          */
-        protected $assignee;
+        protected $assigned_user;
 
         /**
          * @ORM\Column(type="integer", nullable=false)
          * @ORM\OneToMany(targetEntity="User", mappedBy="id")
          * @var int
          */
-        protected $supervisor;
+        protected $supervisor_user;
 
         /**
          * @ORM\Column(type="integer", nullable=false)
@@ -132,7 +132,7 @@
         public function getLast_modified(){
             return $this->last_modified;
         }
-        public function setLast_modified($last_modified){
+        public function setLast_modified(){
             $this->last_modified = new DateTime('now');
         }
     }

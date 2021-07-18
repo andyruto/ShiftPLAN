@@ -54,7 +54,7 @@
         //Function to create a time span
         public function createTimeSpan($appointed_day, $start, $end, $required_employees, $last_modified_by, $connected_task_id){
             Logger::getLogger()->log('INFO', 'Creating new time span');
-            if(taskHasNoTimeSpan($connected_task_id)){
+            if($this->taskHasNoTimeSpan($connected_task_id)){
                 //Creating new time span
                 $newTimeSpan = new Task();
                 if(preg_match(Validation::SimpleDateFormat, $appointed_day)){
@@ -89,7 +89,7 @@
                 }
                 $newTimeSpan->setLast_modified();
                 if(preg_match(Validation::IdOfNumbers, $connected_task_id)){
-                    if(taskExists($connected_task_id)){
+                    if($this->taskExists($connected_task_id)){
                         $newTimeSpan->setTask_id($connected_task_id);
                     }
                 }else{
@@ -153,7 +153,7 @@
                     }
                     if(array_key_exists("connectedTaskId", $arrayOfChanges)){
                         if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->connectedTaskId)){
-                            if(taskExists($arrayOfChanges->connectedTaskId)){
+                            if($this->taskExists($arrayOfChanges->connectedTaskId)){
                                 $this->timeSpan->setTask_id($arrayOfChanges->connectedTaskId);
                                 Logger::getLogger()->log('DEBUG', 'Time span modified connected task id to '.$arrayOfChanges->connectedTaskId);
                             }
@@ -266,7 +266,7 @@
         //Function to check if task already has a time span
         public function taskHasNoTimeSpan($taskId){
             if($this->errorCode == ErrorCode::NoError){
-                if($this->eM->getRepository('taskTimeSpan')->findBy(array('task_Id' => $connected_task_id))[0] === Null){
+                if(empty($this->eM->getRepository('taskTimeSpan')->findBy(array('task_Id' => $connected_task_id)))){
                     return True;
                 }
                 Logger::getLogger()->log('ERROR', 'Task with id '.$taskId.' is already connected to a time span');
