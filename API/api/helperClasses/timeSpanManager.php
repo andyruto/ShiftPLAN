@@ -29,7 +29,6 @@
                 }
             }else{
                 Logger::getLogger()->log('WARNING', 'Parameter time span id is empty. Class probably created as TimeSpanManager::handler');
-                $this->errorCode = ErrorCode::NoTimeSpanIdGiven;
             }
         }
 
@@ -56,7 +55,7 @@
             Logger::getLogger()->log('INFO', 'Creating new time span');
             if($this->taskHasNoTimeSpan($connected_task_id)){
                 //Creating new time span
-                $newTimeSpan = new Task();
+                $newTimeSpan = new TaskTimeSpan();
                 if(preg_match(Validation::SimpleDateFormat, $appointed_day)){
                     $newTimeSpan->setAppointed_day($appointed_day);
                 }else{
@@ -266,7 +265,7 @@
         //Function to check if task already has a time span
         public function taskHasNoTimeSpan($taskId){
             if($this->errorCode == ErrorCode::NoError){
-                if(empty($this->eM->getRepository('taskTimeSpan')->findBy(array('task_Id' => $connected_task_id)))){
+                if(empty($this->eM->getRepository('taskTimeSpan')->findBy(array('task_id' => $taskId)))){
                     return True;
                 }
                 Logger::getLogger()->log('ERROR', 'Task with id '.$taskId.' is already connected to a time span');
