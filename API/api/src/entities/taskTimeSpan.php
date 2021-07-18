@@ -5,7 +5,7 @@
      * Task time spans table definition for doctrine framework.
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2021-05-05 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-07-18 / Maximilian T. | Kontr0x
      */
 
     use Doctrine\ORM\Mapping as ORM;
@@ -76,21 +76,21 @@
             return $this->appointed_day;
         }
         public function setAppointed_day($appointed_day){
-            $this->appointed_day = $appointed_day;
+            $this->appointed_day = date_create_from_format('Y-m-d', $appointed_day);
         }
 // start
         public function getStart(){
             return $this->start;
         }
         public function setStart($start){
-            $this->start = $start;
+            $this->start = date_create_from_format('Y-m-d', $start);
         }
 // end
         public function getEnd(){
             return $this->end;
         }
         public function setEnd($end){
-            $this->end = $end;
+            $this->end = date_create_from_format('Y-m-d', $end);
         }
 // required_employees
         public function getRequired_employees(){
@@ -110,8 +110,8 @@
         public function getLast_modified(){
             return $this->last_modified;
         }
-        public function setLast_modified($last_modified){
-            $this->last_modified = $last_modified;
+        public function setLast_modified(){
+            $this->last_modified = new DateTime('now');
         }
 // task_id
         public function getTask_id(){
