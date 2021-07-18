@@ -27,7 +27,7 @@
         const RequestBodyMalformed = 15; // request body couldnt be parsed
         const RequestBodyEmpty = 16; // request body was empty
         const MigrationMissing = 17; //A required migration file is missing
-        const NoUserNameGiven = 18; //the user name parameter was empty
+        const NoUserNameOrIdGiven = 18; //the user name or id parameter was empty
         const DefaultUserUsesDefaultPassword = 19; //default user still uses default passsword
         const DatabaseCorrupt = 20; //necessary database tables are corrupt, empty or not existing
         const ApiVersionNotDbVersion = 21; //api version is different form database version
@@ -40,9 +40,13 @@
         const UserAlreadyExists = 28; //When trying to create a user that already exists in db
         const TaskNotFound = 29; //Task not found in database
         const TaskAlreadyExists = 30; //Task name already in use
-        const NoTaskIdGiven = 31; //Task Id parameter was empty
-        const TimeSpanNotFound = 32; //Time span not found in database
-        const NoTimeSpanIdGiven = 33; //Task span Id parameter was empty
-        const TaskAlreadyHasTimeSpan = 34; //The Time span couldnt be created becouse the connected task already has a time span
+        const NoTaskIdGiven = 31; //Task name parameter was empty
+        const MissingRights = 32; //User does have not enough rights to do this action
+        const UnknownValue = 33; //Value of a filter is unknown
+        const FilterNotMatching = 34; //With given filter no results were found in database
+        const NoTaskIdGiven = 35; //Task Id parameter was empty
+        const TimeSpanNotFound = 36; //Time span not found in database
+        const NoTimeSpanIdGiven = 37; //Task span Id parameter was empty
+        const TaskAlreadyHasTimeSpan = 38; //The Time span couldnt be created becouse the connected task already has a time span
     }
 ?>

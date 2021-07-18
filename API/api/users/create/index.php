@@ -19,7 +19,7 @@
             $rP = new RequestParser();
             $request = $rP->getBodyObject();
             //Looking for parameters
-            if($rP->hasParameters(array('apiKey', 'session', 'name', 'pwHash'))){
+            if($rP->hasParameters(array('apiKey', 'session', 'name', 'pwHash', 'hidden'))){
                 $ssM = new SslKeyManager();
                 //Decrypting the session
                 self::$errorCode = $ssM->aDecrypt($request->session);
@@ -37,10 +37,10 @@
                         //Creating entity manager for db access
                         self::$errorCode = $ssM->aDecrypt($request->pwHash);
                         //Validating the given parameters
-                        if(preg_match(Validation::UserName, $request->name) && self::$errorCode == ErrorCode::NoError){
+                        if(preg_match(Validation::UserName, $request->name) && preg_match(Validation::BooleanValue, $request->hidden) && self::$errorCode == ErrorCode::NoError){
                             $uM = UserManager::creator();
                             //Creating user
-                            self::$errorCode = $uM->createUser($request->name ,$ssM->getResult());
+                            self::$errorCode = $uM->createUser($request->name ,$ssM->getResult(), $request->hidden);
                             if(self::$errorCode == ErrorCode::UserAlreadyExists){
                                 Logger::getLogger()->log('ERROR', 'User already exists in database');
                             }else{

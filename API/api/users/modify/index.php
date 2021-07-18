@@ -28,7 +28,7 @@
                     //Saving the decrytped session
                     $session = $ssM->getResult();
                     $sM = SessionManager::obj($session);
-                    if($rP->hasParameters(array('name')) && !$rP->hasParameters(array('nonce'))){
+                    if($rP->hasParameters(array('user')) && !$rP->hasParameters(array('nonce'))){
                         $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(Permission::UserWrite), $session, 1);
                         //Checking if execution privileges a granted
                         $eC->check($sM->isAdmin());

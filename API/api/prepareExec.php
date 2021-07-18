@@ -143,7 +143,7 @@
 
     //Global function to send output to the client
     function sendOutput($finishCode, $providedRespondArray){
-        $respondArray = array_merge(array('errorCode' => $finishCode),$providedRespondArray);
+        $respondArray = array_merge(array('errorCode' => $finishCode), $providedRespondArray);
         //Setting header from respons to json format
         header('Content-Type: application/json');
         if(Config::getConfig()->get("Webserver")->getValue("sameOrigin") == "false"){
