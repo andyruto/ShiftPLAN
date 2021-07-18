@@ -68,7 +68,7 @@
                             if($isAdmin === true){
                                 if($rP->hasParameters(array('hidden'))){
                                     Logger::getLogger()->log('DEBUG', 'found hidden in request');
-                                    if(preg_match(Validation::BooleanValue, $request->hidden)){
+                                    if(!$request->hidden || $request->hidden){
                                         Logger::getLogger()->log('INFO', 'Changing value of hidden for user '.$uM->getUserName());
                                         $user->setHidden($request->hidden);
                                     }else{
@@ -78,7 +78,7 @@
                                 }
                                 if($rP->hasParameters(array('type'))){
                                     Logger::getLogger()->log('DEBUG', 'found type in request');
-                                    if(preg_match(Validation::UserType, $request->type)){
+                                    if($request->type>=0 && $request->type<=2){
                                         Logger::getLogger()->log('INFO', 'Changing value of type for user '.$uM->getUserName());
                                         $user->setUser_type($request->type);
                                     }else{
@@ -98,7 +98,7 @@
                                 }
                                 if($rP->hasParameters(array('overtime'))){
                                     Logger::getLogger()->log('DEBUG', 'found overtime in request');
-                                    if(preg_match(Validation::Overtime, $request->overtime)){
+                                    if($request->overtime>=0){
                                         Logger::getLogger()->log('INFO', 'Changing value of overtime for user '.$uM->getUserName());
                                         $user->setOvertime($request->overtime);
                                     }else{
@@ -108,7 +108,7 @@
                                 }
                                 if($rP->hasParameters(array('weeklyWorkingMinutes'))){
                                     Logger::getLogger()->log('DEBUG', 'found weeklyWorkingMinutes in request');
-                                    if(preg_match(Validation::WeeklyWorkingMinutes, $request->weeklyWorkingMinutes)){
+                                    if($request->weeklyWorkingMinutes>=0 || $request->weeklyWorkingMinutes<=24*60*7){
                                         Logger::getLogger()->log('INFO', 'Changing value of weekly working minutes for user '.$uM->getUserName());
                                         $user->setWeekly_working_minutes($request->weeklyWorkingMinutes);
                                     }else{
@@ -118,7 +118,7 @@
                                 }
                                 if($rP->hasParameters(array('weeklyWorkingDays'))){
                                     Logger::getLogger()->log('DEBUG', 'found weeklyWorkingDays in request');
-                                    if(preg_match(Validation::WeeklyWorkingDays, $request->weeklyWorkingDays)){
+                                    if($request->weeklyWorkingDays>=0 || $request->weeklyWorkingDays<=7){
                                         Logger::getLogger()->log('INFO', 'Changing value of weekly working days for user '.$uM->getUserName());
                                         $user->setWeekly_working_days($request->weeklyWorkingDays);
                                     }else{
@@ -128,7 +128,7 @@
                                 }
                                 if($rP->hasParameters(array('yearVacationDays'))){
                                     Logger::getLogger()->log('DEBUG', 'found yearVacationDays in request');
-                                    if(preg_match(Validation::YearVacationDays, $request->weeklyWorkinyearVacationDaysgDays)){
+                                    if($request->weeklyWorkinyearVacationDaysgDays>=0 || $request->weeklyWorkinyearVacationDaysgDays<=366){
                                         Logger::getLogger()->log('INFO', 'Changing value of weekly working minutes for user '.$uM->getUserName());
                                         $user->setYear_vacation_days($request->yearVacationDays);
                                     }else{
