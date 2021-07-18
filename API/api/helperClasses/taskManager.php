@@ -63,11 +63,22 @@
         public function removeTask(){
             if($this->errorCode == ErrorCode::NoError){
                 $taskId = $this->task->getId();
-                //Removing task from database
-                $this->eM->remove($this->task);
-                //Flushing changes
-                $this->eM->flush();
-                Logger::getLogger()->log('DEBUG', 'Task with id '.$taskId.' got removed');
+                if($this->eM->getRepository('taskTimeSpan')->findBy(array('task_Id' => $taskId))[0] === Null){
+                    if($this->eM->getRepository('shift')->findBy(array('task' => $taskId))[0] === Null){
+                        //Removing task from database
+                        $this->eM->remove($this->task);
+                        //Flushing changes
+                        $this->eM->flush();
+                        Logger::getLogger()->log('DEBUG', 'Task with id '.$taskId.' got removed');
+
+                    }else{
+                        Logger::getLogger()->log('ERROR', 'Task with id '.$taskId.' didn\'t got remove! Task is connected to a shift');
+                        $this->errorCode = ErrorCode::TaskIsConnectedToShift;
+                    }
+                }else{
+                    Logger::getLogger()->log('ERROR', 'Task with id '.$taskId.' didn\'t got remove! Task is connected to a time span');
+                    $this->errorCode = ErrorCode::TaskIsConnectedToTimeSpan;
+                }
             }
             return $this->errorCode;
         }

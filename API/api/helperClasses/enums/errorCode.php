@@ -44,9 +44,12 @@
         const MissingRights = 32; //User does have not enough rights to do this action
         const UnknownValue = 33; //Value of a filter is unknown
         const FilterNotMatching = 34; //With given filter no results were found in database
-        const NoTaskIdGiven = 35; //Task Id parameter was empty
-        const TimeSpanNotFound = 36; //Time span not found in database
-        const NoTimeSpanIdGiven = 37; //Task span Id parameter was empty
-        const TaskAlreadyHasTimeSpan = 38; //The Time span couldnt be created becouse the connected task already has a time span
+        const TimeSpanNotFound = 35; //Time span not found in database
+        const NoTimeSpanIdGiven = 36; //Task span Id parameter was empty
+        const TaskAlreadyHasTimeSpan = 37; //The Time span couldnt be created becouse the connected task already has a time span
+        const TaskIsConnectedToShift = 38; //The task is still connected to a shift and cannot be removed
+        const TaskIsConnectedToTimeSpan = 39; //The task is still connected to a time span and cannot be removed
+        const ShiftNotFound = 40; //Shift not found in database
+        const NoShiftIdGiven = 41; //Shift id was not set, manager proprably called as handler
     }
 ?>

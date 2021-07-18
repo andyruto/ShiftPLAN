@@ -81,7 +81,7 @@
                     Logger::getLogger()->log('ERROR', 'validation failed on \'required_employees\'');
                     $this->errorCode = ErrorCode::ValidationFailed;
                 }
-                if(preg_match(Validation::UserName, $last_modified_by)){
+                if(preg_match(Validation::IdOfNumbers, $last_modified_by)){
                     $newTimeSpan->setLast_modified_by($last_modified_by);
                 }else{
                     Logger::getLogger()->log('ERROR', 'validation failed on \'last_modified_by\'');
@@ -109,7 +109,7 @@
             if($this->errorCode == ErrorCode::NoError){
                 if(array_key_exists("lastModifiedBy", $arrayOfChanges)){
                     $this->timeSpan->setLast_modified();
-                    if(preg_match(Validation::UserName, $arrayOfChanges->lastModifiedBy)){
+                    if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->lastModifiedBy)){
                         $this->timeSpan->setLast_modified_by($arrayOfChanges->lastModifiedBy);
                     }else{
                         Logger::getLogger()->log('ERROR', 'validation failed on \'lastModifiedBy\'');
@@ -166,7 +166,7 @@
                     $this->eM->flush();
                     Logger::getLogger()->log('INFO', 'Time span with id '.$this->timeSpan->getId().' got modified');
                 }else{
-                    Logger::getLogger()->log('ERROR', 'Remove time span function canceled due to missing last_modified_by parameter');
+                    Logger::getLogger()->log('ERROR', 'Modify time span function canceled due to missing last_modified_by parameter');
                 }
             }else{
                 Logger::getLogger()->log('ERROR', 'Modify time span function canceled due to '.$this->errorCode.' error already occured');
@@ -206,7 +206,7 @@
             $timeSpan = array();
             $timeSpanArray = array();
             if($this->errorCode == ErrorCode::NoError){
-                $timeSpanArray = array('id' => $timeSpanDbObject->getId(), 'appointedDay' => $timeSpanDbObject->getAppointed_day(), 'start' => $timeSpanDbObject->getStart(), 'end' => $timeSpanDbObject->getEnd(), 'requiredEmployees' => $timeSpanDbObject->getRequired_employees(), 'lastModifiedBy' => $timeSpanDbObject->getLast_modified_by(), 'lastModified' => $timeSpanDbObject->getLast_modified(), 'taskId' => $timeSpanDbObject->getTask_id());
+                $timeSpanArray = array('id' => $this->timeSpan->getId(), 'appointedDay' => $this->timeSpan->getAppointed_day(), 'start' => $this->timeSpan->getStart(), 'end' => $this->timeSpan->getEnd(), 'requiredEmployees' => $this->timeSpan->getRequired_employees(), 'lastModifiedBy' => $this->timeSpan->getLast_modified_by(), 'lastModified' => $this->timeSpan->getLast_modified(), 'taskId' => $this->timeSpan->getTask_id());
                 $timeSpan = array_merge($timeSpan, array($timeSpanArray));
                 Logger::getLogger()->log('INFO', 'Returning time span stored in time span manager');
             }else{

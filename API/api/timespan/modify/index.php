@@ -39,23 +39,27 @@
                         self::$errorCode = $sM->getFinishCode();
                         //Checking if the session manager succeded
                         if(self::$errorCode == ErrorCode::NoError){
-                            $arrayOfChanges = array('lastModifiedBy' => $sM->getUserName());
-                            if($rP->hasParameters(array('appointedDay'))){
-                                $arrayOfChanges['appointedDay'] = $request->appointedDay;
+                            $uM = UserManager::obj($sM->getUserName());
+                            self::$errorCode = $uM->getFinishCode();
+                            if(self::$errorCode == ErrorCode::NoError){
+                                $arrayOfChanges = array('lastModifiedBy' => $uM->getDbObject()->getId());
+                                if($rP->hasParameters(array('appointedDay'))){
+                                    $arrayOfChanges['appointedDay'] = $request->appointedDay;
+                                }
+                                if($rP->hasParameters(array('start'))){
+                                    $arrayOfChanges['start'] = $request->start;
+                                }
+                                if($rP->hasParameters(array('end'))){
+                                    $arrayOfChanges['end'] = $request->end;
+                                }
+                                if($rP->hasParameters(array('requiredEmployees'))){
+                                    $arrayOfChanges['requiredEmployees'] = $request->requiredEmployees;
+                                }
+                                if($rP->hasParameters(array('connectedTaskId'))){
+                                    $arrayOfChanges['connectedTaskId'] = $request->connectedTaskId;
+                                }
+                                self::$errorCode = $tsM->modifyTimeSpan($arrayOfChanges);
                             }
-                            if($rP->hasParameters(array('start'))){
-                                $arrayOfChanges['start'] = $request->start;
-                            }
-                            if($rP->hasParameters(array('end'))){
-                                $arrayOfChanges['end'] = $request->end;
-                            }
-                            if($rP->hasParameters(array('requiredEmployees'))){
-                                $arrayOfChanges['requiredEmployees'] = $request->requiredEmployees;
-                            }
-                            if($rP->hasParameters(array('connectedTaskId'))){
-                                $arrayOfChanges['connectedTaskId'] = $request->connectedTaskId;
-                            }
-                            self::$errorCode = $tsM->modifyTimeSpan($arrayOfChanges);
                         }
                     }
                 }

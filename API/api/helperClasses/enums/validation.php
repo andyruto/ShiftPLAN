@@ -26,5 +26,8 @@
         const AllUserFilters = '/^(?:complete){1}$/';
         const SimpleDateFormat = '/^(?:[1-9][0-9]{3})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2][0-9]|3[0-1])$/';
         const TimeSpanSearchFilters = '/^(?:id|appointedDay|start|end|requiredEmployees|lastModifiedBy|lastModified|taskId){1}$/';
+        const ExtendedDateFormat = '/^(?:[1-9][0-9]{3})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2][0-9]|3[0-1]) (?:[0-1][0-9]|2[0-4]):(?:[0-5][0-9]):(?:[0-5][0-9])$/';
+        const CommentOfNumbersAndCharacters64Len = '/(?:[\d\w ]{0,64})/';
+        const ShiftSearchFilters = '/^(id|assignedUser|supervisorUser|task|shiftStart|shiftEnd|comment|lastModifiedBy|lastModified)$/';
     }
 ?>
