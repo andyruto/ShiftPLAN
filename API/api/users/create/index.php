@@ -37,7 +37,7 @@
                         //Creating entity manager for db access
                         self::$errorCode = $ssM->aDecrypt($request->pwHash);
                         //Validating the given parameters
-                        if(preg_match(Validation::UserName, $request->name) && preg_match(Validation::BooleanValue, $request->hidden) && self::$errorCode == ErrorCode::NoError){
+                        if(preg_match(Validation::UserName, $request->name) && (!$request->hidden || $request->hidden) && self::$errorCode == ErrorCode::NoError){
                             $uM = UserManager::creator();
                             //Creating user
                             self::$errorCode = $uM->createUser($request->name ,$ssM->getResult(), $request->hidden);
