@@ -166,7 +166,7 @@
                 //Creating new user
                 $newUser = new User();
                 $newUser->setName($name);
-                $newUser->setPassword_hash(\Sodium\bin2hex($pwHash));
+                $newUser->setPassword_hash($pwHash);
                 $newUser->setHidden($hidden);
                 //Storeing created user
                 $this->eM->persist($newUser);
