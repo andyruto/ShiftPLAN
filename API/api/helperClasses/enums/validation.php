@@ -22,5 +22,6 @@
         const IdOfNumbers = '/^(?:[0-9]+)$/';
         const NameOfNumbersAndCharacters = '/^[0-9a-zA-Z]{1,20}$/';
         const SimpleDateFormat = '/^(?:[1-9][0-9]{3})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2][0-9]|3[0-1])$/';
+        const TimeSpanSearchFilters = '/^(?:id|appointedDay|start|end|requiredEmployees|lastModifiedBy|lastModified|taskId){1}$/';
     }
 ?>

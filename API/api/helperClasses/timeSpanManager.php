@@ -28,20 +28,27 @@
                     Logger::getLogger()->log('DEBUG', "Time span with id ".$timeSpanId." found in database");
                 }
             }else{
-                Logger::getLogger()->log('WARNING', 'Parameter time span id is empty. Class probably created as TimeSpanManager::creator');
+                Logger::getLogger()->log('WARNING', 'Parameter time span id is empty. Class probably created as TimeSpanManager::handler');
                 $this->errorCode = ErrorCode::NoTimeSpanIdGiven;
             }
         }
 
-        //Overload constructor to create new entities
-        public static function creator(){
-            Logger::getLogger()->log('INFO', 'Class created as TimeSpanManager::creator');
+        //Overload constructor to create, search entities
+        public static function handler(){
+            Logger::getLogger()->log('INFO', 'Class created as TimeSpanManager::handler');
             return new self(null);
         }
 
         //Overload constructor to work with existing entities
         public static function obj($timeSpanId){
-            return new self($timeSpanId);
+            if(preg_match(Validation::IdOfNumbers, $timeSpanId)){
+                return new self($timeSpanId);
+            }else{
+                $tmpObj = new self(null);
+                $tmpObj->errorCode = ErrorCode::ValidationFailed;
+                Logger::getLogger()->log('ERROR', 'id failed regex validation');    
+                return $tmpObj;
+            }
         }
 
         //Function to create a time span
@@ -100,20 +107,20 @@
         //Function to modify the time span from db
         public function modifyTimeSpan($arrayOfChanges){
             if($this->errorCode == ErrorCode::NoError){
-                if(array_key_exists("last_modified_by", $arrayOfChanges)){
+                if(array_key_exists("lastModifiedBy", $arrayOfChanges)){
                     $this->timeSpan->setLast_modified();
-                    if(preg_match(Validation::UserName, $arrayOfChanges->last_modified_by)){
-                        $this->timeSpan->setLast_modified_by($arrayOfChanges->last_modified_by);
+                    if(preg_match(Validation::UserName, $arrayOfChanges->lastModifiedBy)){
+                        $this->timeSpan->setLast_modified_by($arrayOfChanges->lastModifiedBy);
                     }else{
-                        Logger::getLogger()->log('ERROR', 'validation failed on \'last_modified_by\'');
+                        Logger::getLogger()->log('ERROR', 'validation failed on \'lastModifiedBy\'');
                         $this->errorCode = ErrorCode::ValidationFailed;
                     }
-                    if(array_key_exists("appointed_day", $arrayOfChanges)){
-                        if(preg_match(Validation::SimpleDateFormat, $arrayOfChanges->appointed_day)){
-                            $this->timeSpan->setAppointed_day($arrayOfChanges->appointed_day);
-                            Logger::getLogger()->log('DEBUG', 'Time span modified appointed day to '.$arrayOfChanges->appointed_day);
+                    if(array_key_exists("appointedDay", $arrayOfChanges)){
+                        if(preg_match(Validation::SimpleDateFormat, $arrayOfChanges->appointedDay)){
+                            $this->timeSpan->setAppointed_day($arrayOfChanges->appointedDay);
+                            Logger::getLogger()->log('DEBUG', 'Time span modified appointed day to '.$arrayOfChanges->appointedDay);
                         }else{
-                            Logger::getLogger()->log('ERROR', 'validation failed on \'appointed_day\'');
+                            Logger::getLogger()->log('ERROR', 'validation failed on \'appointedDay\'');
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
@@ -135,23 +142,23 @@
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
-                    if(array_key_exists("required_employees", $arrayOfChanges)){
-                        if(is_integer($required_employees)){
-                            $this->timeSpan->setRequired_employees($arrayOfChanges->required_employees);
-                            Logger::getLogger()->log('DEBUG', 'Time span modified required employees to '.$arrayOfChanges->required_employees);
+                    if(array_key_exists("requiredEmployees", $arrayOfChanges)){
+                        if(is_integer($requiredEmployees)){
+                            $this->timeSpan->setRequired_employees($arrayOfChanges->requiredEmployees);
+                            Logger::getLogger()->log('DEBUG', 'Time span modified required employees to '.$arrayOfChanges->requiredEmployees);
                         }else{
-                            Logger::getLogger()->log('ERROR', 'validation failed on \'required_employees\'');
+                            Logger::getLogger()->log('ERROR', 'validation failed on \'requiredEmployees\'');
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
-                    if(array_key_exists("connected_task_id", $arrayOfChanges)){
-                        if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->connected_task_id)){
-                            if(taskExists($connected_task_id)){
-                                $this->timeSpan->setTask_id($arrayOfChanges->connected_task_id);
-                                Logger::getLogger()->log('DEBUG', 'Time span modified connected task id to '.$arrayOfChanges->connected_task_id);
+                    if(array_key_exists("connectedTaskId", $arrayOfChanges)){
+                        if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->connectedTaskId)){
+                            if(taskExists($arrayOfChanges->connectedTaskId)){
+                                $this->timeSpan->setTask_id($arrayOfChanges->connectedTaskId);
+                                Logger::getLogger()->log('DEBUG', 'Time span modified connected task id to '.$arrayOfChanges->connectedTaskId);
                             }
                         }else{
-                            Logger::getLogger()->log('ERROR', 'validation failed on \'connected_task_id\'');
+                            Logger::getLogger()->log('ERROR', 'validation failed on \'connectedTaskId\'');
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
@@ -165,6 +172,66 @@
                 Logger::getLogger()->log('ERROR', 'Modify time span function canceled due to '.$this->errorCode.' error already occured');
             }
             return $this->errorCode;
+        }
+
+        //Function to search for a time span
+        public function searchTimeSpans($filter, $value){
+            $timeSpans = array();
+            $timeSpanArray = array();
+            if($this->errorCode == ErrorCode::NoError){
+                if(preg_match(Validation::TimeSpanSearchFilters, $filter)){
+                    $timeSpanDbObjects = $this->eM->getRepository('taskTimeSpan')->findBy(array($filter => $value));
+                    if($timeSpanDbObjects !== Null){
+                        //Formatting the output of the found time spans
+                        foreach($timeSpanDbObjects as $timeSpan){
+                            $timeSpanArray = array('id' => $timeSpan->getId(), 'appointedDay' => $timeSpan->getAppointed_day(), 'start' => $timeSpan->getStart(), 'end' => $timeSpan->getEnd(), 'requiredEmployees' => $timeSpan->getRequired_employees(), 'lastModifiedBy' => $timeSpan->getLast_modified_by(), 'lastModified' => $timeSpan->getLast_modified(), 'taskId' => $timeSpan->getTask_id());
+                            $timeSpans = array_merge($timeSpans, array($timeSpanArray));
+                        }
+                    }else{
+                        Logger::getLogger()->log('ERROR', 'Filter \''.$filter.'\' = \''.$value.'\' didnt match');
+                        $this->errorCode = ErrorCode::TimeSpanNotFound;
+                    }
+                }else{
+                    Logger::getLogger()->log('ERROR', 'validation failed on \'filter\'');
+                    $this->errorCode = ErrorCode::ValidationFailed;
+                }
+            }else{
+                Logger::getLogger()->log('ERROR', 'search time spans function canceled due to '.$this->errorCode.' error already occured');
+            }
+            return array('timeSpans' => array_values($timeSpan));
+        }
+
+        //Function to get time span
+        public function getTimeSpan(){
+            $timeSpan = array();
+            $timeSpanArray = array();
+            if($this->errorCode == ErrorCode::NoError){
+                $timeSpanArray = array('id' => $timeSpanDbObject->getId(), 'appointedDay' => $timeSpanDbObject->getAppointed_day(), 'start' => $timeSpanDbObject->getStart(), 'end' => $timeSpanDbObject->getEnd(), 'requiredEmployees' => $timeSpanDbObject->getRequired_employees(), 'lastModifiedBy' => $timeSpanDbObject->getLast_modified_by(), 'lastModified' => $timeSpanDbObject->getLast_modified(), 'taskId' => $timeSpanDbObject->getTask_id());
+                $timeSpan = array_merge($timeSpan, array($timeSpanArray));
+                Logger::getLogger()->log('INFO', 'Returning time span stored in time span manager');
+            }else{
+                Logger::getLogger()->log('ERROR', 'get time span function canceled due to '.$this->errorCode.' error already occured');
+            }
+            return array('timeSpan' => array_values($timeSpan));
+        }
+
+        //Function to get all time spans
+        public function getAllTimeSpans(){
+            $timeSpans = array();
+            $timeSpanArray = array();
+            if($this->errorCode == ErrorCode::NoError){
+                $timeSpanDbObjects = $this->eM->getRepository('taskTimeSpan')->findAll();
+                if($timeSpanDbObjects !== Null){
+                    //Formatting the output of the found time spans
+                    foreach($timeSpanDbObjects as $timeSpan){
+                        $timeSpanArray = array('id' => $timeSpan->getId(), 'appointedDay' => $timeSpan->getAppointed_day(), 'start' => $timeSpan->getStart(), 'end' => $timeSpan->getEnd(), 'requiredEmployees' => $timeSpan->getRequired_employees(), 'lastModifiedBy' => $timeSpan->getLast_modified_by(), 'lastModified' => $timeSpan->getLast_modified(), 'taskId' => $timeSpan->getTask_id());
+                        $timeSpans = array_merge($timeSpans, array($timeSpanArray));
+                    }
+                }
+            }else{
+                Logger::getLogger()->log('ERROR', 'search all time spans function canceled due to '.$this->errorCode.' error already occured');
+            }
+            return array('timeSpans' => array_values($timeSpan));
         }
 
         //Function to remove the time span from db
