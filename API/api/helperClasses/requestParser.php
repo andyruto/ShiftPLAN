@@ -28,7 +28,7 @@
                     $tmpJson = json_decode($this->requestBody);
                     $emptyParameters = array();
                     foreach ($tmpJson as $key => $value){
-                        if($value == null){
+                        if($value === null){
                             Logger::getLogger()->log('ERROR', 'parameter '.$key.' on request was empty');
                             $finishCode = ErrorCode::EmptyParameter;
                         }
