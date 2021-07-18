@@ -105,14 +105,14 @@
             return $this->shift_start;
         }
         public function setShift_start($shift_start){
-            $this->shift_start = $shift_start;
+            $this->shift_start = date_create_from_format('Y-m-d H:i:s', $shift_start);
         }
 // shift_end
         public function getShift_end(){
             return $this->shift_end;
         }
         public function setShift_end($shift_end){
-            $this->shift_end = $shift_end;
+            $this->shift_end = date_create_from_format('Y-m-d H:i:s', $shift_end);
         }
 // comment
         public function getComment(){
@@ -133,7 +133,7 @@
             return $this->last_modified;
         }
         public function setLast_modified($last_modified){
-            $this->last_modified = $last_modified;
+            $this->last_modified = new DateTime('now');
         }
     }
 ?>

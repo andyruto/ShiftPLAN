@@ -36,10 +36,14 @@
                     //Checking if the session manager succeded
                     if(self::$errorCode == ErrorCode::NoError){
                         $tsM = TimeSpanManager::creator();
-                        //Creating time span
-                        self::$errorCode = $tsM->createTimeSpan($request->appointedDay, $request->start, $request->end, $request->requiredEmployees, $sM->getUserName(), $request->connectedTaskId);
+                        $uM = UserManager::obj($sM->getUserName());
+                        self::$errorCode = $uM->getFinishCode();
                         if(self::$errorCode == ErrorCode::NoError){
-                            Logger::getLogger()->log('INFO', 'Time span was created');
+                            //Creating time span
+                            self::$errorCode = $tsM->createTimeSpan($request->appointedDay, $request->start, $request->end, $request->requiredEmployees, $uM->getDbObject()->getId(), $request->connectedTaskId);
+                            if(self::$errorCode == ErrorCode::NoError){
+                                Logger::getLogger()->log('INFO', 'Time span was created');
+                            }
                         }
                     }
                 }
