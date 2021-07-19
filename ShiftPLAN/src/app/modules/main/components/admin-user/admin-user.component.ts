@@ -6,7 +6,7 @@
  * author: Anne Naumann
  * last edit / by: 2021-07-09 / Anne Naumann
  */
-import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -54,6 +54,8 @@ export class AdminUserComponent implements OnInit {
   labelWorkingMinutes = ''
   labelWorkingDays = ''
   labelVacationDays = ''
+  position: string = 'absolute'
+  originalHeight: number = window.innerHeight;
 
   constructor(
     private translate: TranslateService, 
@@ -118,6 +120,16 @@ export class AdminUserComponent implements OnInit {
       scrollView!.style.height = screenHeight + 'px'
 
       this.viewLoaded = true
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  setBtnPosition() {
+    let currentHeight: number = window.innerHeight;
+    if(currentHeight < this.originalHeight) {
+      this.position = 'static';
+    }else {
+      this.position = 'absolute';
     }
   }
 

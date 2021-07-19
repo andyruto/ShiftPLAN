@@ -18,7 +18,7 @@
     </mat-form-field>
     <mat-form-field id="inputUsername" class="inputField">
         <mat-label id="labelUsername">{{labelUsername}}</mat-label>
-        <input matInput #inputUsername type="text" [value]="userName" (input)="userName = inputUsername.value" [readonly]="readOnlyName">
+        <input matInput #inputUsername type="text" [value]="userName" (input)="userName = inputUsername.value.trim()" [readonly]="readOnlyName">
     </mat-form-field>
     <mat-form-field id="inputPassword" class="inputField">
         <mat-label id="labelPassword">{{labelPassword}}</mat-label>
@@ -42,6 +42,6 @@
         <input matInput #inputVacation type="number" [value]="vacation" (input)="vacation = +inputVacation.value">
     </mat-form-field>
 </cdk-virtual-scroll-viewport>
-<div id="buttonContainer">
+<div id="buttonContainer" [style.position]="position">
     <button mat-raised-button id="saveUserBtn" class="displayBtn" color="accent" (click)="modifyUser()">{{editBtn}}</button>
 </div>

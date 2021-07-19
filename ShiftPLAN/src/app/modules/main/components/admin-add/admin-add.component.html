@@ -10,7 +10,7 @@
 <cdk-virtual-scroll-viewport id="adminAddScrollView" itemSize="50">
     <mat-form-field id="inputUsername" class="inputField">
         <mat-label id="labelUsername">{{labelUsername}}</mat-label>
-        <input matInput #inputUsername type="text" [value]="userName" (input)="userName = inputUsername.value">
+        <input matInput #inputUsername type="text" [value]="userName" (input)="userName = inputUsername.value.trim()">
     </mat-form-field>
     <mat-form-field id="inputPassword" class="inputField">
         <mat-label id="labelPassword">{{labelPassword}}</mat-label>
@@ -18,6 +18,6 @@
     </mat-form-field>
     <mat-checkbox id="checkBoxUserHidden" (change)="checking()" [checked]=checked>{{checkBoxUserHidden}}</mat-checkbox>
 </cdk-virtual-scroll-viewport>
-<div id="buttonContainer">
+<div id="buttonContainer" [style.position]="position"->
     <button mat-raised-button id="saveUserBtn" class="displayBtn" color="accent" (click)="addUser()">{{saveBtn}}</button>
 </div>

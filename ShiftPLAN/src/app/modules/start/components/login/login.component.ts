@@ -126,13 +126,12 @@ export class LoginComponent implements OnInit {
         autoFocus: false
       });
     }else {
-      this.loginRequest(inputName, inputPassword).then( (errorCode) => {
+      this.loginRequest(inputName.trim(), inputPassword).then( (errorCode) => {
         if(errorCode === 0) {
           this.router.navigate(['app/main/home']);
         }
     });
     }
-    
   }
 
   private async loginRequest(inputName: string, inputPassword: string) {
@@ -210,7 +209,6 @@ export class LoginComponent implements OnInit {
         nonce: nonce
     });
     secondPromise = await secondAnswer.toPromise();
-    
     secondErrorCode = secondPromise.errorCode;
       if(secondErrorCode != 0) {
         switch(secondErrorCode) {
@@ -299,7 +297,7 @@ export class LoginUserDialog {
 
     //display spinner
     this.dialog.open(SpinnerComponent, {
-      id: 'Login_spinner',
+      id: 'Login_spinnerLoginUser',
       autoFocus: false,
       disableClose: true
     });
@@ -307,7 +305,7 @@ export class LoginUserDialog {
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
 
     //close spinner
-    this.dialog.getDialogById('Login_spinner')?.close();
+    this.dialog.getDialogById('Login_spinnerLoginUser')?.close();
 
     this.warning = translation.Login.UserWrong;
     this.ok = translation.Login.Ok;
@@ -330,7 +328,7 @@ export class LoginPasswordDialog {
 
     //display spinner
     this.dialog.open(SpinnerComponent, {
-      id: 'Login_spinner',
+      id: 'Login_spinnerLoginPassword',
       autoFocus: false,
       disableClose: true
     });
@@ -338,7 +336,7 @@ export class LoginPasswordDialog {
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
 
     //close spinner
-    this.dialog.getDialogById('Login_spinner')?.close();
+    this.dialog.getDialogById('Login_spinnerLoginPassword')?.close();
 
     this.warning = translation.Login.PasswordWrong;
     this.ok = translation.Login.Ok;
@@ -361,7 +359,7 @@ export class LoginDefaultDialog {
 
     //display spinner
     this.dialog.open(SpinnerComponent, {
-      id: 'Login_spinner',
+      id: 'Login_spinnerLoginDefault',
       autoFocus: false,
       disableClose: true
     });
@@ -369,7 +367,7 @@ export class LoginDefaultDialog {
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
 
     //close spinner
-    this.dialog.getDialogById('Login_spinner')?.close();
+    this.dialog.getDialogById('Login_spinnerLoginDefault')?.close();
 
     this.warning = translation.Login.DefaultWrong;
     this.ok = translation.Login.Ok;

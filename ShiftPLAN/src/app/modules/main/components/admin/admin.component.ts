@@ -6,7 +6,7 @@
  * author: Anne Naumann
  * last edit / by: 2021-06-11 / Anne Naumann
  */
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router'
 import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
@@ -62,6 +62,11 @@ export class AdminComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(): void{
+    this.setScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  setScreenSize() {
     let toolbar =  document.getElementsByTagName('mat-toolbar')[0]
     let bottomBar = document.getElementsByTagName('app-bottom-bar')[0]
     let header = document.getElementsByTagName('mat-tab-header')[0]
