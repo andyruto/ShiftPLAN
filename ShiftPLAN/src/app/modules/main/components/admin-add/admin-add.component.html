@@ -15,5 +15,5 @@
     <mat-label id="labelPassword">{{labelPassword}}</mat-label>
     <input matInput #inputPassword type="password">
 </mat-form-field>
-<mat-checkbox id="checkBoxUserHidden">{{checkBoxUserHidden}}</mat-checkbox>
+<mat-checkbox id="checkBoxUserHidden" (change)="checking()" [checked]=checked>{{checkBoxUserHidden}}</mat-checkbox>
 <button mat-raised-button id="saveUserBtn" class="displayBtn" color="accent" (click)="saveNewUser(inputUsername.value, inputPassword.value)">{{saveBtn}}</button>

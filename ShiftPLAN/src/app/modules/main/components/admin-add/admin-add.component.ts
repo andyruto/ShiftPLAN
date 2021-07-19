@@ -28,6 +28,7 @@ export class AdminAddComponent implements OnInit {
   labelPassword = ''
   checkBoxUserHidden = ''
   saveBtn = ''
+  checked: boolean = false;
 
   constructor(
     private translate: TranslateService, 
@@ -57,6 +58,10 @@ export class AdminAddComponent implements OnInit {
       this.checkBoxUserHidden = translation.Admin.Add.CheckBoxUserHidden;
       this.saveBtn = translation.SaveButton;
     });
+  }
+
+  checking() {
+    this.checked = !this.checked;
   }
 
   saveNewUser(username: string, password: string): void{
@@ -105,7 +110,8 @@ export class AdminAddComponent implements OnInit {
         apiKey: apiKey,
         session: sessionAsync,
         name: userName,
-        pwHash: passwordAsync
+        pwHash: passwordAsync,
+        hidden: !this.checked
       }
     );
     addUserPromise = await addUserAnswer.toPromise();

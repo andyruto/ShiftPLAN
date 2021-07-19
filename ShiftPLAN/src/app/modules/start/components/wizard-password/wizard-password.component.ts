@@ -108,8 +108,11 @@ export class WizardPasswordComponent implements OnInit{
     let modifyErrorCode: number;
     let publicKey: string;
     let passwordHash: string;
-    let passwordAsync: string;
+    let passwordSync: string;
     let sessionAsync: string;
+    let oldPassword: string = "admin";
+    let oldPasswordHash: string;
+    let nonce: string;
     
     //get public key
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
@@ -121,20 +124,24 @@ export class WizardPasswordComponent implements OnInit{
     publicKey = publicKeyPromise.publicKey;
     publicKeyErrorCode = publicKeyPromise.errorCode;
 
-    //hash new password
+    //hash new password and old password
+    oldPasswordHash = await this.encrypt.convertToHash(oldPassword);
     passwordHash = await this.encrypt.convertToHash(newPassword);
 
-    //encrypt new password and session asyncronous
-    passwordAsync = await this.encrypt.encryptTextAsync(passwordHash, publicKey);
+    //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(this.session, publicKey);
+
+    //encrypt new password syncronous
+    nonce = await this.encrypt.generateNonce();
+    passwordSync = await this.encrypt.encryptTextSync(passwordHash, nonce, oldPasswordHash)
 
     //change password
     modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
       'users/modify/', {
         apiKey: this.apiKey,
         session: sessionAsync,
-        name: 'admin',
-        password: passwordAsync
+        password: passwordSync,
+        nonce: nonce
       }
     );
     modifyPromise = await modifyAnswer.toPromise();

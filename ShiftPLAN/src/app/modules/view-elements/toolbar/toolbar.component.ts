@@ -29,8 +29,7 @@ export class ToolbarComponent implements OnInit{
   ngOnInit(): void {
 
     //display spinner
-    this.dialog.open(SpinnerComponent, {
-      id: 'Toolbar_spinnerTranslationGlobal',
+    let spinner = this.dialog.open(SpinnerComponent, {
       autoFocus: false,
       disableClose: true
     });
@@ -38,7 +37,7 @@ export class ToolbarComponent implements OnInit{
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
 
       //close spinner
-      this.dialog.getDialogById('Toolbar_spinnerTranslationGlobal')?.close();
+      spinner.close();
 
       this.profile = translation.Toolbar.Profile;
       this.settings = translation.Toolbar.Settings;

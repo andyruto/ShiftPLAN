@@ -14,6 +14,9 @@ import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
 import { ApiService } from 'src/app/services/api.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
+import { GetUserDataResponse } from 'src/app/models/getuserdataresponse';
+import { GeneralResponse } from 'src/app/models/generalresponse';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-user',
@@ -27,16 +30,20 @@ export class AdminUserComponent implements OnInit {
   labelPassword = ''
   checkBoxUserHidden = ''
   saveBtn = ''
-  hidden: boolean = false;
   checked: boolean = false;
-  public userName: string = ''
+  public userName: string = '';
+  readOnlyName: boolean = false;
+  disableCheckbox: boolean = false;
+  
+  id: {user: number, navigationId: number} = window.history.state;
 
   constructor(
     private translate: TranslateService, 
     private location: Location,
     private dialog: MatDialog,
     private api: ApiService,
-    private encrypt: EncryptionService
+    private encrypt: EncryptionService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -48,6 +55,14 @@ export class AdminUserComponent implements OnInit {
       disableClose: true
     });
 
+    this.fill();
+
+    //check if standarduser
+    if(this.id.user === 1) {
+      this.readOnlyName = true;
+      this.disableCheckbox = true;
+    }
+  
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
 
       //close spinner
@@ -59,23 +74,73 @@ export class AdminUserComponent implements OnInit {
       this.checkBoxUserHidden = translation.Admin.Add.CheckBoxUserHidden;
       this.saveBtn = translation.SaveButton;
     });
+  }
 
-    let sdfg: string = window.history.state.user;
-    console.log(sdfg)
-    this.userName = sdfg
+  checking() {
+    this.checked = !this.checked;
   }
 
   changeUser(userName: string) {
-    let userVisible = document.getElementById('checkBoxUserHidden')?.classList.contains('mat-checkbox-checked')
-    console.log(userVisible);
-    this.modifyUser(userName, userVisible as boolean);
+    this.modifyUser(userName, this.checked);
   }
 
   private async fill() {
-    let sdfg: string = window.history.state;
-    console.log(sdfg)
-    this.userName = sdfg
+    let userList: [{
+      id: number,
+      type: number,
+      name: string,
+      hidden: boolean,
+      overtime: number,
+      weeklyWorkingMinutes: number,
+      weeklyWorkingDays: number,
+      yearVacationDays: number
+  }] = await this.getUserData(this.id.user);
+    this.userName = userList[0].name;
+    this.checked = !userList[0].hidden;
   }
+
+  private async getUserData(id: number) {
+
+    //variables
+    let publicKeyAnswer;
+    let getUserDataAnswer;
+    let publicKeyPromise;
+    let getUserDataPromise;
+
+    let publicKeyErrorCode: number;
+    let getUserDataErrorCode: number;
+    let session: string = localStorage.getItem('Session') as string;
+    let sessionAsync: string;
+    let publicKey: string;
+    let apiKey: string = localStorage.getItem('APIKey') as string;
+
+    //get public key
+    publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
+      'key/publickey/', {
+        apiKey: apiKey
+      }
+    );
+    publicKeyPromise = await publicKeyAnswer.toPromise();
+    publicKey = publicKeyPromise.publicKey;
+    publicKeyErrorCode = publicKeyPromise.errorCode;
+
+    //encrypt session asyncronous
+    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
+
+    //get userdata from api
+    getUserDataAnswer = await this.api.sendPostRequest<GetUserDataResponse>(
+      'users/get/', {
+        apiKey: apiKey,
+        session: sessionAsync,
+        filter: 'id',
+        value: id
+      }
+    );
+    getUserDataPromise = await getUserDataAnswer.toPromise();
+    getUserDataErrorCode = getUserDataPromise.errorCode;
+
+    return getUserDataPromise.profiles
+  } 
 
   private async modifyUser(userName: string, userVisible: boolean) {
 
@@ -90,7 +155,7 @@ export class AdminUserComponent implements OnInit {
     let publicKey: string;
     let sessionAsync: string;
     let apiKey: string = localStorage.getItem('APIKey') as string;
-    let session: string = localStorage.get('Session') as string;
+    let session: string = localStorage.getItem('Session') as string;
 
     //get public key
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
@@ -102,8 +167,23 @@ export class AdminUserComponent implements OnInit {
     publicKey = publicKeyPromise.publicKey;
     publicKeyErrorCode = publicKeyPromise.errorCode;
 
-    //encrypt new password asyncronous
+    //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
+
+    //modifyUser
+    modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
+      'users/modify/', {
+        apiKey: apiKey,
+        session: sessionAsync,
+        user: this.id.user,
+        name: userName,
+        hidden: !userVisible
+      }
+    );
+    modifyPromise = await modifyAnswer.toPromise();
+    modifyErrorCode = modifyPromise.errorCode;
+
+    this.router.navigateByUrl('/app/main/admin');
   }
   
 }

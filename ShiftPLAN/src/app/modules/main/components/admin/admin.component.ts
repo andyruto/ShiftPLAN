@@ -26,9 +26,10 @@ export class AdminComponent implements OnInit, AfterViewInit{
   title = ''
   tabUsers = ''
   labelKey = ''
+  apiKey: string = localStorage.getItem('APIKey') as string;
 
   //test content that needs to be replaced
-  users: Array<string> = ['ag167','sw210','mt098','an055','mm123','ee456','wr246','ht135','os321','lp654','re642','tu531','lk133']
+  users: [id: number, name: string] = [1,''];
 
   constructor(
     private translate: TranslateService, 
@@ -46,6 +47,8 @@ export class AdminComponent implements OnInit, AfterViewInit{
       autoFocus: false,
       disableClose: true
     });
+
+    this.refreshUsers();
 
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
 
@@ -101,20 +104,29 @@ export class AdminComponent implements OnInit, AfterViewInit{
     //variables
     let publicKeyAnswer;
     let getusersAnswer;
+    let getInvUsersAnswer;
     let publicKeyPromise;
     let getusersPromise;
+    let getInvUsersPromise;
         
     let publicKeyErrorCode: number;
     let getusersErrorCode: number;
+    let getInvUsersErrorCode: number;
     let session: string = localStorage.getItem('Session') as string;
     let sessionAsync: string;
     let publicKey: string;
-    let apiKey: string = localStorage.getItem('APIKey') as string;
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Admin_spinnerRefresh',
+      autoFocus: false,
+      disableClose: true
+    });
 
     //get public key
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
-        apiKey: apiKey
+        apiKey: this.apiKey
       }
     );
     publicKeyPromise = await publicKeyAnswer.toPromise();
@@ -124,26 +136,37 @@ export class AdminComponent implements OnInit, AfterViewInit{
     //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
 
-    //get users from api
+    //get visibel users from api
     getusersAnswer = await this.api.sendPostRequest<GetUsersResponse>(
       'users/get/', {
-        apiKey: apiKey,
+        apiKey: this.apiKey,
         session: sessionAsync,
-        filter: 'hidden',
-        value: '0'
+        filter: 'all',
+        value: 'visibel'
       }
     );
     getusersPromise = await getusersAnswer.toPromise();
     getusersErrorCode = getusersPromise.errorCode;
 
-    //addUsersToUI
-    // this.users = Array();
+    //get invisibel users from api
+    getInvUsersAnswer = await this.api.sendPostRequest<GetUsersResponse>(
+      'users/get/', {
+        apiKey: this.apiKey,
+        session: sessionAsync,
+        filter: 'all',
+        value: 'invisibel'
+      }
+    );
+    getInvUsersPromise = await getInvUsersAnswer.toPromise();
+    getInvUsersErrorCode = getInvUsersPromise.errorCode;
 
-    // for(let count = 0; count < getusersPromise.users.length; count++){
-    //   this.users.push("b" + getusersPromise.users[count].user.id);
-    // }
-    // getusersPromise.users.forEach( user => {
-      
-    // });
+    //addUsersToUI
+    this.users = getusersPromise.profiles;
+    if(getInvUsersPromise.profiles) {
+      this.users.push(...getInvUsersPromise.profiles);
+    }
+
+    //close spinner
+    this.dialog.getDialogById('Admin_spinnerRefresh')?.close();
   }
 }
