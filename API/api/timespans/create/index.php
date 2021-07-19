@@ -35,7 +35,7 @@
                     self::$errorCode = $sM->getFinishCode();
                     //Checking if the session manager succeded
                     if(self::$errorCode == ErrorCode::NoError){
-                        $tsM = TimeSpanManager::creator();
+                        $tsM = TimeSpanManager::handler();
                         $uM = UserManager::obj($sM->getUserName());
                         self::$errorCode = $uM->getFinishCode();
                         if(self::$errorCode == ErrorCode::NoError){

@@ -32,13 +32,13 @@
 
         /**
          * @ORM\Column(type="datetime", nullable=false)
-         * @var DateTime
+         * @var Date
          */
         protected $start;
 
         /**
          * @ORM\Column(type="datetime", nullable=false)
-         * @var DateTime
+         * @var Date
          */
         protected $end;
 

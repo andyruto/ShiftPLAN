@@ -35,7 +35,7 @@
                     self::$errorCode = $sM->getFinishCode();
                     //Checking if the session manager succeded
                     if(self::$errorCode == ErrorCode::NoError){
-                        $sfM = ShiftManager::creator();
+                        $sfM = ShiftManager::handler();
                         $uM = UserManager::obj($sM->getUserName());
                         self::$errorCode = $uM->getFinishCode();
                         if(self::$errorCode == ErrorCode::NoError){
