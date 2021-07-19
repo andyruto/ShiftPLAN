@@ -21,7 +21,7 @@
                 //Looking for time span in database
                 $this->timeSpan = $this->eM->find('taskTimeSpan', $timeSpanId);
 
-                if($this->timeSpanId == null){
+                if($this->timeSpan == null){
                     Logger::getLogger()->log('ERROR', "Time span with id ".$timeSpanId." doesn't exist in database");
                     $this->errorCode = ErrorCode::TimeSpanNotFound;
                 }else{
@@ -40,7 +40,7 @@
 
         //Overload constructor to work with existing entities
         public static function obj($timeSpanId){
-            if(preg_match(Validation::IdOfNumbers, $timeSpanId)){
+            if(is_integer($timeSpanId)){
                 return new self($timeSpanId);
             }else{
                 $tmpObj = new self(null);
@@ -80,14 +80,14 @@
                     Logger::getLogger()->log('ERROR', 'validation failed on \'required_employees\'');
                     $this->errorCode = ErrorCode::ValidationFailed;
                 }
-                if(preg_match(Validation::IdOfNumbers, $last_modified_by)){
+                if(is_integer($last_modified_by)){
                     $newTimeSpan->setLast_modified_by($last_modified_by);
                 }else{
                     Logger::getLogger()->log('ERROR', 'validation failed on \'last_modified_by\'');
                     $this->errorCode = ErrorCode::ValidationFailed;
                 }
                 $newTimeSpan->setLast_modified();
-                if(preg_match(Validation::IdOfNumbers, $connected_task_id)){
+                if(is_integer($connected_task_id)){
                     if($this->taskExists($connected_task_id)){
                         $newTimeSpan->setTask_id($connected_task_id);
                     }
@@ -108,53 +108,53 @@
             if($this->errorCode == ErrorCode::NoError){
                 if(array_key_exists("lastModifiedBy", $arrayOfChanges)){
                     $this->timeSpan->setLast_modified();
-                    if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->lastModifiedBy)){
-                        $this->timeSpan->setLast_modified_by($arrayOfChanges->lastModifiedBy);
+                    if(is_integer($arrayOfChanges["lastModifiedBy"])){
+                        $this->timeSpan->setLast_modified_by($arrayOfChanges["lastModifiedBy"]);
                     }else{
                         Logger::getLogger()->log('ERROR', 'validation failed on \'lastModifiedBy\'');
                         $this->errorCode = ErrorCode::ValidationFailed;
                     }
                     if(array_key_exists("appointedDay", $arrayOfChanges)){
-                        if(preg_match(Validation::SimpleDateFormat, $arrayOfChanges->appointedDay)){
-                            $this->timeSpan->setAppointed_day($arrayOfChanges->appointedDay);
-                            Logger::getLogger()->log('DEBUG', 'Time span modified appointed day to '.$arrayOfChanges->appointedDay);
+                        if(preg_match(Validation::SimpleDateFormat, $arrayOfChanges["appointedDay"])){
+                            $this->timeSpan->setAppointed_day($arrayOfChanges["appointedDay"]);
+                            Logger::getLogger()->log('DEBUG', 'Time span modified appointed day to '.$arrayOfChanges["appointedDay"]);
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'appointedDay\'');
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
                     if(array_key_exists("start", $arrayOfChanges)){
-                        if(preg_match(Validation::SimpleDateFormat, $arrayOfChanges->start)){
-                            $this->timeSpan->setStart($arrayOfChanges->start);
-                            Logger::getLogger()->log('DEBUG', 'Time span modified start day to '.$arrayOfChanges->start);
+                        if(preg_match(Validation::SimpleDateFormat, $arrayOfChanges["start"])){
+                            $this->timeSpan->setStart($arrayOfChanges["start"]);
+                            Logger::getLogger()->log('DEBUG', 'Time span modified start day to '.$arrayOfChanges["start"]);
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'start\'');
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
                     if(array_key_exists("end", $arrayOfChanges)){
-                        if(preg_match(Validation::SimpleDateFormat, $arrayOfChanges->end)){
-                            $this->timeSpan->setEnd($arrayOfChanges->end);
-                            Logger::getLogger()->log('DEBUG', 'Time span modified end day to '.$arrayOfChanges->end);
+                        if(preg_match(Validation::SimpleDateFormat, $arrayOfChanges["end"])){
+                            $this->timeSpan->setEnd($arrayOfChanges["end"]);
+                            Logger::getLogger()->log('DEBUG', 'Time span modified end day to '.$arrayOfChanges["end"]);
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'end\'');
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
                     if(array_key_exists("requiredEmployees", $arrayOfChanges)){
-                        if(is_integer($requiredEmployees)){
-                            $this->timeSpan->setRequired_employees($arrayOfChanges->requiredEmployees);
-                            Logger::getLogger()->log('DEBUG', 'Time span modified required employees to '.$arrayOfChanges->requiredEmployees);
+                        if(is_integer($arrayOfChanges["requiredEmployees"])){
+                            $this->timeSpan->setRequired_employees($arrayOfChanges["requiredEmployees"]);
+                            Logger::getLogger()->log('DEBUG', 'Time span modified required employees to '.$arrayOfChanges["requiredEmployees"]);
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'requiredEmployees\'');
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
                     if(array_key_exists("connectedTaskId", $arrayOfChanges)){
-                        if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->connectedTaskId)){
-                            if($this->taskExists($arrayOfChanges->connectedTaskId)){
-                                $this->timeSpan->setTask_id($arrayOfChanges->connectedTaskId);
-                                Logger::getLogger()->log('DEBUG', 'Time span modified connected task id to '.$arrayOfChanges->connectedTaskId);
+                        if(is_integer($arrayOfChanges["connectedTaskId"])){
+                            if($this->taskExists($arrayOfChanges["connectedTaskId"])){
+                                $this->timeSpan->setTask_id($arrayOfChanges["connectedTaskId"]);
+                                Logger::getLogger()->log('DEBUG', 'Time span modified connected task id to '.$arrayOfChanges["connectedTaskId"]);
                             }
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'connectedTaskId\'');

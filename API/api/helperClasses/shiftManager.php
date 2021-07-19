@@ -40,7 +40,7 @@
 
         //Overload constructor to work with existing entities
         public static function obj($shiftId){
-            if(preg_match(Validation::IdOfNumbers, $shiftId)){
+            if(is_integer($shiftId)){
                 return new self($shiftId);
             }else{
                 $tmpObj = new self(null);
@@ -56,7 +56,7 @@
             if($this->taskHasNoShift($connected_task_id)){
                 //Creating new shift
                 $newShift = new Shift();
-                if(preg_match(Validation::IdOfNumbers, $assigned_user)){
+                if(is_integer($assigned_user)){
                     if($this->userExists($assigned_user)){
                         $newShift->setAssigned_user($assigned_user);
                     }
@@ -64,7 +64,7 @@
                     Logger::getLogger()->log('ERROR', 'validation failed on \'assigned_user\'');
                     $this->errorCode = ErrorCode::ValidationFailed;
                 }
-                if(preg_match(Validation::IdOfNumbers, $supervisor_user)){
+                if(is_integer($supervisor_user)){
                     if($this->userExists($supervisor_user)){
                         $newShift->setSupervisor_user($supervisor_user);
                     }
@@ -72,7 +72,7 @@
                     Logger::getLogger()->log('ERROR', 'validation failed on \'supervisor_user\'');
                     $this->errorCode = ErrorCode::ValidationFailed;
                 }
-                if(preg_match(Validation::IdOfNumbers, $connected_task_id)){
+                if(is_integer($connected_task_id)){
                     if($this->taskExists($connected_task_id)){
                         if($this->taskHasNoShift($connected_task_id)){
                             $newShift->setTask($connected_task_id);
@@ -100,7 +100,7 @@
                     Logger::getLogger()->log('ERROR', 'validation failed on \'comment\'');
                     $this->errorCode = ErrorCode::ValidationFailed;
                 }
-                if(preg_match(Validation::IdOfNumbers, $last_modified_by)){
+                if(is_integer($last_modified_by)){
                     $newShift->setLast_modified_by($last_modified_by);
                 }else{
                     Logger::getLogger()->log('ERROR', 'validation failed on \'last_modified_by\'');
@@ -120,17 +120,17 @@
             if($this->errorCode == ErrorCode::NoError){
                 if(array_key_exists("lastModifiedBy", $arrayOfChanges)){
                     $this->shift->setLast_modified();
-                    if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->lastModifiedBy)){
-                        $this->shift->setLast_modified_by($arrayOfChanges->lastModifiedBy);
+                    if(is_integer($arrayOfChanges["lastModifiedBy"])){
+                        $this->shift->setLast_modified_by($arrayOfChanges["lastModifiedBy"]);
                     }else{
                         Logger::getLogger()->log('ERROR', 'validation failed on \'lastModifiedBy\'');
                         $this->errorCode = ErrorCode::ValidationFailed;
                     }
                     if(array_key_exists("assignedUser", $arrayOfChanges)){
-                        if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->assignedUser)){
-                            if($this->userExists($arrayOfChanges->assignedUser)){
-                                $this->shift->setAssigned_user($arrayOfChanges->assignedUser);
-                                Logger::getLogger()->log('DEBUG', 'Shift modified assigned user to '.$arrayOfChanges->assignedUser);
+                        if(is_integer($arrayOfChanges["assignedUser"])){
+                            if($this->userExists($arrayOfChanges["assignedUser"])){
+                                $this->shift->setAssigned_user($arrayOfChanges["assignedUser"]);
+                                Logger::getLogger()->log('DEBUG', 'Shift modified assigned user to '.$arrayOfChanges["assignedUser"]);
                             }
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'assignedUser\'');
@@ -138,10 +138,10 @@
                         }
                     }
                     if(array_key_exists("supervisorUser", $arrayOfChanges)){
-                        if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->supervisorUser)){
-                            if($this->userExists($arrayOfChanges->supervisorUser)){
-                                $this->shift->setSupervisor_user($arrayOfChanges->supervisorUser);
-                                Logger::getLogger()->log('DEBUG', 'Shift modified supervisor user to '.$arrayOfChanges->supervisorUser);
+                        if(is_integer($arrayOfChanges["supervisorUser"])){
+                            if($this->userExists($arrayOfChanges["supervisorUser"])){
+                                $this->shift->setSupervisor_user($arrayOfChanges["supervisorUser"]);
+                                Logger::getLogger()->log('DEBUG', 'Shift modified supervisor user to '.$arrayOfChanges["supervisorUser"]);
                             }
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'supervisorUser\'');
@@ -149,11 +149,11 @@
                         }
                     }
                     if(array_key_exists("task", $arrayOfChanges)){
-                        if(preg_match(Validation::IdOfNumbers, $arrayOfChanges->task)){
-                            if($this->taskExists($arrayOfChanges->task)){
-                                if($this->taskHasNoShift($arrayOfChanges->task)){
-                                    $this->shift->setTask($arrayOfChanges->task);
-                                    Logger::getLogger()->log('DEBUG', 'Shift modified task to '.$arrayOfChanges->task);
+                        if(is_integer($arrayOfChanges["task"])){
+                            if($this->taskExists($arrayOfChanges["task"])){
+                                if($this->taskHasNoShift($arrayOfChanges["task"])){
+                                    $this->shift->setTask($arrayOfChanges["task"]);
+                                    Logger::getLogger()->log('DEBUG', 'Shift modified task to '.$arrayOfChanges["task"]);
                                 }
                             }
                         }else{
@@ -162,27 +162,27 @@
                         }
                     }
                     if(array_key_exists("shiftStart", $arrayOfChanges)){
-                        if(preg_match(Validation::ExtendedDateFormat, $arrayOfChanges->shiftStart)){
-                            $this->shift->setShift_start($arrayOfChanges->shiftStart);
-                            Logger::getLogger()->log('DEBUG', 'Shift modified shift start to '.$arrayOfChanges->shiftStart);
+                        if(preg_match(Validation::ExtendedDateFormat, $arrayOfChanges["shiftStart"])){
+                            $this->shift->setShift_start($arrayOfChanges["shiftStart"]);
+                            Logger::getLogger()->log('DEBUG', 'Shift modified shift start to '.$arrayOfChanges["shiftStart"]);
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'shiftStart\'');
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
                     if(array_key_exists("shiftEnd", $arrayOfChanges)){
-                        if(preg_match(Validation::ExtendedDateFormat, $arrayOfChanges->shiftEnd)){
-                            $this->shift->setShift_end($arrayOfChanges->shiftEnd);
-                            Logger::getLogger()->log('DEBUG', 'Shift modified shift end id to '.$arrayOfChanges->shiftEnd);
+                        if(preg_match(Validation::ExtendedDateFormat, $arrayOfChanges["shiftEnd"])){
+                            $this->shift->setShift_end($arrayOfChanges["shiftEnd"]);
+                            Logger::getLogger()->log('DEBUG', 'Shift modified shift end id to '.$arrayOfChanges["shiftEnd"]);
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'shiftEnd\'');
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
                     if(array_key_exists("comment", $arrayOfChanges)){
-                        if(preg_match(Validation::CommentOfNumbersAndCharacters64Len, $arrayOfChanges->comment)){
-                            $this->shift->setComment($arrayOfChanges->comment);
-                            Logger::getLogger()->log('DEBUG', 'Shift modified comment id to '.$arrayOfChanges->comment);
+                        if(preg_match(Validation::CommentOfNumbersAndCharacters64Len, $arrayOfChanges["comment"])){
+                            $this->shift->setComment($arrayOfChanges["comment"]);
+                            Logger::getLogger()->log('DEBUG', 'Shift modified comment id to '.$arrayOfChanges["comment"]);
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'comment\'');
                             $this->errorCode = ErrorCode::ValidationFailed;
