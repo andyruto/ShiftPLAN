@@ -11,11 +11,27 @@
 <mat-list>
     <mat-list-item id="labelUserName">
         <span>{{username}}:</span>
-        <span id="contentUserName" class="alignText">ag167</span>
+        <span id="contentUserName" class="alignText">{{name}}</span>
     </mat-list-item>
     <mat-list-item id="labelRole">
         <span>{{role}}:</span>
-        <span id="contentRole" class="alignText">Projektleiter</span>
+        <span id="contentRole" class="alignText">{{type}}</span>
+    </mat-list-item>
+    <mat-list-item id="labelOvertime">
+        <span>{{overtime}}:</span>
+        <span id="contentOvertime" class="alignText">{{userOvertime}}</span>
+    </mat-list-item>
+    <mat-list-item id="labelWeeklyWorkingMinutes">
+        <span>{{weeklyworkingminutes}}:</span>
+        <span id="contentWeeklyWorkingMinutes" class="alignText">{{weeklyWorkingMinutes}}</span>
+    </mat-list-item>
+    <mat-list-item id="labelWeeklyWorkingDays">
+        <span>{{weeklyworkingdays}}:</span>
+        <span id="contentWeeklyWorkingDays" class="alignText">{{weeklyWorkingDays}}</span>
+    </mat-list-item>
+    <mat-list-item id="labelYearVacationDays">
+        <span>{{yearvacationdays}}:</span>
+        <span id="contentYearVacationDays" class="alignText">{{yearVacationDays}}</span>
     </mat-list-item>
 </mat-list>
-<button mat-raised-button id="logoutBtn" color="accent" (click)="checkLogout()">Logout</button>
+<button mat-raised-button id="logoutBtn" color="accent" (click)="checkLogout()">{{logout}}</button>

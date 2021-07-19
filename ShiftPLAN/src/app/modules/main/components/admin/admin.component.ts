@@ -101,6 +101,13 @@ export class AdminComponent implements OnInit, AfterViewInit{
 
   private async refreshUsers() {
 
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Admin_spinnerRefresh',
+      autoFocus: false,
+      disableClose: true
+    });
+
     //variables
     let publicKeyAnswer;
     let getusersAnswer;
@@ -116,13 +123,6 @@ export class AdminComponent implements OnInit, AfterViewInit{
     let sessionAsync: string;
     let publicKey: string;
 
-    //display spinner
-    this.dialog.open(SpinnerComponent, {
-      id: 'Admin_spinnerRefresh',
-      autoFocus: false,
-      disableClose: true
-    });
-
     //get public key
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
@@ -134,7 +134,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
     publicKeyErrorCode = publicKeyPromise.errorCode;
 
     //encrypt session asyncronous
-    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
+    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
     //get visibel users from api
     getusersAnswer = await this.api.sendPostRequest<GetUsersResponse>(
@@ -142,7 +142,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
         apiKey: this.apiKey,
         session: sessionAsync,
         filter: 'all',
-        value: 'visibel'
+        value: 'visible'
       }
     );
     getusersPromise = await getusersAnswer.toPromise();
@@ -154,7 +154,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
         apiKey: this.apiKey,
         session: sessionAsync,
         filter: 'all',
-        value: 'invisibel'
+        value: 'invisible'
       }
     );
     getInvUsersPromise = await getInvUsersAnswer.toPromise();

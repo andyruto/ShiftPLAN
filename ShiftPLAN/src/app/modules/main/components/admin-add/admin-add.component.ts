@@ -6,14 +6,14 @@
  * author: Anne Naumann
  * last edit / by: 2021-07-09 / Anne Naumann
  */
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Location } from '@angular/common'
+import { Location } from '@angular/common';
 import { ApiService } from 'src/app/services/api.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
 import { GeneralResponse } from 'src/app/models/generalresponse';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 
 @Component({
@@ -25,22 +25,16 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
 
   viewLoaded = false
   contentLoaded = false
-  roles = ['']
+
+  userName: string = '';
+  password: string = '';
+  checked: boolean = false;
 
   title = ''
   labelUsername = ''
   labelPassword = ''
   checkBoxUserHidden = ''
   saveBtn = ''
-  checked: boolean = false;
-  labelRole = ''
-  roleAdmin = ''
-  roleBoss = ''
-  roleEmployee = ''
-  labelOvertime = ''
-  labelWorkingMinutes = ''
-  labelWorkingDays = ''
-  labelVacationDays = ''
 
   constructor(
     private translate: TranslateService, 
@@ -48,7 +42,7 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
     private api: ApiService,
     private encrypt: EncryptionService,
     public dialog : MatDialog
-    ) { }
+    ) {}
 
   ngOnInit(): void {
 
@@ -69,14 +63,6 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
       this.labelPassword = translation.Admin.Add.LabelPassword;
       this.checkBoxUserHidden = translation.Admin.Add.CheckBoxUserHidden;
       this.saveBtn = translation.SaveButton;
-      this.labelRole = translation.Admin.Add.LabelRole;
-      this.roleAdmin = translation.Admin.Add.RoleAdmin;
-      this.roleBoss = translation.Admin.Add.RoleBoss;
-      this.roleEmployee = translation.Admin.Add.RoleEmployee;
-      this.labelOvertime = translation.Admin.Add.LabelOvertime;
-      this.labelWorkingMinutes = translation.Admin.Add.LabelWorkingMinutes;
-      this.labelWorkingDays = translation.Admin.Add.LabelWorkingDays;
-      this.labelVacationDays = translation.Admin.Add.LabelVacationDays;
     });
   }
 
@@ -97,20 +83,28 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
 
       this.viewLoaded = true
     }
+  }
 
-    if(this.roleAdmin != '' && this.contentLoaded == false){
-      this.roles = [this.roleAdmin, this.roleBoss, this.roleEmployee]
-      this.contentLoaded = true
+  ngOnDestroy() {
+    this.dialog.closeAll();
+  }
+
+  public async addUser() {
+
+    //check for invaled inputs
+    if(this.userName == "" || this.password== "") {
+      this.dialog.open(InvalidInputDialog, {
+        autoFocus: false
+      })
+      return
     }
-  }
 
-  saveNewUser(username: string, password: string): void{
-    let userVisible = document.getElementById('checkBoxUserHidden')?.classList.contains('mat-checkbox-checked')
-    this.addUser(username, password);
-    this.location.back()
-  }
-
-  private async addUser(userName: string, password: string) {
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'AdminAdd_spinnerAdd',
+      autoFocus: false,
+      disableClose: true
+    });
 
     //variables
     let publicKeyAnswer;
@@ -138,7 +132,7 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
     publicKeyErrorCode = publicKeyPromise.errorCode;
 
     //hash new password
-    passwordHash = await this.encrypt.convertToHash(password);
+    passwordHash = await this.encrypt.convertToHash(this.password);
 
     //encrypt session and password hash asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
@@ -149,12 +143,50 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
       'users/create/', {
         apiKey: apiKey,
         session: sessionAsync,
-        name: userName,
+        name: this.userName,
         pwHash: passwordAsync,
         hidden: !this.checked
       }
     );
     addUserPromise = await addUserAnswer.toPromise();
+    console.log(addUserPromise)
     addUserErrorCode = addUserPromise.errorCode;
+
+    this.location.back();
+  }
+}
+
+@Component({
+  selector: 'invalid-data-dialog',
+  templateUrl: 'dialog.html',
+  styleUrls: ['./admin-add.component.scss'],
+})
+export class InvalidInputDialog {
+  warning = '';
+  ok = '';
+
+  constructor(public dialogRef: MatDialogRef<InvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
+
+  ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'AdminAdd_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
+    this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
+
+    //close spinner
+    this.dialog.getDialogById('AdminAdd_spinner')?.close();
+
+    this.warning = translation.Admin.Add.InputWarning;
+    this.ok = translation.Admin.Add.Ok;
+    });
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }
