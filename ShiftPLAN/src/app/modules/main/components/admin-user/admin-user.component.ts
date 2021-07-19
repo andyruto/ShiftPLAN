@@ -6,7 +6,7 @@
  * author: Anne Naumann
  * last edit / by: 2021-07-09 / Anne Naumann
  */
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ChangeDetectorRef, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -23,18 +23,26 @@ import { Router } from '@angular/router';
   templateUrl: './admin-user.component.html',
   styleUrls: ['./admin-user.component.scss']
 })
-export class AdminUserComponent implements OnInit, AfterViewChecked {
+export class AdminUserComponent implements OnInit {
 
   viewLoaded = false
   contentLoaded = false
-  roles = ['']
+
+  role = '0';
+  userName: string = '';
+  password: string = '';
+  checked: boolean = false;
+  overtime: number = 0;
+  minutes: number = 0;
+  days: number = 0;
+  vacation: number = 0;
 
   title = ''
   labelUsername = ''
   labelPassword = ''
   checkBoxUserHidden = ''
-  checked: boolean = false;
   readOnlyName: boolean = false;
+  disableRole: boolean = false;
   disableCheckbox: boolean = false;
   id: {user: number, navigationId: number} = window.history.state;
   editBtn = ''
@@ -46,6 +54,8 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
   labelWorkingMinutes = ''
   labelWorkingDays = ''
   labelVacationDays = ''
+  position: string = 'absolute'
+  originalHeight: number = window.innerHeight;
 
   constructor(
     private translate: TranslateService, 
@@ -53,7 +63,8 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     private dialog: MatDialog,
     private api: ApiService,
     private encrypt: EncryptionService,
-    private router: Router
+    private router: Router,
+    private cdRef:ChangeDetectorRef
     ) { }
 
   ngOnInit(): void {
@@ -71,6 +82,7 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     if(this.id.user === 1) {
       this.readOnlyName = true;
       this.disableCheckbox = true;
+      this.disableRole = true;
     }
   
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
@@ -91,6 +103,8 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
       this.labelWorkingMinutes = translation.Admin.Add.LabelWorkingMinutes;
       this.labelWorkingDays = translation.Admin.Add.LabelWorkingDays;
       this.labelVacationDays = translation.Admin.Add.LabelVacationDays;
+
+      this.cdRef.detectChanges();
     });
   }
   
@@ -107,22 +121,35 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
 
       this.viewLoaded = true
     }
+  }
 
-    if(this.roleAdmin != '' && this.contentLoaded == false){
-      this.roles = [this.roleAdmin, this.roleBoss, this.roleEmployee]
-      this.contentLoaded = true
+  @HostListener('window:resize', ['$event'])
+  setBtnPosition() {
+    let currentHeight: number = window.innerHeight;
+    if(currentHeight < this.originalHeight) {
+      this.position = 'static';
+    }else {
+      this.position = 'absolute';
     }
+  }
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
   }
 
   checking() {
     this.checked = !this.checked;
   }
 
-  changeUser(userName: string) {
-    this.modifyUser(userName, this.checked);
-  }
-
   private async fill() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'AdminUser_spinnerFill',
+      autoFocus: false,
+      disableClose: true
+    });
+
     let userList: [{
       id: number,
       type: number,
@@ -133,8 +160,16 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
       weeklyWorkingDays: number,
       yearVacationDays: number
   }] = await this.getUserData(this.id.user);
+    this.role = userList[0].type.toString();
     this.userName = userList[0].name;
     this.checked = !userList[0].hidden;
+    this.overtime = userList[0].overtime;
+    this.minutes = userList[0].weeklyWorkingMinutes;
+    this.days = userList[0].weeklyWorkingDays;
+    this.vacation = userList[0].yearVacationDays;
+
+    //close spinner
+    this.dialog.getDialogById('AdminUser_spinnerFill')?.close();
   }
 
   private async getUserData(id: number) {
@@ -180,7 +215,22 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     return getUserDataPromise.profiles
   } 
 
-  private async modifyUser(userName: string, userVisible: boolean) {
+  public async modifyUser() {
+
+    //check for invaled inputs
+    if(this.userName == "") {
+      this.dialog.open(InvalidInputDialog, {
+        autoFocus: false
+      })
+      return
+    }
+  
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'AdminUser_spinnerModify',
+      autoFocus: false,
+      disableClose: true
+    });
 
     //variables
     let publicKeyAnswer;
@@ -192,6 +242,8 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     let modifyErrorCode: number;
     let publicKey: string;
     let sessionAsync: string;
+    let passwordHash: string;
+    let passwordAsync: string;
     let apiKey: string = localStorage.getItem('APIKey') as string;
     let session: string = localStorage.getItem('Session') as string;
 
@@ -208,20 +260,51 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
-    //modifyUser
-    modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
-      'users/modify/', {
-        apiKey: apiKey,
-        session: sessionAsync,
-        user: this.id.user,
-        name: userName,
-        hidden: !userVisible
-      }
-    );
+    if(this.password != '') {
+
+      //hash & encrypt new password
+      passwordHash = await this.encrypt.convertToHash(this.password);
+      passwordAsync = await this.encrypt.encryptTextAsync(passwordHash,publicKey);
+
+      //modifyUser
+      modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
+        'users/modify/', {
+          apiKey: apiKey,
+          session: sessionAsync,
+          user: this.id.user,
+          type: this.role,
+          name: this.userName,
+          password: passwordAsync,
+          hidden: !this.checked,
+          overtime: this.overtime,
+          weeklyWorkingMinutes: this.minutes,
+          weeklyWorkingDays: this.days,
+          yearVacationDays: this.vacation
+        }
+      );
+    }else {
+
+      //modifyUser
+      modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
+        'users/modify/', {
+          apiKey: apiKey,
+          session: sessionAsync,
+          user: this.id.user,
+          type: this.role,
+          name: this.userName,
+          hidden: !this.checked,
+          overtime: this.overtime,
+          weeklyWorkingMinutes: this.minutes,
+          weeklyWorkingDays: this.days,
+          yearVacationDays: this.vacation
+        }
+      );
+    }
     modifyPromise = await modifyAnswer.toPromise();
+    console.log(modifyPromise)
     modifyErrorCode = modifyPromise.errorCode;
 
-    this.router.navigateByUrl('/app/main/admin');
+    this.location.back();
   }
   
 }
@@ -231,11 +314,11 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
   templateUrl: 'dialog.html',
   styleUrls: ['./admin-user.component.scss'],
 })
-export class InvalidPasswordDialog {
+export class InvalidInputDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<InvalidPasswordDialog>, private translation: TranslateService, public dialog : MatDialog) {}
+  constructor(public dialogRef: MatDialogRef<InvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
 
@@ -251,8 +334,8 @@ export class InvalidPasswordDialog {
     //close spinner
     this.dialog.getDialogById('AdminUser_spinner')?.close();
 
-    this.warning = translation.WizardPassword.InvalidPassword;
-    this.ok = translation.WizardPassword.Ok;
+    this.warning = translation.Admin.Add.InputWarning;
+    this.ok = translation.Admin.Add.Ok;
     });
   }
 

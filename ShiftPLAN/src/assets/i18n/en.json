@@ -84,7 +84,12 @@
     "Profile": {
         "Username": "Username",
         "Role": "Role",
-        "LogoutLabel": "Do you really want to logout?"
+        "LogoutLabel": "Do you really want to logout?",
+        "Logout": "Logout",
+        "Overtime": "Overtime",
+        "WeeklyWorkingMinutes": "Weekly Workingminutes",
+        "WeeklyWorkingDays": "Weekly Workingdays",
+        "YearVacationDays": "Yearly Vacationdays"
     },
     "Settings": {
         "LabelTheme": "Change App Theme",
@@ -104,7 +109,8 @@
             "LabelNewPassword": "Enter new password",
             "LabelCheckPassword": "Confirm password",
             "WarningPassword": "Wrong password!",
-            "WarningCheckPassword": "password is not the same!"
+            "WarningCheckPassword": "password is not the same!",
+            "Ok": "Ok"
         }
     },
     "Admin": {
@@ -121,7 +127,9 @@
             "LabelOvertime": "Overtime",
             "LabelWorkingMinutes": "Weekly Working Minutes",
             "LabelWorkingDays": "Weekly Working Days",
-            "LabelVacationDays": "Annual Vacation Days"
+            "LabelVacationDays": "Annual Vacation Days",
+            "InputWarning": "Input is missing",
+            "Ok": "Ok"
         }
     },
     "Tasks": {

@@ -16,6 +16,7 @@ import { EncryptionService } from 'src/app/services/encryption.service';
 import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
 import { UsertypeService } from 'src/app/services/usertype.service';
 import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
+import { GetOwnUserDataResponse } from 'src/app/models/getownuserdataresponse';
 
 @Component({
   selector: 'app-profile',
@@ -24,16 +25,35 @@ import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.
 })
 export class ProfileComponent implements OnInit {
 
-  title = ''
-  username = ''
-  role = ''
-  admin: boolean = false
+  title = '';
+  logout: string = '';
+  admin: boolean = false;
+
+  username: string = '';
+  role: string = '';
+  overtime: string = '';
+  weeklyworkingminutes: string = '';
+  weeklyworkingdays: string = '';
+  yearvacationdays: string = '';
+
+  name: string = '';
+  type: string = '';
+  roleAdmin: string = '';
+  roleBoss: string = '';
+  roleEmployee: string = '';
+  userOvertime: number = 0;
+  weeklyWorkingMinutes: number = 0;
+  weeklyWorkingDays: number = 0;
+  yearVacationDays: number = 0;
 
   constructor(
     private translate: TranslateService, 
     public dialog: MatDialog,
-    private usertype : UsertypeService
-    ) { }
+    private usertype : UsertypeService,
+    private api : ApiService,
+    private encrypt: EncryptionService
+    ) {}
+
   ngOnInit(): void {
 
     //display spinner
@@ -48,12 +68,92 @@ export class ProfileComponent implements OnInit {
       //close spinner
       this.dialog.getDialogById('Profile_spinnerTranslationGlobal')?.close();
 
+      this.overtime = translation.Profile.Overtime;
+      this.weeklyworkingminutes = translation.Profile.WeeklyWorkingMinutes;
+      this.weeklyworkingdays = translation.Profile.WeeklyWorkingDays;
+      this.yearvacationdays = translation.Profile.YearVacationDays;
+      this.roleAdmin = translation.Admin.Add.RoleAdmin;
+      this.roleBoss = translation.Admin.Add.RoleBoss;
+      this.roleEmployee = translation.Admin.Add.RoleEmployee;
       this.title = translation.Toolbar.Title.Profile;
       this.username = translation.Profile.Username;
       this.role = translation.Profile.Role;
+      this.logout = translation.Profile.Logout;
+
+      this.getUser();
     });
 
     this.checkBtn();
+  }
+
+  private async getUser() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Profile_spinnerGet',
+      autoFocus: false,
+      disableClose: true
+    });
+
+    //variables
+    let publicKeyAnswer;
+    let getUserAnswer;
+    let publicKeyPromise;
+    let getUserPromise;
+
+    let publicKeyErrorCode: number;
+    let getUserErrorCode: number;
+    let session: string = localStorage.getItem('Session') as string;
+    let apiKey: string = localStorage.getItem('APIKey') as string;
+    let sessionAsync: string;
+    let publicKey: string;
+
+    //get public key
+    publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
+      'key/publickey/', {
+        apiKey: apiKey
+      }
+    );
+    publicKeyPromise = await publicKeyAnswer.toPromise();
+    publicKey = publicKeyPromise.publicKey;
+    publicKeyErrorCode = publicKeyPromise.errorCode;
+
+    //encrypt session asyncronous
+    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
+    console.log(sessionAsync)
+
+    //get user data from api
+    getUserAnswer = await this.api.sendPostRequest<GetOwnUserDataResponse>(
+      'users/get/', {
+        apiKey: apiKey,
+        session: sessionAsync
+      }
+    );
+    getUserPromise = await getUserAnswer.toPromise();
+    getUserErrorCode = getUserPromise.errorCode;
+    
+    this.name = getUserPromise.profile[0].name;
+    this.userOvertime = getUserPromise.profile[0].overtime;
+    this.weeklyWorkingMinutes = getUserPromise.profile[0].weeklyWorkingMinutes;
+    this.weeklyWorkingDays = getUserPromise.profile[0].weeklyWorkingDays;
+    this.yearVacationDays = getUserPromise.profile[0].yearVacationDays;
+    switch(getUserPromise.profile[0].type) {
+      case 2: {
+        this.type = this.roleAdmin;
+        break;
+      }
+      case 1: {
+        this.type = this.roleBoss;
+        break;
+      }
+      default: {
+        this.type = this.roleEmployee;
+        break
+      }
+    }
+
+    //close spinner
+    this.dialog.getDialogById('Profile_spinnerGet')?.close();
   }
 
   checkLogout(): void{

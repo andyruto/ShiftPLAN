@@ -61,6 +61,7 @@ export class UsertypeService {
         break;
       case 1:
         shown.tasks = true;
+        shown.admin = true;
         break;
       default:
         break;

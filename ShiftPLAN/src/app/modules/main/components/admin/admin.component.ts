@@ -6,7 +6,7 @@
  * author: Anne Naumann
  * last edit / by: 2021-06-11 / Anne Naumann
  */
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router'
 import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
@@ -62,6 +62,11 @@ export class AdminComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(): void{
+    this.setScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  setScreenSize() {
     let toolbar =  document.getElementsByTagName('mat-toolbar')[0]
     let bottomBar = document.getElementsByTagName('app-bottom-bar')[0]
     let header = document.getElementsByTagName('mat-tab-header')[0]
@@ -101,6 +106,13 @@ export class AdminComponent implements OnInit, AfterViewInit{
 
   private async refreshUsers() {
 
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Admin_spinnerRefresh',
+      autoFocus: false,
+      disableClose: true
+    });
+
     //variables
     let publicKeyAnswer;
     let getusersAnswer;
@@ -116,13 +128,6 @@ export class AdminComponent implements OnInit, AfterViewInit{
     let sessionAsync: string;
     let publicKey: string;
 
-    //display spinner
-    this.dialog.open(SpinnerComponent, {
-      id: 'Admin_spinnerRefresh',
-      autoFocus: false,
-      disableClose: true
-    });
-
     //get public key
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
@@ -134,7 +139,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
     publicKeyErrorCode = publicKeyPromise.errorCode;
 
     //encrypt session asyncronous
-    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
+    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
     //get visibel users from api
     getusersAnswer = await this.api.sendPostRequest<GetUsersResponse>(
@@ -142,7 +147,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
         apiKey: this.apiKey,
         session: sessionAsync,
         filter: 'all',
-        value: 'visibel'
+        value: 'visible'
       }
     );
     getusersPromise = await getusersAnswer.toPromise();
@@ -154,7 +159,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
         apiKey: this.apiKey,
         session: sessionAsync,
         filter: 'all',
-        value: 'invisibel'
+        value: 'invisible'
       }
     );
     getInvUsersPromise = await getInvUsersAnswer.toPromise();
