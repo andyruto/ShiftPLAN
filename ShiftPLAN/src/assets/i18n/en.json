@@ -113,7 +113,15 @@
         "Add" : {
             "LabelUsername" : "Username",
             "LabelPassword": "Password",
-            "CheckBoxUserHidden": "User is visible"
+            "CheckBoxUserHidden": "User is visible",
+            "LabelRole": "Role",
+            "RoleAdmin": "Admin",
+            "RoleBoss": "Boss",
+            "RoleEmployee": "Employee",
+            "LabelOvertime": "Overtime",
+            "LabelWorkingMinutes": "Weekly Working Minutes",
+            "LabelWorkingDays": "Weekly Working Days",
+            "LabelVacationDays": "Annual Vacation Days"
         }
     },
     "Tasks": {
