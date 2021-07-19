@@ -4,9 +4,9 @@
  *  Main typescript class for the admin-user component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-11 / Anne Naumann
+ * last edit / by: 2021-07-09 / Anne Naumann
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common'
 
@@ -15,13 +15,25 @@ import { Location } from '@angular/common'
   templateUrl: './admin-user.component.html',
   styleUrls: ['./admin-user.component.scss']
 })
-export class AdminUserComponent implements OnInit {
+export class AdminUserComponent implements OnInit, AfterViewChecked {
+
+  viewLoaded = false
+  contentLoaded = false
+  roles = ['']
 
   title = ''
   labelUsername = ''
   labelPassword = ''
   checkBoxUserHidden = ''
-  saveBtn = ''
+  editBtn = ''
+  labelRole = ''
+  roleAdmin = ''
+  roleBoss = ''
+  roleEmployee = ''
+  labelOvertime = ''
+  labelWorkingMinutes = ''
+  labelWorkingDays = ''
+  labelVacationDays = ''
 
   constructor(private translate: TranslateService, private location: Location) { }
 
@@ -31,7 +43,35 @@ export class AdminUserComponent implements OnInit {
       this.labelUsername = translation.Admin.Add.LabelUsername;
       this.labelPassword = translation.Admin.Add.LabelPassword;
       this.checkBoxUserHidden = translation.Admin.Add.CheckBoxUserHidden;
-      this.saveBtn = translation.SaveButton;
+      this.editBtn = translation.EditButton;
+      this.labelRole = translation.Admin.Add.LabelRole;
+      this.roleAdmin = translation.Admin.Add.RoleAdmin;
+      this.roleBoss = translation.Admin.Add.RoleBoss;
+      this.roleEmployee = translation.Admin.Add.RoleEmployee;
+      this.labelOvertime = translation.Admin.Add.LabelOvertime;
+      this.labelWorkingMinutes = translation.Admin.Add.LabelWorkingMinutes;
+      this.labelWorkingDays = translation.Admin.Add.LabelWorkingDays;
+      this.labelVacationDays = translation.Admin.Add.LabelVacationDays;
     });
+  }
+
+  ngAfterViewChecked(): void{
+    let btn = document.getElementById('saveUserBtn')
+
+    if(btn!.clientHeight != 0 && this.viewLoaded == false){
+      let toolbar =  document.getElementsByTagName('mat-toolbar')[0].clientHeight
+      let container = document.getElementById('buttonContainer')?.clientHeight
+      var scrollView = document.getElementById('adminUserScrollView')
+  
+      let screenHeight = window.innerHeight-toolbar-container!
+      scrollView!.style.height = screenHeight + 'px'
+
+      this.viewLoaded = true
+    }
+
+    if(this.roleAdmin != '' && this.contentLoaded == false){
+      this.roles = [this.roleAdmin, this.roleBoss, this.roleEmployee]
+      this.contentLoaded = true
+    }
   }
 }

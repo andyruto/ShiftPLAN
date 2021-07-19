@@ -5,9 +5,14 @@
  * layout defined in the html document.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-11 / Anne Naumann
+ * last edit / by: 2021-07-09 / Anne Naumann
  */ 
 
+#adminAddScrollView{
+    width: 95%;
+    display: block;
+    margin: 0 auto;
+}
 #checkBoxUserHidden{
     margin-left: 10%;
 }
@@ -15,6 +20,11 @@
     width: 80%;
     display: block;
     margin: 5% auto;
+}
+#buttonContainer{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 .displayBtn{
     display: block;

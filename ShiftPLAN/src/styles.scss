@@ -4,10 +4,15 @@
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
+//Using custom typography
+$custom-typography: mat-typography-config(
+  $font-family: '"Nunito", "Roboto", sans-serif;'
+  );
+
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat-core();
+@include mat-core($custom-typography);
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
@@ -101,4 +106,4 @@ $ShiftPLAN-theme: mat-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 html, body { height: 100%; }
-body { margin: 0; font-family: Nunito, "Helvetica Neue", sans-serif; }
+body { margin: 0;}

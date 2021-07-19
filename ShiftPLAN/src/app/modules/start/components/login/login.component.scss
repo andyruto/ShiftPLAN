@@ -5,7 +5,7 @@
  * layout defined in the html document.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-02 / Anne Naumann
+ * last edit / by: 2021-07-07 / Anne Naumann
  */ 
  @import '../../../../../styles.scss';
 
@@ -29,7 +29,6 @@
    align-items: center;
  }
  #labelUserName, #labelUserPassword{
-   font-family: Nunito;
    font-size: 16pt;
    color: white;
  }
@@ -37,6 +36,7 @@
    width: 80%;
    display: block;
    margin: 5% auto;
+   color: white;
  }
  #toggleBtn{
    background-color: transparent;
@@ -48,18 +48,15 @@
  }
  #resetPasswordBtn{
    color: white;
-   font-family: Nunito;
    font-size: 12pt;
    margin-left: 6%;
  }
  #warning{
-   font-family: Nunito;
    font-size: 13pt;
  }
  #loginBtn{
    margin:5% auto;
    display:block;
    padding: 2% 6% 2% 6%;
-   font-family: Nunito;
    font-size: 16pt;
  }
