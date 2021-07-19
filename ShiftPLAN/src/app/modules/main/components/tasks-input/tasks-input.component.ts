@@ -11,6 +11,7 @@ import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 
 export interface DialogData {
   selectedDay: number;
@@ -101,7 +102,19 @@ export class TasksInputComponent implements OnInit, AfterViewChecked {
   constructor(public dialog: MatDialog, private translate: TranslateService) { }
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'TasksInput_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('TasksInput_spinnerTranslationGlobal')?.close();
+
       this.mondayName = translation.Weekdays.Monday;
       this.tuesdayName = translation.Weekdays.Tuesday;
       this.wednesdayName = translation.Weekdays.Wednesday;
@@ -212,10 +225,22 @@ export class TasksInputDialog {
   sundayName = ''
 
   constructor(public dialogRef: MatDialogRef<TasksInputDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private translate: TranslateService) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private translate: TranslateService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'TasksInput_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('TasksInput_spinner')?.close();
+
       this.mondayName = translation.Weekdays.Monday;
       this.tuesdayName = translation.Weekdays.Tuesday;
       this.wednesdayName = translation.Weekdays.Wednesday;

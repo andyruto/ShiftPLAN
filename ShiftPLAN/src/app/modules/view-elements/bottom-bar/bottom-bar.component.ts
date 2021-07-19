@@ -7,7 +7,9 @@
  * last edit / by: 2021-05-29 / Anne Naumann
  */
 import { Component, HostBinding, Input, OnInit} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-bottom-bar',
@@ -22,9 +24,21 @@ export class BottomBarComponent implements OnInit{
   applications = ''
   statistics = ''
 
-  constructor(private translate : TranslateService){}
+  constructor(private translate : TranslateService, public dialog: MatDialog){}
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'BottomBar_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('BottomBar_spinnerTranslationGlobal')?.close();
+
       this.home = translation.BottomBar.Home;
       this.shifts = translation.BottomBar.Shifts;
       this.tasks = translation.BottomBar.Tasks;

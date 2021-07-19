@@ -10,6 +10,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router'
 import { UsertypeService } from 'src/app/services/usertype.service';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tasks',
@@ -42,10 +44,23 @@ export class TasksComponent implements OnInit, AfterViewInit {
   constructor(
     private translate: TranslateService, 
     private router : Router,
-    private usertype : UsertypeService) { }
+    private usertype : UsertypeService, 
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+      
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('Tasks_spinnerTranslationGlobal')?.close();
+
       this.title = translation.Toolbar.Title.Tasks;
       this.searchBarText = translation.Tasks.SearchBarText;
     });
@@ -63,15 +78,46 @@ export class TasksComponent implements OnInit, AfterViewInit {
     scrollView!.style.height = screenHeight + 'px'
   }
 
+  ngOnDestroy() {
+    this.dialog.closeAll();
+  }
+
   private async checkBtn() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinnerButtonCheck',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.admin = (await this.usertype.getShown()).admin;
+
+    //close spinner
+    this.dialog.getDialogById('Tasks_spinnerButtonCheck')?.close();
   }
 
   navigateToTask(): void{
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinnerNavigate_tasks-task',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/tasks-task'])
   }
 
   navigateToAddTask(): void{
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinnerNavigate_tasks-add',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/tasks-add'])
   }
 }

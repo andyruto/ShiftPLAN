@@ -16,6 +16,7 @@ import { EncryptionService } from 'src/app/services/encryption.service';
 import { GeneralResponse } from 'src/app/models/generalresponse';
 import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
 import { Router } from '@angular/router';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 
 @Component({
   selector: 'app-wizard-password',
@@ -40,7 +41,19 @@ export class WizardPasswordComponent implements OnInit{
     private router : Router) { }
   
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'WizardPassword_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('WizardPassword_spinnerTranslationGlobal')?.close();
+
       this.title = translation.WizardPassword.Title;
       this.labelPasswordNew = translation.WizardPassword.LabelPasswordNew;
       this.labelPasswordCheck = translation.WizardPassword.LabelPasswordCheck;
@@ -57,11 +70,22 @@ export class WizardPasswordComponent implements OnInit{
     }else {
       if(password === passwordCheck) {
 
-      this.loginRequest().then( _ => {
-        this.changePassword(password).then( _ => {
-          this.router.navigate(['start/wizardPermission']);
+        //display spinner
+          this.dialog.open(SpinnerComponent, {
+          id: 'WizardPassword_spinnerCall',
+          autoFocus: false,
+          disableClose: true
         });
-      });
+
+        this.loginRequest().then( _ => {
+          this.changePassword(password).then( _ => {
+
+            //close spinner
+            this.dialog.closeAll();
+
+            this.router.navigate(['start/wizardPermission']);
+          });
+        });
 
     }else {
       this.dialog.open(PasswordDialog, {
@@ -84,8 +108,11 @@ export class WizardPasswordComponent implements OnInit{
     let modifyErrorCode: number;
     let publicKey: string;
     let passwordHash: string;
-    let passwordAsync: string;
+    let passwordSync: string;
     let sessionAsync: string;
+    let oldPassword: string = "admin";
+    let oldPasswordHash: string;
+    let nonce: string;
     
     //get public key
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
@@ -97,27 +124,28 @@ export class WizardPasswordComponent implements OnInit{
     publicKey = publicKeyPromise.publicKey;
     publicKeyErrorCode = publicKeyPromise.errorCode;
 
-    //hash new password
+    //hash new password and old password
+    oldPasswordHash = await this.encrypt.convertToHash(oldPassword);
     passwordHash = await this.encrypt.convertToHash(newPassword);
 
-    //encrypt new password and session asyncronous
-    passwordAsync = await this.encrypt.encryptTextAsync(passwordHash, publicKey)
-    sessionAsync = await this.encrypt.encryptTextAsync(this.session, publicKey)
+    //encrypt session asyncronous
+    sessionAsync = await this.encrypt.encryptTextAsync(this.session, publicKey);
+
+    //encrypt new password syncronous
+    nonce = await this.encrypt.generateNonce();
+    passwordSync = await this.encrypt.encryptTextSync(passwordHash, nonce, oldPasswordHash)
 
     //change password
     modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
       'users/modify/', {
         apiKey: this.apiKey,
         session: sessionAsync,
-        name: 'admin',
-        password: passwordAsync
+        password: passwordSync,
+        nonce: nonce
       }
     );
     modifyPromise = await modifyAnswer.toPromise();
     modifyErrorCode = modifyPromise.errorCode;
-
-    //DEBUG
-    console.log(modifyErrorCode)
   }
 
   private async loginRequest() {
@@ -188,10 +216,22 @@ export class PasswordDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<PasswordDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<PasswordDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'PasswordDialog_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
+
+    //close spinner
+    this.dialog.getDialogById('PasswordDialog_spinner')?.close();
+
     this.warning = translation.WizardPassword.WarningNew;
     this.ok = translation.WizardPassword.Ok;
     });
@@ -207,10 +247,22 @@ export class InvalidPasswordDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<InvalidPasswordDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<InvalidPasswordDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'InvalidPasswordDialog_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
+
+    //close spinner
+    this.dialog.getDialogById('InvalidPasswordDialog_spinner')?.close();
+
     this.warning = translation.WizardPassword.InvalidPassword;
     this.ok = translation.WizardPassword.Ok;
     });

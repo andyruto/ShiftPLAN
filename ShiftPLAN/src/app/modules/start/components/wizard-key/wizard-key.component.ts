@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { GeneralResponse } from 'src/app/models/generalresponse';
 import { ApiService } from 'src/app/services/api.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 
 @Component({
   selector: 'app-wizard-key',
@@ -32,7 +33,19 @@ export class WizardKeyComponent implements OnInit {
     public dialog : MatDialog) { }
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'WizardKey_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('WizardKey_spinnerTranslationGlobal')?.close();
+
       this.title = translation.WizardKey.Title;
       this.label = translation.WizardKey.Label;
       this.warning = translation.WizardKey.Warning;
@@ -48,6 +61,14 @@ export class WizardKeyComponent implements OnInit {
   }
 
   checkURLAdress() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'WizardKey_spinnerCall',
+      autoFocus: false,
+      disableClose: true
+    });
+        
     let apiKeyTemp = localStorage.getItem('APIKey');
     if(apiKeyTemp) {
       this.api.sendPostRequest<GeneralResponse>(
@@ -56,16 +77,26 @@ export class WizardKeyComponent implements OnInit {
       ).then((response) => {
         response.subscribe(answer => {
           if(answer.errorCode === 0) {
+
+            //close spinner
+            this.dialog.closeAll();
+
             this.router.navigate(['start/wizardPermission']);
           }else {
+            
+            //close spinner
+            this.dialog.getDialogById('WizardKey_spinnerCall')?.close();
+
             this.dialog.open(KeyDialog, {
               autoFocus: false
             });
           }
         })
       })
+    }else {
+      //close spinner
+      this.dialog.getDialogById('WizardKey_spinnerCall')?.close();
     }
-
   }
 }
 
@@ -78,10 +109,22 @@ export class KeyDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<KeyDialog>, private translation: TranslateService) {}
+  constructor(public dialogRef: MatDialogRef<KeyDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'KeyDialog_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
+
+    //close spinner
+    this.dialog.getDialogById('KeyDialog_spinner')?.close();
+
     this.warning = translation.WizardKey.Key;
     this.ok = translation.WizardKey.Ok;
     });

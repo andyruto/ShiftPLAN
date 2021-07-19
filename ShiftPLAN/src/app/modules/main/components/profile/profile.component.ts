@@ -14,6 +14,8 @@ import { GeneralResponse } from 'src/app/models/generalresponse';
 import { Router } from '@angular/router';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
+import { UsertypeService } from 'src/app/services/usertype.service';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 
 @Component({
   selector: 'app-profile',
@@ -25,20 +27,54 @@ export class ProfileComponent implements OnInit {
   title = ''
   username = ''
   role = ''
+  admin: boolean = false
 
-  constructor(private translate: TranslateService, public dialog: MatDialog) { }
+  constructor(
+    private translate: TranslateService, 
+    public dialog: MatDialog,
+    private usertype : UsertypeService
+    ) { }
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Profile_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('Profile_spinnerTranslationGlobal')?.close();
+
       this.title = translation.Toolbar.Title.Profile;
       this.username = translation.Profile.Username;
       this.role = translation.Profile.Role;
     });
+
+    this.checkBtn();
   }
 
   checkLogout(): void{
     this.dialog.open(ProfileDialog, {
       autoFocus: false,
     });
+  }
+
+  private async checkBtn() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Profile_spinnerButtonCheck',
+      autoFocus: false,
+      disableClose: true
+    });
+
+    this.admin = (await this.usertype.getShown()).admin;
+        
+    //close spinner
+    this.dialog.getDialogById('Profile_spinnerButtonCheck')?.close();
   }
 }
 
@@ -58,20 +94,44 @@ export class ProfileDialog {
     private translate: TranslateService,
     private api : ApiService,
     private router : Router,
-    private encrypt : EncryptionService){}
+    private encrypt : EncryptionService, 
+    public dialog : MatDialog){}
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Profile_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('Profile_spinner')?.close();
+
       this.logoutLabel = translation.Profile.LogoutLabel;
       this.yesBtn = translation.YesButton
       this.noBtn = translation.NoButton
     });
   }
 
+  ngOnDestroy() {
+    //close spinner
+    this.dialog.closeAll();
+  }
+
   userLogout(): void{
 
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Logout_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.logout().then( _ => {
-      this.dialogRef.close();
       this.router.navigate(['start/login']);
     });
   }

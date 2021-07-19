@@ -7,7 +7,9 @@
  * last edit / by: 2021-06-24 / Anne Naumann
  */
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 
 @Component({
   selector: 'app-tasks-add',
@@ -25,10 +27,22 @@ export class TasksAddComponent implements OnInit, AfterViewChecked {
   checkBoxOnce = ''
   labelHint = ''
 
-  constructor(private translate: TranslateService) { }
+  constructor(private translate: TranslateService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'TasksAdd_spinnerTranslationGlobal',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      this.dialog.getDialogById('TasksAdd_spinnerTranslationGlobal')?.close();
+
       this.title = translation.Toolbar.Title.TasksAdd;
       this.labelDescription = translation.Tasks.Add.LabelDescription;
       this.checkBoxOnce = translation.Tasks.Add.CheckBoxOnce;

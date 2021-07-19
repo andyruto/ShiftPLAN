@@ -18,9 +18,9 @@
     </mat-form-field>
     <mat-form-field id="inputUsername" class="inputField">
         <mat-label id="labelUsername">{{labelUsername}}</mat-label>
-        <input matInput #inputUsername type="text">
+        <input matInput #inputUsername type="text" [readonly]="readOnlyName">
     </mat-form-field>
-    <mat-checkbox id="checkBoxUserHidden">{{checkBoxUserHidden}}</mat-checkbox>
+    <mat-checkbox id="checkBoxUserHidden" (change)="checking()" [checked]=checked [disabled]="disableCheckbox">{{checkBoxUserHidden}}</mat-checkbox>
     <mat-form-field id="inputOvertime" class="inputField">
         <mat-label id="labelOvertime">{{labelOvertime}}</mat-label>
         <input matInput #inputOvertime type="number">
@@ -39,5 +39,5 @@
     </mat-form-field>
 </cdk-virtual-scroll-viewport>
 <div id="buttonContainer">
-    <button mat-raised-button id="saveUserBtn" class="displayBtn" color="accent">{{editBtn}}</button>
+    <button mat-raised-button id="saveUserBtn" class="displayBtn" color="accent" (click)="changeUser(inputUsername.value)">{{editBtn}}</button>
 </div>

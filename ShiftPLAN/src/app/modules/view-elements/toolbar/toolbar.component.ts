@@ -10,6 +10,8 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common'
 import { Router } from '@angular/router'
+import { SpinnerComponent } from '../spinner/spinner.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-toolbar',
@@ -23,13 +25,28 @@ export class ToolbarComponent implements OnInit{
   settings = ''
   admin = ''
 
-  constructor(private translate : TranslateService, private location: Location, private router : Router){}
+  constructor(private translate : TranslateService, private location: Location, private router : Router, public dialog: MatDialog){}
   ngOnInit(): void {
+
+    //display spinner
+    let spinner = this.dialog.open(SpinnerComponent, {
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.translate.getTranslation(this.translate.defaultLang).subscribe((translation: any) => { 
+
+      //close spinner
+      spinner.close();
+
       this.profile = translation.Toolbar.Profile;
       this.settings = translation.Toolbar.Settings;
       this.admin = translation.Toolbar.Admin;
     });
+  }
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
   }
 
   @Input() public title: string = "Initial"
@@ -59,15 +76,47 @@ export class ToolbarComponent implements OnInit{
   }
 
   navigateBack(): void{
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Toolbar_spinnerNavigate_toolbar_back',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.location.back()
   }
   navigateToProfile(): void{
+    
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Toolbar_spinnerNavigate_toolbar_profile',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/main/profile'])
   }
   navigateToSettings(): void{
+        
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Toolbar_spinnerNavigate_toolbar_settings',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/main/settings'])
   }
   navigateToAdmin(): void{
+        
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Toolbar_spinnerNavigate_toolbar_admin',
+      autoFocus: false,
+      disableClose: true
+    });
+
     this.router.navigate(['/app/main/admin'])
   }
 }

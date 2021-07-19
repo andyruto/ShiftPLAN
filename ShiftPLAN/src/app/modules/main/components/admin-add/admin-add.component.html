@@ -24,7 +24,7 @@
         <mat-label id="labelPassword">{{labelPassword}}</mat-label>
         <input matInput #inputPassword type="password">
     </mat-form-field>
-    <mat-checkbox id="checkBoxUserHidden">{{checkBoxUserHidden}}</mat-checkbox>
+    <mat-checkbox id="checkBoxUserHidden" (change)="checking()" [checked]=checked>{{checkBoxUserHidden}}</mat-checkbox>
     <mat-form-field id="inputOvertime" class="inputField">
         <mat-label id="labelOvertime">{{labelOvertime}}</mat-label>
         <input matInput #inputOvertime type="number">
