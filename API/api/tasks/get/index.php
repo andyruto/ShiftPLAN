@@ -20,7 +20,7 @@
             $request = $rP->getBodyObject();
             //Looking for parameters
             if($rP->hasParameters(array('apiKey', 'session', 'id'))){
-                if(preg_match(Validation::IdOfNumbers, $request->id)){
+                if(is_integer($request->id)){
                     $ssM = new SslKeyManager();
                     //Decrypting the session
                     self::$errorCode = $ssM->aDecrypt($request->session);

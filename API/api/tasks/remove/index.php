@@ -31,7 +31,7 @@
                     $eC = ExecutionChecker::apiKeyPermissionSessionUserTypeChecker($request->apiKey, array(Permission::TasksWrite), $session, 1);
                     $eC->check(false);
                     //Validating the given parameters
-                    if(preg_match(Validation::IdOfNumbers, $request->id)){
+                    if(is_integer($request->id)){
                         $tM = TaskManager::obj($request->id);
                         self::$errorCode = $tM->getFinishCode();
                         if(self::$errorCode == ErrorCode::NoError){
