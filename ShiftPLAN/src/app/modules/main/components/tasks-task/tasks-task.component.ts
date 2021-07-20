@@ -4,7 +4,7 @@
  *  Main typescript class for the tasks-task component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-24 / Anne Naumann
+ * last edit / by: 2021-07-20 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -61,17 +61,18 @@ export class TasksTaskComponent implements OnInit {
 
   ngAfterViewChecked(): void{
     let btn = document.getElementById('editTaskBtn')
+    if(this.oneTimeTask == false){
+      if(btn!.clientHeight != 0 && this.viewLoaded == false){
+        let toolbar =  document.getElementsByTagName('mat-toolbar')[0].clientHeight
+        let nameInput = document.getElementsByTagName('mat-form-field')[0].clientHeight
+        let buttonContainer = document.getElementById('buttonContainer')?.clientHeight
+        var inputContainer = document.getElementById('inputContainer')
+    
+        let screenHeight = window.innerHeight-toolbar-nameInput-buttonContainer!
+        inputContainer!.style.height = screenHeight + 'px'
 
-    if(btn!.clientHeight != 0 && this.viewLoaded == false){
-      let toolbar =  document.getElementsByTagName('mat-toolbar')[0].clientHeight
-      let nameInput = document.getElementsByTagName('mat-form-field')[0].clientHeight
-      let buttonContainer = document.getElementById('buttonContainer')?.clientHeight
-      var inputContainer = document.getElementById('inputContainer')
-  
-      let screenHeight = window.innerHeight-toolbar-nameInput-buttonContainer!
-      inputContainer!.style.height = screenHeight + 'px'
-
-      this.viewLoaded = true
-    } 
+        this.viewLoaded = true
+      } 
+    }
   }
 }
