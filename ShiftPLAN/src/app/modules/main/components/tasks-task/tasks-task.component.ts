@@ -36,8 +36,8 @@ export class TasksTaskComponent implements OnInit {
   repeating: string = '';
   id: {id: number, type: string, navigationId: number} = window.history.state;
   description: string = '';
-  position: string = 'absolute';
   originalHeight: number = window.innerHeight;
+  hidden:boolean = false;
 
   //boolean that decides which html content is rendered
   oneTimeTask = true
@@ -106,9 +106,9 @@ export class TasksTaskComponent implements OnInit {
   setBtnPosition() {
     let currentHeight: number = window.innerHeight;
     if(currentHeight < this.originalHeight) {
-      this.position = 'static';
+      this.hidden = true;
     }else {
-      this.position = 'absolute';
+      this.hidden = false;
     }
   }
 
@@ -186,7 +186,7 @@ export class TasksTaskComponent implements OnInit {
 
     //check inputs
     if(this.description == '') {
-      this.dialog.open(InvalidInputDialog, {
+      this.dialog.open(TasksTaskInvalidInputDialog, {
         autoFocus: false
       })
       return
@@ -257,11 +257,11 @@ export class TasksTaskComponent implements OnInit {
   templateUrl: 'dialog.html',
   styleUrls: ['./tasks-task.component.scss'],
 })
-export class InvalidInputDialog {
+export class TasksTaskInvalidInputDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<InvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
+  constructor(public dialogRef: MatDialogRef<TasksTaskInvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
 
@@ -280,9 +280,5 @@ export class InvalidInputDialog {
     this.warning = translation.Tasks.Task.InputWarning;
     this.ok = translation.Tasks.Task.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }

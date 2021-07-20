@@ -145,11 +145,11 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
   templateUrl: 'dialog.html',
   styleUrls: ['./shifts-add.component.scss'],
 })
-export class InvalidInputDialog {
+export class ShiftsAddInvalidInputDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<InvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
+  constructor(public dialogRef: MatDialogRef<ShiftsAddInvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
 
@@ -168,9 +168,5 @@ export class InvalidInputDialog {
     this.warning = translation.Tasks.Add.InputWarning;
     this.ok = translation.Tasks.Add.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }
