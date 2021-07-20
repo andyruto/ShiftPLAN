@@ -9,7 +9,7 @@
 
  import { GeneralResponse } from 'src/app/models/generalresponse';
 
- // response interface to receive a response for the get users post request
+ // response interface to receive a response for the get taskss post request
 export interface GetTasksResponse extends GeneralResponse  {
    tasks: [{
       id: number,

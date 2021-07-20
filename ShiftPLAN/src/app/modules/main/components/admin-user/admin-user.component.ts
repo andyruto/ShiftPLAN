@@ -123,6 +123,7 @@ export class AdminUserComponent implements OnInit {
     }
   }
 
+  //resizing on size change (active keyboard)
   @HostListener('window:resize', ['$event'])
   setBtnPosition() {
     let currentHeight: number = window.innerHeight;

@@ -28,7 +28,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
   labelKey = ''
   apiKey: string = localStorage.getItem('APIKey') as string;
 
-  users: [{id: number, name: string}] = [{id: 1,name: ''}];
+  users: {id: number, name: string}[] = [{id: 1,name: ''}];
 
   constructor(
     private translate: TranslateService, 
@@ -164,7 +164,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
     getInvUsersPromise = await getInvUsersAnswer.toPromise();
     getInvUsersErrorCode = getInvUsersPromise.errorCode;
 
-    //addUsersToUI
+    //add users to UI
     this.users = getusersPromise.profiles;
     if(getInvUsersPromise.profiles) {
       this.users.push(...getInvUsersPromise.profiles);

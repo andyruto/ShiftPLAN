@@ -29,7 +29,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   admin: boolean = false
 
   //test content that needs to be replaced
-  tasks: [{id: number, name: string, type: string}] = [{id: 1, name: '', type: ''}];
+  tasks: {id: number, name: string, type: string}[] = [{id: 1, name: '', type: ''}];
 
   constructor(
     private translate: TranslateService, 
@@ -128,7 +128,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
     //addTasksToUI
     //DEBUG
-    this.tasks = [{id: 1, name: 'Schlafen', type: 'repeating'}];
+    this.tasks = [{id: 1, name: 'Schlafen', type: 'repeating'}, {id: 2, name: 'Schlafen', type: 'repeating'}];
     //  this.tasks = getTasksPromise.tasks;
 
     //close spinner

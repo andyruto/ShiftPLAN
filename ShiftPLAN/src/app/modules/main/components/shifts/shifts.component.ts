@@ -6,12 +6,16 @@
  * author: Anne Naumann
  * last edit / by: 2021-06-28 / Anne Naumann
  */
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router'
 import { UsertypeService } from 'src/app/services/usertype.service';
 import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
+import { ApiService } from 'src/app/services/api.service';
+import { EncryptionService } from 'src/app/services/encryption.service';
+import { GetShiftsResponse } from 'src/app/models/getshiftsresponse copy';
 
 @Component({
   selector: 'app-shifts',
@@ -20,20 +24,16 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ShiftsComponent implements OnInit, AfterViewInit {
 
-  shifts = [
-    {weekday: 'Montag', date: '05.07', start: '08:00', end: '14:00', task: 'Empfang_01', 
-      employees : ['ag167', 'an055', 'sw210']},
-    {weekday: 'Dienstag', date: '06.07', start: '14:00', end: '20:00', task: 'Empfang_02', 
-      employees : ['ag167', 'sw210']},
-    {weekday: 'Mittwoch', date: '07.07', start: '08:00', end: '09:00', task: 'Backup', 
-      employees : ['mt098', 'ag167']},
-    {weekday: 'Mittwoch', date: '07.07', start: '09:00', end: '14:00', task: 'Level1_Sup_01', 
-    employees : ['ag167']},
-    {weekday: 'Donnerstag', date: '08.07', start: '08:00', end: '14:00', task: 'Empfang_01', 
-      employees : ['ag167', 'an055', 'sw210']},
-    {weekday: 'Freitag', date: '09.07', start: '14:00', end: '20:00', task: 'Empfang_02', 
-    employees : ['ag167', 'sw210']},
-  ]
+  shifts: {id: number, weekday: string; date: string, start: string, end: string, task: string, employees: string[]}[] = 
+    [{
+      id: 1,
+      weekday: 'Montag', 
+      date: '05.07', 
+      start: '08:00', 
+      end: '14:00', 
+      task: 'Empfang_01', 
+      employees : ['ag167', 'an055', 'sw210']}
+    ]
 
   title = ''
   wordClock = ''
@@ -43,7 +43,10 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     private translate: TranslateService, 
     private router : Router,
     private usertype : UsertypeService, 
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private api: ApiService,
+    private encrypt: EncryptionService
+    ) { }
 
   ngOnInit(): void {
 
@@ -67,6 +70,11 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void{
+    this.setScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  setScreenSize() {
     let toolbar =  document.getElementsByTagName('mat-toolbar')[0].clientHeight
     let bottomBar = document.getElementsByTagName('app-bottom-bar')[0].clientHeight
     var scrollView = document.getElementById('shiftsScrollView')
@@ -116,5 +124,54 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     });
 
     this.router.navigate(['/app/shifts-add'])
+  }
+
+  private async refreshShifts() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Shifts_spinnerRefresh',
+      autoFocus: false,
+      disableClose: true
+    });
+
+    //variables
+    let publicKeyAnswer;
+    let getShiftsAnswer;
+    let publicKeyPromise;
+    let getShiftsPromise;
+
+    let publicKeyErrorCode: number;
+    let getShiftsErrorCode: number;
+    let session: string = localStorage.getItem('Session') as string;
+    let sessionAsync: string;
+    let publicKey: string;
+    let apiKey: string = localStorage.getItem('APIKey') as string;
+
+    //get public key
+    publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
+      'key/publickey/', {
+        apiKey: apiKey
+      }
+    );
+    publicKeyPromise = await publicKeyAnswer.toPromise();
+    publicKey = publicKeyPromise.publicKey;
+    publicKeyErrorCode = publicKeyPromise.errorCode;
+
+    //encrypt session asyncronous
+    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
+
+    //get shifts from api
+    getShiftsAnswer = await this.api.sendPostRequest<GetShiftsResponse>(
+      'shifts/get/', {
+        apiKey: apiKey,
+        session: sessionAsync,
+      }
+    );
+    getShiftsPromise = await getShiftsAnswer.toPromise();
+    getShiftsErrorCode = getShiftsPromise.errorCode;
+
+    //add shifts to UI
+    this.shifts = getShiftsPromise.shifts;
   }
 }
