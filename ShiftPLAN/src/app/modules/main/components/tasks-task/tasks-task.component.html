@@ -22,13 +22,13 @@
         <app-tasks-input></app-tasks-input>
     </div>
 </ng-template>
-<div id="buttonContainer">
+<div id="buttonContainer" [style.position]="position">
     <div id="editHeader">{{labelEdit}}</div>
     <div class="editContent">
         <span>{{labelEditTime}}:</span>
         <span id="editContentUser" class="alignText">(Placeholder)</span>
     </div>
-    <div class="editContent" [style.position]="position">
+    <div class="editContent">
         <span>{{labelEditPerson}}:</span>
         <span id="editContentTime" class="alignText">(Placeholder)</span>
     </div>

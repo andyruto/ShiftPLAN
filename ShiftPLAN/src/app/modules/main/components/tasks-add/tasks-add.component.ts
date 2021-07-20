@@ -104,7 +104,7 @@ export class TasksAddComponent implements OnInit, AfterViewChecked {
     if(isChecked){
       this.checked = true;
       hintDiv!.style.display = 'block'
-      inputDiv!.style.display = 'none'
+      inputDiv!.style.visibility ='hidden'
     }else{
       this.checked = false;
       hintDiv!.style.display = 'none'

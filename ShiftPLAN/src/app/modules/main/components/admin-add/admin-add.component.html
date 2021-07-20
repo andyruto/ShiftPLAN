@@ -8,6 +8,14 @@
 -->
 <app-toolbar title="{{title}}" [backBtn]=true></app-toolbar>
 <cdk-virtual-scroll-viewport id="adminAddScrollView" itemSize="50">
+    <mat-form-field class="inputField">
+        <mat-label>{{labelRole}}</mat-label>
+        <mat-select name="role" [(value)]="role">
+            <mat-option value="0">{{roleEmployee}}</mat-option>
+            <mat-option value="1">{{roleBoss}}</mat-option>
+            <mat-option value="2">{{roleAdmin}}</mat-option>
+        </mat-select>
+    </mat-form-field>
     <mat-form-field id="inputUsername" class="inputField">
         <mat-label id="labelUsername">{{labelUsername}}</mat-label>
         <input matInput #inputUsername type="text" [value]="userName" (input)="userName = inputUsername.value.trim()">
@@ -17,6 +25,22 @@
         <input matInput #inputPassword type="password" [value]="password" (input)="password = inputPassword.value">
     </mat-form-field>
     <mat-checkbox id="checkBoxUserHidden" (change)="checking()" [checked]=checked>{{checkBoxUserHidden}}</mat-checkbox>
+    <mat-form-field id="inputOvertime" class="inputField">
+        <mat-label id="labelOvertime">{{labelOvertime}}</mat-label>
+        <input matInput #inputOvertime type="number" [value]="overtime" (input)="overtime = +inputOvertime.value">
+    </mat-form-field>
+    <mat-form-field id="inputMinutes" class="inputField">
+        <mat-label id="labelMinutes">{{labelWorkingMinutes}}</mat-label>
+        <input matInput #inputMinutes type="number" [value]="minutes" (input)="minutes = +inputMinutes.value">
+    </mat-form-field>
+    <mat-form-field id="inputDays" class="inputField">
+        <mat-label id="labelDays">{{labelWorkingDays}}</mat-label>
+        <input matInput #inputDays type="number" [value]="days" (input)="days = +inputDays.value">
+    </mat-form-field>
+    <mat-form-field id="inputVacation" class="inputField">
+        <mat-label id="labelVacation">{{labelVacationDays}}</mat-label>
+        <input matInput #inputVacation type="number" [value]="vacation" (input)="vacation = +inputVacation.value">
+    </mat-form-field>
 </cdk-virtual-scroll-viewport>
 <div id="buttonContainer" [style.position]="position">
     <button mat-raised-button id="saveUserBtn" class="displayBtn" color="accent" (click)="addUser()">{{saveBtn}}</button>

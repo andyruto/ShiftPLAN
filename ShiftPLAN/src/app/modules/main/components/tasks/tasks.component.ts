@@ -27,9 +27,11 @@ export class TasksComponent implements OnInit, AfterViewInit {
   title = ''
   searchBarText = ''
   admin: boolean = false
+  repeating: string = ''
+  unique: string = ''
 
   //test content that needs to be replaced
-  tasks: {id: number, name: string, type: string}[] = [{id: 1, name: '', type: ''}];
+  tasks!: {id: number, name: string, type: string}[];
 
   constructor(
     private translate: TranslateService, 
@@ -56,9 +58,12 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
       this.title = translation.Toolbar.Title.Tasks;
       this.searchBarText = translation.Tasks.SearchBarText;
+      this.repeating = translation.Tasks.Repeating;
+      this.unique = translation.Tasks.Unique;
+
+      this.refreshTasks();
     });
 
-    this.refreshTasks();
     this.checkBtn();
   }
 
@@ -127,9 +132,21 @@ export class TasksComponent implements OnInit, AfterViewInit {
     getTasksErrorCode = getTasksPromise.errorCode;
 
     //addTasksToUI
-    //DEBUG
-    this.tasks = [{id: 1, name: 'Schlafen', type: 'repeating'}, {id: 2, name: 'Schlafen', type: 'repeating'}];
-    //  this.tasks = getTasksPromise.tasks;
+    this.tasks = [];
+    getTasksPromise.tasks.forEach(element => {
+      let type: string;
+      switch(element.recurring) {
+        case true: {
+          type = this.repeating;
+          break;
+        }
+        default: {
+          type = this.unique;
+          break;
+        }
+      }
+      this.tasks.push(...[{id: element.id, name: element.name, type: type}])
+    });
 
     //close spinner
     this.dialog.getDialogById('Tasks_spinnerRefresh')?.close();

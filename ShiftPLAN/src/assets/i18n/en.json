@@ -134,6 +134,8 @@
     },
     "Tasks": {
         "SearchBarText": "task name",
+        "Repeating": "repeating",
+        "Unique": "unique",
         "Add": {
             "LabelDescription": "Description",
             "CheckBoxOnce": "one-time task",

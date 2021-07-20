@@ -134,6 +134,8 @@
     },
     "Tasks": {
         "SearchBarText": "Aufgabenname",
+        "Repeating": "wiederholend",
+        "Unique": "einmalig",
         "Add": {
             "LabelDescription": "Beschreibung",
             "CheckBoxOnce": "Einmalige Aufgabe",

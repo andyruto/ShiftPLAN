@@ -26,15 +26,29 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
   viewLoaded = false
   contentLoaded = false
 
+  labelUsername = '';
+  labelPassword = '';
+
+  checked: boolean = false;
+  labelRole = '';
+  roleAdmin = '';
+  roleBoss = '';
+  roleEmployee = '';
+  labelOvertime = '';
+  labelWorkingMinutes = '';
+  labelWorkingDays = '';
+  labelVacationDays = '';
+
+  title = '';
+  role = '0';
   userName: string = '';
   password: string = '';
-  checked: boolean = false;
-
-  title = ''
-  labelUsername = ''
-  labelPassword = ''
-  checkBoxUserHidden = ''
-  saveBtn = ''
+  checkBoxUserHidden = '';
+  overtime: number = 0;
+  minutes: number = 0;
+  days: number = 0;
+  vacation: number = 0;
+  saveBtn = '';
   position: string = 'absolute';
   originalHeight: number = window.innerHeight;
 
@@ -44,7 +58,8 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
     private location: Location,
     private api: ApiService,
     private encrypt: EncryptionService,
-    public dialog : MatDialog
+    public dialog : MatDialog,
+    private cdRef:ChangeDetectorRef
     ) {}
 
   ngOnInit(): void {
@@ -66,6 +81,16 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
       this.labelPassword = translation.Admin.Add.LabelPassword;
       this.checkBoxUserHidden = translation.Admin.Add.CheckBoxUserHidden;
       this.saveBtn = translation.SaveButton;
+      this.labelRole = translation.Admin.Add.LabelRole;
+      this.roleAdmin = translation.Admin.Add.RoleAdmin;
+      this.roleBoss = translation.Admin.Add.RoleBoss;
+      this.roleEmployee = translation.Admin.Add.RoleEmployee;
+      this.labelOvertime = translation.Admin.Add.LabelOvertime;
+      this.labelWorkingMinutes = translation.Admin.Add.LabelWorkingMinutes;
+      this.labelWorkingDays = translation.Admin.Add.LabelWorkingDays;
+      this.labelVacationDays = translation.Admin.Add.LabelVacationDays;
+
+      this.cdRef.detectChanges();
     });
   }
 
@@ -164,7 +189,59 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
     addUserPromise = await addUserAnswer.toPromise();
     addUserErrorCode = addUserPromise.errorCode;
 
+    this.modifyUser();
+
     this.location.back();
+  }
+
+  private async modifyUser() {
+    //variables
+    let publicKeyAnswer;
+    let modifyAnswer;
+    let publicKeyPromise;
+    let modifyPromise;
+
+    let publicKeyErrorCode: number;
+    let modifyErrorCode: number;
+    let publicKey: string;
+    let sessionAsync: string;
+    let passwordHash: string;
+    let passwordAsync: string;
+    let apiKey: string = localStorage.getItem('APIKey') as string;
+    let session: string = localStorage.getItem('Session') as string;
+
+    //get public key
+    publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
+      'key/publickey/', {
+        apiKey: apiKey
+      }
+    );
+    publicKeyPromise = await publicKeyAnswer.toPromise();
+    publicKey = publicKeyPromise.publicKey;
+    publicKeyErrorCode = publicKeyPromise.errorCode;
+
+    //encrypt session asyncronous
+    sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
+
+    //hash & encrypt new password
+    passwordHash = await this.encrypt.convertToHash(this.password);
+    passwordAsync = await this.encrypt.encryptTextAsync(passwordHash,publicKey);
+
+    //modifyUser
+    modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
+      'users/modify/', {
+        apiKey: apiKey,
+        session: sessionAsync,
+        user: this.userName,
+        type: this.role,
+        overtime: this.overtime,
+        weeklyWorkingMinutes: this.minutes,
+        weeklyWorkingDays: this.days,
+        yearVacationDays: this.vacation
+      }
+    );
+    modifyPromise = await modifyAnswer.toPromise();
+    modifyErrorCode = modifyPromise.errorCode;
   }
 }
 

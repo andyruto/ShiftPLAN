@@ -15,7 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
 import { ApiService } from 'src/app/services/api.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
-import { GetShiftsResponse } from 'src/app/models/getshiftsresponse copy';
+import { GetShiftsResponse } from 'src/app/models/getshiftsresponse';
 
 @Component({
   selector: 'app-shifts',
