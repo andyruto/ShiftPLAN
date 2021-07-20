@@ -87,9 +87,9 @@
         "LogoutLabel": "Wollen Sie sich wirklich abmelden?",
         "Logout": "Logout",
         "Overtime": "Überstunden",
-        "WeeklyWorkingMinutes": "Wöchentliche Arbeitsminuten",
-        "WeeklyWorkingDays": "Wöchliche Arbeitstage",
-        "YearVacationDays": "Jähliche Urlaubstage"
+        "WeeklyWorkingMinutes": "Wöchentliche <br>Arbeitsminuten:",
+        "WeeklyWorkingDays": "Wöchentliche <br>Arbeitstage:",
+        "YearVacationDays": "Jährliche Urlaubstage"
     },
     "Settings": {
         "LabelTheme": "Erscheinungbild ändern",
