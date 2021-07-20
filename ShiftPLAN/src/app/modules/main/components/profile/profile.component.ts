@@ -4,7 +4,7 @@
  *  Main typescript class for the profile component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-07 / Anne Naumann
+ * last edit / by: 2021-07-20 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -28,6 +28,8 @@ export class ProfileComponent implements OnInit {
   title = '';
   logout: string = '';
   admin: boolean = false;
+
+  contentLoaded = false
 
   username: string = '';
   role: string = '';
@@ -84,6 +86,16 @@ export class ProfileComponent implements OnInit {
     });
 
     this.checkBtn();
+  }
+
+  ngAfterViewChecked(){
+    if(this.weeklyworkingminutes != '' && this.contentLoaded == false){
+      var labelDays = document.getElementById('labelWeeklyWorkingDays')
+      labelDays!.innerHTML = this.weeklyworkingdays
+      var labelMinutes = document.getElementById('labelWeeklyWorkingMinutes')
+      labelMinutes!.innerHTML = this.weeklyworkingminutes
+      this.contentLoaded = true
+    }
   }
 
   private async getUser() {

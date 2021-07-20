@@ -4,7 +4,7 @@
  *  Main typescript class for the settings-password component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-09 / Anne Naumann
+ * last edit / by: 2021-07-20 / Anne Naumann
  */
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -155,6 +155,9 @@ export class SettingsPasswordComponent implements OnInit {
       });
       this.checkDiv!.style.display = 'block'
       this.setDiv!.style.display = 'none'
+
+      //close spinner
+      this.dialog.getDialogById('SettingsPassword_spinnerSetNewPassword')?.close();
       return
     }
 
@@ -191,10 +194,6 @@ export class DifferentInputDialog {
     this.ok = translation.Settings.Password.Ok;
     });
   }
-
-  closeDialog(): void {
-    this.dialogRef.close();
-  }
 }
 
 @Component({
@@ -225,10 +224,6 @@ export class WrongInputDialog {
     this.warning = translation.Settings.Password.WarningPassword;
     this.ok = translation.Settings.Password.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }
 

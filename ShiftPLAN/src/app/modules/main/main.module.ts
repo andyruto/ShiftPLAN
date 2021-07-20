@@ -4,7 +4,7 @@
  * Module that contains all main components.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-06-26 / Anne Naumann
+ * last edit / by: 2021-07-20 / Anne Naumann
  */
 import { NgModule } from '@angular/core';
 import { MainRoutingModule } from './main-routing.module';
@@ -37,11 +37,11 @@ import { AdminComponent } from './components/admin/admin.component';
 import { MainComponent } from './main.component';
 import { MainNavigationComponent } from './components/main-navigation/main-navigation.component';
 import { SettingsInfoComponent } from './components/settings-info/settings-info.component';
-import { SettingsPasswordComponent } from './components/settings-password/settings-password.component';
+import { SettingsPasswordComponent, WrongInputDialog, DifferentInputDialog } from './components/settings-password/settings-password.component';
 import { SettingsThemeComponent } from './components/settings-theme/settings-theme.component';
 import { SettingsAdaptScreenComponent } from './components/settings-adapt-screen/settings-adapt-screen.component';
-import { AdminAddComponent } from './components/admin-add/admin-add.component';
-import { AdminUserComponent } from './components/admin-user/admin-user.component';
+import { AdminAddComponent, InvalidDataDialog } from './components/admin-add/admin-add.component';
+import { AdminUserComponent, InvalidInputDialog } from './components/admin-user/admin-user.component';
 import { TasksAddComponent } from './components/tasks-add/tasks-add.component';
 import { TasksInputComponent, TasksInputDialog } from './components/tasks-input/tasks-input.component';
 import { TasksTaskComponent } from './components/tasks-task/tasks-task.component';
@@ -69,10 +69,14 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MainNavigationComponent,
     SettingsInfoComponent,
     SettingsPasswordComponent,
+    WrongInputDialog,
+    DifferentInputDialog,
     SettingsThemeComponent,
     SettingsAdaptScreenComponent,
     AdminAddComponent,
+    InvalidDataDialog,
     AdminUserComponent,
+    InvalidInputDialog,
     TasksAddComponent,
     TasksInputComponent,
     TasksTaskComponent,

@@ -87,9 +87,9 @@
         "LogoutLabel": "Do you really want to logout?",
         "Logout": "Logout",
         "Overtime": "Overtime",
-        "WeeklyWorkingMinutes": "Weekly Workingminutes",
-        "WeeklyWorkingDays": "Weekly Workingdays",
-        "YearVacationDays": "Yearly Vacationdays"
+        "WeeklyWorkingMinutes": "Weekly Working <br>Minutes:",
+        "WeeklyWorkingDays": "Weekly Working <br>Days:",
+        "YearVacationDays": "Yearly Vacation Days"
     },
     "Settings": {
         "LabelTheme": "Change App Theme",

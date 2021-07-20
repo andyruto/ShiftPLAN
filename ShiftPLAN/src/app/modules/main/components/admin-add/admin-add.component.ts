@@ -4,7 +4,7 @@
  *  Main typescript class for the admin-add component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-07-09 / Anne Naumann
+ * last edit / by: 2021-07-20 / Anne Naumann
  */
 import { Component, OnInit, AfterViewChecked, ChangeDetectorRef, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -106,7 +106,7 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
 
     //check for invaled inputs
     if(this.userName == "" || this.password== "") {
-      this.dialog.open(InvalidInputDialog, {
+      this.dialog.open(InvalidDataDialog, {
         autoFocus: false
       })
       return
@@ -174,11 +174,11 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
   templateUrl: 'dialog.html',
   styleUrls: ['./admin-add.component.scss'],
 })
-export class InvalidInputDialog {
+export class InvalidDataDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<InvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
+  constructor(public dialogRef: MatDialogRef<InvalidDataDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
 
@@ -197,9 +197,5 @@ export class InvalidInputDialog {
     this.warning = translation.Admin.Add.InputWarning;
     this.ok = translation.Admin.Add.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }
