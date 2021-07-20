@@ -53,65 +53,61 @@
         //Function to create a shift
         public function createShift($assigned_user, $supervisor_user, $connected_task_id, $shift_start, $shift_end, $comment, $last_modified_by){
             Logger::getLogger()->log('INFO', 'Creating new shift');
-            if($this->taskHasNoShift($connected_task_id)){
-                //Creating new shift
-                $newShift = new Shift();
-                if(is_integer($assigned_user)){
-                    if($this->userExists($assigned_user)){
-                        $newShift->setAssigned_user($assigned_user);
-                    }
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'assigned_user\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
+            //Creating new shift
+            $newShift = new Shift();
+            if(is_integer($assigned_user)){
+                if($this->userExists($assigned_user)){
+                    $newShift->setAssigned_user($assigned_user);
                 }
-                if(is_integer($supervisor_user)){
-                    if($this->userExists($supervisor_user)){
-                        $newShift->setSupervisor_user($supervisor_user);
-                    }
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'supervisor_user\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                if(is_integer($connected_task_id)){
-                    if($this->taskExists($connected_task_id)){
-                        if($this->taskHasNoShift($connected_task_id)){
-                            $newShift->setTask($connected_task_id);
-                        }
-                    }
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'connected_task_id\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                if(preg_match(Validation::ExtendedDateFormat, $shift_start)){
-                    $newShift->setShift_start($shift_start);
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'shift_start\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                if(preg_match(Validation::ExtendedDateFormat, $shift_end)){
-                    $newShift->setShift_end($shift_end);
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'shift_end\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                if(preg_match(Validation::CommentOfNumbersAndCharacters64Len, $comment)){
-                    $newShift->setComment($comment);
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'comment\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                if(is_integer($last_modified_by)){
-                    $newShift->setLast_modified_by($last_modified_by);
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'last_modified_by\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                $newShift->setLast_modified();
-                //Storeing created shift
-                $this->eM->persist($newShift);
-                //Flushing changes
-                $this->eM->flush();
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'assigned_user\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
             }
+            if(is_integer($supervisor_user)){
+                if($this->userExists($supervisor_user)){
+                    $newShift->setSupervisor_user($supervisor_user);
+                }
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'supervisor_user\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            if(is_integer($connected_task_id)){
+                if($this->taskExists($connected_task_id)){
+                    $newShift->setTask($connected_task_id);
+                }
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'connected_task_id\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            if(preg_match(Validation::ExtendedDateFormat, $shift_start)){
+                $newShift->setShift_start($shift_start);
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'shift_start\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            if(preg_match(Validation::ExtendedDateFormat, $shift_end)){
+                $newShift->setShift_end($shift_end);
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'shift_end\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            if(preg_match(Validation::CommentOfNumbersAndCharacters64Len, $comment)){
+                $newShift->setComment($comment);
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'comment\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            if(is_integer($last_modified_by)){
+                $newShift->setLast_modified_by($last_modified_by);
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'last_modified_by\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            $newShift->setLast_modified();
+            //Storeing created shift
+            $this->eM->persist($newShift);
+            //Flushing changes
+            $this->eM->flush();
             return $this->errorCode;
         }
 
@@ -151,10 +147,8 @@
                     if(array_key_exists("task", $arrayOfChanges)){
                         if(is_integer($arrayOfChanges["task"])){
                             if($this->taskExists($arrayOfChanges["task"])){
-                                if($this->taskHasNoShift($arrayOfChanges["task"])){
-                                    $this->shift->setTask($arrayOfChanges["task"]);
-                                    Logger::getLogger()->log('DEBUG', 'Shift modified task to '.$arrayOfChanges["task"]);
-                                }
+                                $this->shift->setTask($arrayOfChanges["task"]);
+                                Logger::getLogger()->log('DEBUG', 'Shift modified task to '.$arrayOfChanges["task"]);
                             }
                         }else{
                             Logger::getLogger()->log('ERROR', 'validation failed on \'task\'');
@@ -299,20 +293,6 @@
                 $this->errorCode = ErrorCode::TaskNotFound;
             }else{
                 Logger::getLogger()->log('ERROR', 'Check if task exists function canceled due to '.$this->errorCode.' error already occured');
-            }
-            return False;
-        }
-
-        //Function to check if task already has a shift
-        public function taskHasNoShift($taskId){
-            if($this->errorCode == ErrorCode::NoError){
-                if(empty($this->eM->getRepository('shift')->findBy(array('task' => $taskId)))){
-                    return True;
-                }
-                Logger::getLogger()->log('ERROR', 'Task with id '.$taskId.' is already connected to a shift');
-                $this->errorCode = ErrorCode::TaskIsConnectedToShift;
-            }else{
-                Logger::getLogger()->log('ERROR', 'Check if task has no shift connected function canceled due to '.$this->errorCode.' error already occured');
             }
             return False;
         }

@@ -40,7 +40,7 @@
                             self::$errorCode = $tM->getFinishCode();
                             if(self::$errorCode == ErrorCode::NoError){
                                 //Adding the found task to the output
-                                self::$respondArray = array_merge(self::$respondArray, array('task' => $tM->getTask()));
+                                self::$respondArray = array_merge(self::$respondArray, $tM->getTask());
                             }
                         }
                     }
@@ -52,7 +52,7 @@
                 if($rP->hasParameters(array('apiKey', 'session'))){
                     $tasks = TaskManager::getAllTasks();
                     //Adding the tasks to the output
-                    self::$respondArray = array_merge(self::$respondArray, array('tasks' => $tasks));
+                    self::$respondArray = array_merge(self::$respondArray, $tasks);
                 }
                 else{
                     self::$errorCode = ErrorCode::ParameterMissmatch;

@@ -53,53 +53,51 @@
         //Function to create a time span
         public function createTimeSpan($appointed_day, $start, $end, $required_employees, $last_modified_by, $connected_task_id){
             Logger::getLogger()->log('INFO', 'Creating new time span');
-            if($this->taskHasNoTimeSpan($connected_task_id)){
-                //Creating new time span
-                $newTimeSpan = new TaskTimeSpan();
-                if(preg_match(Validation::SimpleDateFormat, $appointed_day)){
-                    $newTimeSpan->setAppointed_day($appointed_day);
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'appointed_day\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                if(preg_match(Validation::SimpleDateFormat, $start)){
-                    $newTimeSpan->setStart($start);
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'start\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                if(preg_match(Validation::SimpleDateFormat, $end)){
-                    $newTimeSpan->setEnd($end);
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'end\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                if(is_integer($required_employees)){
-                    $newTimeSpan->setRequired_employees($required_employees);
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'required_employees\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                if(is_integer($last_modified_by)){
-                    $newTimeSpan->setLast_modified_by($last_modified_by);
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'last_modified_by\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                $newTimeSpan->setLast_modified();
-                if(is_integer($connected_task_id)){
-                    if($this->taskExists($connected_task_id)){
-                        $newTimeSpan->setTask_id($connected_task_id);
-                    }
-                }else{
-                    Logger::getLogger()->log('ERROR', 'validation failed on \'connected_task_id\'');
-                    $this->errorCode = ErrorCode::ValidationFailed;
-                }
-                //Storeing created time span
-                $this->eM->persist($newTimeSpan);
-                //Flushing changes
-                $this->eM->flush();
+            //Creating new time span
+            $newTimeSpan = new TaskTimeSpan();
+            if(preg_match(Validation::SimpleDateFormat, $appointed_day)){
+                $newTimeSpan->setAppointed_day($appointed_day);
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'appointed_day\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
             }
+            if(preg_match(Validation::SimpleDateFormat, $start)){
+                $newTimeSpan->setStart($start);
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'start\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            if(preg_match(Validation::SimpleDateFormat, $end)){
+                $newTimeSpan->setEnd($end);
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'end\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            if(is_integer($required_employees)){
+                $newTimeSpan->setRequired_employees($required_employees);
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'required_employees\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            if(is_integer($last_modified_by)){
+                $newTimeSpan->setLast_modified_by($last_modified_by);
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'last_modified_by\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            $newTimeSpan->setLast_modified();
+            if(is_integer($connected_task_id)){
+                if($this->taskExists($connected_task_id)){
+                    $newTimeSpan->setTask_id($connected_task_id);
+                }
+            }else{
+                Logger::getLogger()->log('ERROR', 'validation failed on \'connected_task_id\'');
+                $this->errorCode = ErrorCode::ValidationFailed;
+            }
+            //Storeing created time span
+            $this->eM->persist($newTimeSpan);
+            //Flushing changes
+            $this->eM->flush();
             return $this->errorCode;
         }
 
@@ -258,20 +256,6 @@
                 $this->errorCode = ErrorCode::TaskNotFound;
             }else{
                 Logger::getLogger()->log('ERROR', 'Check if task exists function canceled due to '.$this->errorCode.' error already occured');
-            }
-            return False;
-        }
-
-        //Function to check if task already has a time span
-        public function taskHasNoTimeSpan($taskId){
-            if($this->errorCode == ErrorCode::NoError){
-                if(empty($this->eM->getRepository('taskTimeSpan')->findBy(array('task_id' => $taskId)))){
-                    return True;
-                }
-                Logger::getLogger()->log('ERROR', 'Task with id '.$taskId.' is already connected to a time span');
-                $this->errorCode = ErrorCode::TaskAlreadyHasTimeSpan;
-            }else{
-                Logger::getLogger()->log('ERROR', 'Check if task has no time span connected function canceled due to '.$this->errorCode.' error already occured');
             }
             return False;
         }

@@ -86,20 +86,33 @@
         //Function to get all Tasks formatted and ready to print
         static public function getAllTasks(){
             $eM = Bootstrap::getEntityManager();
-            $tasksDb = $eM->getrepository('task')->findAll();
-            $tasks = array();
-            foreach($tasksDb as $task){
-                $tasks[$task->getId()] = $task->getName();
+            $tasks = $eM->getrepository('task')->findAll();
+            $tasksArray = array();
+            foreach($tasks as $task){
+                if(empty($eM->getRepository('taskTimeSpan')->findBy(array('task_id' => $task->getId())))){
+                    $reccuring = false;
+                }else{
+                    $reccuring = true;
+                }
+                $taskArray = array('id' => $task->getId(), 'name' => $task->getName(), 'reccuring' => $reccuring);
+                $tasksArray = array_merge($tasksArray, array($taskArray));
             }
-            return $tasks;
+            return array('tasks' => array_values($tasksArray));
         }
 
         //Function to get task formatted and ready to print
         public function getTask(){
             if($this->errorCode == ErrorCode::NoError){
                 $task = array();
-                $task[$this->task->getId()] = $this->task->getName();
-                return $task;
+                if(empty($this->eM->getRepository('taskTimeSpan')->findBy(array('task_id' => $this->task->getId())))){
+                    $reccuring = false;
+                }else{
+                    $reccuring = true;
+                }
+                $taskArray = array('id' => $this->task->getId(), 'name' => $this->task->getName(), 'reccuring' => $reccuring);
+                $task = array_merge($task, array($taskArray));
+                Logger::getLogger()->log('INFO', 'Returning task');
+                return array('task' => array_values($task));
             }
         }
 
