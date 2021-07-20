@@ -6,7 +6,7 @@
  * author: Anne Naumann
  * last edit / by: 2021-06-27 / Anne Naumann
  */
-import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
@@ -62,6 +62,10 @@ export class ShiftsShiftComponent implements OnInit, AfterViewInit, AfterViewChe
   editBtn = ''
   cancelBtn = ''
 
+  
+  position: string = 'absolute'
+  originalHeight: number = window.innerHeight;
+
   timepickerTemp = {button: {name : ''}}
 
   constructor(private translate: TranslateService, public dialog: MatDialog) { }
@@ -109,6 +113,17 @@ export class ShiftsShiftComponent implements OnInit, AfterViewInit, AfterViewChe
     if(this.cancelBtn != '' && this.contentLoaded == false){
       this.timepickerTemp.button.name = this.cancelBtn
       this.contentLoaded = true
+    }
+  }
+
+  //resizing on size change (active keyboard)
+  @HostListener('window:resize', ['$event'])
+  setBtnPosition() {
+    let currentHeight: number = window.innerHeight;
+    if(currentHeight < this.originalHeight) {
+      this.position = 'static';
+    }else {
+      this.position = 'absolute';
     }
   }
 

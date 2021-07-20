@@ -6,8 +6,8 @@
  * author: Anne Naumann
  * last edit / by: 2021-06-28 / Anne Naumann
  */
-import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, AfterViewInit, AfterViewChecked, HostListener } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
@@ -34,7 +34,7 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
     }
   };
 
-  tasks = [
+  tasks: {index: number, name: string, timespans: string[]}[] = [
     {index: 0, name: 'Task1', timespans: ['Mittwoch, 10:00 - 13:00Uhr', 'Samstag, 10:00 - 13:00Uhr']},
     {index: 1, name: 'Task2', timespans: ['Dienstag, 10:00 - 13:00Uhr', 'Freitag, 10:00 - 13:00Uhr']},
     {index: 2, name: 'Task3', timespans: []}
@@ -55,6 +55,9 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
   labelRemark = ''
   saveBtn = ''
   cancelBtn = ''
+
+  position: string = 'absolute';
+  originalHeight: number = window.innerHeight;
 
   timepickerTemp = {button: {name : ''}}
 
@@ -104,8 +107,70 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
     }
   }
 
+  ngOnDestroy() {
+    this.dialog.closeAll();
+  }
+
+
+  @HostListener('window:resize', ['$event'])
+  setBtnPosition() {
+    let currentHeight: number = window.innerHeight;
+    if(currentHeight < this.originalHeight) {
+      this.position = 'static';
+    }else {
+      this.position = 'absolute';
+    }
+  }
+
   addEmployee(){
     this.employeeCount.push(1)
     console.log(this.employeeCount)
+  }
+
+  private async getTasks() {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinnerAdd',
+      autoFocus: false,
+      disableClose: true
+    });
+
+    //TODO
+  }
+}
+
+@Component({
+  selector: 'invalid-data-dialog',
+  templateUrl: 'dialog.html',
+  styleUrls: ['./shifts-add.component.scss'],
+})
+export class InvalidInputDialog {
+  warning = '';
+  ok = '';
+
+  constructor(public dialogRef: MatDialogRef<InvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
+
+  ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
+    this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
+
+    //close spinner
+    this.dialog.getDialogById('Tasks_spinner')?.close();
+
+    this.warning = translation.Tasks.Add.InputWarning;
+    this.ok = translation.Tasks.Add.Ok;
+    });
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 }

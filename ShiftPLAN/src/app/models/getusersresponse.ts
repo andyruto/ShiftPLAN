@@ -11,8 +11,8 @@
 
  // response interface to receive a response for the get users post request
 export interface GetUsersResponse extends GeneralResponse  {
-   profiles: [
+   profiles: [{
          id: number,
          name: string
-      ];
+   }];
 }

@@ -123,6 +123,7 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  //resizing on size change (active keyboard)
   @HostListener('window:resize', ['$event'])
   setBtnPosition() {
     let currentHeight: number = window.innerHeight;
@@ -301,7 +302,6 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
       );
     }
     modifyPromise = await modifyAnswer.toPromise();
-    console.log(modifyPromise)
     modifyErrorCode = modifyPromise.errorCode;
 
     this.location.back();

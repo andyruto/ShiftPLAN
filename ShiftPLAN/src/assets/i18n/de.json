@@ -134,15 +134,21 @@
     },
     "Tasks": {
         "SearchBarText": "Aufgabenname",
+        "Repeating": "wiederholend",
+        "Unique": "einmalig",
         "Add": {
             "LabelDescription": "Beschreibung",
             "CheckBoxOnce": "Einmalige Aufgabe",
-            "LabelHint": "Konkrete Uhrzeiten und Mitarbeiter können bei der Schichterstellung festgelegt werden."
+            "LabelHint": "Konkrete Uhrzeiten und Mitarbeiter können bei der Schichterstellung festgelegt werden.",
+            "InputWarning": "Es fehlen Angaben",
+            "Ok": "Ok"
         },
         "Task":{
             "LabelEdit": "Zuletzt geändert",
             "LabelEditPerson": "von",
-            "LabelEditTime": "am"
+            "LabelEditTime": "am",
+            "InputWarning": "Es fehlen Angaben",
+            "Ok": "Ok"
         },
         "Input": {
             "LabelValidity": "Gültig ab",

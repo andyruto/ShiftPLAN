@@ -134,15 +134,21 @@
     },
     "Tasks": {
         "SearchBarText": "task name",
+        "Repeating": "repeating",
+        "Unique": "unique",
         "Add": {
             "LabelDescription": "Description",
             "CheckBoxOnce": "one-time task",
-            "LabelHint": "Specific times and employees can be set by creating a shift."
+            "LabelHint": "Specific times and employees can be set by creating a shift.",
+            "InputWarning": "Input is missing",
+            "Ok": "Ok"
         },
         "Task":{
             "LabelEdit": "Last Edited",
             "LabelEditPerson": "from",
-            "LabelEditTime": "at"
+            "LabelEditTime": "at",
+            "InputWarning": "Input is missing",
+            "Ok": "Ok"
         },
         "Input": {
             "LabelValidity": "Valid from",

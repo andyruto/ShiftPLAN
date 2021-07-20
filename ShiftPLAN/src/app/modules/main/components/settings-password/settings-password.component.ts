@@ -79,6 +79,13 @@ export class SettingsPasswordComponent implements OnInit {
   }
 
   showSetPassword(): void{
+
+    if(this.oldPassword == '') {
+      this.dialog.open(DifferentInputDialog, {
+        autoFocus: false
+      });
+      return
+    }
     this.checkDiv!.style.display = 'none'
     this.setDiv!.style.display = 'block'
   }
