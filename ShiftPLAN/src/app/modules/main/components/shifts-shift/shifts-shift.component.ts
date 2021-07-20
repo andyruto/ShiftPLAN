@@ -7,7 +7,7 @@
  * last edit / by: 2021-06-27 / Anne Naumann
  */
 import { Component, OnInit, AfterViewInit, AfterViewChecked, HostListener } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import { SpinnerComponent } from 'src/app/modules/view-elements/spinner/spinner.component';
@@ -133,5 +133,36 @@ export class ShiftsShiftComponent implements OnInit, AfterViewInit, AfterViewChe
 
   contentChange(){
     this.contentChanged = true
+  }
+}
+
+@Component({
+  selector: 'invalid-data-dialog',
+  templateUrl: 'dialog.html',
+  styleUrls: ['./shifts-shift.component.scss'],
+})
+export class ShiftsShiftInvalidInputDialog {
+  warning = '';
+  ok = '';
+
+  constructor(public dialogRef: MatDialogRef<ShiftsShiftInvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
+
+  ngOnInit(): void {
+
+    //display spinner
+    this.dialog.open(SpinnerComponent, {
+      id: 'Tasks_spinner',
+      autoFocus: false,
+      disableClose: true
+    });
+
+    this.translation.getTranslation(this.translation.defaultLang).subscribe((translation: any) => {
+
+    //close spinner
+    this.dialog.getDialogById('Tasks_spinner')?.close();
+
+    this.warning = translation.Tasks.Add.InputWarning;
+    this.ok = translation.Tasks.Add.Ok;
+    });
   }
 }

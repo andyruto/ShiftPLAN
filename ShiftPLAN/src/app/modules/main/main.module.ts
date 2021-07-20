@@ -42,11 +42,11 @@ import { SettingsThemeComponent } from './components/settings-theme/settings-the
 import { SettingsAdaptScreenComponent } from './components/settings-adapt-screen/settings-adapt-screen.component';
 import { AdminAddComponent, InvalidDataDialog } from './components/admin-add/admin-add.component';
 import { AdminUserComponent, InvalidInputDialog } from './components/admin-user/admin-user.component';
-import { TasksAddComponent } from './components/tasks-add/tasks-add.component';
+import { TasksAddComponent, TasksAddInvalidInputDialog } from './components/tasks-add/tasks-add.component';
 import { TasksInputComponent, TasksInputDialog } from './components/tasks-input/tasks-input.component';
-import { TasksTaskComponent } from './components/tasks-task/tasks-task.component';
-import { ShiftsAddComponent } from './components/shifts-add/shifts-add.component';
-import { ShiftsShiftComponent } from './components/shifts-shift/shifts-shift.component';
+import { TasksTaskComponent, TasksTaskInvalidInputDialog } from './components/tasks-task/tasks-task.component';
+import { ShiftsAddComponent, ShiftsAddInvalidInputDialog } from './components/shifts-add/shifts-add.component';
+import { ShiftsShiftComponent, ShiftsShiftInvalidInputDialog } from './components/shifts-shift/shifts-shift.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   observer: true,
@@ -78,11 +78,15 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     AdminUserComponent,
     InvalidInputDialog,
     TasksAddComponent,
+    TasksAddInvalidInputDialog,
     TasksInputComponent,
     TasksTaskComponent,
+    TasksTaskInvalidInputDialog,
     TasksInputDialog,
     ShiftsAddComponent,
-    ShiftsShiftComponent
+    ShiftsAddInvalidInputDialog,
+    ShiftsShiftComponent,
+    ShiftsShiftInvalidInputDialog
   ],
   imports: [
     ViewElementsModule,

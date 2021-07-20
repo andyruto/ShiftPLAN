@@ -151,7 +151,7 @@ export class TasksAddComponent implements OnInit, AfterViewChecked {
 
       //check Inputs
       if(this.description == '') {
-        this.dialog.open(InvalidInputDialog, {
+        this.dialog.open(TasksAddInvalidInputDialog, {
           autoFocus: false
         });
 
@@ -182,11 +182,11 @@ export class TasksAddComponent implements OnInit, AfterViewChecked {
   templateUrl: 'dialog.html',
   styleUrls: ['./tasks-add.component.scss'],
 })
-export class InvalidInputDialog {
+export class TasksAddInvalidInputDialog {
   warning = '';
   ok = '';
 
-  constructor(public dialogRef: MatDialogRef<InvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
+  constructor(public dialogRef: MatDialogRef<TasksAddInvalidInputDialog>, private translation: TranslateService, public dialog : MatDialog) {}
 
   ngOnInit(): void {
 
@@ -205,9 +205,5 @@ export class InvalidInputDialog {
     this.warning = translation.Tasks.Add.InputWarning;
     this.ok = translation.Tasks.Add.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }
