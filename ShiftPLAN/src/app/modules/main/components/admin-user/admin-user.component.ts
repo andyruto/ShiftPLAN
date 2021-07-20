@@ -4,7 +4,7 @@
  *  Main typescript class for the admin-user component.
  * 
  * author: Anne Naumann
- * last edit / by: 2021-07-09 / Anne Naumann
+ * last edit / by: 2021-07-20 / Anne Naumann
  */
 import { Component, OnInit, AfterViewChecked, ChangeDetectorRef, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
   templateUrl: './admin-user.component.html',
   styleUrls: ['./admin-user.component.scss']
 })
-export class AdminUserComponent implements OnInit {
+export class AdminUserComponent implements OnInit, AfterViewChecked {
 
   viewLoaded = false
   contentLoaded = false
@@ -337,9 +337,5 @@ export class InvalidInputDialog {
     this.warning = translation.Admin.Add.InputWarning;
     this.ok = translation.Admin.Add.Ok;
     });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }

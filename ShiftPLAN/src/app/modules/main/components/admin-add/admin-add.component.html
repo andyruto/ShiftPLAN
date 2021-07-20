@@ -4,7 +4,7 @@
  -- HTML file specifying the layout for the admin-add.component.
  -- 
  -- author: Anne Naumann
- -- last edit / by: 2021-07-09 / Anne Naumann
+ -- last edit / by: 2021-07-20 / Anne Naumann
 -->
 <app-toolbar title="{{title}}" [backBtn]=true></app-toolbar>
 <cdk-virtual-scroll-viewport id="adminAddScrollView" itemSize="50">
@@ -18,6 +18,6 @@
     </mat-form-field>
     <mat-checkbox id="checkBoxUserHidden" (change)="checking()" [checked]=checked>{{checkBoxUserHidden}}</mat-checkbox>
 </cdk-virtual-scroll-viewport>
-<div id="buttonContainer" [style.position]="position"->
+<div id="buttonContainer" [style.position]="position">
     <button mat-raised-button id="saveUserBtn" class="displayBtn" color="accent" (click)="addUser()">{{saveBtn}}</button>
 </div>
