@@ -40,7 +40,8 @@
                 if($rP->hasParameters(array('apiKey', 'userName', 'chlgSolved', 'nonce'))){
                     $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
                     $uM = UserManager::obj($request->userName);
-                    if($uM->getFinishCode() == ErrorCode::NoError){
+                    self::$errorCode = $uM->getFinishCode();
+                    if(self::$errorCode == ErrorCode::NoError){
                         //Checking if user is hidden to hinder a login
                         if(!($uM->getDbObject())->getHidden()){
                             $eC->check($request->userName == 'admin');
