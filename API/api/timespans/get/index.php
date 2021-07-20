@@ -61,7 +61,7 @@
                     }
                 }
                 else{
-                    if($rP->hasParameters(array('apiKey', 'session', 'all'))){
+                    if($rP->hasParameters(array('apiKey', 'session'))){
                         $ssM = new SslKeyManager();
                         //Decrypting the session
                         self::$errorCode = $ssM->aDecrypt($request->session);
