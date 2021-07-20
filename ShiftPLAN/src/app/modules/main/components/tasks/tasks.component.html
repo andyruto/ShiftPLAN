@@ -16,7 +16,7 @@
 </mat-form-field>
 <div id="container">
     <cdk-virtual-scroll-viewport id="tasksScrollView" itemSize=tasks.length>
-        <div matRipple *cdkVirtualFor="let item of tasks; let last = last" (click)="navigateToTask()">
+        <div matRipple *cdkVirtualFor="let item of tasks; let last = last" (click)="navigateToTask(item.id, item.type)">
             <div class="taskRow">
                 <div class="taskName">{{item.name}}</div>
                 <span class="taskType">{{item.type}}</span>

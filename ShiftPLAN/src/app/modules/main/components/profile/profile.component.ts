@@ -120,7 +120,6 @@ export class ProfileComponent implements OnInit {
 
     //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
-    console.log(sessionAsync)
 
     //get user data from api
     getUserAnswer = await this.api.sendPostRequest<GetOwnUserDataResponse>(

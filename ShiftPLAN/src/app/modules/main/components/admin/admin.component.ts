@@ -28,8 +28,7 @@ export class AdminComponent implements OnInit, AfterViewInit{
   labelKey = ''
   apiKey: string = localStorage.getItem('APIKey') as string;
 
-  //test content that needs to be replaced
-  users: [id: number, name: string] = [1,''];
+  users: [{id: number, name: string}] = [{id: 1,name: ''}];
 
   constructor(
     private translate: TranslateService, 

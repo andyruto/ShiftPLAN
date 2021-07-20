@@ -301,7 +301,6 @@ export class AdminUserComponent implements OnInit {
       );
     }
     modifyPromise = await modifyAnswer.toPromise();
-    console.log(modifyPromise)
     modifyErrorCode = modifyPromise.errorCode;
 
     this.location.back();

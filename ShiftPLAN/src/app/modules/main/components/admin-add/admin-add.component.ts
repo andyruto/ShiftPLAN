@@ -162,7 +162,6 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
       }
     );
     addUserPromise = await addUserAnswer.toPromise();
-    console.log(addUserPromise)
     addUserErrorCode = addUserPromise.errorCode;
 
     this.location.back();

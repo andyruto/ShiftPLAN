@@ -9,7 +9,7 @@
 <app-toolbar title="Aufgabe" [backBtn]=true></app-toolbar>
 <mat-form-field id="taskDescription" class="inputField">
     <mat-label id="labelDescription">{{labelDescription}}</mat-label>
-    <input matInput #taskDescription type="text" value="{{taskName}}">
+    <input matInput #taskDescription type="text" value="{{taskName}}" [value]="description" (input)="description = taskDescription.value.trim()">
 </mat-form-field>
 <div *ngIf="oneTimeTask; else elseBlock">
     <mat-checkbox id="checkBoxTaskOnce" [checked]=true [disabled]=true>{{checkBoxOnce}}</mat-checkbox>
@@ -26,11 +26,11 @@
     <div id="editHeader">{{labelEdit}}</div>
     <div class="editContent">
         <span>{{labelEditTime}}:</span>
-        <span id="editContentUser" class="alignText">30.06.21</span>
+        <span id="editContentUser" class="alignText">(Placeholder)</span>
     </div>
-    <div class="editContent">
+    <div class="editContent" [style.position]="position">
         <span>{{labelEditPerson}}:</span>
-        <span id="editContentTime" class="alignText">ag167</span>
+        <span id="editContentTime" class="alignText">(Placeholder)</span>
     </div>
-    <button mat-raised-button id="editTaskBtn" class="displayBtn" color="accent" >{{editBtn}}</button>
+    <button mat-raised-button id="editTaskBtn" class="displayBtn" color="accent" (click)="modifyTask()">{{editBtn}}</button>
 </div>
