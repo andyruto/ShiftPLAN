@@ -94,10 +94,12 @@
                 Logger::getLogger()->log('ERROR', 'validation failed on \'connected_task_id\'');
                 $this->errorCode = ErrorCode::ValidationFailed;
             }
-            //Storeing created time span
-            $this->eM->persist($newTimeSpan);
-            //Flushing changes
-            $this->eM->flush();
+            if(self::$errorCode == ErrorCode::NoError){
+                //Storeing created time span
+                $this->eM->persist($newTimeSpan);
+                //Flushing changes
+                $this->eM->flush();
+            }
             return $this->errorCode;
         }
 
@@ -159,9 +161,11 @@
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
-                    //Flushing changes
-                    $this->eM->flush();
-                    Logger::getLogger()->log('INFO', 'Time span with id '.$this->timeSpan->getId().' got modified');
+                    if(self::$errorCode == ErrorCode::NoError){
+                        //Flushing changes
+                        $this->eM->flush();
+                        Logger::getLogger()->log('INFO', 'Time span with id '.$this->timeSpan->getId().' got modified');
+                    }
                 }else{
                     Logger::getLogger()->log('ERROR', 'Modify time span function canceled due to missing last_modified_by parameter');
                 }

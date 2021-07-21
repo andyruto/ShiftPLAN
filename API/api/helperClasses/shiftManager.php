@@ -104,10 +104,12 @@
                 $this->errorCode = ErrorCode::ValidationFailed;
             }
             $newShift->setLast_modified();
-            //Storeing created shift
-            $this->eM->persist($newShift);
-            //Flushing changes
-            $this->eM->flush();
+            if(self::$errorCode == ErrorCode::NoError){
+                //Storeing created shift
+                $this->eM->persist($newShift);
+                //Flushing changes
+                $this->eM->flush();
+            }
             return $this->errorCode;
         }
 
@@ -182,9 +184,11 @@
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
-                    //Flushing changes
-                    $this->eM->flush();
-                    Logger::getLogger()->log('INFO', 'Shift with id '.$this->shift->getId().' got modified');
+                    if(self::$errorCode == ErrorCode::NoError){
+                        //Flushing changes
+                        $this->eM->flush();
+                        Logger::getLogger()->log('INFO', 'Shift with id '.$this->shift->getId().' got modified');
+                    }
                 }else{
                     Logger::getLogger()->log('ERROR', 'Modify shift function canceled due to missing last_modified_by parameter');
                 }
