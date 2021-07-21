@@ -88,8 +88,13 @@ export class LoginComponent implements OnInit {
     let session: string = localStorage.getItem('Session') as string;
     let sessionAsync: string;
     let publicKey: string;
+    var count: number;
 
-    //get public key
+    //get public key    
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: this.apiKey
@@ -104,6 +109,10 @@ export class LoginComponent implements OnInit {
 
 
     //check if session is still open
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     this.api.sendPostRequest<GeneralResponse>(
       'login/', {
         apiKey: this.apiKey,
@@ -155,12 +164,17 @@ export class LoginComponent implements OnInit {
     let nonce: string;
     let chlgSolved: string;
     let session: string;
+    var count: number;
 
     //encrypt password to hash
     let password: string = inputPassword;
     let passwordHash: string = await this.encrypt.convertToHash(password);
 
     //First Loginstep: send username -> get challenge
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     firstAnswer = await this.api.sendPostRequest<LoginOneResponse>(
       'login/', {
         apiKey: this.apiKey,
@@ -201,6 +215,10 @@ export class LoginComponent implements OnInit {
     );
 
     //Second Loginstep: send solved challenge -> get session
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     secondAnswer = await this.api.sendPostRequest<LoginTwoResponse>(
       'login/', {
         apiKey: this.apiKey,
@@ -248,6 +266,10 @@ export class LoginComponent implements OnInit {
 
   resetPassword(): void{
     //TODO: implement function to reset password
+  }
+
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
 

@@ -13,11 +13,25 @@
 export interface GetShiftsResponse extends GeneralResponse  {
    shifts: [{
       id: number,
-      weekday: string,
-      date: string,
-      start: string,
-      end: string,
-      task: string,
-      employees: string[]
-}];
+      assignedUser: number,
+      supervisorUser: number,
+      connectedTaskId: number,
+      shiftStart: {
+         date: string,
+         timezone_type: number,
+         timezone: string
+      },
+      shiftEnd: {
+         date: string,
+         timezone_type: number,
+         timezone: string
+      },
+      comment: string,
+      lastModifiedBy: number,
+      lastModified: {
+         date: string,
+         timezone_type: number,
+         timezone: string
+      }
+   }];
 }

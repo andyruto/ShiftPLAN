@@ -186,6 +186,13 @@
         "LabelContact": "Contact",
         "LabelRemark": "Remark",
         "LabelComments": "Comments",
-        "LabelWarning": "Information has changed"
+        "LabelWarning": "Information has changed",
+        "Monday": "Monday",
+        "Tuesday": "Tuesday",
+        "Wednesday": "Wednesday",
+        "Thursday": "Thursday",
+        "Friday": "Friday",
+        "Saturday": "Saturday",
+        "Sunday": "Sunday"
     }
 }

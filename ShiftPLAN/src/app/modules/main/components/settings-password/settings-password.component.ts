@@ -122,8 +122,13 @@ export class SettingsPasswordComponent implements OnInit {
     let newPasswordHash: string;
     let newPasswordSync: string;
     let nonce: string;
+    var count: number;
 
-    //get public key
+    //get public key    
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -145,6 +150,10 @@ export class SettingsPasswordComponent implements OnInit {
     newPasswordSync = await this.encrypt.encryptTextSync(newPasswordHash, nonce, oldPasswordHash)
 
     //set new Password
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     setNewPasswordAnswer = await this.api.sendPostRequest<GeneralResponse>(
       'users/modify/', {
         apiKey: apiKey,
@@ -169,6 +178,9 @@ export class SettingsPasswordComponent implements OnInit {
     }
 
     this.location.back();
+  }
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
 
