@@ -66,6 +66,15 @@
             return array('profile' => array_values($user));
         }
 
+        //Function to get user profile
+        public function getUserProfileReduced(){
+            $user = array();
+            $userArray = array('id' => $this->user->getId(), 'name' => $this->user->getName());
+            $user = array_merge($user, array($userArray));
+            Logger::getLogger()->log('INFO', 'Returning profile of own user profile with reduced info');
+            return array('profile' => array_values($user));
+        }
+
         //Get users from database with filter
         public function getUsersWithFilter($filter, $value){
             if($this->getUserType() >= UserType::Manager){

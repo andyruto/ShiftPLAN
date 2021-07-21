@@ -208,7 +208,7 @@
                     if($shiftDbObjects !== Null){
                         //Formatting the output of the found shifts
                         foreach($shiftDbObjects as $shift){
-                            $shiftArray = array('id' => $shift->getId(), 'assignedUser' => $shift->getAssigned_user(), 'supervisorUser' => $shift->getSupervisor_user(), 'task' => $shift->getTask(), 'shiftStart' => $shift->getShift_start(), 'shiftEnd' => $shift->getShift_end(), 'comment' => $shift->getComment(), 'lastModifiedBy' => $shift->getLast_modified_by(), 'lastModified' => $shift->getLast_modified());
+                            $shiftArray = array('id' => $shift->getId(), 'assignedUser' => (UserManager::obj($shift->getAssigned_user()))->getUserProfileReduced()['profile'][0], 'supervisorUser' => (UserManager::obj($shift->getSupervisor_user()))->getUserProfileReduced()['profile'][0], 'task' => $shift->getTask(), 'shiftStart' => $shift->getShift_start(), 'shiftEnd' => $shift->getShift_end(), 'comment' => $shift->getComment(), 'lastModifiedBy' => (UserManager::obj($shift->getLast_modified_by()))->getUserProfileReduced()['profile'][0], 'lastModified' => $shift->getLast_modified());
                             $shifts = array_merge($shifts, array($shiftArray));
                         }
                     }else{
@@ -230,7 +230,7 @@
             $shift = array();
             $shiftArray = array();
             if($this->errorCode == ErrorCode::NoError){
-                $shiftArray = array('id' => $this->shift->getId(), 'assignedUser' => $this->shift->getAssigned_user(), 'supervisorUser' => $this->shift->getSupervisor_user(), 'task' => $this->shift->getTask(), 'shiftStart' => $this->shift->getShift_start(), 'shiftEnd' => $this->shift->getShift_end(), 'comment' => $this->shift->getComment(), 'lastModifiedBy' => $this->shift->getLast_modified_by(), 'lastModified' => $this->shift->getLast_modified());
+                $shiftArray = array('id' => $this->shift->getId(), 'assignedUser' => (UserManager::obj($this->shift->getAssigned_user()))->getUserProfileReduced()['profile'][0], 'supervisorUser' => (UserManager::obj($this->shift->getSupervisor_user()))->getUserProfileReduced()['profile'][0], 'task' => $this->shift->getTask(), 'shiftStart' => $this->shift->getShift_start(), 'shiftEnd' => $this->shift->getShift_end(), 'comment' => $this->shift->getComment(), 'lastModifiedBy' => (UserManager::obj($this->shift->getLast_modified_by()))->getUserProfileReduced()['profile'][0], 'lastModified' => $this->shift->getLast_modified());
                 $shift = array_merge($shift, array($shiftArray));
                 Logger::getLogger()->log('INFO', 'Returning shift stored from shift manager');
             }else{
@@ -248,7 +248,7 @@
                 if($shiftDbObjects !== Null){
                     //Formatting the output of the found shifts
                     foreach($shiftDbObjects as $shift){
-                        $shiftArray = array('id' => $shift->getId(), 'assignedUser' => $shift->getAssigned_user(), 'supervisorUser' => $shift->getSupervisor_user(), 'task' => $shift->getTask(), 'shiftStart' => $shift->getShift_start(), 'shiftEnd' => $shift->getShift_end(), 'comment' => $shift->getComment(), 'lastModifiedBy' => $shift->getLast_modified_by(), 'lastModified' => $shift->getLast_modified());
+                        $shiftArray = array('id' => $shift->getId(), 'assignedUser' => (UserManager::obj($shift->getAssigned_user()))->getUserProfileReduced()['profile'][0], 'supervisorUser' => (UserManager::obj($shift->getSupervisor_user()))->getUserProfileReduced()['profile'][0], 'task' => $shift->getTask(), 'shiftStart' => $shift->getShift_start(), 'shiftEnd' => $shift->getShift_end(), 'comment' => $shift->getComment(), 'lastModifiedBy' => (UserManager::obj($shift->getLast_modified_by()))->getUserProfileReduced()['profile'][0], 'lastModified' => $shift->getLast_modified());
                         $shifts = array_merge($shifts, array($shiftArray));
                     }
                 }
