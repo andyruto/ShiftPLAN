@@ -1,0 +1,51 @@
+/**
+ * home.component.scss
+ * 
+ * The stylesheet document for the home component styling the
+ * layout defined in the html document.
+ * 
+ * author: Anne Naumann
+ * last edit / by: 2021-06-23 / Anne Naumann
+ */ 
+@import '../../../../../styles.scss';
+
+.warnings{
+    mat-icon{
+        color:  #{rgba(mat-color($ShiftPLAN-accent), 500)};
+        margin-right: 2%;
+        vertical-align: middle;
+    }
+    display: block;
+    margin: 5% 2%;
+    border: solid 2px;
+    border-color: #{rgba(mat-color($ShiftPLAN-accent), 500)};;
+    padding: 5px;
+}
+.mat-divider{
+    border-top-color: #{rgba(mat-color($ShiftPLAN-primary), 500)};
+    border-top-width: 2px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#homeScrollView{
+    width: 95%;
+    display: block;
+    margin: 0 auto;
+    height: 200px;
+}
+#headerStatistics{
+    color: #375E99;
+    margin-bottom: 0px;
+    margin-top: 5%;
+}
+.alignText{
+    position: absolute;
+    left: 50%;
+}
+.firstShiftHeader{
+    color: #375E99;
+    font-size: 24px;
+}
+.secondShiftHeader{
+    font-weight: bold;
+}

@@ -1,0 +1,27 @@
+<!--
+ -- toolbar.component.html
+ -- 
+ -- HTML file specifying the layout for the toolbar.component.
+ -- 
+ -- author: Anne Naumann
+ -- last edit / by: 2021-06-05 / Anne Naumann
+ -->
+ <mat-toolbar id="toolbar" :host>
+    <button mat-icon-button id="backBtn" (click)="navigateBack()">
+        <mat-icon class="toolbar-icon" svgIcon="back-arrow"></mat-icon>
+    </button>
+    <span id="title">{{title}}</span>
+    <span class="spacer"></span>
+    <button mat-button id="profileBtn" class="toolbar-button" (click)="navigateToProfile()">
+        <mat-icon class="toolbar-icon" svgIcon="profile"></mat-icon>
+        <div class="toolbar-icon-text">{{profile}}</div>
+    </button>
+    <button mat-button id="settingsBtn" class="toolbar-button" (click)="navigateToSettings()">
+        <mat-icon class="toolbar-icon" svgIcon="settings"></mat-icon>
+        <div class="toolbar-icon-text">{{settings}}</div>
+    </button>
+    <button mat-button id="adminBtn" class="toolbar-button" (click)="navigateToAdmin()">
+        <mat-icon class="toolbar-icon" svgIcon="admin"></mat-icon>
+        <div class="toolbar-icon-text">{{admin}}</div>
+    </button>
+</mat-toolbar>

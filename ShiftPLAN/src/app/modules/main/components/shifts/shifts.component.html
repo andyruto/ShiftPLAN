@@ -1,0 +1,30 @@
+<!--
+ -- shifts.component.html
+ -- 
+ -- HTML file specifying the layout for the shifts.component.
+ -- 
+ -- author: Anne Naumann
+ -- last edit / by: 2021-06-28 / Anne Naumann
+ -->
+<app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true [adminBtn]=admin></app-toolbar>
+<div id="container">
+    <cdk-virtual-scroll-viewport id="shiftsScrollView" itemSize=shifts.length>
+        <div matRipple *cdkVirtualFor="let data of shifts; let last = last, let first = first" (click)="navigateToShift()">
+            <div class="shiftRow">
+                <mat-icon class="warningIcon" svgIcon="warning" *ngIf="first"></mat-icon>
+                <div class="headerText">{{data.weekday}}, {{data.date}}</div>
+                <div class="headerText">{{data.start}} - {{data.end}} {{wordClock}}</div>
+                <div>{{data.task}}</div>
+                <div *ngFor="let person of data.employees, index as i" class="personLabel">
+                    <span>{{person}}</span>
+                    <span *ngIf="i != data.employees.length-1">,</span>
+                    &nbsp;
+                </div>
+            </div>
+            <mat-divider *ngIf="!last"></mat-divider>
+        </div>
+    </cdk-virtual-scroll-viewport>
+    <button mat-fab color="accent" id="addShiftBtn" (click)="navigateToAddShift()">
+        <mat-icon svgIcon="plus"></mat-icon>
+    </button>
+</div>

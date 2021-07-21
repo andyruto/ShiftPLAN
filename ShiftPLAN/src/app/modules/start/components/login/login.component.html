@@ -1,0 +1,24 @@
+<!--
+ -- login.component.html
+ -- 
+ -- HTML file specifying the layout for the login.component.
+ -- 
+ -- author: Anne Naumann
+ -- last edit / by: 2021-06-02 / Anne Naumann
+ -->
+<div id="outerContainer"> 
+    <img id="banner" src="../../../../../assets/images/banner_transparent.png" >
+    <mat-form-field id="inputUserName">
+        <mat-label id="labelUserName">{{userName}}</mat-label>
+        <input matInput #userInputName type="text">
+    </mat-form-field>
+    <mat-form-field id="inputUserPassword">
+        <mat-label id="labelUserPassword">{{password}}</mat-label>
+        <input matInput #userInputPassword type="password">
+        <button id="toggleBtn" matSuffix mat-button-toggle (click)="showPassword()">
+            <mat-icon id="eyeIcon" svgIcon="eye-slash"></mat-icon>
+        </button>
+    </mat-form-field>
+    <button mat-button id="resetPasswordBtn" (click)="resetPassword()">{{resetBtn}}</button>
+    <button mat-raised-button color="accent" id="loginBtn" (click)="checkLoginValues(userInputName.value, userInputPassword.value)">Login</button>
+</div>

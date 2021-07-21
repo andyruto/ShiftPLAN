@@ -1,0 +1,23 @@
+<!--
+-- tasks-add.component.html
+-- 
+-- HTML file specifying the layout for the tasks-add.component.
+-- 
+-- author: Anne Naumann
+-- last edit / by: 2021-06-24 / Anne Naumann
+-->
+<app-toolbar title="{{title}}" [backBtn]=true></app-toolbar>
+<mat-form-field id="taskDescription" class="inputField">
+    <mat-label id="labelDescription">{{labelDescription}}</mat-label>
+    <input matInput #taskDescription type="text" [value]="description" (input)="description = taskDescription.value.trim()">
+</mat-form-field>
+<mat-checkbox id="checkBoxTaskOnce" #checkBox (change)="showHint(checkBox.checked)" [checked]=checked>{{checkBoxOnce}}</mat-checkbox>
+<div id="taskOnceHint">
+    {{labelHint}}
+</div>
+<div id="inputContainer">
+    <app-tasks-input></app-tasks-input>
+</div>
+<div id="buttonContainer" [style.position]="position">
+    <button mat-raised-button id="saveTaskBtn" class="displayBtn" color="accent" (click)="saveTask()">{{saveBtn}}</button>
+</div>

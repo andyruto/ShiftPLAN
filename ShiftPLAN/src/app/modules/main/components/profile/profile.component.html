@@ -1,0 +1,37 @@
+<!--
+ -- profile.component.html
+ -- 
+ -- HTML file specifying the layout for the profile.component.
+ -- 
+ -- author: Anne Naumann
+ -- last edit / by: 2021-06-23 / Anne Naumann
+ -->
+
+<app-toolbar title="{{title}}" [settingsBtn]=true [adminBtn]=admin></app-toolbar>
+<mat-list>
+    <mat-list-item id="labelUserName">
+        <span>{{username}}:</span>
+        <span id="contentUserName" class="alignText">{{name}}</span>
+    </mat-list-item>
+    <mat-list-item id="labelRole">
+        <span>{{role}}:</span>
+        <span id="contentRole" class="alignText">{{type}}</span>
+    </mat-list-item>
+    <mat-list-item id="labelOvertime">
+        <span>{{overtime}}:</span>
+        <span id="contentOvertime" class="alignText">{{userOvertime}}</span>
+    </mat-list-item>
+    <mat-list-item>
+        <span id="labelWeeklyWorkingMinutes"></span>
+        <span id="contentWeeklyWorkingMinutes" class="alignText">{{weeklyWorkingMinutes}}</span>
+    </mat-list-item>
+    <mat-list-item>
+        <span id="labelWeeklyWorkingDays"></span>
+        <span id="contentWeeklyWorkingDays" class="alignText">{{weeklyWorkingDays}}</span>
+    </mat-list-item>
+    <mat-list-item id="labelYearVacationDays">
+        <span>{{yearvacationdays}}:</span>
+        <span id="contentYearVacationDays" class="alignText">{{yearVacationDays}}</span>
+    </mat-list-item>
+</mat-list>
+<button mat-raised-button id="logoutBtn" color="accent" (click)="checkLogout()">{{logout}}</button>

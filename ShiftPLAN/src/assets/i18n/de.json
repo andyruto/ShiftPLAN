@@ -1,0 +1,198 @@
+{
+    "Welcome": "Willkommen",
+    "YesButton": "Ja",
+    "NoButton": "Nein",
+    "NextButton": "Weiter",
+    "SaveButton": "Speichern",
+    "CancelButton": "Abbrechen",
+    "EditButton": "Ändern",
+    "WordClock": "Uhr",
+      "WizardAddress": {
+        "Title": "API Adresse",
+        "Label": "Geben Sie die API Adresse ein:",
+        "Warning": "Die Adresse ist ungültig!",
+        "Error404": "Error 404: Unter der angegebenen URL kann keine Verbindung gefunden werden!",
+        "Error": "Error!",
+        "SameOrigin": "Verbindung konnte unter der empfohlenen Adresse nicht gefunden werden bitte Kontaktieren sie ihren Admin!",
+        "NoInput": "Angabe Leer!",
+        "Ok": "Ok"
+    },
+    "WizardKey": {
+        "Title": "API Schlüssel",
+        "Label": "Geben Sie den API Schlüssel ein:",
+        "Warning": "Der Schlüssel ist ungültig!",
+        "Key": "API-Key stimmt nicht überein!",
+        "Ok": "Ok"
+    },
+    "WizardPassword": {
+        "Title": "Passwort",
+        "LabelPasswordNew": "Passwort eingeben:",
+        "LabelPasswordCheck": "Passwort bestätigen:",
+        "WarningNew": "Die Passwörter sind unterschiedlich!",
+        "InvalidPassword": "Password nicht zugelassen!",
+        "Ok": "Ok"
+    },
+    "WizardPermission": {
+        "Title": "Berechtigungen"
+    },
+    "Login": {
+        "UserName": "Benutzername",
+        "Password": "Passwort",
+        "ResetButton": "Passwort zurücksetzen",
+        "Warning": "Benutzername oder Passwort sind falsch!",
+        "Ok": "Ok",
+        "Empty": "Formular ist nicht komplett ausgefüllt!",
+        "UserWrong": "Der Benutzername wurde nicht gefunden!",
+        "PasswordWrong": "Das Passwort ist Falsch!",
+        "DefaultWrong": "Etwas ist schief gelaufen!"
+    },
+    "Weekdays": {
+        "Monday": "Montag",
+        "Tuesday": "Dienstag",
+        "Wednesday": "Mittwoch",
+        "Thursday": "Donnerstag",
+        "Friday": "Freitag",
+        "Saturday": "Samstag",
+        "Sunday": "Sonntag"
+    },
+    "Toolbar": {
+        "Profile": "Profil",
+        "Settings": "Einstellungen",
+        "Admin": "Admin",
+        "Title": {
+            "Home": "Übersicht",
+            "Shifts": "Schichten",
+            "Tasks": "Aufgaben",
+            "Statistics": "Statistiken",
+            "Profile": "Profil",
+            "Settings": "Einstellungen",
+            "Admin": "Admin",
+            "AdminAdd": "Neuer Benutzer",
+            "AdminUser": "Benutzer bearbeiten",
+            "TasksAdd": "Neue Aufgabe",
+            "ShiftsAdd": "Neue Schicht",
+            "ShiftsShift": "Schicht Informationen"
+        }
+    },
+    "BottomBar": {
+        "Home": "Übersicht",
+        "Shifts": "Schichten",
+        "Tasks": "Aufgaben",
+        "Applications": "Anträge",
+        "Statistics": "Statistiken"
+    },
+    "Profile": {
+        "Username": "Benutzername",
+        "Role": "Rolle",
+        "LogoutLabel": "Wollen Sie sich wirklich abmelden?",
+        "Logout": "Logout",
+        "Overtime": "Überstunden",
+        "WeeklyWorkingMinutes": "Wöchentliche <br>Arbeitsminuten:",
+        "WeeklyWorkingDays": "Wöchentliche <br>Arbeitstage:",
+        "YearVacationDays": "Jährliche Urlaubstage"
+    },
+    "Settings": {
+        "LabelTheme": "Erscheinungbild ändern",
+        "LabelAdapt": "Übersicht anpassen",
+        "LabelPassword": "Passwort ändern",
+        "LabelInfo": "App Informationen",
+        "Theme": {
+            "LabelMode": "Darstellungsmodus",
+            "LightButton": "Hell",
+            "DarkButton": "Dunkel"
+        },
+        "Adapt": {
+            "LabelStatistic": "Statistiken anzeigen"
+        },
+        "Password": {
+            "LabelPassword": "Aktuelles Passwort eingeben",
+            "LabelNewPassword": "Neues Passwort eingeben",
+            "LabelCheckPassword": "Passwort bestätigen",
+            "WarningPassword": "Falsches Passwort!",
+            "WarningCheckPassword": "Passwörter sind nicht gleich!",
+            "Ok": "Ok"
+        }
+    },
+    "Admin": {
+        "TabUser": "Benutzer",
+        "LabelApiKey": "API Schlüssel",
+        "Add" : {
+            "LabelUsername" : "Benutzername",
+            "LabelPassword": "Passwort",
+            "CheckBoxUserHidden": "Benutzer ist sichtbar",
+            "LabelRole": "Rolle",
+            "RoleAdmin": "Admin",
+            "RoleBoss": "Chef",
+            "RoleEmployee": "Mitarbeiter",
+            "LabelOvertime": "Überstunden",
+            "LabelWorkingMinutes": "Wöchentliche Arbeitsminuten",
+            "LabelWorkingDays": "Wöchentliche Arbeitstage",
+            "LabelVacationDays": "Jährliche Urlaubstage",
+            "InputWarning": "Es fehlen Angaben",
+            "Ok": "Ok"
+        }
+    },
+    "Tasks": {
+        "SearchBarText": "Aufgabenname",
+        "Repeating": "wiederholend",
+        "Unique": "einmalig",
+        "Add": {
+            "LabelDescription": "Beschreibung",
+            "CheckBoxOnce": "Einmalige Aufgabe",
+            "LabelHint": "Konkrete Uhrzeiten und Mitarbeiter können bei der Schichterstellung festgelegt werden.",
+            "InputWarning": "Es fehlen Angaben",
+            "Ok": "Ok"
+        },
+        "Task":{
+            "LabelEdit": "Zuletzt geändert",
+            "LabelEditPerson": "von",
+            "LabelEditTime": "am",
+            "InputWarning": "Es fehlen Angaben",
+            "Ok": "Ok"
+        },
+        "Input": {
+            "LabelValidity": "Gültig ab",
+            "LabelStart": "Beginn",
+            "LabelEnd": "Ende",
+            "LabelPersons": "benötigte Personen",
+            "AddDayBtn": "Tag hinzufügen"
+        }
+    },
+    "Statistics": {
+        "LabelWorkingHours": "Arbeitsstunden",
+        "LabelWorkingDays": "Arbeitstage",
+        "LabelSickDays": "Krankheitstage",
+        "LabelVacationDays": "Urlaubstage",
+        "WordDays": "Tage",
+        "WordHours": "Stunden"
+    },
+    "Home": {
+        "WarningChanges": "Es gibt Änderungen in deinen Schichten",
+        "WarningShifts": "Vorsicht! Es gibt ungeplante Schichten",
+        "WordFrom": "von",
+        "WordTo": "bis",
+        "LabelContact": "Ansprechpartner/in",
+        "LabelColleagues": "Kollegen",
+        "LabelTasks": "Aufgabe",
+        "LabelStatistics": "Statistiken"
+    },
+    "Shifts": {
+        "LabelTask": "Aufgabe",   
+        "LabelTimespan": "Zeitspanne",
+        "LabelValidity": "Gültig ab",
+        "LabelStart": "Schichtbeginn",
+        "LabelEnd": "Schichtende",
+        "LabelEmployee": "Mitarbeiter",
+        "LabelContact": "Ansprechpartner",
+        "LabelRemark": "Anmerkung",
+        "LabelComments": "Kommentare",
+        "LabelWarning": "Angaben haben sich geändert",
+        "Monday": "Montag",
+        "Tuesday": "Dienstag",
+        "Wednesday": "Mitwoch",
+        "Thursday": "Donnerstag",
+        "Friday": "Freitag",
+        "Saturday": "Samstag",
+        "Sunday": "Sonntag"
+    }
+}

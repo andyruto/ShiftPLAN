@@ -1,0 +1,36 @@
+<!--
+-- tasks-task.component.html
+-- 
+-- HTML file specifying the layout for the tasks-task.component.
+-- 
+-- author: Anne Naumann
+-- last edit / by: 2021-06-28 / Anne Naumann
+-->
+<app-toolbar title="Aufgabe" [backBtn]=true></app-toolbar>
+<mat-form-field id="taskDescription" class="inputField">
+    <mat-label id="labelDescription">{{labelDescription}}</mat-label>
+    <input matInput #taskDescription type="text" value="{{taskName}}" [value]="description" (input)="description = taskDescription.value.trim()">
+</mat-form-field>
+<div *ngIf="oneTimeTask; else elseBlock">
+    <mat-checkbox id="checkBoxTaskOnce" [checked]=true [disabled]=true>{{checkBoxOnce}}</mat-checkbox>
+    <div id="taskOnceHint">
+        {{labelHint}}
+    </div>
+</div>
+<ng-template #elseBlock>
+    <div id="inputContainer">
+        <app-tasks-input></app-tasks-input>
+    </div>
+</ng-template>
+<div id="buttonContainer" [hidden]="hidden">
+    <div id="editHeader">{{labelEdit}}</div>
+    <div class="editContent">
+        <span>{{labelEditTime}}:</span>
+        <span id="editContentUser" class="alignText">(Placeholder)</span>
+    </div>
+    <div class="editContent">
+        <span>{{labelEditPerson}}:</span>
+        <span id="editContentTime" class="alignText">(Placeholder)</span>
+    </div>
+    <button mat-raised-button id="editTaskBtn" class="displayBtn" color="accent" (click)="modifyTask()">{{editBtn}}</button>
+</div>

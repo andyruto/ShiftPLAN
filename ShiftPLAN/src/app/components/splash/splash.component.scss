@@ -1,0 +1,22 @@
+/**
+ * splash.component.scss
+ * 
+ * The stylesheet document for the splash component styling the
+ * layout defined in the html document.
+ * 
+ * author: Sascha W.
+ * last edit / by: 2021-06-17 / Sascha W.
+ */
+  //imports:
+  @import '../../../styles.scss';
+
+ #iconContainer{
+     height: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: #{rgba(mat-color($ShiftPLAN-primary), 500)};
+ }
+ #appIcon{
+     width: 70%;
+ }

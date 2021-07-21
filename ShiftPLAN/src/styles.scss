@@ -1,0 +1,109 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+//Using custom typography
+$custom-typography: mat-typography-config(
+  $font-family: '"Nunito", "Roboto", sans-serif;'
+  );
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core($custom-typography);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$blue: (
+    50 : #edf3fc,
+    100 : #d2e1f8,
+    200 : #b5cdf3,
+    300 : #97b9ee,
+    400 : #80aaea,
+    500 : #6a9be6,
+    600 : #6293e3,
+    700 : #5789df,
+    800 : #4d7fdb,
+    900 : #3c6dd5,
+    A100 : #ffffff,
+    A200 : #eff4ff,
+    A400 : #bcd0ff,
+    A700 : #a2bfff,
+    contrast: (
+        50 : #ffffff,
+        100 : #ffffff,
+        200 : #ffffff,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$orange: (
+    50 : #fcf4e4,
+    100 : #f8e3ba,
+    200 : #f3d18d,
+    300 : #eebe5f,
+    400 : #eab03c,
+    500 : #e6a21a,
+    600 : #e39a17,
+    700 : #df9013,
+    800 : #db860f,
+    900 : #d57508,
+    A100 : #fffffe,
+    A200 : #ffe4cb,
+    A400 : #ffca98,
+    A700 : #ffbd7f,
+    contrast: (
+        50 : #ffffff,
+        100 : #ffffff,
+        200 : #ffffff,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$ShiftPLAN-primary: mat-palette($blue);
+$ShiftPLAN-accent: mat-palette($orange);
+
+// The warn palette is optional (defaults to red).
+$ShiftPLAN-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$ShiftPLAN-theme: mat-light-theme((
+  color: (
+    primary: $ShiftPLAN-primary,
+    accent: $ShiftPLAN-accent,
+    warn: $ShiftPLAN-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($ShiftPLAN-theme);
+
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0;}

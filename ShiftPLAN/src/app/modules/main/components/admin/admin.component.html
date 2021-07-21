@@ -1,0 +1,33 @@
+<!--
+ -- admin.component.html
+ -- 
+ -- HTML file specifying the layout for the admin.component.
+ -- 
+ -- author: Anne Naumann
+ -- last edit / by: 2021-06-28 / Anne Naumann
+-->
+<app-toolbar title="{{title}}" [profileBtn]=true [settingsBtn]=true></app-toolbar>
+<mat-tab-group mat-align-tabs="center" color="accent" animationDuration="0ms">
+    <mat-tab label={{tabUsers}}>
+        <cdk-virtual-scroll-viewport id="userScrollView" itemSize=users.length>
+            <div matRipple *cdkVirtualFor="let item of users; let last = last" (click)="navigateToUser(item.id)">
+                <div class="userRow">
+                    <div class="userLabel">{{item.name}}</div>
+                </div>
+                <mat-divider *ngIf="!last"></mat-divider>
+            </div>
+        </cdk-virtual-scroll-viewport>
+        <button mat-fab color="accent" id="addUserBtn" (click)="navigateToAddUser()">
+            <mat-icon svgIcon="plus"></mat-icon>
+        </button>
+    </mat-tab>
+    <mat-tab label="API">
+        <mat-list>
+            <mat-list-item id="apiContent">
+                <mat-icon svgIcon="key"></mat-icon>
+                <span id="labelKey" class="alignText">{{labelKey}}:</span>
+                <span id="contentKey" class="alignText">{{apiKey}}</span>
+            </mat-list-item>
+        </mat-list>
+    </mat-tab>
+</mat-tab-group>
