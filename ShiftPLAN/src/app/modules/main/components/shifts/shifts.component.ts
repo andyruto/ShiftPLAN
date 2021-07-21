@@ -197,10 +197,9 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
 
     //add shifts to UI
     this.shifts = [];
+    getShiftsPromise.shifts.forEach(async (element) => {
 
-    for(let i = 0; i < getShiftsPromise.shifts.length; i++) {
       //variables
-      let element = getShiftsPromise.shifts[i];
       let weekday: string;
       let startDate: Date = new Date(element.shiftStart.date);
       let endDate: Date = new Date(element.shiftEnd.date);
@@ -208,18 +207,55 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
       let start: string;
       let end: string;
       let taskName: string;
-      let userName: string;
-      let present: Shifts;
 
-      //getUser
+      //get weekday
+      switch(startDate.getDay()) {
+        case 1: {
+          weekday = this.monday;
+          break;
+        }
+        case 2: {
+          weekday = this.tuesday;
+          break;
+        }
+        case 3: {
+          weekday = this.wednesday;
+          break;
+        }
+        case 4: {
+          weekday = this.thursday;
+          break;
+        }
+        case 5: {
+          weekday = this.friday;
+          break;
+        }
+        case 6: {
+          weekday = this.saturday;
+          break;
+        }
+        default: {
+          weekday = this.sunday;
+          break;
+        }
+      }
+
+      //get dateString
+      dateString = this.datepipe.transform(startDate, 'dd.MM') as string;
+
+      //get start & end
+      start = this.datepipe.transform(startDate, 'H:mm') as string;
+      end = this.datepipe.transform(endDate, 'H:mm') as string;
+
+      //get task
       //variables
       let publicKeyAnswer;
-      let getUserDataAnswer;
+      let getTaskAnswer;
       let publicKeyPromise;
-      let getUserDataPromise;
+      let getTaskPromise;
 
       let publicKeyErrorCode: number;
-      let getUserDataErrorCode: number;
+      let getTaskErrorCode: number;
       let session: string = localStorage.getItem('Session') as string;
       let sessionAsync: string;
       let publicKey: string;
@@ -238,258 +274,46 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
       publicKeyPromise = await publicKeyAnswer.toPromise();
       publicKey = publicKeyPromise.publicKey;
       publicKeyErrorCode = publicKeyPromise.errorCode;
-      
-      //encrypt session asyncronous
-      sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
 
-      //get userdata from api
+      //encrypt session asyncronous
+      sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
+
+      //get task from api
       count = Math.random() * 101;
       do {
         await this.delay(count);
       }while(this.api.isBusy);
-      getUserDataAnswer = await this.api.sendPostRequest<GetUserDataResponse>(
-        'users/get/', {
+      getTaskAnswer = await this.api.sendPostRequest<GetTasksResponse>(
+        'tasks/get/', {
           apiKey: apiKey,
           session: sessionAsync,
-          filter: 'id',
-          value: element.assignedUser
+          id: element.connectedTaskId
         }
       );
-      getUserDataPromise = await getUserDataAnswer.toPromise();
-      getUserDataErrorCode = getUserDataPromise.errorCode;
-      userName = getUserDataPromise.profiles[0].name;
+      getTaskPromise = await getTaskAnswer.toPromise();
+      getTaskErrorCode = getTaskPromise.errorCode;
+
+      taskName = getTaskPromise.tasks[0].name;
       //DEBUG
-      console.log(userName)
+      console.log(taskName)
 
-      //check if shift already present
-      present = this.shifts.find(x => x.connectedTaskId === element.connectedTaskId && x.shiftStartDate === element.shiftStart.date && x.shiftEndDate === element.shiftEnd.date) as Shifts;
-      if(present) {
-        let newEmployee: string = userName;
-        this.shifts[this.shifts.findIndex(x => x.id === present.id)].employees = [...this.shifts[this.shifts.findIndex(x => x.id === present.id)].employees, newEmployee];
-      }else {
-        //get weekday
-        switch(startDate.getDay()) {
-          case 1: {
-            weekday = this.monday;
-            break;
-          }
-          case 2: {
-            weekday = this.tuesday;
-            break;
-          }
-          case 3: {
-            weekday = this.wednesday;
-            break;
-          }
-          case 4: {
-            weekday = this.thursday;
-            break;
-          }
-          case 5: {
-            weekday = this.friday;
-            break;
-          }
-          case 6: {
-            weekday = this.saturday;
-            break;
-          }
-          default: {
-            weekday = this.sunday;
-            break;
-          }
-        }
+      let newObj: Shifts = {
+        id: element.id, 
+        weekday: weekday, 
+        date: dateString, 
+        start: start, 
+        end: end, 
+        task: taskName, 
+        employees: [element.assignedUser.name],
+        shiftStartDate: element.shiftStart.date,
+        shiftEndDate: element.shiftEnd.date,
+        connectedTaskId: element.connectedTaskId
+      };
+      this.shifts = [...this.shifts, newObj];
 
-        //get dateString
-        dateString = this.datepipe.transform(startDate, 'dd.MM.yyyy') as string;
-
-        //get start & end
-        start = this.datepipe.transform(startDate, 'H:mm') as string;
-        end = this.datepipe.transform(endDate, 'H:mm') as string;
-
-        //get task
-        //variables
-
-        let getTaskAnswer;
-        let getTaskPromise;
-        let getTaskErrorCode: number;
-
-        //get task from api
-        count = Math.random() * 101;
-        do {
-          await this.delay(count);
-        }while(this.api.isBusy);
-        getTaskAnswer = await this.api.sendPostRequest<GetTasksResponse>(
-          'tasks/get/', {
-            apiKey: apiKey,
-            session: sessionAsync,
-            id: element.connectedTaskId
-          }
-        );
-        getTaskPromise = await getTaskAnswer.toPromise();
-        getTaskErrorCode = getTaskPromise.errorCode;
-
-        taskName = getTaskPromise.tasks[0].name;
-        //DEBUG
-        console.log(taskName)
-
-        let newObj: Shifts = {
-          id: element.id, 
-          weekday: weekday, 
-          date: dateString, 
-          start: start, 
-          end: end, 
-          task: taskName, 
-          employees: [userName],
-          shiftStartDate: element.shiftStart.date,
-          shiftEndDate: element.shiftEnd.date,
-          connectedTaskId: element.connectedTaskId
-        };
-        this.shifts = [...this.shifts, newObj];
-
-        //DEBUG
-        console.log(this.shifts)
-      
-
-        //FOR API-UPDATE:
-
-        // getShiftsPromise.shifts.forEach(async (element) => {
-
-        //   //DEBUG
-        //   console.log("start");
-
-        //   //variables
-        //   let weekday: string;
-        //   let startDate: Date = new Date(element.shiftStart.date);
-        //   let endDate: Date = new Date(element.shiftEnd.date);
-        //   let dateString: string;
-        //   let start: string;
-        //   let end: string;
-        //   let taskName: string;
-        //   let userName: string;
-
-        //   //get weekday
-        //   switch(startDate.getDay()) {
-        //     case 1: {
-        //       weekday = this.monday;
-        //       break;
-        //     }
-        //     case 2: {
-        //       weekday = this.tuesday;
-        //       break;
-        //     }
-        //     case 3: {
-        //       weekday = this.wednesday;
-        //       break;
-        //     }
-        //     case 4: {
-        //       weekday = this.thursday;
-        //       break;
-        //     }
-        //     case 5: {
-        //       weekday = this.friday;
-        //       break;
-        //     }
-        //     case 6: {
-        //       weekday = this.saturday;
-        //       break;
-        //     }
-        //     default: {
-        //       weekday = this.sunday;
-        //       break;
-        //     }
-        //   }
-
-        //   //get dateString
-        //   dateString = this.datepipe.transform(startDate, 'dd.MM.yyyy') as string;
-
-        //   //get start & end
-        //   start = this.datepipe.transform(startDate, 'H:mm') as string;
-        //   end = this.datepipe.transform(endDate, 'H:mm') as string;
-
-        //   //get task
-        //   //variables
-        //   let publicKeyAnswer;
-        //   let getTaskAnswer;
-        //   let publicKeyPromise;
-        //   let getTaskPromise;
-
-        //   let publicKeyErrorCode: number;
-        //   let getTaskErrorCode: number;
-        //   let session: string = localStorage.getItem('Session') as string;
-        //   let sessionAsync: string;
-        //   let publicKey: string;
-        //   let apiKey: string = localStorage.getItem('APIKey') as string;
-
-        //   //get public key
-        //   publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
-        //     'key/publickey/', {
-        //       apiKey: apiKey
-        //     }
-        //   );
-        //   publicKeyPromise = await publicKeyAnswer.toPromise();
-        //   publicKey = publicKeyPromise.publicKey;
-        //   publicKeyErrorCode = publicKeyPromise.errorCode;
-
-        //   //encrypt session asyncronous
-        //   sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
-
-        //   //get task from api
-        //   getTaskAnswer = await this.api.sendPostRequest<GetTasksResponse>(
-        //     'tasks/get/', {
-        //       apiKey: apiKey,
-        //       session: sessionAsync,
-        //       id: element.connectedTaskId
-        //     }
-        //   );
-        //   getTaskPromise = await getTaskAnswer.toPromise();
-        //   getTaskErrorCode = getTaskPromise.errorCode;
-
-        //   taskName = getTaskPromise.tasks[0].name;
-        //   //DEBUG
-        //   console.log(taskName)
-
-        //   //getUser
-        //   //variables
-        //   let getUserDataAnswer;
-        //   let getUserDataPromise;
-
-        //   let getUserDataErrorCode: number;
-
-        //   //get public key
-        //   publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
-        //     'key/publickey/', {
-        //       apiKey: apiKey
-        //     }
-        //   );
-        //   publicKeyPromise = await publicKeyAnswer.toPromise();
-        //   publicKey = publicKeyPromise.publicKey;
-        //   publicKeyErrorCode = publicKeyPromise.errorCode;
-
-        //   //encrypt session asyncronous
-        //   sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
-
-        //   //get userdata from api
-        //   getUserDataAnswer = await this.api.sendPostRequest<GetUserDataResponse>(
-        //     'users/get/', {
-        //       apiKey: apiKey,
-        //       session: sessionAsync,
-        //       filter: 'id',
-        //       value: element.assignedUser
-        //     }
-        //   );
-        //   getUserDataPromise = await getUserDataAnswer.toPromise();
-        //   getUserDataErrorCode = getUserDataPromise.errorCode;
-        //   userName = getUserDataPromise.profiles[0].name;
-        //   //DEBUG
-        //   console.log(userName)
-
-        //   this.shifts.push(...[{id: element.id, weekday: weekday, date: dateString, start: start, end: end, task: taskName, employees: [userName]}]);
-
-        //   //DEBUG
-        //   console.log(this.shifts)
-        // });
-      }
-    }
+      //DEBUG
+      console.log(this.shifts)
+    });    
     //close spinner
     this.dialog.getDialogById('Shifts_spinnerRefresh')?.close();
   }

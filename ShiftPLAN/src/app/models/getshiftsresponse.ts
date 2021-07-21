@@ -13,8 +13,14 @@
 export interface GetShiftsResponse extends GeneralResponse  {
    shifts: [{
       id: number,
-      assignedUser: number,
-      supervisorUser: number,
+      assignedUser: {
+         id: number,
+         name:string
+      },
+      supervisorUser: {
+         id: number,
+         name:string
+      },
       connectedTaskId: number,
       shiftStart: {
          date: string,
@@ -27,7 +33,10 @@ export interface GetShiftsResponse extends GeneralResponse  {
          timezone: string
       },
       comment: string,
-      lastModifiedBy: number,
+      lastModifiedBy: {
+         id: number,
+         name:string
+      },
       lastModified: {
          date: string,
          timezone_type: number,

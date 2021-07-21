@@ -142,7 +142,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
     //addTasksToUI
     this.tasks = [];
-    getTasksPromise.tasks.forEach(element => {
+    getTasksPromise.tasks.forEach(async (element) => {
       let type: string;
       switch(element.recurring) {
         case true: {
