@@ -1,0 +1,9 @@
+##################################################
+# The gitignore for cache files
+# files
+# author: Kontr0x | Maximilian T.
+# last edit / by: 2021-05-02 / Kontr0x | Maximilian T.
+##################################################
+
+pyversion/python394/*
+**/__pycache__/*.pyc

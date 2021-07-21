@@ -1,109 +1,109 @@
 <?php
+
     /**
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-30 / Maximilian T. | Kontr0x
      */
 
     require '../prepareExec.php';
 
-    final class Main {
+    final class Main extends ApiRunnable{
+        private static $errorCode = ErrorCode::NoError;
 
         //Method invoked on script execution
-        public static function run() {
-
+        public static function run(){
+            $respondArray = array();
             // Takes raw data from the request
-            $json = file_get_contents('php://input');
-            $request = json_decode($json);
-            Logger::getLogger()->log('DEBUG', 'checking api key');
-            if(checkApiKey($request->api_key)){
-                Logger::getLogger()->log('DEBUG', 'api key valid');
-            }
-
-            // Creating entity manager for doctrine framwork sql access
-            $entityManager = Bootstrap::getEntityManager();
-            // Setting header for html output type
-            header('Content-Type: application/json');
-
-            // Checking if only a session key was given to check if session key is valid
-            if(!empty($request->session)&&empty($request->name)&&empty($request->password_hash)){
-                Logger::getLogger()->log('INFO', 'session key found in post');
-                $session = $entityManager->find('Session', $request->session);
-                //If session key not found the entity manager return null which equals an invalid session key
-                if($session==null){
-                    // session key wasnt found in database
-                    Logger::getLogger()->log('INFO', 'session is invalid');
-                    $respondJSON = array('success' => 'false');
-                    // returning answer of request
-                    echo(json_encode($respondJSON));
-                    exit();
-
-                }elseif($session->getExpiration_date()<new DateTime('now')){
-                    // session key found in database but expired
-                    Logger::getLogger()->log('INFO', 'session expired');
-                    $respondJSON = array('success' => 'false');
-                    // returning answer of request
-                    echo(json_encode($respondJSON));
-                    exit();
-
-                }else{
-                    // session key was found and is valid
-                    Logger::getLogger()->log('INFO', 'session valid until '.$session->getExpiration_date()->format('yy-m-d H:m:s'));
-                    $respondJSON = array('success' => 'true');
-                    // returning answer of request
-                    echo(json_encode($respondJSON));
-                    exit();
-
-                }
-            // checking if an username and password hash was given in request
-            }elseif(empty($request->session)&&!empty($request->name)&&!empty($request->password_hash)){
-                Logger::getLogger()->log('INFO', 'name and password_hash found in post');
-                $user = $entityManager->getRepository('User')->findBy(array('name' => $request->name));
-                // em is returning null if no user was found
-                if($user==null){
-                    // no user with name found in db
-                    Logger::getLogger()->log('INFO', 'user not found');
-                    $respondJSON = array('success' => 'false');
-                    echo(json_encode($respondJSON));
-                    exit();
-
-                }elseif($user[0]->getPassword_hash()==$request->password_hash){
-                    // user found and password is ok
-                    Logger::getLogger()->log('INFO', 'password ok');
-                    $session = new Session();
-                    $sessionKey = generateRandomString(20);
-                    while($sessionKey==$entityManager->find('Session', $sessionKey)){
-                        $sessionKey = generateRandomString(20);
+            $rP = new RequestParser();
+            $request = $rP->getBodyObject();
+            //Looking for parameters
+            if($rP->hasParameters(array('apiKey', 'userName')) && !$rP->hasParameters(array('chlgSolved', 'nonce'))){
+                $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
+                $uM = UserManager::obj($request->userName);
+                self::$errorCode = $uM->getFinishCode();
+                if(self::$errorCode == ErrorCode::NoError){
+                    //Checking if the user is hidden to hinder a login
+                    if(!($uM->getDbObject())->getHidden()){
+                        $eC->check($request->userName == 'admin');
+                        $chlg = $uM->createChallenge();
+                        //Adding the challenge to the respond
+                        $respondArray = array_merge($respondArray, array('chlg' => $chlg));
+                        Logger::getLogger()->log('DEBUG', 'appending challenge to output');
+                    }else{
+                        self::$errorCode = ErrorCode::UserIsHidden;
                     }
-                    // creating new session for user
-                    $session->setId($sessionKey);
-                    $session->setExpiration_date();
-                    $session->setUser_id($user[0]->getid());
-                    $entityManager->persist($session);
-                    $entityManager->flush();
-                    Logger::getLogger()->log('INFO', 'new session created with id = '.$session->getId());
-                    $respondJSON = array('success' => 'true', 'session' => $session->getId());
-                    echo(json_encode($respondJSON));
-                    exit();
-
-                }else{
-                    // user were found in db but password was incorrect
-                    Logger::getLogger()->log('INFO', 'wrong password');
-                    $respondJSON = array('success' => 'false');
-                    echo(json_encode($respondJSON));
-                    exit();
-                }
+                } 
             }else{
-                // combination of arguments was wrong
-                Logger::getLogger()->log('ERROR', 'wrong arguments in post request');
-                $respondJSON = array('success' => 'false');
-                echo(json_encode($respondJSON));
-                exit();
+                //Checking if request has parameters to validate challenge
+                if($rP->hasParameters(array('apiKey', 'userName', 'chlgSolved', 'nonce'))){
+                    $eC = ExecutionChecker::apiKeyChecker($request->apiKey);
+                    $uM = UserManager::obj($request->userName);
+                    self::$errorCode = $uM->getFinishCode();
+                    if(self::$errorCode == ErrorCode::NoError){
+                        //Checking if user is hidden to hinder a login
+                        if(!($uM->getDbObject())->getHidden()){
+                            $eC->check($request->userName == 'admin');
+                            //Validating the challenge
+                            self::$errorCode = $uM->checkChallenge($request->chlgSolved, $request->nonce, $uM->getPasswordHash());
+                            if(self::$errorCode == ErrorCode::NoError){
+                                //Creating session mananger
+                                $sM = SessionManager::creator();
+                                self::$errorCode = $sM->createSession($request->userName);
+                                if(self::$errorCode == ErrorCode::NoError){
+                                    $nonce = SslKeyManager::getNonce();
+                                    $ssM = new SslKeyManager();
+                                    //Encrypting session for respond
+                                    self::$errorCode = $ssM->sEncrypt(($sM->getDbObject())->getId(), $nonce, $uM->getPasswordHash());
+                                    if(self::$errorCode == ErrorCode::NoError){
+                                        $respondArray = array_merge($respondArray, array('session' => ($ssM->getResult()), 'nonce' => $nonce));
+                                    }
+                                }
+                            }
+                        }else{
+                            self::$errorCode = ErrorCode::UserIsHidden;
+                        }
+                    }                
+                }else{
+                    //If request has parameters to login through a session or to check if session is still valid
+                    if($rP->hasParameters(array('apiKey', 'session'))){
+                        $ssM = new SslKeyManager();
+                        //Decrypting the session
+                        self::$errorCode = $ssM->aDecrypt($request->session);
+                        //Checking if the decryption succeded
+                        if(self::$errorCode == ErrorCode::NoError){
+                            //Saving the decrytped session
+                            $session = $ssM->getResult();
+                            //Calling execution checker for validating parameters
+                            $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(), $session);
+                            $sM = SessionManager::obj($session);
+                            self::$errorCode = $sM->getFinishCode();
+                            //Checking if the session manager succeded
+                            if(self::$errorCode == ErrorCode::NoError){
+                                $userNameFromSession = $sM->getUserName();
+                                $eC->check($userNameFromSession == 'admin');
+                                $uM = UserManager::obj($userNameFromSession);
+                                self::$errorCode = $uM->getFinishCode();
+                                if(self::$errorCode == ErrorCode::NoError){
+                                    //Adding the found users to the output
+                                    $respondArray = array_merge($respondArray, array('userType' => $uM->getUserType()));
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            
+            //Preparing output
+            sendOutput(self::$errorCode, $respondArray);
+            exit();
+        }
+
+        //Method invoked before script execution
+        public static function logUrl(){
+            //Logging the called script location
+            Logger::getLogger()->log('INFO', 'Api path /login/ was called');
         }
     }
-
-    Main::run();
+    Runner::run();
 ?>

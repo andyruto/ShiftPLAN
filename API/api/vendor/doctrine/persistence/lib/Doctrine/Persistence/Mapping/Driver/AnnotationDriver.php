@@ -10,6 +10,7 @@ use RecursiveIteratorIterator;
 use RecursiveRegexIterator;
 use ReflectionClass;
 use RegexIterator;
+
 use function array_merge;
 use function array_unique;
 use function get_class;
@@ -65,7 +66,7 @@ abstract class AnnotationDriver implements MappingDriver
     /**
      * Name of the entity annotations as keys.
      *
-     * @var string[]
+     * @var array<class-string, bool|int>
      */
     protected $entityAnnotationClasses = [];
 
@@ -112,6 +113,8 @@ abstract class AnnotationDriver implements MappingDriver
      * Append exclude lookup paths to metadata driver.
      *
      * @param string[] $paths
+     *
+     * @return void
      */
     public function addExcludePaths(array $paths)
     {
@@ -167,9 +170,7 @@ abstract class AnnotationDriver implements MappingDriver
      * A class is non-transient if it is annotated with an annotation
      * from the {@see AnnotationDriver::entityAnnotationClasses}.
      *
-     * @param string $className
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function isTransient($className)
     {

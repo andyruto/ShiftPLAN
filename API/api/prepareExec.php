@@ -18,8 +18,16 @@
         define('API_VERSION', '0.0.1');
     }
 
+    if(!defined('DEV_MODE')) {
+        if(is_file('devConsole.php')){
+            define('DEV_MODE', true);
+        }else{
+            define('DEV_MODE', false);
+        }
+    }
+
     //Function to fix new line error on fgets
-    //@param $recource: source string to apply fix
+    //@param $recourc: source string to apply fix
     //@return: returning the fixed string
     function read_line($recource) : string {
         $buffer = fgets($recource);
@@ -91,13 +99,21 @@
             require $path;
         }
     }
-    
+
+    //Importing enums
+    foreach (scandir(ROOT . '/helperClasses/enums'.'/') as $filename) {
+        $path = ROOT . '/helperClasses/enums'.'/'.$filename;
+        if (is_file($path)) {
+            require $path;
+        }
+    }
+
     //Loading main doctrine config class
     require ROOT . '/src/bootstrap.php';
     
     function checkApiKey($apiKey) : bool{
         $eM = Bootstrap::getEntityManager();
-        if(empty($apiKey)||$eM->find('Api_key', $apiKey)==null){
+        if(empty($apiKey)||$eM->find('ApiKey', $apiKey)==null){
             header('Content-Type: application/json');
             $respondJSON = array('success' => false);
             echo(json_encode($respondJSON));
@@ -125,6 +141,16 @@
         return true;
     }
 
+    //Global function to send output to the client
+    function sendOutput($finishCode, $providedRespondArray){
+        $respondArray = array_merge(array('errorCode' => $finishCode), $providedRespondArray);
+        //Setting header from respons to json format
+        header('Content-Type: application/json');
+        if(Config::getConfig()->get("Webserver")->getValue("sameOrigin") == "false"){
+            header('Access-Control-Allow-Origin:*');
+        }
+        echo(json_encode($respondArray));
+    }
+
     Config::getConfig()->printConfig();
-    
-    ?>
+?>

@@ -3,6 +3,7 @@
 namespace Doctrine\Persistence\Mapping;
 
 use Exception;
+
 use function implode;
 use function sprintf;
 
@@ -49,7 +50,7 @@ class MappingException extends Exception
         return new self(sprintf(
             'File mapping drivers must have a valid directory path, ' .
             'however the given path %s seems to be incorrect!',
-            $path
+            (string) $path
         ));
     }
 

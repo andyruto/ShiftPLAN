@@ -1,49 +1,51 @@
 <?php
+
     /**
      * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-05-26 / Maximilian T. | Kontr0x
      */
 
     require '../prepareExec.php';
 
-    final class Main {
+    final class Main extends ApiRunnable{
+        private static $errorCode = ErrorCode::NoError;
 
         //Method invoked on script execution
-        public static function run() {
-
+        public static function run(){
+            $respondArray = array();
             // Takes raw data from the request
-            $json = file_get_contents('php://input');
-            $request = json_decode($json);
-            checkApiKey($request->api_key);
-            checkSessionKey($request->session_key);
-
-            // Creating entity manager for doctrine framwork sql access
-            $entityManager = Bootstrap::getEntityManager();
-            // Setting header for html output type
-            header('Content-Type: application/json');
-
-            // Checking if only a session key was given to check if session key is valid
-            if(!empty($request->session)){
-                Logger::getLogger()->log('INFO', 'session key found in post');
-                $session = $entityManager->find('Session', $request->session);
-                $entityManager->remove($session);
-                $entityManager->flush();
-                $entityManager->clear();
-                $respondJSON = array('success' => 'true');
-                echo(json_encode($respondJSON));
-                exit();
-            }else{
-                // combination of arguments was wrong
-                Logger::getLogger()->log('ERROR', 'wrong arguments in post request');
-                $respondJSON = array('success' => 'false');
-                echo(json_encode($respondJSON));
-                exit();
+            $rP = new RequestParser();
+            $request = $rP->getBodyObject();
+            //Looking for parameters
+            if($rP->hasParameters(array('apiKey', 'session'))){
+                //Decrypting parameters
+                $ssM = new SslKeyManager();
+                self::$errorCode = $ssM->aDecrypt($request->session);
+                if(self::$errorCode == ErrorCode::NoError){
+                    //Getting decrypted parameter
+                    $request->session = $ssM->getResult();
+                    $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(), $request->session);
+                    $sM = SessionManager::obj($request->session);
+                    self::$errorCode = $sM->getFinishCode();
+                    if(self::$errorCode == ErrorCode::NoError){
+                        $userNameFromSession = $sM->getUserName();
+                        $eC->check($userNameFromSession == 'admin');
+                        $sM->removeSession();
+                    }
+                }
             }
-            
+            //Preparing output
+            sendOutput(self::$errorCode, $respondArray);
+            exit();
+        }
+
+        //Method invoked before script execution
+        public static function logUrl(){
+            //Logging the called script location
+            Logger::getLogger()->log('INFO', 'Api path /logout/ was called');
         }
     }
-
-    Main::run();
+    Runner::run();
 ?>

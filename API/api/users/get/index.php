@@ -1,60 +1,111 @@
 <?php
+
     /**
-     *  index.php to get all or specific user / users
+     * index.php
      * 
      * author: Maximilian T. | Kontr0x
-     * last edit / by: 2020-08-10 / Maximilian T. | Kontr0x
+     * last edit / by: 2021-07-05 / Maximilian T. | Kontr0x
      */
 
     require '../../prepareExec.php';
 
-    final class Main {
+    final class Main extends ApiRunnable{
+        private static $errorCode = ErrorCode::NoError;
+        private static $respondArray = array();
+        private static $eM = null; //Variable to store entity manager in
+
         //Method invoked on script execution
-        public static function run() {
-
+        public static function run(){
             // Takes raw data from the request
-            $json = file_get_contents('php://input');
-            $request = json_decode($json);
-            checkApiKey($request->api_key);
-            checkSessionKey($request->session_key);
-            $entityManager = Bootstrap::getEntityManager();
-            // setting otput type of respond
-            header('Content-Type: application/json');
-
-            // checking if parameters are null to search for all users
-            if(empty($request->filter)&&empty($request->value)){
-                $entitys = $entityManager->getRepository('User')->findAll();
-                $users_array = array();
-                foreach ($entitys as $entity){
-                    array_push($users_array, array($entity->getId(), 
-                                                    $entity->getName(), 
-                                                    $entity->getHidden(), 
-                                                    $entity->getWeekly_working_minutes(), 
-                                                    $entity->getWorking_week_days(), 
-                                                    $entity->getYear_vacation_days()
-                                                ));
+            $rP = new RequestParser();
+            $request = $rP->getBodyObject();
+            //Looking for parameters
+            if($rP->hasParameters(array('apiKey', 'session', 'filter', 'value'))){
+                $ssM = new SslKeyManager();
+                //Decrypting the session
+                self::$errorCode = $ssM->aDecrypt($request->session);
+                //Checking if the decryption succeded
+                if(self::$errorCode == ErrorCode::NoError){
+                    //Saving the decrytped session
+                    $session = $ssM->getResult();
+                    $sM = SessionManager::obj($session);
+                    self::$errorCode = $sM->getFinishCode();
+                    //Checking if the session manager succeded
+                    if(self::$errorCode == ErrorCode::NoError){
+                        //Checking execution rights
+                        $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(Permission::UserRead), $session);
+                        $eC->check(false);
+                        //Creating entity manager for db access
+                        self::$eM = Bootstrap::getEntityManager();
+                        //Validating the given filter
+                        if(preg_match(Validation::UserFilters, $request->filter)){
+                            $uM = UserManager::obj($sM->getUserName());
+                            $users = array();
+                            //Searching for users in database with filter and adding the found users to the output
+                            if($request->filter == "all"){
+                                if(preg_match(Validation::AllUserReducedFilters, $request->value)){
+                                    Logger::getLogger()->log('DEBUG', 'Searching for all users with reduced output');
+                                    $users = $uM->getUsers($request->value);
+                                    self::$errorCode = $uM->getFinishCode();
+                                }else{
+                                    if(preg_match(Validation::AllUserFilters, $request->value)){
+                                        Logger::getLogger()->log('DEBUG', 'Searching for all users with complete output');
+                                        $users = $uM->getUsersWithFilter($request->filter, $request->value);
+                                        self::$errorCode = $uM->getFinishCode();
+                                    }else{
+                                        Logger::getLogger()->log('ERROR', 'Searching for all users with a undefined value');
+                                        self::$errorCode = ErrorCode::UnknownValue;
+                                    }
+                                }
+                            }else{
+                                Logger::getLogger()->log('DEBUG', 'Searching for users with filter '.$request->value);
+                                $users = $uM->getUsersWithFilter($request->filter, $request->value);
+                                self::$errorCode = $uM->getFinishCode();
+                            }
+                            if(self::$errorCode == ErrorCode::NoError){
+                                self::$respondArray = array_merge(self::$respondArray, $users);
+                            }
+                        }else{
+                            self::$errorCode = ErrorCode::ValidationFailed;
+                            Logger::getLogger()->log('ERROR', 'Filter validation failed');
+                        }
+                    }
                 }
-                $respondJSON = array('success' => 'true', 'users' => $users_array);
-                echo(json_encode($respondJSON));
-                exit();
-            }elseif($request->filter=='id'&&!empty($request->value)){
-                // searching for user with specific id
-                $user = $entityManager->find('User', $request->value);
-                $respondJSON = array('id' => $user->getId(), 
-                                    'hidden' => $user->getHidden(),
-                                    'weekly_working_minutes' => $user->getWeekly_working_minutes(),
-                                    'working_week_days' => $user->getWorking_week_days(),
-                                    'year_vacation_days' => $user->getYear_vacation_days());
-                echo(json_encode($respondJSON));
-                exit();
             }else{
-                // searching for user with specific filter
-                $respondJSON = $entityManager->getRepository('User')->findBy(array($request->filter => $request->filter));
-                echo(json_encode($respondJSON));
-                exit();
+                if($rP->hasParameters(array('apiKey', 'session'))){
+                    $ssM = new SslKeyManager();
+                    //Decrypting the session
+                    self::$errorCode = $ssM->aDecrypt($request->session);
+                    //Checking if the decryption succeded
+                    if(self::$errorCode == ErrorCode::NoError){
+                        //Saving the decrytped session
+                        $session = $ssM->getResult();
+                        $sM = SessionManager::obj($session);
+                        self::$errorCode = $sM->getFinishCode();
+                        //Checking if the session manager succeded
+                        if(self::$errorCode == ErrorCode::NoError){
+                            $eC = ExecutionChecker::apiKeyPermissionSessionChecker($request->apiKey, array(), $session);    
+                            $eC->check(false);
+                            $uM = UserManager::obj($sM->getUserName());
+                            self::$respondArray = array_merge(self::$respondArray, $uM->getUserProfile());
+                            self::$errorCode = $uM->getFinishCode();
+                        }
+                    }else{
+                        self::$errorCode = ErrorCode::ParameterMissmatch;
+                        Logger::getLogger()->log('WARNING', 'Parameters doenst match function requirements');
+                    }
+                }
             }
+            //Preparing output
+            sendOutput(self::$errorCode, self::$respondArray);
+            exit();
+        }
+
+        //Method invoked before script execution
+        public static function logUrl(){
+            //Logging the called script location
+            Logger::getLogger()->log('INFO', 'Api path /user/get/ was called');
         }
     }
-
-    Main::run();
+    Runner::run();
 ?>

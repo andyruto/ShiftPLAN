@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,13 +20,15 @@
 
 namespace Doctrine\ORM\Query;
 
+use Doctrine\ORM\Mapping\ClassMetadata;
+
+use function array_diff;
+use function array_keys;
+
 /**
  * Represents a chain of tree walkers that modify an AST and finally emit output.
  * Only the last walker in the chain can emit output. Any previous walkers can modify
  * the AST to influence the final output produced by the last walker.
- *
- * @author Roman Borschel <roman@code-factory.org>
- * @since  2.0
  */
 class TreeWalkerChain implements TreeWalker
 {
@@ -33,34 +36,29 @@ class TreeWalkerChain implements TreeWalker
      * The tree walkers.
      *
      * @var TreeWalker[]
+     * @psalm-var TreeWalkerChainIterator
      */
     private $_walkers;
 
     /**
-     * The original Query.
-     *
-     * @var \Doctrine\ORM\AbstractQuery
-     */
-    private $_query;
-
-    /**
-     * The ParserResult of the original query that was produced by the Parser.
-     *
-     * @var \Doctrine\ORM\Query\ParserResult
-     */
-    private $_parserResult;
-
-    /**
      * The query components of the original query (the "symbol table") that was produced by the Parser.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
+     * @psalm-var array<string, array{
+     *                metadata: ClassMetadata,
+     *                parent: string,
+     *                relation: mixed[],
+     *                map: mixed,
+     *                nestingLevel: int,
+     *                token: array
+     *            }>
      */
     private $_queryComponents;
 
     /**
      * Returns the internal queryComponents array.
      *
-     * @return array
+     * {@inheritDoc}
      */
     public function getQueryComponents()
     {
@@ -69,6 +67,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function setQueryComponent($dqlAlias, array $queryComponent)
     {
@@ -86,10 +86,8 @@ class TreeWalkerChain implements TreeWalker
      */
     public function __construct($query, $parserResult, array $queryComponents)
     {
-        $this->_query = $query;
-        $this->_parserResult = $parserResult;
         $this->_queryComponents = $queryComponents;
-        $this->_walkers = new TreeWalkerChainIterator($this, $query, $parserResult);
+        $this->_walkers         = new TreeWalkerChainIterator($this, $query, $parserResult);
     }
 
     /**
@@ -106,6 +104,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkSelectStatement(AST\SelectStatement $AST)
     {
@@ -118,6 +118,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkSelectClause($selectClause)
     {
@@ -128,6 +130,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkFromClause($fromClause)
     {
@@ -138,6 +142,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkFunction($function)
     {
@@ -148,6 +154,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkOrderByClause($orderByClause)
     {
@@ -158,6 +166,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkOrderByItem($orderByItem)
     {
@@ -168,6 +178,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkHavingClause($havingClause)
     {
@@ -178,6 +190,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkJoin($join)
     {
@@ -188,6 +202,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkSelectExpression($selectExpression)
     {
@@ -198,6 +214,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkQuantifiedExpression($qExpr)
     {
@@ -208,6 +226,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkSubselect($subselect)
     {
@@ -218,6 +238,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkSubselectFromClause($subselectFromClause)
     {
@@ -228,6 +250,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkSimpleSelectClause($simpleSelectClause)
     {
@@ -238,6 +262,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkSimpleSelectExpression($simpleSelectExpression)
     {
@@ -248,6 +274,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkAggregateExpression($aggExpression)
     {
@@ -258,6 +286,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkGroupByClause($groupByClause)
     {
@@ -268,6 +298,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkGroupByItem($groupByItem)
     {
@@ -278,6 +310,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkUpdateStatement(AST\UpdateStatement $AST)
     {
@@ -288,6 +322,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkDeleteStatement(AST\DeleteStatement $AST)
     {
@@ -298,6 +334,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkDeleteClause(AST\DeleteClause $deleteClause)
     {
@@ -308,6 +346,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkUpdateClause($updateClause)
     {
@@ -318,6 +358,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkUpdateItem($updateItem)
     {
@@ -328,6 +370,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkWhereClause($whereClause)
     {
@@ -338,6 +382,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkConditionalExpression($condExpr)
     {
@@ -348,6 +394,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkConditionalTerm($condTerm)
     {
@@ -358,6 +406,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkConditionalFactor($factor)
     {
@@ -368,6 +418,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkConditionalPrimary($condPrimary)
     {
@@ -378,6 +430,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkExistsExpression($existsExpr)
     {
@@ -388,6 +442,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkCollectionMemberExpression($collMemberExpr)
     {
@@ -398,6 +454,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkEmptyCollectionComparisonExpression($emptyCollCompExpr)
     {
@@ -408,6 +466,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkNullComparisonExpression($nullCompExpr)
     {
@@ -418,6 +478,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkInExpression($inExpr)
     {
@@ -428,6 +490,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkInstanceOfExpression($instanceOfExpr)
     {
@@ -438,6 +502,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkLiteral($literal)
     {
@@ -448,6 +514,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkBetweenExpression($betweenExpr)
     {
@@ -458,6 +526,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkLikeExpression($likeExpr)
     {
@@ -468,6 +538,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkStateFieldPathExpression($stateFieldPathExpression)
     {
@@ -478,6 +550,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkComparisonExpression($compExpr)
     {
@@ -488,6 +562,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkInputParameter($inputParam)
     {
@@ -498,6 +574,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkArithmeticExpression($arithmeticExpr)
     {
@@ -508,6 +586,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkArithmeticTerm($term)
     {
@@ -518,6 +598,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkStringPrimary($stringPrimary)
     {
@@ -528,6 +610,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkArithmeticFactor($factor)
     {
@@ -538,6 +622,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkSimpleArithmeticExpression($simpleArithmeticExpr)
     {
@@ -548,6 +634,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkPathExpression($pathExpr)
     {
@@ -558,6 +646,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function walkResultVariable($resultVariable)
     {
@@ -568,6 +658,8 @@ class TreeWalkerChain implements TreeWalker
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     public function getExecutor($AST)
     {
