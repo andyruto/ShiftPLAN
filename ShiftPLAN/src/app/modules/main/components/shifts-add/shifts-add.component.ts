@@ -213,12 +213,6 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
     //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
-    //DEBUG
-    console.log(apiKey)
-    console.log(sessionAsync)
-    console.log('name')
-    console.log(this.contact)
-
     //get userdata from api
     count = Math.random() * 101;
     do {
@@ -232,10 +226,6 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
         value: this.userName
       }
     );
-
-    //DEBUG
-    console.log('asdasdasdasssss')
-
     getUserDataPromise = await getUserDataAnswer.toPromise();
     getUserDataErrorCode = getUserDataPromise.errorCode;
 
@@ -255,9 +245,6 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
     getSuperPromise = await getSuperAnswer.toPromise();
     getSuperErrorCode = getSuperPromise.errorCode;
 
-    //DEBUG
-    console.log('asdasdasdasd')
-
     //send add request
     //variables
     let addShiftAnswer;
@@ -268,16 +255,6 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
     let dateString: string = this.datepipe.transform(this.validity, 'yyyy-MM-dd ') as string;
     let shiftStart: string = dateString + this.startTime + ':00';
     let shiftEnd: string = dateString + this.endTime + ':00';
-    //DEBUG 
-    console.log(apiKey);
-    console.log(sessionAsync);
-    console.log(getUserDataPromise.profiles[0].id);
-    console.log(getSuperPromise.profiles[0].id);
-    console.log(this.tasks.find(x => x.index === this.selectedTask)?.id);
-    console.log(shiftStart);
-    console.log(shiftEnd);
-    console.log(this.comment);
-
 
     //send add shift request
     count = Math.random() * 101;
@@ -297,8 +274,6 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
       }
     );
     addShiftPromise = await addShiftAnswer.toPromise();
-    //DEBUG
-    console.log(addShiftPromise);
     addShiftErrorCode = addShiftPromise.errorCode;
 
     //close spinner
@@ -349,9 +324,6 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
     //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
-    //DEBUG
-    console.log('asd')
-
     //get tasks from api
     count = Math.random() * 101;
     do {
@@ -369,8 +341,6 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
     //add tasks to UI
     this.tasks = [];
     let size: number = getTasksPromise.tasks.length;
-    //DEBUG
-    console.log(size);
     if(size == 0) {
       this.tasks.push(...[{index: 0, id: 0, name: '', timespans: []}]);
     }
@@ -380,12 +350,8 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
         //TODO: for recurring tasks
       };
 
-      //DEBUG
-      console.log(timespans)
       this.tasks.push(...[{index: indexCounter, id: element.id, name: element.name, timespans: timespans}]);
       indexCounter++;
-      //DEBUG
-      console.log(this.tasks);
     });
 
     //close spinner
@@ -393,9 +359,6 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
   }
 
   public async presentCheck(index: number) {
-    //DEBUG
-    console.log(this.tasks.find(x => x.index === index)?.timespans);
-    console.log(this.tasks.find(x => x.index === index))
     if(this.tasks.find(x => x.index === index)?.timespans == []) {
       this.disabled = true;
     }else {
@@ -417,8 +380,6 @@ export class ShiftsAddComponent implements OnInit, AfterViewInit, AfterViewCheck
 
   public setDate(event: any) {
     this.validity = event.target.value;
-    //DEBUG
-    console.log(this.validity);
   }
 }
 

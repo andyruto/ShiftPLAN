@@ -180,8 +180,6 @@ export class TasksTaskComponent implements OnInit {
       }
     );
     getTaskPromise = await getTaskAnswer.toPromise();
-    //DEBUG
-    console.log(getTaskPromise.task)
     getTaskErrorCode = getTaskPromise.errorCode;
 
     //fill in UI
@@ -239,12 +237,6 @@ export class TasksTaskComponent implements OnInit {
     //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
-    //DEBUG
-    console.log(apiKey)
-    console.log(sessionAsync)
-    console.log(this.id.id)
-    console.log(this.description)
-
     //modify task
     count = Math.random() * 101;
     do {
@@ -259,8 +251,6 @@ export class TasksTaskComponent implements OnInit {
       }
     );
     modifyPromise = await modifyAnswer.toPromise();
-    //DEBUG
-    console.log(modifyPromise)
     modifyErrorCode = modifyPromise.errorCode;
 
     //close spinner

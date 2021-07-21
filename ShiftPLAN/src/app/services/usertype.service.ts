@@ -44,8 +44,6 @@ export class UsertypeService {
       }
     );
     publicKeyPromise = await publicKeyAnswer.toPromise();
-    //DEBUG
-    console.log(publicKeyPromise)
     publicKey = publicKeyPromise.publicKey;
     publicKeyErrorCode = publicKeyPromise.errorCode;
 
@@ -64,8 +62,6 @@ export class UsertypeService {
       }
     );
     userTypePromise = await userTypeAnswer.toPromise();
-    //DEBUG
-    console.log(userTypePromise);
     userTypeErrorCode = userTypePromise.errorCode;
     switch(userTypePromise.userType) {
       case 2:

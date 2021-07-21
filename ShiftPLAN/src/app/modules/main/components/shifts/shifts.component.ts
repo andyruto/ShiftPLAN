@@ -191,8 +191,6 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
       }
     );
     getShiftsPromise = await getShiftsAnswer.toPromise();
-    //DEBUG
-    console.log(getShiftsPromise)
     getShiftsErrorCode = getShiftsPromise.errorCode;
 
     //add shifts to UI
@@ -294,8 +292,6 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
       getTaskErrorCode = getTaskPromise.errorCode;
 
       taskName = getTaskPromise.tasks[0].name;
-      //DEBUG
-      console.log(taskName)
 
       let newObj: Shifts = {
         id: element.id, 
@@ -310,9 +306,6 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
         connectedTaskId: element.connectedTaskId
       };
       this.shifts = [...this.shifts, newObj];
-
-      //DEBUG
-      console.log(this.shifts)
     });    
     //close spinner
     this.dialog.getDialogById('Shifts_spinnerRefresh')?.close();
