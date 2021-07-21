@@ -94,7 +94,7 @@
                 Logger::getLogger()->log('ERROR', 'validation failed on \'connected_task_id\'');
                 $this->errorCode = ErrorCode::ValidationFailed;
             }
-            if(self::$errorCode == ErrorCode::NoError){
+            if($this->errorCode == ErrorCode::NoError){
                 //Storeing created time span
                 $this->eM->persist($newTimeSpan);
                 //Flushing changes
@@ -161,7 +161,7 @@
                             $this->errorCode = ErrorCode::ValidationFailed;
                         }
                     }
-                    if(self::$errorCode == ErrorCode::NoError){
+                    if($this->errorCode == ErrorCode::NoError){
                         //Flushing changes
                         $this->eM->flush();
                         Logger::getLogger()->log('INFO', 'Time span with id '.$this->timeSpan->getId().' got modified');
@@ -185,7 +185,7 @@
                     if($timeSpanDbObjects !== Null){
                         //Formatting the output of the found time spans
                         foreach($timeSpanDbObjects as $timeSpan){
-                            $timeSpanArray = array('id' => $timeSpan->getId(), 'appointedDay' => $timeSpan->getAppointed_day(), 'start' => $timeSpan->getStart(), 'end' => $timeSpan->getEnd(), 'requiredEmployees' => $timeSpan->getRequired_employees(), 'lastModifiedBy' => (UserManager::obj($timeSpan->getLast_modified_by()))->getUserProfileReduced()['profile'][0], 'lastModified' => $timeSpan->getLast_modified(), 'taskId' => $timeSpan->getTask_id());
+                            $timeSpanArray = array('id' => $timeSpan->getId(), 'appointedDay' => $timeSpan->getAppointed_day(), 'start' => $timeSpan->getStart(), 'end' => $timeSpan->getEnd(), 'requiredEmployees' => $timeSpan->getRequired_employees(), 'lastModifiedBy' => (UserManager::obj($timeSpan->getLast_modified_by()))->getUserProfileReduced()['profile'][0], 'lastModified' => $timeSpan->getLast_modified(), 'taskId' => (TaskManager::obj($timeSpan->getTask_id()))->getTask()['task'][0]);
                             $timeSpans = array_merge($timeSpans, array($timeSpanArray));
                         }
                     }else{
@@ -207,7 +207,7 @@
             $timeSpan = array();
             $timeSpanArray = array();
             if($this->errorCode == ErrorCode::NoError){
-                $timeSpanArray = array('id' => $this->timeSpan->getId(), 'appointedDay' => $this->timeSpan->getAppointed_day(), 'start' => $this->timeSpan->getStart(), 'end' => $this->timeSpan->getEnd(), 'requiredEmployees' => $this->timeSpan->getRequired_employees(), 'lastModifiedBy' => (UserManager::obj($this->timeSpan->getLast_modified_by()))->getUserProfileReduced()['profile'][0], 'lastModified' => $this->timeSpan->getLast_modified(), 'taskId' => $this->timeSpan->getTask_id());
+                $timeSpanArray = array('id' => $this->timeSpan->getId(), 'appointedDay' => $this->timeSpan->getAppointed_day(), 'start' => $this->timeSpan->getStart(), 'end' => $this->timeSpan->getEnd(), 'requiredEmployees' => $this->timeSpan->getRequired_employees(), 'lastModifiedBy' => (UserManager::obj($this->timeSpan->getLast_modified_by()))->getUserProfileReduced()['profile'][0], 'lastModified' => $this->timeSpan->getLast_modified(), 'taskId' => (TaskManager::obj($this->timeSpan->getTask_id()))->getTask()['task'][0]);
                 $timeSpan = array_merge($timeSpan, array($timeSpanArray));
                 Logger::getLogger()->log('INFO', 'Returning time span stored in time span manager');
             }else{
@@ -225,7 +225,7 @@
                 if($timeSpanDbObjects !== Null){
                     //Formatting the output of the found time spans
                     foreach($timeSpanDbObjects as $timeSpan){
-                        $timeSpanArray = array('id' => $timeSpan->getId(), 'appointedDay' => $timeSpan->getAppointed_day(), 'start' => $timeSpan->getStart(), 'end' => $timeSpan->getEnd(), 'requiredEmployees' => $timeSpan->getRequired_employees(), 'lastModifiedBy' => $timeSpan->getLast_modified_by(), 'lastModified' => (UserManager::obj($timeSpan->getLast_modified_by()))->getUserProfileReduced()['profile'][0], 'taskId' => $timeSpan->getTask_id());
+                        $timeSpanArray = array('id' => $timeSpan->getId(), 'appointedDay' => $timeSpan->getAppointed_day(), 'start' => $timeSpan->getStart(), 'end' => $timeSpan->getEnd(), 'requiredEmployees' => $timeSpan->getRequired_employees(), 'lastModifiedBy' => $timeSpan->getLast_modified_by(), 'lastModified' => (UserManager::obj($timeSpan->getLast_modified_by()))->getUserProfileReduced()['profile'][0], 'taskId' => (TaskManager::obj($timeSpan->getTask_id()))->getTask()['task'][0]);
                         $timeSpans = array_merge($timeSpans, array($timeSpanArray));
                     }
                 }
