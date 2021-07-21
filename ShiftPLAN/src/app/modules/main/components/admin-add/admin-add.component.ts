@@ -158,8 +158,13 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
     let apiKey: string = localStorage.getItem('APIKey') as string;
     let passwordHash: string;
     let passwordAsync: string;
+    var count: number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -177,6 +182,10 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
     passwordAsync = await this.encrypt.encryptTextAsync(passwordHash,publicKey);
 
     //send add user request
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     addUserAnswer = await this.api.sendPostRequest<GeneralResponse>(
       'users/create/', {
         apiKey: apiKey,
@@ -209,8 +218,13 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
     let passwordAsync: string;
     let apiKey: string = localStorage.getItem('APIKey') as string;
     let session: string = localStorage.getItem('Session') as string;
+    var count:number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -228,6 +242,10 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
     passwordAsync = await this.encrypt.encryptTextAsync(passwordHash,publicKey);
 
     //modifyUser
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
       'users/modify/', {
         apiKey: apiKey,
@@ -242,6 +260,10 @@ export class AdminAddComponent implements OnInit, AfterViewChecked {
     );
     modifyPromise = await modifyAnswer.toPromise();
     modifyErrorCode = modifyPromise.errorCode;
+  }
+
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
 

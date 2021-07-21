@@ -126,8 +126,13 @@ export class AdminComponent implements OnInit, AfterViewInit{
     let session: string = localStorage.getItem('Session') as string;
     let sessionAsync: string;
     let publicKey: string;
+    var count:number;
 
-    //get public key
+    //get public key    
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: this.apiKey
@@ -140,7 +145,11 @@ export class AdminComponent implements OnInit, AfterViewInit{
     //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
-    //get visibel users from api
+    //get visibel users from api    
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     getusersAnswer = await this.api.sendPostRequest<GetUsersResponse>(
       'users/get/', {
         apiKey: this.apiKey,
@@ -153,6 +162,10 @@ export class AdminComponent implements OnInit, AfterViewInit{
     getusersErrorCode = getusersPromise.errorCode;
 
     //get invisibel users from api
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     getInvUsersAnswer = await this.api.sendPostRequest<GetUsersResponse>(
       'users/get/', {
         apiKey: this.apiKey,
@@ -172,5 +185,9 @@ export class AdminComponent implements OnInit, AfterViewInit{
 
     //close spinner
     this.dialog.getDialogById('Admin_spinnerRefresh')?.close();
+  }
+
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }

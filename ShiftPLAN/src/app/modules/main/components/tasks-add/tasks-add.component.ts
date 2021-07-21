@@ -133,8 +133,13 @@ export class TasksAddComponent implements OnInit, AfterViewChecked {
     let sessionAsync: string;
     let publicKey: string;
     let apiKey: string = localStorage.getItem('APIKey') as string;
+    var count:number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -162,6 +167,10 @@ export class TasksAddComponent implements OnInit, AfterViewChecked {
       }
 
       //send add task request
+      count = Math.random() * 101;
+      do {
+        await this.delay(count);
+      }while(this.api.isBusy);
       addTaskAnswer = await this.api.sendPostRequest<GeneralResponse>(
         'tasks/create/', {
           apiKey: apiKey,
@@ -174,6 +183,10 @@ export class TasksAddComponent implements OnInit, AfterViewChecked {
     }
 
     this.location.back();
+  }
+
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
 

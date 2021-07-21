@@ -112,8 +112,13 @@ export class WizardPasswordComponent implements OnInit{
     let sessionAsync: string;
     let oldPasswordHash: string;
     let nonce: string;
+    var count: number;
     
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: this.apiKey
@@ -133,6 +138,10 @@ export class WizardPasswordComponent implements OnInit{
     passwordAsync = await this.encrypt.encryptTextAsync(passwordHash, publicKey)
 
     //change password
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
       'users/modify/', {
         apiKey: this.apiKey,
@@ -158,12 +167,17 @@ export class WizardPasswordComponent implements OnInit{
     let chlg: string;
     let nonce: string;
     let chlgSolved: string;
+    var count:number;
 
     //encrypt password to hash
     let standardPassword: string = 'admin';
     let standardPasswordHash: string = await this.encrypt.convertToHash(standardPassword);
     
     //First Loginstep: send username -> get challenge
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     firstAnswer = await this.api.sendPostRequest<LoginOneResponse>(
       'login/', {
         apiKey: this.apiKey,
@@ -182,6 +196,10 @@ export class WizardPasswordComponent implements OnInit{
     );
 
     //Second Loginstep: send solved challenge -> get session
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     secondAnswer = await this.api.sendPostRequest<LoginTwoResponse>(
       'login/', {
         apiKey: this.apiKey,
@@ -201,6 +219,10 @@ export class WizardPasswordComponent implements OnInit{
 
     //write session into local storage
     localStorage.setItem('Session', this.session);
+  }
+
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
 

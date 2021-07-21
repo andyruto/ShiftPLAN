@@ -47,6 +47,7 @@ import { TasksInputComponent, TasksInputDialog } from './components/tasks-input/
 import { TasksTaskComponent, TasksTaskInvalidInputDialog } from './components/tasks-task/tasks-task.component';
 import { ShiftsAddComponent, ShiftsAddInvalidInputDialog } from './components/shifts-add/shifts-add.component';
 import { ShiftsShiftComponent, ShiftsShiftInvalidInputDialog } from './components/shifts-shift/shifts-shift.component';
+import { DatePipe } from '@angular/common'
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   observer: true,
@@ -109,6 +110,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MatSelectModule
   ],
   providers: [
+    DatePipe,
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG

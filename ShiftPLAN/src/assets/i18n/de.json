@@ -186,6 +186,13 @@
         "LabelContact": "Ansprechpartner",
         "LabelRemark": "Anmerkung",
         "LabelComments": "Kommentare",
-        "LabelWarning": "Angaben haben sich geändert"
+        "LabelWarning": "Angaben haben sich geändert",
+        "Monday": "Montag",
+        "Tuesday": "Dienstag",
+        "Wednesday": "Mitwoch",
+        "Thursday": "Donnerstag",
+        "Friday": "Freitag",
+        "Saturday": "Samstag",
+        "Sunday": "Sonntag"
     }
 }

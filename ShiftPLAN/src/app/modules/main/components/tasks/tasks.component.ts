@@ -107,8 +107,13 @@ export class TasksComponent implements OnInit, AfterViewInit {
     let sessionAsync: string;
     let publicKey: string;
     let apiKey: string = localStorage.getItem('APIKey') as string;
+    var count: number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -122,6 +127,10 @@ export class TasksComponent implements OnInit, AfterViewInit {
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
     //get tasks from api
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     getTasksAnswer = await this.api.sendPostRequest<GetTasksResponse>(
       'tasks/get/', {
         apiKey: apiKey,
@@ -133,7 +142,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
     //addTasksToUI
     this.tasks = [];
-    getTasksPromise.tasks.forEach(element => {
+    getTasksPromise.tasks.forEach(async (element) => {
       let type: string;
       switch(element.recurring) {
         case true: {
@@ -145,7 +154,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
           break;
         }
       }
-      this.tasks.push(...[{id: element.id, name: element.name, type: type}])
+      this.tasks.push(...[{id: element.id, name: element.name, type: type}]);
     });
 
     //close spinner
@@ -189,5 +198,9 @@ export class TasksComponent implements OnInit, AfterViewInit {
     });
 
     this.router.navigate(['/app/tasks-add'])
+  }
+
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }

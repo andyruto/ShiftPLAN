@@ -187,8 +187,13 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     let sessionAsync: string;
     let publicKey: string;
     let apiKey: string = localStorage.getItem('APIKey') as string;
+    var count:number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -202,6 +207,10 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
 
     //get userdata from api
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     getUserDataAnswer = await this.api.sendPostRequest<GetUserDataResponse>(
       'users/get/', {
         apiKey: apiKey,
@@ -247,8 +256,13 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     let passwordAsync: string;
     let apiKey: string = localStorage.getItem('APIKey') as string;
     let session: string = localStorage.getItem('Session') as string;
+    var count: number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -268,6 +282,10 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
       passwordAsync = await this.encrypt.encryptTextAsync(passwordHash,publicKey);
 
       //modifyUser
+      count = Math.random() * 101;
+      do {
+        await this.delay(count);
+      }while(this.api.isBusy);
       modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
         'users/modify/', {
           apiKey: apiKey,
@@ -286,6 +304,10 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     }else {
 
       //modifyUser
+      count = Math.random() * 101;
+      do {
+        await this.delay(count);
+      }while(this.api.isBusy);
       modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
         'users/modify/', {
           apiKey: apiKey,
@@ -307,6 +329,9 @@ export class AdminUserComponent implements OnInit, AfterViewChecked {
     this.location.back();
   }
   
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
 }
 
 @Component({

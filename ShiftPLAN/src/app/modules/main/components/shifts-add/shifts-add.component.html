@@ -18,7 +18,7 @@
     </mat-form-field>
     <mat-form-field class="inputField">
         <mat-label>{{labelTimespan}}</mat-label>
-        <mat-select name="timespan">
+        <mat-select name="timespan" (selectionChange)= "presentCheck(selectedTask)" [disabled]="disabled">
             <mat-option *ngFor="let task of tasks[selectedTask].timespans" [value]="task">
                 {{task}}
             </mat-option>
@@ -26,7 +26,7 @@
     </mat-form-field>
     <mat-form-field class="inputField">
         <mat-label>{{labelValidity}}</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input matInput #inputValidity [matDatepicker]="picker" [value]="validity" (dateChange)="setDate($event)">
         <mat-datepicker-toggle matSuffix [for]="picker">
         <mat-icon matDatepickerToggleIcon svgIcon="calendar"></mat-icon>
         </mat-datepicker-toggle>
@@ -35,15 +35,15 @@
     <div id="timeContainer">
         <mat-form-field id="shiftStart" class="timeInput">
             <mat-label id="labelShiftStart">{{labelStart}}</mat-label>
-            <input matInput [ngxTimepicker]="pickerStart" [format]=24>
+            <input matInput [ngxTimepicker]="pickerStart" [format]=24 [value]="startTime">
             <ngx-material-timepicker #pickerStart [theme]="timePickerTheme"
-            [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
+            [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" (timeSet)="setStartTime($event)"></ngx-material-timepicker>
         </mat-form-field>
         <mat-form-field id="shiftEnd" class="timeInput">
             <mat-label id="labelShiftEnd">{{labelEnd}}</mat-label>
-            <input matInput [ngxTimepicker]="pickerEnd" [format]=24>
+            <input matInput #inputEndTime [ngxTimepicker]="pickerEnd" [format]=24 [value]="endTime">
             <ngx-material-timepicker #pickerEnd [theme]="timePickerTheme"
-            [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
+            [cancelBtnTmpl]="cancelBtn" [confirmBtnTmpl]="confirmBtn" (timeSet)="setEndTime($event)"></ngx-material-timepicker>
         </mat-form-field>
         <ng-template #cancelBtn>
             <ng-container *ngTemplateOutlet="template; context: timepickerTemp.button"></ng-container>
@@ -59,7 +59,7 @@
         <div *ngFor="let num of employeeCount">
             <mat-form-field class="employeeField">
                 <mat-label>{{labelEmployee}}</mat-label>
-                <input matInput type="text">
+                <input matInput #inputUsername type="text" [value]="userName" (input)="userName = inputUsername.value.trim()">
             </mat-form-field>
         </div>
         <button mat-icon-button id="addEmployeeBtn" color="primary" (click)="addEmployee()">
@@ -68,13 +68,13 @@
     </div>
     <mat-form-field class="inputField">
         <mat-label id="labelContact">{{labelContact}}</mat-label>
-        <input matInput type="text">
+        <input matInput #inputContact type="text" [value]="contact" (input)="contact = inputContact.value.trim()">
     </mat-form-field>
     <mat-form-field class="inputField">
         <mat-label>{{labelRemark}}</mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput #inputComment [value]="comment" (input)="comment = inputComment.value.trim()"></textarea>
     </mat-form-field>
 </cdk-virtual-scroll-viewport>
 <div id="buttonContainer" [style.position]="position">
-    <button mat-raised-button id="saveShiftBtn" class="displayBtn" color="accent" >{{saveBtn}}</button>
+    <button mat-raised-button id="saveShiftBtn" class="displayBtn" color="accent" (click)="addShifts()">{{saveBtn}}</button>
 </div>

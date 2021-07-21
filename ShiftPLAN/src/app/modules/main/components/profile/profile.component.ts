@@ -119,8 +119,13 @@ export class ProfileComponent implements OnInit {
     let apiKey: string = localStorage.getItem('APIKey') as string;
     let sessionAsync: string;
     let publicKey: string;
+    var count:number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -134,6 +139,10 @@ export class ProfileComponent implements OnInit {
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
     //get user data from api
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     getUserAnswer = await this.api.sendPostRequest<GetOwnUserDataResponse>(
       'users/get/', {
         apiKey: apiKey,
@@ -186,6 +195,10 @@ export class ProfileComponent implements OnInit {
         
     //close spinner
     this.dialog.getDialogById('Profile_spinnerButtonCheck')?.close();
+  }
+
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
 
@@ -261,8 +274,13 @@ export class ProfileDialog {
     let publicKey: string;
     let session: string = localStorage.getItem('Session') as string;
     let sessionAsync: string;
+    var count: number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -276,6 +294,10 @@ export class ProfileDialog {
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey)
 
     //send logout post-request
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     logoutAnswer = await this.api.sendPostRequest<GeneralResponse>(
       'logout/', {
         apiKey: apiKey,
@@ -284,5 +306,9 @@ export class ProfileDialog {
     );
     logoutPromise = await logoutAnswer.toPromise();
     logoutErrorCode = logoutPromise.errorCode;
+  }
+
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }

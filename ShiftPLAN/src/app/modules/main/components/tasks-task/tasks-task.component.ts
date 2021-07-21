@@ -148,8 +148,13 @@ export class TasksTaskComponent implements OnInit {
     let sessionAsync: string;
     let publicKey: string;
     let apiKey: string = localStorage.getItem('APIKey') as string;
+    var count: number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -163,6 +168,10 @@ export class TasksTaskComponent implements OnInit {
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
     //get task from api
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     getTaskAnswer = await this.api.sendPostRequest<GetTaskResponse>(
       'tasks/get/', {
         apiKey: apiKey,
@@ -171,8 +180,6 @@ export class TasksTaskComponent implements OnInit {
       }
     );
     getTaskPromise = await getTaskAnswer.toPromise();
-    //DEBUG
-    console.log(getTaskPromise.task)
     getTaskErrorCode = getTaskPromise.errorCode;
 
     //fill in UI
@@ -211,8 +218,13 @@ export class TasksTaskComponent implements OnInit {
     let sessionAsync: string;
     let apiKey: string = localStorage.getItem('APIKey') as string;
     let session: string = localStorage.getItem('Session') as string;
+    var count: number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -225,13 +237,11 @@ export class TasksTaskComponent implements OnInit {
     //encrypt session asyncronous
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
-    //DEBUG
-    console.log(apiKey)
-    console.log(sessionAsync)
-    console.log(this.id.id)
-    console.log(this.description)
-
     //modify task
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     modifyAnswer = await this.api.sendPostRequest<GeneralResponse>(
       'tasks/modify/', {
         apiKey: apiKey,
@@ -241,14 +251,16 @@ export class TasksTaskComponent implements OnInit {
       }
     );
     modifyPromise = await modifyAnswer.toPromise();
-    //DEBUG
-    console.log(modifyPromise)
     modifyErrorCode = modifyPromise.errorCode;
 
     //close spinner
     this.dialog.getDialogById('TaskTask_spinnerModify')?.close();
 
     this.location.back();
+  }
+
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
 

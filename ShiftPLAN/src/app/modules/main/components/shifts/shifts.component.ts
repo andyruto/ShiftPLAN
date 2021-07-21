@@ -6,7 +6,7 @@
  * author: Anne Naumann
  * last edit / by: 2021-06-28 / Anne Naumann
  */
-import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router'
 import { UsertypeService } from 'src/app/services/usertype.service';
@@ -16,6 +16,11 @@ import { PublicKeyResponse } from 'src/app/models/publickeyresponse';
 import { ApiService } from 'src/app/services/api.service';
 import { EncryptionService } from 'src/app/services/encryption.service';
 import { GetShiftsResponse } from 'src/app/models/getshiftsresponse';
+import {DatePipe, formatDate } from '@angular/common';
+import { GetTaskResponse } from 'src/app/models/gettaskresponse';
+import { GetUserDataResponse } from 'src/app/models/getuserdataresponse';
+import { GetTasksResponse } from 'src/app/models/gettasksresponse';
+import { Shifts } from 'src/app/models/shifts';
 
 @Component({
   selector: 'app-shifts',
@@ -24,20 +29,19 @@ import { GetShiftsResponse } from 'src/app/models/getshiftsresponse';
 })
 export class ShiftsComponent implements OnInit, AfterViewInit {
 
-  shifts: {id: number, weekday: string; date: string, start: string, end: string, task: string, employees: string[]}[] = 
-    [{
-      id: 1,
-      weekday: 'Montag', 
-      date: '05.07', 
-      start: '08:00', 
-      end: '14:00', 
-      task: 'Empfang_01', 
-      employees : ['ag167', 'an055', 'sw210']}
-    ]
+  shifts!: Shifts[];
 
   title = ''
   wordClock = ''
   admin: boolean = false
+
+  monday: string = '';
+  tuesday: string = '';
+  wednesday: string = '';
+  thursday: string = '';
+  friday: string = '';
+  saturday: string = '';
+  sunday: string = '';
 
   constructor(
     private translate: TranslateService, 
@@ -45,7 +49,8 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     private usertype : UsertypeService, 
     public dialog: MatDialog,
     private api: ApiService,
-    private encrypt: EncryptionService
+    private encrypt: EncryptionService,
+    private datepipe: DatePipe
     ) { }
 
   ngOnInit(): void {
@@ -63,9 +68,17 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
       this.dialog.getDialogById('Shifts_spinnerTranslationGlobal')?.close();
 
       this.title = translation.Toolbar.Title.Shifts;
-      this.wordClock = translation.WordClock
-    });
+      this.wordClock = translation.WordClock;
+      this.monday = translation.Shifts.Monday;
+      this.tuesday = translation.Shifts.Tuesday;
+      this.wednesday = translation.Shifts.Wednesday;
+      this.thursday = translation.Shifts.Thursday;
+      this.friday = translation.Shifts.Friday;
+      this.saturday = translation.Shifts.Saturday;
+      this.sunday = translation.Shifts.Sunday;
 
+      this.refreshShifts();
+    });
     this.checkBtn();
   }
 
@@ -147,8 +160,13 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     let sessionAsync: string;
     let publicKey: string;
     let apiKey: string = localStorage.getItem('APIKey') as string;
+    var count: number;
 
     //get public key
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
       'key/publickey/', {
         apiKey: apiKey
@@ -162,6 +180,10 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
 
     //get shifts from api
+    count = Math.random() * 101;
+    do {
+      await this.delay(count);
+    }while(this.api.isBusy);
     getShiftsAnswer = await this.api.sendPostRequest<GetShiftsResponse>(
       'shifts/get/', {
         apiKey: apiKey,
@@ -172,6 +194,125 @@ export class ShiftsComponent implements OnInit, AfterViewInit {
     getShiftsErrorCode = getShiftsPromise.errorCode;
 
     //add shifts to UI
-    this.shifts = getShiftsPromise.shifts;
+    this.shifts = [];
+    getShiftsPromise.shifts.forEach(async (element) => {
+
+      //variables
+      let weekday: string;
+      let startDate: Date = new Date(element.shiftStart.date);
+      let endDate: Date = new Date(element.shiftEnd.date);
+      let dateString: string;
+      let start: string;
+      let end: string;
+      let taskName: string;
+
+      //get weekday
+      switch(startDate.getDay()) {
+        case 1: {
+          weekday = this.monday;
+          break;
+        }
+        case 2: {
+          weekday = this.tuesday;
+          break;
+        }
+        case 3: {
+          weekday = this.wednesday;
+          break;
+        }
+        case 4: {
+          weekday = this.thursday;
+          break;
+        }
+        case 5: {
+          weekday = this.friday;
+          break;
+        }
+        case 6: {
+          weekday = this.saturday;
+          break;
+        }
+        default: {
+          weekday = this.sunday;
+          break;
+        }
+      }
+
+      //get dateString
+      dateString = this.datepipe.transform(startDate, 'dd.MM') as string;
+
+      //get start & end
+      start = this.datepipe.transform(startDate, 'H:mm') as string;
+      end = this.datepipe.transform(endDate, 'H:mm') as string;
+
+      //get task
+      //variables
+      let publicKeyAnswer;
+      let getTaskAnswer;
+      let publicKeyPromise;
+      let getTaskPromise;
+
+      let publicKeyErrorCode: number;
+      let getTaskErrorCode: number;
+      let session: string = localStorage.getItem('Session') as string;
+      let sessionAsync: string;
+      let publicKey: string;
+      let apiKey: string = localStorage.getItem('APIKey') as string;
+
+      //get public key
+      count = Math.random() * 101;
+      do {
+        await this.delay(count);
+      }while(this.api.isBusy);
+      publicKeyAnswer = await this.api.sendPostRequest<PublicKeyResponse>(
+        'key/publickey/', {
+          apiKey: apiKey
+        }
+      );
+      publicKeyPromise = await publicKeyAnswer.toPromise();
+      publicKey = publicKeyPromise.publicKey;
+      publicKeyErrorCode = publicKeyPromise.errorCode;
+
+      //encrypt session asyncronous
+      sessionAsync = await this.encrypt.encryptTextAsync(session, publicKey);
+
+      //get task from api
+      count = Math.random() * 101;
+      do {
+        await this.delay(count);
+      }while(this.api.isBusy);
+      getTaskAnswer = await this.api.sendPostRequest<GetTasksResponse>(
+        'tasks/get/', {
+          apiKey: apiKey,
+          session: sessionAsync,
+          id: element.connectedTaskId
+        }
+      );
+      getTaskPromise = await getTaskAnswer.toPromise();
+      getTaskErrorCode = getTaskPromise.errorCode;
+
+      taskName = getTaskPromise.tasks[0].name;
+
+      let newObj: Shifts = {
+        id: element.id, 
+        weekday: weekday, 
+        date: dateString, 
+        start: start, 
+        end: end, 
+        task: taskName, 
+        employees: [element.assignedUser.name],
+        shiftStartDate: element.shiftStart.date,
+        shiftEndDate: element.shiftEnd.date,
+        connectedTaskId: element.connectedTaskId
+      };
+      this.shifts = [...this.shifts, newObj];
+    });    
+    //close spinner
+    this.dialog.getDialogById('Shifts_spinnerRefresh')?.close();
+  }
+
+  private delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
+
